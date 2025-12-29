@@ -1,3 +1,4 @@
+import { animate } from 'motion'
 import { useLoanCalculator } from './hooks/useLoanCalculator'
 import LoanForm from './components/LoanForm'
 import ResultsCard from './components/ResultsCard'
@@ -18,17 +19,14 @@ function App() {
     errors
   } = useLoanCalculator()
   
-  // Wait, useLoanCalculator returns { register, handleSubmit, ... } but NOT errors from useForm!
-  // It returns its OWN 'error' string state for calculation errors.
-  // BUT LoanForm needs 'errors' object from react-hook-form validation!
-  // I must update useLoanCalculator to return 'formState: { errors }' or just 'errors'.
-  
-  // Checking useLoanCalculator implementation...
-  // It returns register, handleSubmit, trigger, results, savedOffers, isLoading, error (string).
-  // It consumes useForm internally.
-  // I missed exposing 'formState' or 'errors' in the previous step!
-  // I need to fix useLoanCalculator to expose 'formState' or 'errors'.
-  
+  const shakeElement = (element: HTMLElement) => {
+    animate(
+      element as any,
+      { x: [0, -10, 10, -10, 10, 0] },
+      { duration: 0.4, ease: "easeInOut" }
+    )
+  }
+
   return (
     <div className="min-h-screen bg-gray-50 py-8 px-4">
       <div className="max-w-4xl mx-auto">
@@ -46,7 +44,10 @@ function App() {
           />
 
           {error && (
-            <div className="bg-red-50 border border-red-200 text-red-800 p-4 rounded-lg">
+            <div 
+              ref={(el) => el && shakeElement(el)}
+              className="bg-red-50 border border-red-200 text-red-800 p-4 rounded-lg"
+            >
               {error}
             </div>
           )}

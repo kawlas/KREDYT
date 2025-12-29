@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
+import { animate } from 'motion';
 import type { LoanOffer } from '../types';
 
 interface ComparisonTableProps {
@@ -9,11 +10,29 @@ interface ComparisonTableProps {
 import { formatCurrency } from '../utils/formatters';
 
 const ComparisonTable: React.FC<ComparisonTableProps> = ({ offers, onDelete }) => {
+  const tableRef = useRef<HTMLTableSectionElement>(null);
 
   // Znajdź najtańszą ofertę (najniższy koszt całkowity)
   const cheapestOffer = offers.reduce((prev, current) => 
     (prev.results.totalCost < current.results.totalCost) ? prev : current
   , offers[0]);
+
+  // Animate new row
+  useEffect(() => {
+    if (!tableRef.current) return;
+    
+    const lastRow = tableRef.current.querySelector('tr:last-child');
+    if (!lastRow) return;
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) return;
+
+    animate(
+      lastRow as any,
+      { opacity: [0, 1], scale: [0.95, 1] },
+      { duration: 0.25 }
+    );
+  }, [offers.length]);
 
   return (
     <div className="w-full overflow-hidden rounded-lg shadow-sm bg-white">
@@ -82,11 +101,11 @@ const ComparisonTable: React.FC<ComparisonTableProps> = ({ offers, onDelete }) =
               </th>
             </tr>
           </thead>
-          <tbody className="bg-white divide-y divide-gray-200">
+          <tbody ref={tableRef} className="bg-white divide-y divide-gray-200">
             {offers.map((offer, index) => (
               <tr 
                 key={offer.id}
-                className={`${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'} hover:bg-blue-50 transition-colors duration-150 ${
+                className={`transition-all duration-200 hover:bg-gray-50 hover:-translate-y-0.5 hover:shadow-md ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'} ${
                    offer.name === cheapestOffer?.name ? 'ring-2 ring-inset ring-green-500' : ''
                 }`}
               >

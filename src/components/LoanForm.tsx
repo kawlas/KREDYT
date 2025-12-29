@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import { type UseFormRegister, type FieldErrors, type UseFormTrigger } from 'react-hook-form';
+import { animate } from 'motion';
 import type { LoanFormData } from '../types';
 
 interface LoanFormProps {
@@ -23,16 +24,37 @@ const LoanForm: React.FC<LoanFormProps> = ({ onSubmit, isLoading, register, trig
     }, 500); // 500ms delay as requested
   };
 
+  const handleFocus = (e: React.FocusEvent<HTMLInputElement | HTMLSelectElement>) => {
+    animate(e.target as any, 
+      { scale: 1.02 },
+      { duration: 0.2, ease: "easeOut" }
+    );
+  };
+
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement | HTMLSelectElement>) => {
+    animate(e.target as any,
+      { scale: 1 },
+      { duration: 0.2 }
+    );
+  };
+
   const registerWithDebounce = (name: keyof LoanFormData, options?: any) => {
-    const { onChange, ...rest } = register(name, options);
+    const { onChange, onBlur, ...rest } = register(name, options);
     return {
       ...rest,
       onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
         onChange(e); // Update internal state immediately
         debouncedValidate(name); // Trigger validation with delay
-      }
+      },
+      onBlur: (e: React.FocusEvent<HTMLInputElement>) => {
+        onBlur(e);
+        handleBlur(e);
+      },
+      onFocus: handleFocus
     };
   };
+
+  const selectRegistration = register('installmentType');
 
   return (
     <form onSubmit={onSubmit} className="bg-white p-6 rounded-lg shadow-sm space-y-4">
@@ -49,7 +71,7 @@ const LoanForm: React.FC<LoanFormProps> = ({ onSubmit, isLoading, register, trig
             max: { value: 2000000, message: 'Kwota kredytu musi być między 50 000 a 2 000 000 PLN' },
             valueAsNumber: true
           })}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm border p-2"
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm border p-2 origin-left"
         />
         {errors.principal && <p className="mt-1 text-sm text-red-600">{errors.principal.message}</p>}
       </div>
@@ -66,7 +88,7 @@ const LoanForm: React.FC<LoanFormProps> = ({ onSubmit, isLoading, register, trig
             max: { value: 35, message: 'Okres kredytowania: 1-35 lat' },
             valueAsNumber: true
           })}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm border p-2"
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm border p-2 origin-left"
         />
         {errors.years && <p className="mt-1 text-sm text-red-600">{errors.years.message}</p>}
       </div>
@@ -84,7 +106,7 @@ const LoanForm: React.FC<LoanFormProps> = ({ onSubmit, isLoading, register, trig
             max: { value: 20, message: 'Maksimum 20%' },
             valueAsNumber: true
           })}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm border p-2"
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm border p-2 origin-left"
         />
         {errors.wibor && <p className="mt-1 text-sm text-red-600">{errors.wibor.message}</p>}
       </div>
@@ -102,7 +124,7 @@ const LoanForm: React.FC<LoanFormProps> = ({ onSubmit, isLoading, register, trig
             max: { value: 5, message: 'Maksimum 5%' },
             valueAsNumber: true
           })}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm border p-2"
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm border p-2 origin-left"
         />
         {errors.margin && <p className="mt-1 text-sm text-red-600">{errors.margin.message}</p>}
       </div>
@@ -112,8 +134,13 @@ const LoanForm: React.FC<LoanFormProps> = ({ onSubmit, isLoading, register, trig
         <label htmlFor="installmentType" className="block text-sm font-medium text-gray-700">Rodzaj rat</label>
         <select
           id="installmentType"
-          {...register('installmentType')}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm border p-2 bg-white"
+          {...selectRegistration}
+          onFocus={handleFocus}
+          onBlur={(e) => {
+            selectRegistration.onBlur(e);
+            handleBlur(e);
+          }}
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm border p-2 bg-white origin-left"
         >
           <option value="equal">Równe</option>
           <option value="declining">Malejące</option>
@@ -131,7 +158,7 @@ const LoanForm: React.FC<LoanFormProps> = ({ onSubmit, isLoading, register, trig
             max: { value: 100000, message: 'Maksimum 100 000 PLN' },
             valueAsNumber: true
           })}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm border p-2"
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm border p-2 origin-left"
         />
         {errors.commission && <p className="mt-1 text-sm text-red-600">{errors.commission.message}</p>}
       </div>
@@ -139,7 +166,7 @@ const LoanForm: React.FC<LoanFormProps> = ({ onSubmit, isLoading, register, trig
       <button
         type="submit"
         disabled={isLoading}
-        className="w-full flex justify-center py-3 px-6 border border-transparent rounded-lg shadow-sm text-base font-semibold text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:bg-gray-400 transition-colors duration-200"
+        className="w-full flex justify-center py-3 px-6 border border-transparent rounded-lg shadow-sm text-base font-semibold text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:bg-gray-400 transition-all duration-150 hover:scale-105 active:scale-95"
       >
         {isLoading ? (
           <span className="flex items-center gap-2">
