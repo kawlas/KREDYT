@@ -28,7 +28,7 @@ const ComparisonTable: React.FC<ComparisonTableProps> = ({ offers, onDelete }) =
     if (prefersReducedMotion) return;
 
     animate(
-      lastRow as any,
+      lastRow,
       { opacity: [0, 1], scale: [0.95, 1] },
       { duration: 0.25 }
     );

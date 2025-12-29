@@ -25,21 +25,21 @@ const LoanForm: React.FC<LoanFormProps> = ({ onSubmit, isLoading, register, trig
   };
 
   const handleFocus = (e: React.FocusEvent<HTMLInputElement | HTMLSelectElement>) => {
-    animate(e.target as any, 
+    animate(e.target, 
       { scale: 1.02 },
       { duration: 0.2, ease: "easeOut" }
     );
   };
 
   const handleBlur = (e: React.FocusEvent<HTMLInputElement | HTMLSelectElement>) => {
-    animate(e.target as any,
+    animate(e.target,
       { scale: 1 },
       { duration: 0.2 }
     );
   };
 
-  const registerWithDebounce = (name: keyof LoanFormData, options?: any) => {
-    const { onChange, onBlur, ...rest } = register(name, options);
+  const registerWithDebounce = (name: keyof LoanFormData, options?: unknown) => {
+    const { onChange, onBlur, ...rest } = register(name, options as never);
     return {
       ...rest,
       onChange: (e: React.ChangeEvent<HTMLInputElement>) => {

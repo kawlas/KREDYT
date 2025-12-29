@@ -21,7 +21,7 @@ function App() {
   
   const shakeElement = (element: HTMLElement) => {
     animate(
-      element as any,
+      element as HTMLElement,
       { x: [0, -10, 10, -10, 10, 0] },
       { duration: 0.4, ease: "easeInOut" }
     )

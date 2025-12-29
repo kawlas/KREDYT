@@ -21,7 +21,7 @@ const ResultsCard: React.FC<ResultsCardProps> = ({ monthlyPayment, totalCost, to
     
     // Card entrance
     animate(
-      cardRef.current as any,
+      cardRef.current,
       { opacity: [0, 1], y: [20, 0] },
       { duration: 0.3, ease: "easeOut" }
     );
@@ -31,7 +31,7 @@ const ResultsCard: React.FC<ResultsCardProps> = ({ monthlyPayment, totalCost, to
     if (items.length > 0) {
       items.forEach((item, index) => {
         animate(
-          item as any,
+          item,
           { opacity: [0, 1], x: [-10, 0] },
           { duration: 0.3, delay: index * 0.05 }
         );

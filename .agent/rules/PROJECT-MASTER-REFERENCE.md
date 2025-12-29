@@ -331,6 +331,32 @@ text
 - [ ] Mobile/Desktop responsive
 - [ ] Lighthouse > 90
 
+
+
+## AUTOMATED VERIFICATION (updated)
+
+Po zakończeniu implementacji:
+
+1. ✅ Unit tests: npm run test
+2. ✅ Dev server: npm run dev (sprawdź terminal - no errors)
+3. ✅ Code analysis: 
+   - Check imports
+   - Check TypeScript errors
+   - Check file structure
+
+4. ⚠️ Browser testing (jeśli Browser Extension działa):
+   - Open localhost:[port]
+   - Verify UI renders
+   - Test basic interactions
+   - Screenshot results
+   
+   JEŚLI browser subagent się zawiesza:
+   - POMIŃ browser testing
+   - Manager zweryfikuje ręcznie
+   - Mark task as complete
+
+5. ❌ NIE blokuj task completion jeśli browser testing fails
+
 ---
 
 ## 🎯 PODSUMOWANIE
