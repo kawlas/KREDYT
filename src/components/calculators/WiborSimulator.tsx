@@ -60,8 +60,9 @@ export default function WiborSimulator({
       subtitle="Sprawdź jak wzrost stóp wpłynie na Twoją ratę"
       contextInfo={`Dla kredytu ${formatCurrencyShort(loanAmount)}`}
     >
-      <div className="mb-8 flex justify-center">
-        <div className="w-full max-w-md">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+        {/* Controls */}
+        <div className="space-y-6">
           <WIBORDisplay
             wibor={wiborData.wibor}
             loading={wiborData.loading}
@@ -70,12 +71,7 @@ export default function WiborSimulator({
             source={wiborData.source}
             onRefresh={wiborData.refresh}
           />
-        </div>
-      </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
-        {/* Controls */}
-        <div className="space-y-6">
           <Card title="Przetestuj scenariusze">
             <div className="space-y-8">
               <Slider
