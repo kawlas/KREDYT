@@ -44,5 +44,23 @@ Najlepszy kalkulator kredytowy w Polsce. Pokazuje PRAWDĘ o kosztach kredytu - b
 
 ---
 
-## 📦 Development
+## Automatyczna aktualizacja WIBOR
+
+WIBOR jest automatycznie aktualizowany raz dziennie o 9:00 CET przez GitHub Actions.
+
+- **Dane:** `public/wibor.json`
+- **Workflow:** `.github/workflows/update-wibor.yml`
+- **Skrypt:** `scripts/fetch-wibor.js`
+
+### Ręczne uruchomienie
+1. Przejdź do zakładki **Actions** w GitHub
+2. Wybierz workflow "Update WIBOR Daily"
+3. Kliknij "Run workflow"
+
+### Użycie w kodzie
+```javascript
+const response = await fetch('/wibor.json');
+const { rates, updated } = await response.json();
+console.log('WIBOR 3M:', rates['3M']);
+```
 

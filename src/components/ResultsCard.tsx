@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { animate } from 'motion';
 import type { LoanResults } from '../types';
 import { formatCurrency, formatCurrencyShort, formatPercent } from '../utils/formatters';
@@ -361,6 +362,27 @@ const ResultsCard: React.FC<ResultsCardProps> = (props) => {
               </div>
             </div>
           </div>
+        </div>
+      </Card>
+
+      {/* SECTION 7: Recommended Topics */}
+      <Card data-animate-item>
+        <h3 className="text-sm font-bold text-gray-900 uppercase tracking-widest mb-4 border-b pb-2">
+          📖 Polecane poradniki
+        </h3>
+        <div className="space-y-3">
+          <Link to="/koszty-kredytu-hipotecznego-jakie/" className="flex items-center justify-between p-3 rounded-lg border border-gray-100 hover:border-blue-200 hover:bg-blue-50 transition-all group">
+            <span className="text-sm font-medium text-gray-700 group-hover:text-blue-600">Jakie są koszy kredytu?</span>
+            <span className="text-blue-400 group-hover:translate-x-1 transition-transform">→</span>
+          </Link>
+          <Link to="/wklad-wlasny-10-czy-20/" className="flex items-center justify-between p-3 rounded-lg border border-gray-100 hover:border-blue-200 hover:bg-blue-50 transition-all group">
+            <span className="text-sm font-medium text-gray-700 group-hover:text-blue-600">Wkład własny: 10% czy 20%?</span>
+            <span className="text-blue-400 group-hover:translate-x-1 transition-transform">→</span>
+          </Link>
+          <Link to="/ltv-80-procent/" className="flex items-center justify-between p-3 rounded-lg border border-gray-100 hover:border-blue-200 hover:bg-blue-50 transition-all group">
+            <span className="text-sm font-medium text-gray-700 group-hover:text-blue-600">Dlaczego warto mieć LTV 80%?</span>
+            <span className="text-blue-400 group-hover:translate-x-1 transition-transform">→</span>
+          </Link>
         </div>
       </Card>
 

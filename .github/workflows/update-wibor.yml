@@ -1,0 +1,33 @@
+name: Update WIBOR Daily
+
+on:
+  schedule:
+    - cron: '0 8 * * *'  # 9:00 CET (8:00 UTC), każdy dzień
+  workflow_dispatch:      # pozwala uruchomić ręcznie z GitHub UI
+
+jobs:
+  scrape-wibor:
+    runs-on: ubuntu-latest
+    
+    permissions:
+      contents: write  # potrzebne do commitu
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      
+      - name: Fetch WIBOR data
+        run: node scripts/fetch-wibor.js
+      
+      - name: Commit and push if changed
+        run: |
+          git config user.name "WIBOR Bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add public/wibor.json
+          git diff --quiet && git diff --staged --quiet || \
+            (git commit -m "chore: update WIBOR rates $(date +'%Y-%m-%d %H:%M UTC')" && git push)

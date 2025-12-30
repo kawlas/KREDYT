@@ -69,3 +69,15 @@ export interface AffordabilityFormData {
   wibor: number
   margin: number
 }
+
+export interface Topic {
+  slug: string
+  metaTitle: string
+  metaDescription: string
+  h1: string
+  intro: string
+  sections: Array<{ heading: string; body: string }>
+  faqs: Array<{ q: string; a: string }>
+  ctas: Array<{ label: string; to: string }>
+  related: Array<{ label: string; to: string }>
+}

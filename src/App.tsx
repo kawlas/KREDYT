@@ -10,6 +10,8 @@ import AboutPage from './pages/AboutPage'
 import MethodologyPage from './pages/MethodologyPage'
 import ContactPage from './pages/ContactPage'
 import PrivacyPolicyPage from './pages/PrivacyPolicyPage'
+import TopicPage from './pages/TopicPage'
+import NotFoundPage from './pages/NotFoundPage'
 import Footer from './components/layout/Footer'
 import ScrollToTop from './components/shared/ScrollToTop'
 
@@ -145,8 +147,11 @@ function App() {
               <Route path="/kontakt/" element={<ContactPage />} />
               <Route path="/polityka-prywatnosci/" element={<PrivacyPolicyPage />} />
               
+              <Route path="/:topicSlug/" element={<TopicPage />} />
+              <Route path="/404/" element={<NotFoundPage />} />
+              
               {/* Fallback */}
-              <Route path="*" element={<Navigate to="/kalkulator-raty-kredytu/" replace />} />
+              <Route path="*" element={<Navigate to="/404/" replace />} />
             </Routes>
           </main>
         </div>

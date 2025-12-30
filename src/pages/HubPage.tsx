@@ -77,6 +77,41 @@ export default function HubPage() {
             </Card>
           </Link>
         </div>
+
+        <section className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+          <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+            <span>📚</span> Poradniki i Baza Wiedzy
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <Link to="/wklad-wlasny-10-czy-20/" className="p-4 rounded-xl border border-gray-100 hover:border-blue-200 hover:bg-blue-50/30 transition-all group">
+              <h3 className="font-semibold text-gray-900 group-hover:text-blue-600 transition-colors">Wkład własny 10% czy 20%?</h3>
+              <p className="text-sm text-gray-500 mt-1">Zalety i wady obu rozwiązań w 2024 roku.</p>
+            </Link>
+            <Link to="/zdolnosc-kredytowa-co-obniza/" className="p-4 rounded-xl border border-gray-100 hover:border-blue-200 hover:bg-blue-50/30 transition-all group">
+              <h3 className="font-semibold text-gray-900 group-hover:text-blue-600 transition-colors">Co obniża zdolność?</h3>
+              <p className="text-sm text-gray-500 mt-1">7 najczęstszych błędów kredytobiorców.</p>
+            </Link>
+            <Link to="/raty-rowne-czy-malejace/" className="p-4 rounded-xl border border-gray-100 hover:border-blue-200 hover:bg-blue-50/30 transition-all group">
+              <h3 className="font-semibold text-gray-900 group-hover:text-blue-600 transition-colors">Raty równe czy malejące?</h3>
+              <p className="text-sm text-gray-500 mt-1">Który system spłat bardziej się opłaca?</p>
+            </Link>
+            <Link to="/ltv-co-to-jest/" className="p-4 rounded-xl border border-gray-100 hover:border-blue-200 hover:bg-blue-50/30 transition-all group">
+              <h3 className="font-semibold text-gray-900 group-hover:text-blue-600 transition-colors">Wskaźnik LTV</h3>
+              <p className="text-sm text-gray-500 mt-1">Co to jest i jak wpływa na marżę banku?</p>
+            </Link>
+            <Link to="/koszty-kredytu-hipotecznego-jakie/" className="p-4 rounded-xl border border-gray-100 hover:border-blue-200 hover:bg-blue-50/30 transition-all group">
+              <h3 className="font-semibold text-gray-900 group-hover:text-blue-600 transition-colors">Koszty dodatkowe</h3>
+              <p className="text-sm text-gray-500 mt-1">Prowizja, notariusz, ubezpieczenia.</p>
+            </Link>
+            <Link to="/wibor-jak-wplywa-na-rate/" className="p-4 rounded-xl border border-gray-100 hover:border-blue-200 hover:bg-blue-50/30 transition-all group">
+              <h3 className="font-semibold text-gray-900 group-hover:text-blue-600 transition-colors">Wpływ WIBOR</h3>
+              <p className="text-sm text-gray-500 mt-1">Jak zmiany rynkowe zmieniają Twoją ratę.</p>
+            </Link>
+          </div>
+          <div className="mt-8 text-center text-sm text-gray-400">
+            Więcej poradników znajdziesz w sekcji FAQ oraz pod wynikami kalkulatorów.
+          </div>
+        </section>
       </div>
     </TabContainer>
   )

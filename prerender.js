@@ -10,7 +10,7 @@ const template = fs.readFileSync(toAbsolute('dist/static/index.html'), 'utf-8')
 const { render } = await import('./dist/server/entry-server.js')
 
 // Determine routes to prerender
-const routesToPrerender = [
+const baseRoutes = [
   '/',
   '/kalkulator-raty-kredytu/',
   '/raty-rowne-czy-malejace/',
@@ -20,8 +20,16 @@ const routesToPrerender = [
   '/o-projekcie/',
   '/metodologia/',
   '/kontakt/',
-  '/polityka-prywatnosci/'
+  '/polityka-prywatnosci/',
+  '/404/'
 ]
+
+// Dynamically add topics from topics.ts
+const topicsContent = fs.readFileSync(toAbsolute('src/data/topics.ts'), 'utf-8')
+const slugMatches = topicsContent.matchAll(/slug:\s*['"]([^'"]+)['"]/g)
+const topicRoutes = Array.from(slugMatches).map(match => `/${match[1]}/`)
+
+const routesToPrerender = Array.from(new Set([...baseRoutes, ...topicRoutes]))
 
 ;(async () => {
   for (const url of routesToPrerender) {
@@ -53,7 +61,9 @@ const routesToPrerender = [
   // Generate sitemap.xml
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  ${routesToPrerender.map(route => `
+  ${routesToPrerender
+    .filter(route => route !== '/404/')
+    .map(route => `
   <url>
     <loc>https://kredytkalkulator.netlify.app${route}</loc>
     <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
