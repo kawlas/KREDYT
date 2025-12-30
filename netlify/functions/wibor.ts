@@ -30,7 +30,7 @@ export const handler = async () => {
       statusCode: 200,
       headers: {
         'content-type': 'application/json',
-        'cache-control': 'public, max-age=3600'
+        'cache-control': 'no-store, must-revalidate'
       },
       body: JSON.stringify({ value, date: cols[0], source: 'stooq' })
     }

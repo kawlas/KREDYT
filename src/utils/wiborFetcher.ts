@@ -68,7 +68,7 @@ export async function fetchCurrentWIBOR(useCache = true): Promise<WIBORData> {
   try {
     console.log('Fetching WIBOR from Proxy...')
     
-    const response = await fetch(STOOQ_URL, {
+    const response = await fetch(`${STOOQ_URL}?t=${Date.now()}`, {
       headers: {
         'Accept': 'application/json'
       }
@@ -87,6 +87,7 @@ export async function fetchCurrentWIBOR(useCache = true): Promise<WIBORData> {
     }
 
     const json = (await response.json()) as ProxyResponse
+    console.log('Proxy response:', json)
     
     // Validate response
     if (typeof json.value !== 'number' || isNaN(json.value)) {
