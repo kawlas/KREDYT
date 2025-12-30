@@ -30,7 +30,7 @@ function App() {
 
   // New tab structure matching SEO routes
   const tabs = [
-    { id: 'hub', label: 'Start', icon: '🏠', path: '/kalkulator-kredytu-hipotecznego/' },
+    { id: 'hub', label: 'Start', icon: '🏠', path: '/' },
     { id: 'calculator', label: 'Kalkulator', icon: '🧮', path: '/kalkulator-raty-kredytu/' },
     { id: 'affordability', label: 'Zdolność', icon: '💰', path: '/zdolnosc-kredytowa/' },
     { id: 'comparison', label: 'Porównanie', icon: '⚖️', path: '/raty-rowne-czy-malejace/' },
@@ -78,11 +78,10 @@ function App() {
           <main className="space-y-8">
             <Routes>
               {/* Redirects */}
-              <Route path="/" element={<Navigate to="/kalkulator-raty-kredytu/" replace />} />
-              <Route path="/kalkulator-raty-kredytu" element={<Navigate to="/kalkulator-raty-kredytu/" replace />} /> 
+              <Route path="/kalkulator-kredytu-hipotecznego/" element={<Navigate to="/" replace />} />
               
-              {/* Routes with trailing slashes explicitly managed or handled by router fuzzy matching */}
-              <Route path="/kalkulator-kredytu-hipotecznego/" element={<HubPage />} />
+              {/* Routes */}
+              <Route path="/" element={<HubPage />} />
               
               <Route 
                 path="/kalkulator-raty-kredytu/" 

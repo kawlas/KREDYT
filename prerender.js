@@ -12,7 +12,6 @@ const { render } = await import('./dist/server/entry-server.js')
 // Determine routes to prerender
 const routesToPrerender = [
   '/',
-  '/kalkulator-kredytu-hipotecznego/',
   '/kalkulator-raty-kredytu/',
   '/raty-rowne-czy-malejace/',
   '/symulacja-wibor/',
