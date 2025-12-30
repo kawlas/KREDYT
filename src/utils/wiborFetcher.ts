@@ -91,7 +91,8 @@ export async function fetchCurrentWIBOR(useCache = true): Promise<WIBORData> {
     
     // Validate response
     if (typeof json.value !== 'number' || isNaN(json.value)) {
-       throw new Error('Invalid WIBOR value received')
+       console.error('Invalid JSON received:', json)
+       throw new Error(`Invalid WIBOR value received. JSON: ${JSON.stringify(json)}`)
     }
 
     const data: WIBORData = {
