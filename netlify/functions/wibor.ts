@@ -32,14 +32,26 @@ export const handler = async () => {
         'content-type': 'application/json',
         'cache-control': 'no-store, must-revalidate'
       },
-      body: JSON.stringify({ value, date: cols[0], source: 'stooq' })
+      body: JSON.stringify({ 
+        value, 
+        date: cols[0], 
+        source: 'stooq',
+        debug_line: last 
+      })
     }
   } catch (e: any) {
     console.error('Function execution error:', e)
+    // Return 200 with fallback to prevent app crash, but include debug info
     return {
-      statusCode: 500,
-      headers: { 'content-type': 'application/json' },
+      statusCode: 200,
+      headers: { 
+        'content-type': 'application/json',
+        'cache-control': 'no-store, must-revalidate'
+      },
       body: JSON.stringify({
+        value: 5.85,
+        date: new Date().toISOString().slice(0, 10),
+        source: 'fallback',
         error: e.message || String(e),
         stack: e.stack
       })
