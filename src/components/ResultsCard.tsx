@@ -83,7 +83,7 @@ const ResultsCard: React.FC<ResultsCardProps> = (props) => {
     <div ref={cardRef} className="space-y-4">
       <Card>
         <div className="flex justify-between items-center border-b pb-4 mb-6">
-          <h2 className="text-xl font-bold text-gray-900">Podsumowanie kosztów</h2>
+          <h2 className="text-xl font-semibold text-gray-900">Podsumowanie kosztów</h2>
         </div>
 
         {/* Section 1: Monthly Payment */}
@@ -94,7 +94,7 @@ const ResultsCard: React.FC<ResultsCardProps> = (props) => {
               <span className="text-blue-400 cursor-help text-xs">ⓘ</span>
             </Tooltip>
           </div>
-          <p className="text-4xl font-bold text-gray-900">
+          <p className="text-3xl font-bold text-gray-900">
             {formatCurrency(monthlyPayment)}
           </p>
           <div className="mt-4 pt-4 border-t border-blue-200">
@@ -300,7 +300,7 @@ const ResultsCard: React.FC<ResultsCardProps> = (props) => {
             <div className="text-sm text-gray-700 mb-2 uppercase tracking-wide font-semibold">
               Całkowity koszt kredytu ({props.loanTermYears} lat)
             </div>
-            <div className="text-5xl font-bold text-red-600 mb-3">
+            <div className="text-3xl font-bold text-red-600 mb-3">
               {formatCurrencyShort(totalCost.grandTotal)}
             </div>
             <div className="text-sm text-gray-700 space-y-1">

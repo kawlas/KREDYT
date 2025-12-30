@@ -10,7 +10,7 @@ export default function Card({ title, children, className = '' }: CardProps) {
   return (
     <div className={`bg-white rounded-xl shadow-lg p-6 ${className}`}>
       {title && (
-        <h3 className="text-xl font-semibold text-gray-900 mb-4">
+        <h3 className="text-lg font-semibold text-gray-900 mb-4">
           {title}
         </h3>
       )}

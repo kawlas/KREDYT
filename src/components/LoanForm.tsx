@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import { type UseFormRegister, type FieldErrors, type UseFormTrigger } from 'react-hook-form';
 import { animate } from 'motion';
 import type { LoanFormData } from '../types';
+import Card from './shared/Card';
 
 interface LoanFormProps {
   onSubmit: (e?: React.BaseSyntheticEvent) => Promise<void>;
@@ -57,7 +58,8 @@ const LoanForm: React.FC<LoanFormProps> = ({ onSubmit, isLoading, register, trig
   const selectRegistration = register('installmentType');
 
   return (
-    <form onSubmit={onSubmit} className="bg-white p-6 rounded-lg shadow-sm space-y-4">
+    <Card className="shadow-md">
+      <form onSubmit={onSubmit} className="space-y-4">
       
       {/* Kwota kredytu */}
       <div>
@@ -196,7 +198,8 @@ const LoanForm: React.FC<LoanFormProps> = ({ onSubmit, isLoading, register, trig
           'Oblicz ratę'
         )}
       </button>
-    </form>
+      </form>
+    </Card>
   );
 };
 

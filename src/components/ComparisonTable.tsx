@@ -35,7 +35,7 @@ const ComparisonTable: React.FC<ComparisonTableProps> = ({ offers, onDelete }) =
   }, [offers.length]);
 
   return (
-    <div className="w-full overflow-hidden rounded-lg shadow-sm bg-white">
+    <div className="w-full">
       {/* Mobile list view */}
       <div className="block md:hidden space-y-4 p-4">
         {offers.map((offer) => (
@@ -80,62 +80,69 @@ const ComparisonTable: React.FC<ComparisonTableProps> = ({ offers, onDelete }) =
       </div>
 
       {/* Desktop table view */}
-      <div className="hidden md:block overflow-x-auto">
+      <div className="hidden md:block overflow-x-auto -mx-6 px-6">
         <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-gray-50">
             <tr>
-              <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Nazwa oferty
+              <th scope="col" className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Oferta
               </th>
-              <th scope="col" className="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Rata miesięczna
+              <th scope="col" className="px-3 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Rata
               </th>
-              <th scope="col" className="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Całkowity koszt
+              <th scope="col" className="px-3 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Koszt
               </th>
-              <th scope="col" className="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th scope="col" className="px-3 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                 RRSO
               </th>
-              <th scope="col" className="relative px-4 py-3">
+              <th scope="col" className="relative px-3 py-3">
                 <span className="sr-only">Akcje</span>
               </th>
             </tr>
           </thead>
           <tbody ref={tableRef} className="bg-white divide-y divide-gray-200">
-            {offers.map((offer, index) => (
-              <tr 
-                key={offer.id}
-                className={`transition-all duration-200 hover:bg-gray-50 hover:-translate-y-0.5 hover:shadow-md ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'} ${
-                   offer.name === cheapestOffer?.name ? 'ring-2 ring-inset ring-green-500' : ''
-                }`}
-              >
-                <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900 flex items-center gap-2">
-                  {offer.name}
-                  {offer.name === cheapestOffer?.name && (
-                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                      Najtańsza
-                    </span>
-                  )}
-                </td>
-                <td className="px-4 py-4 whitespace-nowrap text-sm text-right text-gray-500 font-semibold">
-                  {formatCurrency(offer.results.monthlyPayment)}
-                </td>
-                <td className="px-4 py-4 whitespace-nowrap text-sm text-right text-gray-900 font-bold">
-                  {formatCurrency(offer.results.totalCost)}
-                </td>
-                <td className="px-4 py-4 whitespace-nowrap text-sm text-right text-blue-600 font-medium">
-                  {offer.results.rrso.toFixed(2)}%
-                </td>
-                <td className="px-4 py-4 whitespace-nowrap text-right text-sm font-medium">
-                  <button 
-                    onClick={() => onDelete(offer.id)} 
-                    className="text-red-600 hover:text-red-900"
-                  >
-                    Usuń
-                  </button>
-                </td>
-              </tr>
-            ))}
+            {offers.map((offer, index) => {
+              const matchesCheapest = offer.name === cheapestOffer?.name;
+              return (
+                <tr 
+                  key={offer.id}
+                  className={`transition-all duration-200 hover:bg-gray-50 ${
+                    index % 2 === 0 ? 'bg-white' : 'bg-gray-50'
+                  } ${matchesCheapest ? 'bg-green-50/30' : ''}`}
+                >
+                  <td className={`px-3 py-4 text-sm font-medium text-gray-900 ${
+                    matchesCheapest ? 'border-l-4 border-green-500' : 'border-l-4 border-transparent'
+                  }`}>
+                    <div className="flex flex-col gap-1">
+                      <span className="whitespace-normal leading-tight">{offer.name}</span>
+                      {matchesCheapest && (
+                        <span className="inline-flex items-center w-fit px-2 py-0.5 rounded-full text-[10px] uppercase font-bold bg-green-100 text-green-800">
+                          Najtańsza
+                        </span>
+                      )}
+                    </div>
+                  </td>
+                  <td className="px-3 py-4 whitespace-nowrap text-sm text-right text-gray-500 font-semibold">
+                    {formatCurrency(offer.results.monthlyPayment)}
+                  </td>
+                  <td className="px-3 py-4 whitespace-nowrap text-sm text-right text-gray-900 font-bold">
+                    {formatCurrency(offer.results.totalCost)}
+                  </td>
+                  <td className="px-3 py-4 whitespace-nowrap text-sm text-right text-blue-600 font-medium">
+                    {offer.results.rrso.toFixed(2)}%
+                  </td>
+                  <td className="px-3 py-4 whitespace-nowrap text-right text-sm font-medium">
+                    <button 
+                      onClick={() => onDelete(offer.id)} 
+                      className="text-red-600 hover:text-red-900 p-1"
+                    >
+                      Usuń
+                    </button>
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>
