@@ -327,7 +327,7 @@ const ResultsCard: React.FC<ResultsCardProps> = (props) => {
             onClick={handleSave}
             className="w-full py-4 bg-blue-600 text-white text-lg font-semibold rounded-lg hover:bg-blue-700 transition-colors shadow-lg hover:shadow-xl flex items-center justify-center gap-2"
           >
-            <span>💾</span> Zapisz tę ofertę do porównania
+            <span>💾</span> Dodaj do porównania
           </button>
         ) : (
           <div className="bg-white p-4 rounded-xl border-2 border-blue-200 shadow-lg animate-in fade-in slide-in-from-bottom-2 duration-300">

@@ -4,7 +4,7 @@ import type { LoanFormData, LoanResults, LoanOffer } from '../types'
 import { calculateLoanResults } from '../utils/loanCalculations'
 
 const STORAGE_KEY = 'loan-calculator-offers'
-const MAX_OFFERS = 3
+const MAX_OFFERS = 5
 
 interface UseLoanCalculatorReturn {
   register: UseFormRegister<LoanFormData>
@@ -20,6 +20,8 @@ interface UseLoanCalculatorReturn {
   deleteOffer: (id: string) => void
   clearAllOffers: () => void
   getValues: () => LoanFormData
+  reset: (values: LoanFormData) => void
+  setResults: (results: LoanResults | null) => void
 }
 
 export const useLoanCalculator = (): UseLoanCalculatorReturn => {
@@ -28,7 +30,7 @@ export const useLoanCalculator = (): UseLoanCalculatorReturn => {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  const { register, handleSubmit: rhfHandleSubmit, getValues, trigger, formState: { errors } } = useForm<LoanFormData>({
+  const { register, handleSubmit: rhfHandleSubmit, getValues, trigger, reset, formState: { errors } } = useForm<LoanFormData>({
     defaultValues: {
       principal: 400000,
       years: 25,
@@ -128,6 +130,8 @@ export const useLoanCalculator = (): UseLoanCalculatorReturn => {
     saveOffer,
     deleteOffer,
     clearAllOffers,
-    getValues
+    getValues,
+    reset,
+    setResults
   }
 }

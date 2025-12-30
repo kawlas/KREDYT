@@ -9,6 +9,11 @@ import { AffordabilityCalc } from './components/calculators/AffordabilityCalc'
 import PaymentComparison from './components/calculators/PaymentComparison'
 import WiborSimulator from './components/calculators/WiborSimulator'
 import TabContainer from './components/layout/TabContainer'
+import SaveCalculationModal from './components/calculators/SaveCalculationModal'
+import SavedCalculationsList from './components/calculators/SavedCalculationsList'
+import BankComparison from './components/calculators/BankComparison'
+import { getSavedCalculations, type SavedCalculation } from './utils/calculationStorage'
+import { useEffect } from 'react'
 
 function App() {
   const [activeTab, setActiveTab] = useState('affordability')
@@ -24,8 +29,28 @@ function App() {
     saveOffer,
     deleteOffer,
     errors,
-    getValues
+    getValues,
+    reset,
+    setResults
   } = useLoanCalculator()
+
+  const [showSaveModal, setShowSaveModal] = useState(false)
+  const [showLoadModal, setShowLoadModal] = useState(false)
+  const [savedScenariosCount, setSavedScenariosCount] = useState(0)
+
+  useEffect(() => {
+    setSavedScenariosCount(getSavedCalculations().length)
+  }, [])
+
+  const handleLoadScenario = (scenario: SavedCalculation) => {
+    reset(scenario.formData)
+    setResults(scenario.results)
+    alert(`✓ Wczytano scenariusz: ${scenario.name}`)
+  }
+
+  const handleSaved = () => {
+    setSavedScenariosCount(getSavedCalculations().length)
+  }
   
   const shakeElement = (element: HTMLElement) => {
     animate(
@@ -39,7 +64,8 @@ function App() {
     { id: 'affordability', label: 'Zdolność kredytowa', icon: '💰' },
     { id: 'calculator', label: 'Kalkulator raty', icon: '🧮' },
     { id: 'comparison', label: 'Porównanie rat', icon: '⚖️' },
-    { id: 'wibor', label: 'Symulacja WIBOR', icon: '📊' }
+    { id: 'wibor', label: 'Symulacja WIBOR', icon: '📊' },
+    { id: 'banks', label: 'Porównanie banków', icon: '🏦' }
   ]
 
   return (
@@ -97,7 +123,7 @@ function App() {
 
                   {savedOffers.length > 0 && (
                     <section data-animate-item>
-                      <Card title="Twoje zapisane oferty">
+                      <Card title="Twoje porównania">
                         <ComparisonTable 
                           offers={savedOffers}
                           onDelete={deleteOffer}
@@ -133,8 +159,51 @@ function App() {
                       <p className="text-gray-500 font-medium">Wprowadź dane kredytu, aby zobaczyć szczegółowe wyliczenia</p>
                     </div>
                   )}
+
+                  <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <button
+                      onClick={() => setShowLoadModal(true)}
+                      className="flex items-center justify-center gap-3 px-6 py-4 bg-white border-2 border-blue-600 text-blue-600 rounded-xl hover:bg-blue-50 font-bold transition-all shadow-lg shadow-blue-500/5 group"
+                    >
+                      <span className="text-2xl group-hover:scale-110 transition-transform">📂</span>
+                      <div className="text-left">
+                        <div className="text-sm leading-tight">Zapisane wyliczenia</div>
+                        <div className="text-[10px] uppercase tracking-wider opacity-70">Zapisano: {savedScenariosCount}</div>
+                      </div>
+                    </button>
+
+                    {results && (
+                      <button
+                        onClick={() => setShowSaveModal(true)}
+                        className="flex items-center justify-center gap-3 px-6 py-4 bg-green-600 text-white rounded-xl hover:bg-green-700 font-bold transition-all shadow-lg shadow-green-500/20 group"
+                      >
+                        <span className="text-2xl group-hover:scale-110 transition-transform">💾</span>
+                        <div className="text-left">
+                          <div className="text-sm leading-tight">Zapisz wyliczenie</div>
+                          <div className="text-[10px] uppercase tracking-wider opacity-70">Do pamięci lokalnej</div>
+                        </div>
+                      </button>
+                    )}
+                  </div>
                 </section>
               </div>
+
+              <SaveCalculationModal
+                isOpen={showSaveModal}
+                onClose={() => setShowSaveModal(false)}
+                formData={{
+                  ...getValues(),
+                  propertyValue: getValues().propertyValue || getValues().principal / 0.8
+                }}
+                results={results!}
+                onSaved={handleSaved}
+              />
+
+              <SavedCalculationsList
+                isOpen={showLoadModal}
+                onClose={() => setShowLoadModal(false)}
+                onLoad={handleLoadScenario}
+              />
             </TabContainer>
           )}
 
@@ -155,6 +224,15 @@ function App() {
               margin={Number(getValues().margin || 2)}
               baseWibor={Number(getValues().wibor || 5.85)}
               installmentType={getValues().installmentType || 'equal'}
+            />
+          )}
+
+          {activeTab === 'banks' && (
+            <BankComparison
+              loanAmount={Number(getValues().principal) || 400000}
+              loanTermYears={Number(getValues().years) || 25}
+              wibor={Number(getValues().wibor) || 5.85}
+              paymentType={getValues().installmentType || 'equal'}
             />
           )}
         </main>
