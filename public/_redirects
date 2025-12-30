@@ -12,4 +12,4 @@
 # /offer/*  /index.html  200
 
 # For now, just standard 404 for unknown
-/* /index.html 404
+/* /index.html 200

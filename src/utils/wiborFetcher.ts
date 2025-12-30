@@ -86,13 +86,22 @@ export async function fetchCurrentWIBOR(useCache = true): Promise<WIBORData> {
       throw new Error(`HTTP ${response.status} - ${errorDetails}`)
     }
 
-    const json = (await response.json()) as ProxyResponse
+    const text = await response.text()
+    let json: ProxyResponse
+    
+    try {
+      json = JSON.parse(text)
+    } catch {
+       console.error('Failed to parse response JSON:', text)
+       throw new Error(`Invalid JSON response: ${text.substring(0, 50)}...`)
+    }
+
     console.log('Proxy response:', json)
     
     // Validate response
     if (typeof json.value !== 'number' || isNaN(json.value)) {
-       console.error('Invalid JSON received:', json)
-       throw new Error(`Invalid WIBOR value received. JSON: ${JSON.stringify(json)}`)
+       console.error('Invalid JSON content:', json)
+       throw new Error(`Invalid WIBOR value. JSON: ${text}`)
     }
 
     const data: WIBORData = {
