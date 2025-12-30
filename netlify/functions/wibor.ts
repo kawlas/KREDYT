@@ -1,4 +1,4 @@
-exports.handler = async () => {
+export const handler = async () => {
   try {
     const url = 'https://stooq.pl/q/d/l/?s=wibor3m&i=d'
     const res = await fetch(url)
