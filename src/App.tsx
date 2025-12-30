@@ -1,5 +1,5 @@
 import { Routes, Route, Navigate, NavLink } from 'react-router-dom'
-import { useLoanCalculator } from './hooks/useLoanCalculator'
+import { useLoanCalculator } from './context/LoanCalculatorContext'
 import AffordabilityPage from './pages/AffordabilityPage'
 import CalculatorPage from './pages/CalculatorPage'
 import PaymentComparisonPage from './pages/PaymentComparisonPage'
