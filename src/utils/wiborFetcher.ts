@@ -5,36 +5,16 @@ export interface WIBORData {
   timestamp: number
 }
 
+// Proxy through Netlify Function
 const STOOQ_URL = '/.netlify/functions/wibor'
 const FALLBACK_WIBOR = 5.85
 const CACHE_KEY = 'wibor_cache'
 const CACHE_DURATION = 3600000 // 1 hour in ms
 
-/**
- * Parse CSV from Stooq.pl
- */
-function parseStooqCSV(csv: string): number {
-  const lines = csv.trim().split('\n')
-  if (lines.length < 2) {
-    throw new Error('Invalid CSV format')
-  }
-
-  // Get last line (most recent data)
-  const lastLine = lines[lines.length - 1]
-  const columns = lastLine.split(',')
-
-  if (columns.length < 5) {
-    throw new Error('Invalid CSV columns')
-  }
-
-  // Column 4 (index 4) is "Zamkniecie" (closing value)
-  const value = parseFloat(columns[4])
-  
-  if (isNaN(value)) {
-    throw new Error('Invalid WIBOR value')
-  }
-
-  return value
+interface ProxyResponse {
+  value: number
+  date: string
+  source: 'stooq' | 'fallback'
 }
 
 /**
@@ -72,7 +52,7 @@ function cacheWIBOR(data: WIBORData): void {
 }
 
 /**
- * Fetch current WIBOR 3M from Stooq.pl
+ * Fetch current WIBOR 3M via Netlify Proxy
  */
 export async function fetchCurrentWIBOR(useCache = true): Promise<WIBORData> {
   // Check cache first
@@ -84,13 +64,13 @@ export async function fetchCurrentWIBOR(useCache = true): Promise<WIBORData> {
     }
   }
 
-  // Fetch from Stooq
+  // Fetch from Proxy
   try {
-    console.log('Fetching WIBOR from Stooq.pl...')
+    console.log('Fetching WIBOR from Proxy...')
     
     const response = await fetch(STOOQ_URL, {
       headers: {
-        'Accept': 'text/csv'
+        'Accept': 'application/json'
       }
     })
 
@@ -98,22 +78,26 @@ export async function fetchCurrentWIBOR(useCache = true): Promise<WIBORData> {
       throw new Error(`HTTP ${response.status}`)
     }
 
-    const csv = await response.text()
-    const value = parseStooqCSV(csv)
+    const json = (await response.json()) as ProxyResponse
+    
+    // Validate response
+    if (typeof json.value !== 'number' || isNaN(json.value)) {
+       throw new Error('Invalid WIBOR value received')
+    }
 
     const data: WIBORData = {
-      value,
-      date: new Date().toISOString().split('T')[0],
-      source: 'stooq',
+      value: json.value,
+      date: json.date,
+      source: json.source === 'stooq' ? 'stooq' : 'fallback',
       timestamp: Date.now()
     }
 
     cacheWIBOR(data)
-    console.log('WIBOR fetched successfully:', value)
+    console.log('WIBOR fetched successfully:', data.value)
 
     return data
   } catch (error) {
-    console.error('Failed to fetch WIBOR from Stooq:', error)
+    console.error('Failed to fetch WIBOR from Proxy:', error)
     
     // Return fallback
     const fallbackData: WIBORData = {
