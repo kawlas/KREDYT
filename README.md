@@ -1,39 +1,48 @@
-# Kalkulator Kredytu Hipotecznego
+# 🏠 Kalkulator Kredytu Hipotecznego
 
-Aplikacja React do obliczania rat kredytu hipotecznego.
+**Live:** https://kredytkalkulator.netlify.app/
 
-## Tech Stack
+Najlepszy kalkulator kredytowy w Polsce. Pokazuje PRAWDĘ o kosztach kredytu - bez ukrytych opłat.
+
+---
+
+## ✨ Features (MVP)
+
+- ✅ Kalkulator raty (równe/malejące)
+- ✅ RRSO (rzeczywisty koszt)
+- ✅ Porównanie ofert
+- ✅ Responsywny design
+- ✅ Zapisywanie w przeglądarce
+
+---
+
+## 🚀 Phase 2 (In Development)
+
+**Week 1:**
+1. "Czy mnie na to stać?" - kalkulator zdolności
+2. Wszystkie koszty breakdown
+3. Porównanie równe vs malejące
+4. Symulator WIBOR
+5. Kalkulator nadpłat
+6. LTV impact calculator
+
+**Week 2:**
+- Refinansowanie
+- Harmonogram spłat
+- Export PDF
+- Share links
+
+---
+
+## 🛠️ Tech Stack
+
 - React 18 + TypeScript
 - Vite
 - Tailwind CSS
 - React Hook Form
-- Motion
-- Vitest
+- Motion.dev
 
-## Uruchomienie
+---
 
-1. Instalacja zależności:
-   ```bash
-   npm install
-   ```
+## 📦 Development
 
-2. Uruchomienie serwera deweloperskiego:
-   ```bash
-   npm run dev
-   ```
-
-3. Uruchomienie testów:
-   ```bash
-   npm test
-   ```
-
-4. Budowanie wersji produkcyjnej:
-   ```bash
-   npm run build
-   ```
-
-## Struktura Projektu
-- `/src/components` - Komponenty React
-- `/src/utils` - Funkcje pomocnicze
-- `/src/hooks` - Custom hooks
-- `/src/types` - Definicje typów

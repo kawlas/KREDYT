@@ -2,372 +2,349 @@
 trigger: always_on
 ---
 
-# 🎯 KALKULATOR KREDYTU - MASTER REFERENCE
-**WERSJA:** 1.0 | **ŹRÓDŁO PRAWDY DLA WSZYSTKICH AGENTÓW**
+# KALKULATOR KREDYTU HIPOTECZNEGO - MASTER REFERENCE
+
+**Version:** 2.0  
+**Status:** Phase 1 Complete ✅ | Phase 2 In Planning  
+**Live URL:** https://kredytkalkulator.netlify.app/  
+**Last Updated:** 2025-12-30
 
 ---
 
-## ⚠️ ZASADA NADRZĘDNA
+## 🎯 PROJECT VISION
 
-**ŻADEN AGENT NIE MOŻE ZMIENIĆ BEZ POZWOLENIA:**
-- Struktury folderów (§2)
-- Tech stacku (§3)
-- Typów TypeScript (§4)
-- Konwencji nazewnictwa (§5)
+Stwórz **najlepszy kalkulator kredytowy w Polsce**, który:
+- Pokazuje PRAWDĘ o kosztach kredytu (nie ukrywa niczego)
+- Rozwiązuje realne problemy kredytobiorców
+- Jest intuicyjny i edukacyjny
+- Przewyższa konkurencję funkcjonalnością
 
-**Jeśli chcesz zmienić:** ZATRZYMAJ SIĘ → zgłoś w komentarzu → CZEKAJ na zatwierdzenie
-
----
-
-## 1. ZAKRES MVP
-
-✅ **IMPLEMENTUJ:**
-- Kalkulator: kwota, okres, WIBOR, marża, typ rat
-- Porównanie 2-3 ofert
-- Wyświetlanie: rata, koszt całkowity, odsetki, RRSO
-- LocalStorage (max 3 oferty)
-- Animacje (Motion.dev, subtelne)
-- Mobile-first responsive
-
-❌ **NIE IMPLEMENTUJ (post-MVP):**
-- Harmonogram spłat (tabela 360 miesięcy)
-- Refinansowanie
-- Wykresy/charts
-- Backend/API
-- Export PDF
+**Target Users:** Osoby planujące kredyt hipoteczny (first-time buyers + refinancing)
 
 ---
 
-## 2. STRUKTURA PROJEKTU (LOCKED)
+## 📊 CURRENT STATUS (Phase 1 Complete)
 
-src/
-├── components/ ← LoanForm.tsx, ResultsCard.tsx, ComparisonTable.tsx
-├── utils/ ← loanCalculations.ts, formatters.ts
-├── hooks/ ← useLoanCalculator.ts
-├── types/ ← index.ts (NIE ZMIENIAJ!)
-├── App.tsx
-├── main.tsx
-└── index.css
+### ✅ IMPLEMENTED (MVP - Live)
+
+**Core Features:**
+- Kalkulator raty kredytu (równe/malejące)
+- Obliczanie RRSO
+- Całkowity koszt kredytu
+- Zapisywanie ofert (LocalStorage)
+- Porównywarka ofert (tabela)
+- Responsywny design
+- Animacje (Motion.dev)
+
+**Tech Stack:**
+- React 18 + TypeScript
+- Vite
+- Tailwind CSS
+- React Hook Form
+- Motion.dev
+- Deployed: Netlify
+
+**Metryki MVP:**
+- Bundle size: ~50KB gzipped
+- Lighthouse: 95+ performance
+- Mobile-first: ✅
+- TypeScript strict: ✅
+
+---
+
+## 🚀 PHASE 2: ENHANCED FEATURES
+
+### 🎯 GOALS
+
+**Week 1 (5 dni):** TIER S - Core Value (6 funkcji)  
+**Week 2 (5 dni):** TIER A - High Value (6 funkcji)  
+**Week 3:** TIER B - Polish & Charts (opcjonalne)
+
+---
+
+### 📋 TIER S: MUST-HAVE (Week 1)
+
+| # | Feature | Value | Effort | Days | Status |
+|---|---------|-------|--------|------|--------|
+| 1 | "Czy mnie na to stać?" (Zdolność) | 5 | 2 | 1 | 📋 Planned |
+| 2 | "Ile naprawdę zapłacę?" (Koszty) | 5 | 2 | 1 | 📋 Planned |
+| 3 | Porównanie równe vs malejące | 5 | 2 | 1 | 📋 Planned |
+| 4 | Symulator WIBOR | 5 | 2 | 1 | 📋 Planned |
+| 5 | Kalkulator nadpłat | 5 | 2 | 1 | 📋 Planned |
+| 6 | LTV Impact | 4 | 2 | 1 | 📋 Planned |
+
+---
+
+### 📋 TIER A: HIGH VALUE (Week 2)
+
+| # | Feature | Value | Effort | Days | Status |
+|---|---------|-------|--------|------|--------|
+| 7 | Refinansowanie | 4 | 3 | 1.5 | 📋 Planned |
+| 8 | Harmonogram spłat | 5 | 3 | 1.5 | 📋 Planned |
+| 9 | B2B vs UoP zdolność | 4 | 2 | 1 | 📋 Planned |
+| 10 | Wszystkie koszty | 4 | 2 | 1 | 📋 Planned |
+| 11 | Export PDF | 3 | 3 | 1 | 📋 Planned |
+| 12 | Share link | 3 | 2 | 1 | 📋 Planned |
+
+---
+
+## 🏗️ ARCHITECTURE
+
+### Current Structure (Phase 1)
+
+kredyt-kalkulator/
+├── src/
+│ ├── App.tsx
+│ ├── hooks/
+│ │ └── useLoanCalculator.ts
+│ ├── components/
+│ │ ├── LoanForm.tsx
+│ │ ├── ResultsCard.tsx
+│ │ └── ComparisonTable.tsx
+│ ├── utils/
+│ │ └── loanCalculations.ts
+│ └── types/
+│ └── loan.types.ts
+└── package.json
 
 text
 
-**ZASADY:**
-- ❌ NIE dodawaj/usuwaj folderów
-- ❌ NIE przenoś plików
-- ✅ Nowe komponenty → `/components/`
-- ✅ Nowe funkcje → `/utils/`
+### Planned Structure (Phase 2)
+
+kredyt-kalkulator/
+├── src/
+│ ├── hooks/
+│ │ ├── useLoanCalculator.ts (keep)
+│ │ ├── useAffordabilityCalc.ts 🆕
+│ │ ├── useOverpaymentCalc.ts 🆕
+│ │ ├── useWiborSimulator.ts 🆕
+│ │ └── useLTVCalculator.ts 🆕
+│ │
+│ ├── components/
+│ │ ├── calculators/ 🆕
+│ │ │ ├── AffordabilityCalc.tsx
+│ │ │ ├── PaymentComparison.tsx
+│ │ │ ├── WiborSimulator.tsx
+│ │ │ ├── OverpaymentCalc.tsx
+│ │ │ └── LTVCalculator.tsx
+│ │ │
+│ │ ├── shared/ 🆕
+│ │ │ ├── Card.tsx
+│ │ │ ├── Alert.tsx
+│ │ │ ├── Tooltip.tsx
+│ │ │ └── Slider.tsx
+│ │ │
+│ │ └── layout/ 🆕
+│ │ └── Tabs.tsx
+│ │
+│ ├── utils/
+│ │ ├── loanCalculations.ts (extend)
+│ │ ├── affordabilityFormulas.ts 🆕
+│ │ ├── overpaymentFormulas.ts 🆕
+│ │ ├── rrsoCalculations.ts 🆕
+│ │ ├── costBreakdown.ts 🆕
+│ │ └── formatters.ts 🆕
+│ │
+│ └── types/
+│ ├── loan.types.ts (extend)
+│ └── constants.ts 🆕
+
+text
 
 ---
 
-## 3. TECH STACK (LOCKED)
+## 🔧 TECH STACK
 
-**Frontend:**
-- React 18 + TypeScript 5 (strict mode)
-- Vite 5
-- Tailwind CSS 3
+### Dependencies (current + planned)
 
-**Biblioteki:**
-- React Hook Form 7.52
-- Motion 11 (NIE Framer Motion!)
-- Vitest
-
-**❌ NIE DODAWAJ:** Redux, Zustand, Axios, GraphQL, innych bibliotek bez zgody
-
----
-
-## 4. TYPY TYPESCRIPT (LOCKED)
-
-**Plik:** `/src/types/index.ts`
-
-export interface LoanFormData {
-principal: number // Kwota PLN
-years: number // Okres lat
-wibor: number // WIBOR 3M %
-margin: number // Marża %
-installmentType: 'equal' | 'declining'
-commission?: number // Prowizja PLN
+{
+"dependencies": {
+"react": "^18.2.0",
+"react-hook-form": "^7.x",
+"motion": "^11.x"
+},
+"devDependencies": {
+"typescript": "^5.0.0",
+"vite": "^5.0.0",
+"tailwindcss": "^3.4.0"
+}
 }
 
-export interface LoanResults {
-monthlyPayment: number // Rata PLN
-totalCost: number // Koszt całkowity PLN
-totalInterest: number // Suma odsetek PLN
-rrso: number // RRSO %
-}
-
-export interface LoanOffer {
-id: string
-name: string
-formData: LoanFormData
-results: LoanResults
-savedAt: string // ISO date
-}
-
 text
 
-**❌ NIE ZMIENIAJ tej struktury! Jeśli musisz - zgłoś w komentarzu.**
+**Add later (Phase 2):**
+- chart.js (wykresy - opcjonalnie)
+- jspdf (PDF export - opcjonalnie)
 
 ---
 
-## 5. KONWENCJE NAZEWNICTWA (LOCKED)
+## 📐 KEY FORMULAS
 
-**Pliki:**
-- Komponenty: `PascalCase.tsx` (LoanForm.tsx)
-- Utils: `camelCase.ts` (loanCalculations.ts)
-- Hooks: `useCamelCase.ts` (useLoanCalculator.ts)
+### Rata równa (annuity)
+M = P × [i(1 + i)^n] / [(1 + i)^n - 1]
 
-**Kod:**
-- Komponenty: `PascalCase` - `const LoanForm: FC<Props>`
-- Funkcje: `camelCase` - `calculateMonthlyPayment()`
-- Stałe: `UPPER_SNAKE_CASE` - `MAX_LOAN_AMOUNT`
-- Interfaces: `PascalCase` - `interface LoanFormData`
+M = miesięczna rata
+P = kwota kredytu
+i = oprocentowanie miesięczne (roczne / 12)
+n = liczba miesięcy
 
-**Imports:**
-// ✅ DOBRE
-import { LoanFormData } from '@/types'
-// ❌ ZŁE
-import { LoanFormData } from '../../types'
+text
+
+### Zdolność kredytowa
+Zdolność = [(Dochód × multiplier - Zobowiązania - MinLife) × 0.5] / (Rata na 1000 PLN)
+
+multiplier: 1.0 (UoP), 0.6 (B2B), 0.7 (kontrakt)
+MinLife = 1200 PLN × liczba osób
+
+text
+
+### RRSO (uproszczony)
+RRSO = [(Total Paid - Effective Amount) / Effective Amount] / Years × 100
+
+Effective Amount = kwota - koszty z góry
 
 text
 
 ---
 
-## 6. ZASADY KODOWANIA
+## 🔄 DEVELOPMENT WORKFLOW
 
-**React:**
-// ✅ DOBRE
-import { FC } from 'react'
-interface Props { ... }
-export const LoanForm: FC<Props> = ({ prop }) => { ... }
+### Branch Strategy
 
-// ❌ ZŁE
-class LoanForm extends Component { ... } // NIE class!
-const LoanForm = (props: any) => { ... } // NIE any!
+main (production)
+└─ develop (integration)
+├─ feature/task-7-infrastructure
+├─ feature/task-8-cost-breakdown
+└─ feature/task-9-affordability
 
 text
 
-**TypeScript:**
-- Strict mode ZAWSZE
-- ❌ NIE używaj `any` (użyj `unknown`)
-- ✅ Wszystkie funkcje z typami parametrów i return type
-- ✅ Props z interface
+### Commit Convention
 
-**Tailwind:**
-- ✅ TYLKO Tailwind classes
-- ❌ NIE używaj: inline styles, CSS modules, custom CSS
-
----
-
-## 7. DESIGN SYSTEM (LOCKED)
-
-**Kolory:**
-- Primary: `blue-600`, hover: `blue-700`
-- Background: `white`, `gray-50`
-- Text: `gray-900`, secondary: `gray-600`
-- Success: `green-600`, Error: `red-600`
-
-**Spacing:**
-- Card padding: `p-6`
-- Form gap: `gap-4`
-- Section margin: `mb-6`
-
-**Components:**
-// Card
-
-<div className="bg-white rounded-lg shadow-md p-6">
-// Button
-<button className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg shadow-sm">
+feat: nowa funkcjonalność
+fix: naprawa buga
+chore: setup, config
+docs: dokumentacja
+refactor: zmiana kodu bez zmiany funkcji
 
 text
 
----
+### Task Workflow
 
-## 8. WZORY FINANSOWE (LOCKED)
+1. **Planning** (Claude Opus 4.5 Thinking)
+   - Przeczytaj PHASE-2-SPECIFICATION.md
+   - Zaprojektuj architekturę
 
-**Rata równa:**
-const monthlyRate = (wibor + margin) / 12 / 100
-const payment = principal * (monthlyRate * Math.pow(1 + monthlyRate, months)) /
-(Math.pow(1 + monthlyRate, months) - 1)
+2. **Implementation** (Gemini 3 Flash)
+   - Koduj feature
+   - Commit po każdym subtasku
 
-text
+3. **Review** (Claude Sonnet 4.5 Thinking)
+   - Code review
+   - Edge cases
 
-**Rata malejąca:**
-const principalPart = principal / months
-const firstInterest = principal * monthlyRate
+4. **Manual Testing**
+   - Test w przeglądarce
+   - Mobile responsive
+   - Console errors
 
-text
-
-**❌ NIE ZMIENIAJ wzorów bez zgody!**
-
----
-
-## 9. WALIDACJA
-
-**Limity:**
-principal: 50000 - 2000000 PLN
-years: 1 - 35
-wibor: 0 - 20%
-margin: 0.5 - 5%
-commission: 0 - 100000 PLN
-
-text
-
-**Błędy (po polsku!):**
-"Kwota kredytu musi być między 50 000 a 2 000 000 PLN"
-"Okres kredytowania: 1-35 lat"
-"WIBOR musi być wartością dodatnią"
-
-text
+5. **Commit & Push**
 
 ---
 
-## 10. FORMATOWANIE (Polski rynek!)
+## ✅ VERIFICATION CHECKLIST
 
-// PLN z separatorem
-const formatCurrency = (amount: number): string => {
-return new Intl.NumberFormat('pl-PL', {
-style: 'currency',
-currency: 'PLN',
-}).format(amount)
-}
-// 123456.78 → "123 456,78 PLN"
+### Pre-Implementation
+- [ ] Przeczytaj PHASE-2-SPECIFICATION.md
+- [ ] Zrozum requirements
+- [ ] Check dependencies
 
-text
+### During Implementation
+- [ ] Incremental commits
+- [ ] TypeScript bez błędów
+- [ ] Existing features work
 
----
-
-## 11. ANIMACJE (Motion.dev)
-
-**Zasady:**
-- ✅ TYLKO `transform` i `opacity`
-- ❌ NIE animuj: width, height, margin, padding
-- ✅ Max duration: 300ms
-- ✅ 60fps target
-- ✅ Respektuj `prefers-reduced-motion`
-
-// ✅ Fade in
-animate(el, { opacity:, y: }, { duration: 0.3 })
-​
-
-// ❌ ZŁE
-animate(el, { width: }) // Wolne!
-
-text
-
----
-
-## 12. LOCALSTORAGE
-
-**Klucz:** `'loan-calculator-offers'`
-**Limit:** Max 3 oferty (MVP)
-**❌ NIE przechowuj:** wrażliwych danych, tokenów, > 3 ofert
-
----
-
-## 13. PERFORMANCE
-
-**Wymagania:**
-- Bundle: < 500KB (gzipped)
-- Lighthouse: > 90
-- LCP: < 2.5s
-- FID: < 100ms
-
-**Optymalizacje:**
-- Code splitting (React.lazy)
-- Debouncing inputów (500ms)
-- React.memo dla expensive components
-
----
-
-## 14. TESTY
-
-**Każda funkcja w `/utils/` MUSI mieć testy:**
-
-describe('calculateMonthlyPayment', () => {
-it('oblicza ratę dla 400k, 25 lat, 6%', () => {
-const result = calculateMonthlyPayment(400000, 6, 300, 'equal')
-expect(result).toBeCloseTo(2577.03, 2)
-})
-
-it('rzuca błąd dla wartości ujemnych', () => {
-expect(() => calculateMonthlyPayment(-100, 6, 300, 'equal')).toThrow()
-})
-})
-
-text
-
-**Coverage:** > 80% funkcji, 100% calculations
-
----
-
-## 15. KOMUNIKACJA Z MANAGEREM
-
-**ZATRZYMAJ SIĘ i zapytaj gdy:**
-1. Chcesz zmienić coś LOCKED
-2. Dodać nową bibliotekę
-3. Napotkasz niezrozumiały błąd
-4. Prompt jest niejasny
-5. Chcesz zrobić inaczej niż w tym dokumencie
-
-**Format:**
-🚨 ZATRZYMUJĘ SIĘ - DECYZJA WYMAGANA
-
-Sytuacja: [co się dzieje]
-Problem: [opisz]
-Proponuję: [rozwiązanie]
-
-Czekam na decyzję.
-
-text
-
----
-
-## 16. CHECKLIST PRZED COMMITEM
-
-- [ ] TypeScript - brak `any`
+### Post-Implementation
 - [ ] `npm run dev` działa
-- [ ] `npm run test` przechodzi
-- [ ] Console - brak błędów
-- [ ] Mobile/Desktop responsive
-- [ ] Lighthouse > 90
-
-
-
-## AUTOMATED VERIFICATION (updated)
-
-Po zakończeniu implementacji:
-
-1. ✅ Unit tests: npm run test
-2. ✅ Dev server: npm run dev (sprawdź terminal - no errors)
-3. ✅ Code analysis: 
-   - Check imports
-   - Check TypeScript errors
-   - Check file structure
-
-4. ⚠️ Browser testing (jeśli Browser Extension działa):
-   - Open localhost:[port]
-   - Verify UI renders
-   - Test basic interactions
-   - Screenshot results
-   
-   JEŚLI browser subagent się zawiesza:
-   - POMIŃ browser testing
-   - Manager zweryfikuje ręcznie
-   - Mark task as complete
-
-5. ❌ NIE blokuj task completion jeśli browser testing fails
+- [ ] Localhost test
+- [ ] Mobile responsive
+- [ ] No console errors
+- [ ] Git commit + push
 
 ---
 
-## 🎯 PODSUMOWANIE
+## 🚨 CRITICAL RULES
 
-1. ✅ Czytaj ten dokument przed każdym taskiem
-2. ✅ Trzymaj się struktury
-3. ❌ NIE zmieniaj LOCKED bez zgody
-4. 🚨 ZATRZYMAJ SIĘ gdy wątpliwości
-5. 💬 Komunikuj się
+### DO's ✅
+- ALWAYS test before commit
+- Keep existing functionality working
+- Incremental changes
+- TypeScript strict
+- Mobile-first
+- Polish locale (pl-PL)
 
-**TEN DOKUMENT = ŹRÓDŁO PRAWDY**
+### DON'Ts ❌
+- Never break existing features
+- No big bang commits
+- No untyped code
+- No hard-coded values
+- No console.log in production
+- No TODO comments
 
 ---
-END
+
+## 📚 POLISH MARKET TERMS
+
+- **WIBOR** = Warsaw Interbank Offered Rate (zmienne oprocentowanie)
+- **LTV** = Loan-to-Value (kredyt / wartość nieruchomości)
+- **RRSO** = Rzeczywista Roczna Stopa Oprocentowania (APR)
+- **Prowizja** = upfront fee (0-2%)
+- **Raty równe** = annuity payment
+- **Raty malejące** = decreasing payment
+
+---
+
+## 🎯 SUCCESS METRICS
+
+### Phase 2 Goals
+
+**Functional:**
+- [ ] 12 new features
+- [ ] 0 broken features
+- [ ] <2s time-to-result
+- [ ] 90+ mobile score
+
+**Code Quality:**
+- [ ] 100% TypeScript
+- [ ] 0 ESLint errors
+- [ ] DRY principle
+
+---
+
+## 🔮 FUTURE (Post Phase 2)
+
+**Don't implement now:**
+- Backend (cloud save)
+- API NBP (live WIBOR)
+- Ranking banków
+- Analytics
+
+---
+
+## 📝 CHANGELOG
+
+### v2.0 (2025-12-30) - Phase 2 Planning
+- Market research
+- Devil's advocate analysis
+- Architecture plan
+
+### v1.0 (2025-12-29) - MVP Launch
+- Basic calculator
+- Deployed to Netlify
+
+---
+
+**END OF MASTER REFERENCE**
+
+*Single source of truth. All agents read this first.*
+*Update when major changes occur.*
