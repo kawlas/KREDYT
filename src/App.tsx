@@ -14,6 +14,8 @@ import SavedCalculationsList from './components/calculators/SavedCalculationsLis
 import BankComparison from './components/calculators/BankComparison'
 import { getSavedCalculations, type SavedCalculation } from './utils/calculationStorage'
 import { useEffect } from 'react'
+import { useWIBOR } from './hooks/useWIBOR'
+import WIBORDisplay from './components/shared/WIBORDisplay'
 
 function App() {
   const [activeTab, setActiveTab] = useState('affordability')
@@ -31,8 +33,18 @@ function App() {
     errors,
     getValues,
     reset,
-    setResults
+    setResults,
+    setValue
   } = useLoanCalculator()
+  
+  const { wibor, loading: wiborLoading, error: wiborError, lastUpdate, source, refresh } = useWIBOR(true)
+
+  // Auto-fill WIBOR when loaded
+  useEffect(() => {
+    if (wibor && (!getValues().wibor || getValues().wibor === 5.85)) {
+      setValue('wibor', wibor)
+    }
+  }, [wibor, setValue, getValues])
 
   const [showSaveModal, setShowSaveModal] = useState(false)
   const [showLoadModal, setShowLoadModal] = useState(false)
@@ -112,6 +124,16 @@ function App() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
                 <div className="space-y-8">
                   <section>
+                    <div className="mb-6">
+                      <WIBORDisplay 
+                        wibor={wibor} 
+                        loading={wiborLoading} 
+                        error={wiborError} 
+                        lastUpdate={lastUpdate} 
+                        source={source} 
+                        onRefresh={refresh} 
+                      />
+                    </div>
                     <LoanForm 
                       onSubmit={handleSubmit(onSubmit)}
                       isLoading={isLoading}

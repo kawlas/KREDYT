@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useForm, type UseFormRegister, type UseFormHandleSubmit, type UseFormTrigger, type FieldErrors } from 'react-hook-form'
+import { useForm, type UseFormRegister, type UseFormHandleSubmit, type UseFormTrigger, type FieldErrors, type UseFormSetValue } from 'react-hook-form'
 import type { LoanFormData, LoanResults, LoanOffer } from '../types'
 import { calculateLoanResults } from '../utils/loanCalculations'
 
@@ -22,6 +22,7 @@ interface UseLoanCalculatorReturn {
   getValues: () => LoanFormData
   reset: (values: LoanFormData) => void
   setResults: (results: LoanResults | null) => void
+  setValue: UseFormSetValue<LoanFormData>
 }
 
 export const useLoanCalculator = (): UseLoanCalculatorReturn => {
@@ -30,7 +31,7 @@ export const useLoanCalculator = (): UseLoanCalculatorReturn => {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  const { register, handleSubmit: rhfHandleSubmit, getValues, trigger, reset, formState: { errors } } = useForm<LoanFormData>({
+  const { register, handleSubmit: rhfHandleSubmit, getValues, setValue, trigger, reset, formState: { errors } } = useForm<LoanFormData>({
     defaultValues: {
       principal: 400000,
       years: 25,
@@ -132,6 +133,7 @@ export const useLoanCalculator = (): UseLoanCalculatorReturn => {
     clearAllOffers,
     getValues,
     reset,
-    setResults
+    setResults,
+    setValue
   }
 }

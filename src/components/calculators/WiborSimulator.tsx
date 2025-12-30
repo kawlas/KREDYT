@@ -1,6 +1,8 @@
 import { useState, useMemo } from 'react'
 import { calculateMonthlyPayment } from '../../utils/loanCalculations'
 import { formatCurrency, formatPercent, formatCurrencyShort } from '../../utils/formatters'
+import { useWIBOR } from '../../hooks/useWIBOR'
+import WIBORDisplay from '../shared/WIBORDisplay'
 import Card from '../shared/Card'
 import Alert from '../shared/Alert'
 import Slider from '../shared/Slider'
@@ -23,6 +25,8 @@ export default function WiborSimulator({
 }: WiborSimulatorProps) {
   const [wiborChange, setWiborChange] = useState(0)
   const [income, setIncome] = useState<number>(10000) // Default value for context
+  
+  const wiborData = useWIBOR(true)
 
   const simulatedWibor = useMemo(() => {
     return Math.max(0, baseWibor + wiborChange)
@@ -56,6 +60,19 @@ export default function WiborSimulator({
       subtitle="Sprawdź jak wzrost stóp wpłynie na Twoją ratę"
       contextInfo={`Dla kredytu ${formatCurrencyShort(loanAmount)}`}
     >
+      <div className="mb-8 flex justify-center">
+        <div className="w-full max-w-md">
+          <WIBORDisplay
+            wibor={wiborData.wibor}
+            loading={wiborData.loading}
+            error={wiborData.error}
+            lastUpdate={wiborData.lastUpdate}
+            source={wiborData.source}
+            onRefresh={wiborData.refresh}
+          />
+        </div>
+      </div>
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
         {/* Controls */}
         <div className="space-y-6">

@@ -1,4 +1,4 @@
-import React from 'react'
+
 import { formatPercent } from '../../utils/formatters'
 
 interface WIBORDisplayProps {
