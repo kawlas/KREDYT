@@ -34,7 +34,8 @@ export const useLoanCalculator = (): UseLoanCalculatorReturn => {
       wibor: 5.85,
       margin: 2.0,
       installmentType: 'equal',
-      commission: 0
+      commission: 0,
+      propertyValue: 500000
     }
   })
 

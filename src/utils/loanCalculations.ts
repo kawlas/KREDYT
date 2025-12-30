@@ -1,4 +1,6 @@
 import type { LoanFormData, LoanResults } from '../types'
+import { calculateCostBreakdown } from './costBreakdown'
+
 
 /**
  * Calculates the monthly payment for a mortgage.
@@ -208,10 +210,11 @@ export const calculateRefinancingCost = (
 
 /**
  * Main wrapper function used by the UI components.
+
  * Maintains backward compatibility with LoanFormData using the new core functions.
  */
 export const calculateLoanResults = (data: LoanFormData): LoanResults => {
-  const { principal, years, wibor, margin, installmentType, commission = 0 } = data
+  const { principal, years, wibor, margin, installmentType, commission = 0, propertyValue } = data
   const months = years * 12
   const annualRate = wibor + margin
 
@@ -219,20 +222,30 @@ export const calculateLoanResults = (data: LoanFormData): LoanResults => {
   const monthlyPayment = calculateMonthlyPayment(principal, annualRate, months, installmentType)
 
   // 2. Total Cost & Interest
-  // We use the schedule calculator for accuracy especially with declining installments
-  const totalCostIncludingCommission = calculateTotalCost(principal, annualRate, months, installmentType, commission)
-  const totalInterest = totalCostIncludingCommission - principal - commission
-
+  const totalInterestBase = calculateTotalCost(principal, annualRate, months, installmentType, 0) - principal
+  
   // 3. RRSO
+  const totalCostIncludingCommission = principal + totalInterestBase + commission
   const rrso = calculateRRSO(principal, totalCostIncludingCommission, months)
+
+  // 4. Detailed Breakdown
+  const breakdown = calculateCostBreakdown(
+    principal,
+    propertyValue || principal / 0.8, // Domyślnie zakładamy 20% wkładu jeśli nie podano
+    totalInterestBase,
+    years,
+    commission
+  )
 
   return {
     monthlyPayment,
-    totalCost: totalCostIncludingCommission,
-    totalInterest,
-    rrso
+    totalCost: breakdown.totalLoanCost, // Aktualizujemy pole totalCost na pełniejszą sumę
+    totalInterest: totalInterestBase,
+    rrso,
+    breakdown
   }
 }
+
 
 /**
  * Calculates total interest (Total Cost - Principal - Commission)

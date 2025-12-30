@@ -54,13 +54,11 @@ function App() {
 
           {results && (
             <ResultsCard 
-              monthlyPayment={results.monthlyPayment}
-              totalCost={results.totalCost}
-              totalInterest={results.totalInterest}
-              rrso={results.rrso}
+              {...results}
               onSave={saveOffer}
             />
           )}
+
 
           {savedOffers.length > 0 && (
             <ComparisonTable 

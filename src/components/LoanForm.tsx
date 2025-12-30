@@ -76,6 +76,22 @@ const LoanForm: React.FC<LoanFormProps> = ({ onSubmit, isLoading, register, trig
         {errors.principal && <p className="mt-1 text-sm text-red-600">{errors.principal.message}</p>}
       </div>
 
+      {/* Wartość nieruchomości */}
+      <div>
+        <label htmlFor="propertyValue" className="block text-sm font-medium text-gray-700">Wartość nieruchomości (PLN)</label>
+        <input
+          id="propertyValue"
+          type="number"
+          {...registerWithDebounce('propertyValue', { 
+            required: 'Pole wymagane', 
+            min: { value: 50000, message: 'Wartość nieruchomości musi być co najmniej 50 000 PLN' },
+            valueAsNumber: true
+          })}
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm border p-2 origin-left"
+        />
+        {errors.propertyValue && <p className="mt-1 text-sm text-red-600">{errors.propertyValue.message}</p>}
+      </div>
+
       {/* Okres kredytowania */}
       <div>
         <label htmlFor="years" className="block text-sm font-medium text-gray-700">Okres kredytowania (lata)</label>
