@@ -15,8 +15,6 @@ export default defineConfig({
       '/.netlify/functions/wibor': {
         target: 'https://stooq.pl/q/d/l/?s=wibor3m&i=d',
         changeOrigin: true,
-        // Mock the response for local dev since we can't run the actual Netlify function without netlify-cli
-        // and hitting stooq directly returns CSV, not JSON.
         bypass: (req, res) => {
           if (req.url === '/.netlify/functions/wibor') {
             res.setHeader('Content-Type', 'application/json')
@@ -25,10 +23,16 @@ export default defineConfig({
               date: new Date().toISOString().split('T')[0],
               source: 'stooq (local-mock)'
             }))
-            return false // Return false to bypass the proxy
+            return false 
           }
         }
       }
     }
+  },
+  ssr: {
+    noExternal: ['react-helmet-async']
+  },
+  build: {
+    manifest: true
   }
 })

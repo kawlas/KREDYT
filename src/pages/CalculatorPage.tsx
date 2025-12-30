@@ -10,6 +10,11 @@ import SavedCalculationsList from '../components/calculators/SavedCalculationsLi
 import { getSavedCalculations, type SavedCalculation } from '../utils/calculationStorage'
 import { useWIBOR } from '../hooks/useWIBOR'
 import WIBORDisplay from '../components/shared/WIBORDisplay'
+import SEOHead from '../components/shared/SEOHead'
+import AdSlot from '../components/shared/AdSlot'
+import ShareButton from '../components/shared/ShareButton'
+import FAQSection from '../components/shared/FAQSection'
+import { FAQ_DATA } from '../data/faqData'
 
 interface CalculatorPageProps {
   register: any
@@ -86,6 +91,10 @@ export default function CalculatorPage({
       title="Oblicz ratę swojego kredytu"
       subtitle="Wypełnij formularz, aby zobaczyć szczegółowy koszt kredytu"
     >
+      <SEOHead 
+        title="Darmowy Kalkulator Raty Kredytu Hipotecznego 2025"
+        description="Oblicz ratę kredytu hipotecznego, sprawdź harmonogram spłat i koszt całkowity. Aktualny WIBOR, raty równe i malejące. Sprawdź teraz!"
+      />
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
         <div className="space-y-8">
           <section>
@@ -131,15 +140,20 @@ export default function CalculatorPage({
           )}
 
           {results ? (
-            <ResultsCard 
-              {...results}
-              loanAmount={getValues().principal}
-              propertyValue={getValues().propertyValue || getValues().principal / 0.8}
-              wibor={getValues().wibor}
-              margin={getValues().margin}
-              loanTermYears={getValues().years}
-              onSave={saveOffer}
-            />
+            <>
+              <ResultsCard 
+                {...results}
+                loanAmount={getValues().principal}
+                propertyValue={getValues().propertyValue || getValues().principal / 0.8}
+                wibor={getValues().wibor}
+                margin={getValues().margin}
+                loanTermYears={getValues().years}
+                onSave={saveOffer}
+              />
+              <div className="mt-8">
+                <AdSlot />
+              </div>
+            </>
           ) : (
             <div className="bg-white p-12 rounded-2xl shadow-sm border border-dashed border-gray-300 text-center">
               <div className="text-4xl mb-4">📊</div>
@@ -147,27 +161,32 @@ export default function CalculatorPage({
             </div>
           )}
 
-          <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             <button
               onClick={() => setShowLoadModal(true)}
-              className="flex items-center justify-center gap-3 px-6 py-4 bg-white border-2 border-blue-600 text-blue-600 rounded-xl hover:bg-blue-50 font-bold transition-all shadow-lg shadow-blue-500/5 group"
+              className="flex items-center justify-center gap-3 px-4 py-4 bg-white border-2 border-blue-600 text-blue-600 rounded-xl hover:bg-blue-50 font-bold transition-all shadow-lg shadow-blue-500/5 group"
             >
               <span className="text-2xl group-hover:scale-110 transition-transform">📂</span>
               <div className="text-left">
-                <div className="text-sm leading-tight">Zapisane wyliczenia</div>
-                <div className="text-[10px] uppercase tracking-wider opacity-70">Zapisano: {savedScenariosCount}</div>
+                <div className="text-sm leading-tight">Wczytaj</div>
+                <div className="text-[10px] uppercase tracking-wider opacity-70">Zapisane: {savedScenariosCount}</div>
               </div>
             </button>
+
+            <ShareButton 
+              getValues={getValues} 
+              className="px-4 py-4 bg-indigo-50 text-indigo-700 border-2 border-indigo-100 hover:bg-indigo-100 rounded-xl shadow-lg shadow-indigo-500/5"
+            />
 
             {results && (
               <button
                 onClick={() => setShowSaveModal(true)}
-                className="flex items-center justify-center gap-3 px-6 py-4 bg-green-600 text-white rounded-xl hover:bg-green-700 font-bold transition-all shadow-lg shadow-green-500/20 group"
+                className="flex items-center justify-center gap-3 px-4 py-4 bg-green-600 text-white rounded-xl hover:bg-green-700 font-bold transition-all shadow-lg shadow-green-500/20 group sm:col-span-2 lg:col-span-1"
               >
                 <span className="text-2xl group-hover:scale-110 transition-transform">💾</span>
                 <div className="text-left">
-                  <div className="text-sm leading-tight">Zapisz wyliczenie</div>
-                  <div className="text-[10px] uppercase tracking-wider opacity-70">Do pamięci lokalnej</div>
+                  <div className="text-sm leading-tight">Zapisz</div>
+                  <div className="text-[10px] uppercase tracking-wider opacity-70">Lokalnie</div>
                 </div>
               </button>
             )}
@@ -191,6 +210,10 @@ export default function CalculatorPage({
         onClose={() => setShowLoadModal(false)}
         onLoad={handleLoadScenario}
       />
+      
+      <div className="mt-12">
+        <FAQSection items={FAQ_DATA.filter(i => [1, 2, 3, 4, 5, 16, 17].includes(i.id))} />
+      </div>
     </TabContainer>
   )
 }

@@ -1,11 +1,10 @@
 import { createContext, useContext, useState, useEffect } from 'react'
 import type { ReactNode } from 'react'
-import { useForm, type UseFormRegister, type UseFormHandleSubmit, type UseFormTrigger, type FieldErrors, type UseFormSetValue } from 'react-hook-form'
-import type { LoanFormData, LoanResults, LoanOffer } from '../types'
+import { useForm, type UseFormRegister, type UseFormHandleSubmit, type UseFormTrigger, type FieldErrors, type UseFormSetValue, type UseFormReturn } from 'react-hook-form'
+import type { LoanFormData, LoanResults, LoanOffer, AffordabilityFormData } from '../types'
 import { calculateLoanResults } from '../utils/loanCalculations'
 
 const STORAGE_KEY = 'loan-calculator-offers'
-const SESSION_KEY = 'loan-calculator-form-data'
 const MAX_OFFERS = 5
 
 interface LoanCalculatorContextType {
@@ -25,31 +24,14 @@ interface LoanCalculatorContextType {
   reset: (values: LoanFormData) => void
   setResults: (results: LoanResults | null) => void
   setValue: UseFormSetValue<LoanFormData>
+  affordabilityForm: UseFormReturn<AffordabilityFormData>
 }
 
 const LoanCalculatorContext = createContext<LoanCalculatorContextType | undefined>(undefined)
 
-// Helper: Load form data from sessionStorage
-const loadFormDataFromSession = (): Partial<LoanFormData> | null => {
-  try {
-    const stored = sessionStorage.getItem(SESSION_KEY)
-    if (stored) {
-      return JSON.parse(stored)
-    }
-  } catch (e) {
-    console.error('Failed to load form data from sessionStorage:', e)
-  }
-  return null
-}
-
-// Helper: Save form data to sessionStorage
-const saveFormDataToSession = (data: LoanFormData) => {
-  try {
-    sessionStorage.setItem(SESSION_KEY, JSON.stringify(data))
-  } catch (e) {
-    console.error('Failed to save form data to sessionStorage:', e)
-  }
-}
+// Helper: Session Storage keys
+const SESSION_KEY_LOAN = 'loan-calculator-form-data'
+const SESSION_KEY_AFFORDABILITY = 'loan-calculator-affordability-data'
 
 export function LoanCalculatorProvider({ children }: { children: ReactNode }) {
   const [results, setResults] = useState<LoanResults | null>(null)
@@ -57,29 +39,62 @@ export function LoanCalculatorProvider({ children }: { children: ReactNode }) {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  // Load saved form data from sessionStorage or use defaults
-  const sessionData = loadFormDataFromSession()
-  const defaultValues: LoanFormData = {
-    principal: sessionData?.principal ?? 400000,
-    years: sessionData?.years ?? 25,
-    wibor: sessionData?.wibor ?? 5.85,
-    margin: sessionData?.margin ?? 2.0,
-    installmentType: sessionData?.installmentType ?? 'equal',
-    commission: sessionData?.commission ?? 0,
-    propertyValue: sessionData?.propertyValue ?? 500000
+  // -- MAIN CALCULATOR FORM --
+  const loadLoanSession = (): Partial<LoanFormData> | null => {
+    try {
+      const stored = sessionStorage.getItem(SESSION_KEY_LOAN)
+      return stored ? JSON.parse(stored) : null
+    } catch { return null }
   }
 
-  const { register, handleSubmit: rhfHandleSubmit, getValues, setValue, trigger, reset, formState: { errors }, watch } = useForm<LoanFormData>({
-    defaultValues
-  })
+  const defaultLoanValues: LoanFormData = {
+    principal: 400000,
+    years: 25,
+    wibor: 5.85,
+    margin: 2.0,
+    installmentType: 'equal',
+    commission: 0,
+    propertyValue: 500000,
+    ...loadLoanSession()
+  }
 
-  // Watch all form fields and auto-save to sessionStorage
+  const loanForm = useForm<LoanFormData>({ defaultValues: defaultLoanValues })
+  
   useEffect(() => {
-    const subscription = watch((formData) => {
-      saveFormDataToSession(formData as LoanFormData)
+    const sub = loanForm.watch((data) => {
+      sessionStorage.setItem(SESSION_KEY_LOAN, JSON.stringify(data))
     })
-    return () => subscription.unsubscribe()
-  }, [watch])
+    return () => sub.unsubscribe()
+  }, [loanForm.watch])
+
+  // -- AFFORDABILITY FORM --
+  const loadAffordabilitySession = (): Partial<AffordabilityFormData> | null => {
+    try {
+      const stored = sessionStorage.getItem(SESSION_KEY_AFFORDABILITY)
+      return stored ? JSON.parse(stored) : null
+    } catch { return null }
+  }
+
+  const defaultAffordabilityValues: AffordabilityFormData = {
+    income: 10000,
+    employmentType: 'UOP',
+    obligations: 0,
+    dependents: 0,
+    age: 30,
+    wibor: 5.85,
+    margin: 2.0,
+    ...loadAffordabilitySession()
+  }
+
+  const affordabilityForm = useForm<AffordabilityFormData>({ defaultValues: defaultAffordabilityValues })
+
+  useEffect(() => {
+    const sub = affordabilityForm.watch((data) => {
+      sessionStorage.setItem(SESSION_KEY_AFFORDABILITY, JSON.stringify(data))
+    })
+    return () => sub.unsubscribe()
+  }, [affordabilityForm.watch])
+
 
   // Load offers from localStorage on mount
   useEffect(() => {
@@ -108,6 +123,46 @@ export function LoanCalculatorProvider({ children }: { children: ReactNode }) {
       console.error('Failed to save offers to localStorage:', e)
     }
   }, [savedOffers])
+
+  // Hydrate from URL params on mount (SEO/Sharing)
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    // Check if we have shareable params
+    if (params.has('amount') || params.has('period')) {
+      const updates: Partial<LoanFormData> = {}
+      
+      const pAmount = params.get('amount')
+      if (pAmount) updates.principal = Number(pAmount)
+      
+      const pPeriod = params.get('period')
+      if (pPeriod) updates.years = Number(pPeriod)
+      
+      const pWibor = params.get('wibor')
+      if (pWibor) {
+        updates.wibor = Number(pWibor)
+        affordabilityForm.setValue('wibor', Number(pWibor)) // Sync both?
+      }
+      
+      const pMargin = params.get('margin')
+      if (pMargin) {
+        updates.margin = Number(pMargin)
+        affordabilityForm.setValue('margin', Number(pMargin)) // Sync both?
+      }
+      
+      const pType = params.get('type')
+      if (pType && (pType === 'equal' || pType === 'declining')) updates.installmentType = pType as 'equal' | 'declining'
+
+      const pValue = params.get('property')
+      if (pValue) updates.propertyValue = Number(pValue)
+      
+      if (Object.keys(updates).length > 0) {
+        // Merge with defaults/session, favouring URL
+        loanForm.reset({ ...loanForm.getValues(), ...updates })
+        // Trigger calculation automatically if we have data
+        setTimeout(() => loanForm.trigger(), 100)
+      }
+    }
+  }, []) // run once on mount
 
   const onSubmit = async (data: LoanFormData) => {
     setIsLoading(true)
@@ -138,7 +193,7 @@ export function LoanCalculatorProvider({ children }: { children: ReactNode }) {
     const newOffer: LoanOffer = {
       id: crypto.randomUUID(),
       name,
-      formData: getValues(),
+      formData: loanForm.getValues(),
       results: results,
       savedAt: new Date().toISOString()
     }
@@ -156,10 +211,10 @@ export function LoanCalculatorProvider({ children }: { children: ReactNode }) {
   }
 
   const value: LoanCalculatorContextType = {
-    register,
-    handleSubmit: rhfHandleSubmit,
-    trigger,
-    errors,
+    register: loanForm.register,
+    handleSubmit: loanForm.handleSubmit,
+    trigger: loanForm.trigger,
+    errors: loanForm.formState.errors,
     results,
     savedOffers,
     isLoading,
@@ -168,10 +223,12 @@ export function LoanCalculatorProvider({ children }: { children: ReactNode }) {
     saveOffer,
     deleteOffer,
     clearAllOffers,
-    getValues,
-    reset,
+    getValues: loanForm.getValues,
+    reset: loanForm.reset,
     setResults,
-    setValue
+    setValue: loanForm.setValue,
+    // @ts-ignore - extending context type on the fly or I should update interface
+    affordabilityForm
   }
 
   return (

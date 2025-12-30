@@ -1,26 +1,20 @@
 import React, { useMemo } from 'react'
-import { useForm } from 'react-hook-form'
-import type { AffordabilityFormData } from '../../types'
+// import { useForm } from 'react-hook-form' - removed
+// import type { AffordabilityFormData } from '../../types'
 import { calculateAffordability } from '../../utils/affordabilityFormulas'
 import { formatCurrency, formatMonths } from '../../utils/formatters'
 import Card from '../shared/Card'
 import Alert from '../shared/Alert'
-import { LOAN_CONSTANTS } from '../../types/constants'
+// import { LOAN_CONSTANTS } from '../../types/constants'
 
 import TabContainer from '../layout/TabContainer'
 
+import { useLoanCalculator } from '../../context/LoanCalculatorContext'
+
 export const AffordabilityCalc: React.FC = () => {
-  const { register, watch } = useForm<AffordabilityFormData>({
-    defaultValues: {
-      income: 10000,
-      employmentType: 'UOP',
-      obligations: 0,
-      dependents: 0,
-      age: 30,
-      wibor: LOAN_CONSTANTS.AFFORDABILITY.MAX_DSTI * 10, // Just a placeholder, will use real values
-      margin: 2.0
-    }
-  })
+  const { affordabilityForm } = useLoanCalculator()
+  const { register, watch } = affordabilityForm
+  // const { register, watch } = useForm<AffordabilityFormData>({ ... }) - removed local state
 
   // Watch for changes to trigger real-time calc
   const values = watch()
