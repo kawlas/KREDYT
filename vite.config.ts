@@ -25,7 +25,7 @@ export default defineConfig({
               date: new Date().toISOString().split('T')[0],
               source: 'stooq (local-mock)'
             }))
-            return true // Return true to bypass the proxy and use the response above
+            return false // Return false to bypass the proxy
           }
         }
       }

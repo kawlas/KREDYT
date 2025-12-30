@@ -20,7 +20,7 @@ interface CalculatorPageProps {
   savedOffers: any[]
   isLoading: boolean
   error: string | null
-  saveOffer: () => void
+  saveOffer: (name: string) => void
   deleteOffer: (id: string) => void
   errors: any
   getValues: any
