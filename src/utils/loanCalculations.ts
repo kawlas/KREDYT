@@ -231,15 +231,15 @@ export const calculateLoanResults = (data: LoanFormData): LoanResults => {
   // 4. Detailed Breakdown
   const breakdown = calculateCostBreakdown(
     principal,
-    propertyValue || principal / 0.8, // Domyślnie zakładamy 20% wkładu jeśli nie podano
+    propertyValue || principal / 0.8,
     totalInterestBase,
-    years,
-    commission
+    monthlyPayment,
+    years
   )
 
   return {
     monthlyPayment,
-    totalCost: breakdown.totalLoanCost, // Aktualizujemy pole totalCost na pełniejszą sumę
+    totalCost: breakdown.totalCost.grandTotal, // Aktualizujemy pole totalCost na pełniejszą sumę
     totalInterest: totalInterestBase,
     rrso,
     breakdown

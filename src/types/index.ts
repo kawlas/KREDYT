@@ -11,20 +11,36 @@ export interface LoanFormData {
 }
 
 export interface CostBreakdown {
+  // Koszty początkowe
   upfrontCosts: {
-    commission: number
+    provision: number
     notary: number
+    landRegistry: number
     valuation: number
-    landRegister: number
+    bridgingInsurance: number
     total: number
   }
-  ongoingCosts: {
-    monthlyBridgeInsurance: number
-    monthlyPropertyInsurance: number
-    totalMonthlyExtra: number
+
+  // Koszty roczne
+  yearlyCosts: {
+    homeInsurance: number
+    creditInsurance: number // jeśli LTV>80%
+    accountFee: number
+    total: number
   }
-  totalInterest: number
-  totalLoanCost: number // Suma rat + koszty upfront + koszty ongoing przez cały okres
+
+  // Kwota faktycznie otrzymana
+  actualAmountReceived: number
+
+  // Total koszt kredytu
+  totalCost: {
+    allPayments: number
+    principal: number
+    interest: number
+    upfrontCosts: number
+    yearlyCosts25Years: number
+    grandTotal: number
+  }
 }
 
 export interface LoanResults {
@@ -42,4 +58,14 @@ export interface LoanOffer {
   formData: LoanFormData
   results: LoanResults
   savedAt: string // ISO date
+}
+
+export interface AffordabilityFormData {
+  income: number
+  employmentType: 'UOP' | 'B2B' | 'CONTRACT'
+  obligations: number
+  dependents: number
+  age: number
+  wibor: number
+  margin: number
 }
