@@ -11,7 +11,8 @@ import WiborSimulator from './components/calculators/WiborSimulator'
 import TabContainer from './components/layout/TabContainer'
 import SaveCalculationModal from './components/calculators/SaveCalculationModal'
 import SavedCalculationsList from './components/calculators/SavedCalculationsList'
-import BankComparison from './components/calculators/BankComparison'
+
+// import BankComparison from './components/calculators/BankComparison' // REMOVED
 import { getSavedCalculations, type SavedCalculation } from './utils/calculationStorage'
 import { useEffect } from 'react'
 import { useWIBOR } from './hooks/useWIBOR'
@@ -77,7 +78,8 @@ function App() {
     { id: 'calculator', label: 'Kalkulator raty', icon: '🧮' },
     { id: 'comparison', label: 'Porównanie rat', icon: '⚖️' },
     { id: 'wibor', label: 'Symulacja WIBOR', icon: '📊' },
-    { id: 'banks', label: 'Porównanie banków', icon: '🏦' }
+    { id: 'wibor', label: 'Symulacja WIBOR', icon: '📊' },
+    // { id: 'banks', label: 'Porównanie banków', icon: '🏦' } // REMOVED
   ]
 
   return (
@@ -249,14 +251,7 @@ function App() {
             />
           )}
 
-          {activeTab === 'banks' && (
-            <BankComparison
-              loanAmount={Number(getValues().principal) || 400000}
-              loanTermYears={Number(getValues().years) || 25}
-              wibor={Number(getValues().wibor) || 5.85}
-              paymentType={getValues().installmentType || 'equal'}
-            />
-          )}
+
         </main>
       </div>
 
