@@ -1,14 +1,14 @@
-
 import { Helmet } from 'react-helmet-async'
+import { Link } from 'react-router-dom'
 import type { FAQItem } from '../../data/faqData'
 
-interface FAQSectionProps {
+interface FaqBlockProps {
   items: FAQItem[]
   title?: string
   className?: string
 }
 
-export default function FAQSection({ items, title = "Częste pytania", className = '' }: FAQSectionProps) {
+export default function FaqBlock({ items, title = "Częste pytania", className = '' }: FaqBlockProps) {
   if (items.length === 0) return null
 
   // Generate FAQPage JSON-LD
@@ -20,7 +20,7 @@ export default function FAQSection({ items, title = "Częste pytania", className
       "name": item.question,
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": item.answer
+        "text": item.answer + (item.ctaLink ? ` ${item.ctaText}` : '')
       }
     }))
   }
@@ -45,13 +45,23 @@ export default function FAQSection({ items, title = "Częste pytania", className
               <summary className="flex items-center justify-between p-5 cursor-pointer list-none bg-white">
                 <span className="font-semibold text-gray-800 pr-4">{item.question}</span>
                 <span className="transition-transform duration-200 group-open:rotate-180 text-blue-500 font-bold text-xl">
-                  {/* Custom icon or simpler implementation */}
                   ▼
                 </span>
               </summary>
               <div className="px-5 pb-5 pt-0 text-gray-600 leading-relaxed border-t border-gray-100 mt-2">
                 <div className="pt-3">
-                  {item.answer}
+                  <p>{item.answer}</p>
+                  {item.ctaLink && (
+                    <div className="mt-4">
+                      <Link 
+                        to={item.ctaLink} 
+                        className="inline-flex items-center gap-2 text-blue-600 font-bold hover:text-blue-700 hover:underline transition-all"
+                      >
+                        <span>{item.ctaText || "Dowiedz się więcej"}</span>
+                        <span className="text-lg">➔</span>
+                      </Link>
+                    </div>
+                  )}
                 </div>
               </div>
             </details>

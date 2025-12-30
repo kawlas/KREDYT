@@ -16,7 +16,11 @@ const routesToPrerender = [
   '/raty-rowne-czy-malejace/',
   '/symulacja-wibor/',
   '/zdolnosc-kredytowa/',
-  '/faq-kredyt-hipoteczny/'
+  '/faq-kredyt-hipoteczny/',
+  '/o-projekcie/',
+  '/metodologia/',
+  '/kontakt/',
+  '/polityka-prywatnosci/'
 ]
 
 ;(async () => {

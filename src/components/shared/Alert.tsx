@@ -4,9 +4,10 @@ interface AlertProps {
   type: 'info' | 'warning' | 'success' | 'error'
   children: React.ReactNode
   icon?: string
+  className?: string
 }
 
-export default function Alert({ type, children, icon }: AlertProps) {
+export default function Alert({ type, children, icon, className = '' }: AlertProps) {
   const styles = {
     info: 'bg-blue-50 border-blue-200 text-blue-800',
     warning: 'bg-yellow-50 border-yellow-200 text-yellow-800',
@@ -15,7 +16,7 @@ export default function Alert({ type, children, icon }: AlertProps) {
   }
 
   return (
-    <div className={`border rounded-lg p-4 ${styles[type]}`}>
+    <div className={`border rounded-lg p-4 ${styles[type]} ${className}`}>
       <div className="flex items-start gap-3">
         {icon && <span className="text-xl">{icon}</span>}
         <div className="flex-1">{children}</div>

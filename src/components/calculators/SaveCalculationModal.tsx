@@ -121,7 +121,7 @@ export default function SaveCalculationModal({
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              placeholder="np. PKO oferta 30.12.2025"
+              placeholder="np. Moja oferta kredytu"
               className={`
                 w-full px-5 py-4 bg-gray-50 border rounded-xl transition-all outline-none
                 ${error ? 'border-red-300 focus:border-red-500' : 'border-gray-200 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-50/50'}

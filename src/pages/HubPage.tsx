@@ -11,7 +11,7 @@ export default function HubPage() {
     >
       <SEOHead 
         title="Kalkulator Kredytu Hipotecznego dla Ciebie | Darmowe Narzędzia"
-        description="Oblicz ratę, sprawdź zdolność kredytową i porównaj oferty banków. Darmowy kalkulator kredytu hipotecznego 2024/2025. Sprawdź teraz!"
+        description="Oblicz ratę, sprawdź zdolność kredytową i analizuj koszty kredytu. Darmowy kalkulator kredytu hipotecznego aktualizowany regularnie. Sprawdź teraz!"
       />
       <div className="space-y-8">
         <section className="text-center max-w-3xl mx-auto mb-12">

@@ -106,6 +106,50 @@ const ResultsCard: React.FC<ResultsCardProps> = (props) => {
             </div>
           </div>
         </div>
+
+        {/* Section: Down Payment & LTV */}
+        {props.propertyValue > 0 && props.loanAmount > 0 && (
+          <div className="bg-white rounded-xl p-6 border border-gray-100 mb-6 shadow-sm" data-animate-item>
+            <h3 className="text-sm font-bold text-gray-900 uppercase tracking-widest mb-4 border-b pb-2">
+              Wkład własny i LTV
+            </h3>
+            <div className="grid grid-cols-2 gap-6">
+              <div>
+                <p className="text-xs text-gray-500 uppercase font-semibold">Wkład własny</p>
+                <p className="text-xl font-bold text-gray-900">
+                  {formatCurrency(props.propertyValue - props.loanAmount)}
+                </p>
+                <p className="text-sm text-blue-600 font-medium">
+                  {formatPercent(((props.propertyValue - props.loanAmount) / props.propertyValue) * 100)} wartości
+                </p>
+              </div>
+              <div>
+                <p className="text-xs text-gray-500 uppercase font-semibold">Wskaźnik LTV</p>
+                <p className={`text-xl font-bold ${ltv > 100 ? 'text-red-600' : 'text-gray-900'}`}>
+                  {formatPercent(ltv)}
+                </p>
+                <p className="text-xs text-gray-400 mt-1">Loan to Value</p>
+              </div>
+            </div>
+
+            <div className="mt-4 space-y-2 text-sm text-gray-600 leading-relaxed border-t pt-4">
+              <p>
+                <strong>LTV</strong> to relacja kwoty kredytu do wartości nieruchomości. 
+                Określa ona poziom ryzyka dla banku.
+              </p>
+              <p>
+                Często banki preferują <strong>LTV ≤ 80%</strong> (wymagany wkład 20%), 
+                co pozwala na uzyskanie niższej marży i uniknięcie dodatkowych ubezpieczeń.
+              </p>
+              {ltv > 100 && (
+                <Alert type="error" icon="🚨" className="mt-2">
+                  <p className="font-bold">Uwaga: LTV powyżej 100%</p>
+                  <p className="text-xs">Kwota kredytu przewyższa wartość nieruchomości. Większość banków nie udzieli takiego finansowania.</p>
+                </Alert>
+              )}
+            </div>
+          </div>
+        )}
       </Card>
 
       {/* SECTION 2: Total Cost Breakdown */}

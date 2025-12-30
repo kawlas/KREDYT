@@ -2,8 +2,9 @@ import WiborSimulator from '../components/calculators/WiborSimulator'
 import SEOHead from '../components/shared/SEOHead'
 import AdSlot from '../components/shared/AdSlot'
 import ShareButton from '../components/shared/ShareButton'
-import FAQSection from '../components/shared/FAQSection'
+import FaqBlock from '../components/seo/FaqBlock'
 import { FAQ_DATA } from '../data/faqData'
+import RelatedTools from '../components/seo/RelatedTools'
 
 interface WiborSimulatorPageProps {
   loanAmount: number
@@ -50,8 +51,9 @@ export default function WiborSimulatorPage({
           <AdSlot />
         </div>
         <div className="max-w-6xl mx-auto px-4">
-           <FAQSection items={FAQ_DATA.filter(i => [6, 7, 8].includes(i.id))} />
+           <FaqBlock items={FAQ_DATA.filter(i => [6, 7, 8].includes(i.id))} />
         </div>
+        <RelatedTools />
       </div>
     </>
   )

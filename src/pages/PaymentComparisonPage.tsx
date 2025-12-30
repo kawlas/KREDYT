@@ -1,8 +1,9 @@
 import PaymentComparison from '../components/calculators/PaymentComparison'
 import SEOHead from '../components/shared/SEOHead'
 import AdSlot from '../components/shared/AdSlot'
-import FAQSection from '../components/shared/FAQSection'
+import FaqBlock from '../components/seo/FaqBlock'
 import { FAQ_DATA } from '../data/faqData'
+import RelatedTools from '../components/seo/RelatedTools'
 
 interface PaymentComparisonPageProps {
   loanAmount: number
@@ -18,7 +19,7 @@ export default function PaymentComparisonPage({
   return (
     <>
       <SEOHead 
-        title="Raty Równe czy Malejące? Porównanie Kalkulator 2025"
+        title="Raty Równe czy Malejące? Porównanie Kalkulator"
         description="Sprawdź ile zaoszczędzisz wybierając raty malejące. Porównaj koszty całkowite, harmonogram spłat i wysokość pierwszej raty. Darmowy symulator."
       />
       <div className="space-y-8">
@@ -31,8 +32,9 @@ export default function PaymentComparisonPage({
           <AdSlot />
         </div>
         <div className="max-w-6xl mx-auto px-4">
-           <FAQSection items={FAQ_DATA.filter(i => [5, 6].includes(i.id))} />
+           <FaqBlock items={FAQ_DATA.filter(i => [5, 6].includes(i.id))} />
         </div>
+        <RelatedTools />
       </div>
     </>
   )

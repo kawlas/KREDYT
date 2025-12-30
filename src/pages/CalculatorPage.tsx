@@ -13,8 +13,9 @@ import WIBORDisplay from '../components/shared/WIBORDisplay'
 import SEOHead from '../components/shared/SEOHead'
 import AdSlot from '../components/shared/AdSlot'
 import ShareButton from '../components/shared/ShareButton'
-import FAQSection from '../components/shared/FAQSection'
+import FaqBlock from '../components/seo/FaqBlock'
 import { FAQ_DATA } from '../data/faqData'
+import RelatedTools from '../components/seo/RelatedTools'
 
 interface CalculatorPageProps {
   register: any
@@ -92,7 +93,7 @@ export default function CalculatorPage({
       subtitle="Wypełnij formularz, aby zobaczyć szczegółowy koszt kredytu"
     >
       <SEOHead 
-        title="Darmowy Kalkulator Raty Kredytu Hipotecznego 2025"
+        title="Darmowy Kalkulator Raty Kredytu Hipotecznego"
         description="Oblicz ratę kredytu hipotecznego, sprawdź harmonogram spłat i koszt całkowity. Aktualny WIBOR, raty równe i malejące. Sprawdź teraz!"
       />
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
@@ -212,8 +213,9 @@ export default function CalculatorPage({
       />
       
       <div className="mt-12">
-        <FAQSection items={FAQ_DATA.filter(i => [1, 2, 3, 4, 5, 16, 17].includes(i.id))} />
+        <FaqBlock items={FAQ_DATA.filter(i => [1, 2, 3, 4, 5, 16, 17].includes(i.id))} />
       </div>
+      <RelatedTools />
     </TabContainer>
   )
 }

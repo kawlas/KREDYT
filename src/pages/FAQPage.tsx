@@ -1,6 +1,6 @@
 import TabContainer from '../components/layout/TabContainer'
 import SEOHead from '../components/shared/SEOHead'
-import FAQSection from '../components/shared/FAQSection'
+import FaqBlock from '../components/seo/FaqBlock'
 import { FAQ_DATA } from '../data/faqData'
 
 export default function FAQPage() {
@@ -18,7 +18,7 @@ export default function FAQPage() {
           Zbraliśmy najważniejsze pytania zadawane przez przyszłych kredytobiorców. 
           Poniżej znajdziesz krótkie i konkretne odpowiedzi, które pomogą Ci zrozumieć mechanizmy kredytowe.
         </p>
-        <FAQSection items={FAQ_DATA} />
+        <FaqBlock items={FAQ_DATA} />
       </div>
     </TabContainer>
   )

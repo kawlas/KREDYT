@@ -6,6 +6,12 @@ import PaymentComparisonPage from './pages/PaymentComparisonPage'
 import WiborSimulatorPage from './pages/WiborSimulatorPage'
 import HubPage from './pages/HubPage'
 import FAQPage from './pages/FAQPage'
+import AboutPage from './pages/AboutPage'
+import MethodologyPage from './pages/MethodologyPage'
+import ContactPage from './pages/ContactPage'
+import PrivacyPolicyPage from './pages/PrivacyPolicyPage'
+import Footer from './components/layout/Footer'
+import ScrollToTop from './components/shared/ScrollToTop'
 
 function App() {
   const {
@@ -40,13 +46,14 @@ function App() {
 
   return (
     <div className="min-h-screen bg-gray-50 py-8 px-4">
+        <ScrollToTop />
         {/* ... */}
       <div className="max-w-7xl mx-auto">
       {/* ... */}
           <header className="text-center mb-10">
-            <h1 className="text-4xl font-extrabold text-gray-900 sm:text-5xl mb-4">
+            <div className="text-4xl font-extrabold text-gray-900 sm:text-5xl mb-4">
               Kalkulator Kredytu Hipotecznego
-            </h1>
+            </div>
             <p className="text-lg text-gray-500 max-w-2xl mx-auto">
               Profesjonalne narzędzia do analizy Twojego kredytu w jednym miejscu.
             </p>
@@ -133,6 +140,10 @@ function App() {
               />
 
               <Route path="/faq-kredyt-hipoteczny/" element={<FAQPage />} />
+              <Route path="/o-projekcie/" element={<AboutPage />} />
+              <Route path="/metodologia/" element={<MethodologyPage />} />
+              <Route path="/kontakt/" element={<ContactPage />} />
+              <Route path="/polityka-prywatnosci/" element={<PrivacyPolicyPage />} />
               
               {/* Fallback */}
               <Route path="*" element={<Navigate to="/kalkulator-raty-kredytu/" replace />} />
@@ -140,9 +151,7 @@ function App() {
           </main>
         </div>
 
-        <footer className="mt-20 text-center text-gray-400 text-sm">
-          <p>© {new Date().getFullYear()} Kalkulator Kredytowy - Przejrzystość w finansach</p>
-        </footer>
+        <Footer />
     </div>
   )
 }
