@@ -3,19 +3,21 @@ import { fetchCurrentWIBOR, formatWIBORTimestamp, type WIBORData } from '../util
 
 interface UseWIBORResult {
   wibor: number | null
+  rates: { '3M': number; '6M': number } | null
   loading: boolean
   error: string | null
   lastUpdate: string
-  source: 'stooq' | 'fallback' | null
+  source: string | null
   refresh: () => Promise<void>
 }
 
 export function useWIBOR(autoFetch = true): UseWIBORResult {
   const [wibor, setWibor] = useState<number | null>(null)
+  const [rates, setRates] = useState<{ '3M': number; '6M': number } | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [lastUpdate, setLastUpdate] = useState('')
-  const [source, setSource] = useState<'stooq' | 'fallback' | null>(null)
+  const [source, setSource] = useState<string | null>(null)
 
   const fetchWIBOR = useCallback(async (useCache = true) => {
     setLoading(true)
@@ -24,6 +26,7 @@ export function useWIBOR(autoFetch = true): UseWIBORResult {
     try {
       const data: WIBORData = await fetchCurrentWIBOR(useCache)
       setWibor(data.value)
+      setRates(data.rates)
       setSource(data.source)
       setLastUpdate(formatWIBORTimestamp(data.timestamp))
       
@@ -52,6 +55,7 @@ export function useWIBOR(autoFetch = true): UseWIBORResult {
 
   return {
     wibor,
+    rates,
     loading,
     error,
     lastUpdate,
