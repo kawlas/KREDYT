@@ -19,6 +19,7 @@ interface UseLoanCalculatorReturn {
   saveOffer: (name: string) => void
   deleteOffer: (id: string) => void
   clearAllOffers: () => void
+  getValues: () => LoanFormData
 }
 
 export const useLoanCalculator = (): UseLoanCalculatorReturn => {
@@ -126,6 +127,7 @@ export const useLoanCalculator = (): UseLoanCalculatorReturn => {
     onSubmit: (data: LoanFormData) => onSubmit(data),
     saveOffer,
     deleteOffer,
-    clearAllOffers
+    clearAllOffers,
+    getValues
   }
 }

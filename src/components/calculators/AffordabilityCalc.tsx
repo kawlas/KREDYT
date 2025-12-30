@@ -34,9 +34,9 @@ export const AffordabilityCalc: React.FC = () => {
   }, [values])
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
       {/* Form Section */}
-      <div className="lg:col-span-1 space-y-6">
+      <div className="space-y-6">
         <Card>
           <h2 className="text-xl font-bold text-gray-900 mb-6 border-b pb-4">Dane finansowe</h2>
           
@@ -122,53 +122,51 @@ export const AffordabilityCalc: React.FC = () => {
       </div>
 
       {/* Results Section */}
-      <div className="lg:col-span-2 space-y-6">
-        <div className="bg-white rounded-2xl shadow-sm border p-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-8">Twoja zdolność kredytowa</h2>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-            <div className="bg-green-50 rounded-xl p-6 border border-green-100">
-              <p className="text-sm font-medium text-green-800 mb-1">Dostępny kredyt (szacunkowo)</p>
-              <p className="text-4xl font-black text-gray-900">
-                {formatCurrency(affordabilityResults.maxLoanAmount)}
-              </p>
-              <p className="text-xs text-green-700 mt-2">
-                Przy okresie {formatMonths(affordabilityResults.maxTermMonths)}
-              </p>
-            </div>
-
-            <div className="bg-blue-50 rounded-xl p-6 border border-blue-100">
-              <p className="text-sm font-medium text-blue-800 mb-1">Maksymalna rata</p>
-              <p className="text-4xl font-black text-gray-900">
-                {formatCurrency(affordabilityResults.maxMonthlyPayment)}
-              </p>
-              <p className="text-xs text-blue-700 mt-2">
-                Bezpieczny limit 50% Twojego dochodu netto
-              </p>
-            </div>
+      <div className="space-y-6 md:sticky md:top-8">
+        {/* Card 1: Available Loan */}
+        <Card title="💰 Dostępny kredyt (szacunkowo)">
+          <div className="bg-green-50 rounded-xl p-6 border border-green-100 mb-6">
+            <p className="text-4xl font-black text-gray-900">
+              {formatCurrency(affordabilityResults.maxLoanAmount)}
+            </p>
+            <p className="text-xs text-green-700 mt-2">
+              Przy okresie {formatMonths(affordabilityResults.maxTermMonths)}
+            </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="space-y-4">
-              <h3 className="text-sm font-bold text-gray-900 uppercase tracking-widest border-b pb-2">
-                Parametry obliczeń
-              </h3>
-              <div className="space-y-2">
-                <div className="flex justify-between text-sm">
-                  <span className="text-gray-500">Dochód korygowany:</span>
-                  <span className="font-bold text-gray-900">{formatCurrency(affordabilityResults.effectiveIncome)}</span>
-                </div>
-                <div className="flex justify-between text-sm">
-                  <span className="text-gray-500">Wolne środki na ratę:</span>
-                  <span className="font-bold text-gray-900">{formatCurrency(affordabilityResults.disposableIncome)}</span>
-                </div>
-                <div className="flex justify-between text-sm">
-                  <span className="text-gray-500">Max okres:</span>
-                  <span className="font-bold text-gray-900">{formatMonths(affordabilityResults.maxTermMonths)}</span>
-                </div>
+          <div className="space-y-4">
+            <h3 className="text-sm font-bold text-gray-900 uppercase tracking-widest border-b pb-2">
+              Parametry obliczeń
+            </h3>
+            <div className="space-y-2">
+              <div className="flex justify-between text-sm">
+                <span className="text-gray-500">Dochód korygowany:</span>
+                <span className="font-bold text-gray-900">{formatCurrency(affordabilityResults.effectiveIncome)}</span>
+              </div>
+              <div className="flex justify-between text-sm">
+                <span className="text-gray-500">Wolne środki na ratę:</span>
+                <span className="font-bold text-gray-900">{formatCurrency(affordabilityResults.disposableIncome)}</span>
+              </div>
+              <div className="flex justify-between text-sm">
+                <span className="text-gray-500">Max okres:</span>
+                <span className="font-bold text-gray-900">{formatMonths(affordabilityResults.maxTermMonths)}</span>
               </div>
             </div>
+          </div>
+        </Card>
 
+        {/* Card 2: Max Installment */}
+        <Card title="📈 Maksymalna rata">
+          <div className="bg-blue-50 rounded-xl p-6 border border-blue-100 mb-6">
+            <p className="text-4xl font-black text-gray-900">
+              {formatCurrency(affordabilityResults.maxMonthlyPayment)}
+            </p>
+            <p className="text-xs text-blue-700 mt-2">
+              Bezpieczny limit 50% Twojego dochodu netto
+            </p>
+          </div>
+
+          <div className="space-y-6">
             <div className="space-y-4">
               <h3 className="text-sm font-bold text-gray-900 uppercase tracking-widest border-b pb-2">
                 Co to oznacza?
@@ -182,18 +180,18 @@ export const AffordabilityCalc: React.FC = () => {
                 </p>
               </Alert>
             </div>
-          </div>
 
-          {affordabilityResults.alerts.length > 0 && (
-            <div className="mt-8 pt-8 border-t space-y-3">
-              {affordabilityResults.alerts.map((alert, idx) => (
-                <Alert key={idx} type={alert.type}>
-                  <p className="text-sm">{alert.message}</p>
-                </Alert>
-              ))}
-            </div>
-          )}
-        </div>
+            {affordabilityResults.alerts.length > 0 && (
+              <div className="pt-6 border-t space-y-3">
+                {affordabilityResults.alerts.map((alert, idx) => (
+                  <Alert key={idx} type={alert.type}>
+                    <p className="text-sm">{alert.message}</p>
+                  </Alert>
+                ))}
+              </div>
+            )}
+          </div>
+        </Card>
       </div>
     </div>
   )

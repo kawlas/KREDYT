@@ -84,19 +84,19 @@ const ComparisonTable: React.FC<ComparisonTableProps> = ({ offers, onDelete }) =
         <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-gray-50">
             <tr>
-              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Nazwa oferty
               </th>
-              <th scope="col" className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th scope="col" className="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Rata miesięczna
               </th>
-              <th scope="col" className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th scope="col" className="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Całkowity koszt
               </th>
-              <th scope="col" className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th scope="col" className="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                 RRSO
               </th>
-              <th scope="col" className="relative px-6 py-3">
+              <th scope="col" className="relative px-4 py-3">
                 <span className="sr-only">Akcje</span>
               </th>
             </tr>
@@ -109,7 +109,7 @@ const ComparisonTable: React.FC<ComparisonTableProps> = ({ offers, onDelete }) =
                    offer.name === cheapestOffer?.name ? 'ring-2 ring-inset ring-green-500' : ''
                 }`}
               >
-                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 flex items-center gap-2">
+                <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900 flex items-center gap-2">
                   {offer.name}
                   {offer.name === cheapestOffer?.name && (
                     <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
@@ -117,16 +117,16 @@ const ComparisonTable: React.FC<ComparisonTableProps> = ({ offers, onDelete }) =
                     </span>
                   )}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-right text-gray-500 font-semibold">
+                <td className="px-4 py-4 whitespace-nowrap text-sm text-right text-gray-500 font-semibold">
                   {formatCurrency(offer.results.monthlyPayment)}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-right text-gray-900 font-bold">
+                <td className="px-4 py-4 whitespace-nowrap text-sm text-right text-gray-900 font-bold">
                   {formatCurrency(offer.results.totalCost)}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-right text-blue-600 font-medium">
+                <td className="px-4 py-4 whitespace-nowrap text-sm text-right text-blue-600 font-medium">
                   {offer.results.rrso.toFixed(2)}%
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                <td className="px-4 py-4 whitespace-nowrap text-right text-sm font-medium">
                   <button 
                     onClick={() => onDelete(offer.id)} 
                     className="text-red-600 hover:text-red-900"
