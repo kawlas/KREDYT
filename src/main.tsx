@@ -1,5 +1,5 @@
 import { } from 'react'
-import { createRoot, hydrateRoot } from 'react-dom/client'
+import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import { HelmetProvider } from 'react-helmet-async'
 import { LoanCalculatorProvider } from './context/LoanCalculatorContext'
@@ -21,15 +21,9 @@ const app = (
 )
 
 if (container.hasChildNodes()) {
-  console.log('Hydrating...')
-  try {
-    hydrateRoot(container, app)
-  } catch (e) {
-    console.error('Hydration failed:', e)
-    // Fallback to render if hydration fails (though React usually does this warningly)
-    createRoot(container).render(app)
-  }
-} else {
-  console.log('Rendering (Client-side)...')
-  createRoot(container).render(app)
+  console.log('DOM populated. Switching to Client Rendering to prevent hydration mismatch...')
+  // Clear SSR content to prevent React warning about existing children
+  container.innerHTML = '' 
 }
+
+createRoot(container).render(app)
