@@ -16,7 +16,15 @@ export const handler = async () => {
     const cols = last.split(',')
 
     const date = cols[0]
+    if (cols.length < 5) {
+        throw new Error(`CSV parse error: too few columns. Line: "${last}"`)
+    }
+
     const value = Number(cols[4])
+    
+    if (isNaN(value)) {
+        throw new Error(`WIBOR value is NaN. Line: "${last}"`)
+    }
 
     return {
       statusCode: 200,
@@ -24,7 +32,7 @@ export const handler = async () => {
         'content-type': 'application/json',
         'cache-control': 'public, max-age=3600'
       },
-      body: JSON.stringify({ value, date, source: 'stooq' })
+      body: JSON.stringify({ value, date: cols[0], source: 'stooq' })
     }
   } catch (e: any) {
     console.error('Function execution error:', e)
