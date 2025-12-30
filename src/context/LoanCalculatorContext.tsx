@@ -40,13 +40,7 @@ export function LoanCalculatorProvider({ children }: { children: ReactNode }) {
   const [error, setError] = useState<string | null>(null)
 
   // -- MAIN CALCULATOR FORM --
-  const loadLoanSession = (): Partial<LoanFormData> | null => {
-    try {
-      const stored = sessionStorage.getItem(SESSION_KEY_LOAN)
-      return stored ? JSON.parse(stored) : null
-    } catch { return null }
-  }
-
+  // Initialize with defaults to match Server/SSG
   const defaultLoanValues: LoanFormData = {
     principal: 400000,
     years: 25,
@@ -54,27 +48,34 @@ export function LoanCalculatorProvider({ children }: { children: ReactNode }) {
     margin: 2.0,
     installmentType: 'equal',
     commission: 0,
-    propertyValue: 500000,
-    ...loadLoanSession()
+    propertyValue: 500000
   }
 
   const loanForm = useForm<LoanFormData>({ defaultValues: defaultLoanValues })
   
+  // Hydrate from SessionStorage (Client Only)
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        const stored = sessionStorage.getItem(SESSION_KEY_LOAN)
+        if (stored) {
+          const parsed = JSON.parse(stored)
+          loanForm.reset({ ...defaultLoanValues, ...parsed })
+        }
+      } catch (e) { console.error(e) }
+    }
+  }, []) // Run once on mount
+
   useEffect(() => {
     const sub = loanForm.watch((data) => {
-      sessionStorage.setItem(SESSION_KEY_LOAN, JSON.stringify(data))
+      if (typeof window !== 'undefined') {
+        sessionStorage.setItem(SESSION_KEY_LOAN, JSON.stringify(data))
+      }
     })
     return () => sub.unsubscribe()
   }, [loanForm.watch])
 
   // -- AFFORDABILITY FORM --
-  const loadAffordabilitySession = (): Partial<AffordabilityFormData> | null => {
-    try {
-      const stored = sessionStorage.getItem(SESSION_KEY_AFFORDABILITY)
-      return stored ? JSON.parse(stored) : null
-    } catch { return null }
-  }
-
   const defaultAffordabilityValues: AffordabilityFormData = {
     income: 10000,
     employmentType: 'UOP',
@@ -82,15 +83,29 @@ export function LoanCalculatorProvider({ children }: { children: ReactNode }) {
     dependents: 0,
     age: 30,
     wibor: 5.85,
-    margin: 2.0,
-    ...loadAffordabilitySession()
+    margin: 2.0
   }
 
   const affordabilityForm = useForm<AffordabilityFormData>({ defaultValues: defaultAffordabilityValues })
 
+  // Hydrate Affordability from Session
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        const stored = sessionStorage.getItem(SESSION_KEY_AFFORDABILITY)
+        if (stored) {
+          const parsed = JSON.parse(stored)
+          affordabilityForm.reset({ ...defaultAffordabilityValues, ...parsed })
+        }
+      } catch (e) { console.error(e) }
+    }
+  }, [])
+
   useEffect(() => {
     const sub = affordabilityForm.watch((data) => {
-      sessionStorage.setItem(SESSION_KEY_AFFORDABILITY, JSON.stringify(data))
+      if (typeof window !== 'undefined') {
+        sessionStorage.setItem(SESSION_KEY_AFFORDABILITY, JSON.stringify(data))
+      }
     })
     return () => sub.unsubscribe()
   }, [affordabilityForm.watch])
@@ -98,6 +113,7 @@ export function LoanCalculatorProvider({ children }: { children: ReactNode }) {
 
   // Load offers from localStorage on mount
   useEffect(() => {
+    if (typeof window === 'undefined') return
     const stored = localStorage.getItem(STORAGE_KEY)
     if (stored) {
       try {
@@ -113,6 +129,7 @@ export function LoanCalculatorProvider({ children }: { children: ReactNode }) {
 
   // Persist offers to localStorage on change
   useEffect(() => {
+    if (typeof window === 'undefined') return
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify({
         offers: savedOffers,
@@ -126,6 +143,7 @@ export function LoanCalculatorProvider({ children }: { children: ReactNode }) {
 
   // Hydrate from URL params on mount (SEO/Sharing)
   useEffect(() => {
+    if (typeof window === 'undefined') return
     const params = new URLSearchParams(window.location.search)
     // Check if we have shareable params
     if (params.has('amount') || params.has('period')) {
@@ -156,10 +174,14 @@ export function LoanCalculatorProvider({ children }: { children: ReactNode }) {
       if (pValue) updates.propertyValue = Number(pValue)
       
       if (Object.keys(updates).length > 0) {
-        // Merge with defaults/session, favouring URL
-        loanForm.reset({ ...loanForm.getValues(), ...updates })
-        // Trigger calculation automatically if we have data
-        setTimeout(() => loanForm.trigger(), 100)
+        // Merge with current values (which might have just been loaded from session? Race condition?)
+        // Ideally URL params override session.
+        // We defer this slightly or chain logic.
+        // For simplicity: URL params win.
+        setTimeout(() => {
+            loanForm.reset({ ...loanForm.getValues(), ...updates })
+            loanForm.trigger()
+        }, 200) 
       }
     }
   }, []) // run once on mount

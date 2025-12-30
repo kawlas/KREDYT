@@ -1,0 +1,15 @@
+# Redirect root to main calculator
+/  /kalkulator-raty-kredytu/  301!
+
+# Handle assets
+/assets/*  /assets/:splat  200
+
+# SPA/History Fallback - If a file exists, serve it. If not, serve catch-all (404 page)
+# But since we prerendered specific routes, they exist. 
+# Anything else is likely a 404 or dynamic route.
+
+# If we had dynamic routes (e.g. /offer/:id) we would need:
+# /offer/*  /index.html  200
+
+# For now, just standard 404 for unknown
+/* /index.html 404
