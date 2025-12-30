@@ -26,14 +26,14 @@ export const handler = async () => {
       },
       body: JSON.stringify({ value, date, source: 'stooq' })
     }
-  } catch (e) {
+  } catch (e: any) {
+    console.error('Function execution error:', e)
     return {
-      statusCode: 200,
+      statusCode: 500,
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify({
-        value: 5.85,
-        date: new Date().toISOString().slice(0, 10),
-        source: 'fallback'
+        error: e.message || String(e),
+        stack: e.stack
       })
     }
   }

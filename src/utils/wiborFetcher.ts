@@ -75,7 +75,15 @@ export async function fetchCurrentWIBOR(useCache = true): Promise<WIBORData> {
     })
 
     if (!response.ok) {
-      throw new Error(`HTTP ${response.status}`)
+      let errorDetails = ''
+      try {
+        const errJson = await response.json()
+        errorDetails = JSON.stringify(errJson)
+        console.error('Proxy returned error:', errJson)
+      } catch (e) {
+        errorDetails = await response.text()
+      }
+      throw new Error(`HTTP ${response.status} - ${errorDetails}`)
     }
 
     const json = (await response.json()) as ProxyResponse
