@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { Routes, Route, Navigate, NavLink } from 'react-router-dom'
 import Card from './components/shared/Card'
 import { animate } from 'motion'
 import { useLoanCalculator } from './hooks/useLoanCalculator'
@@ -11,15 +11,16 @@ import WiborSimulator from './components/calculators/WiborSimulator'
 import TabContainer from './components/layout/TabContainer'
 import SaveCalculationModal from './components/calculators/SaveCalculationModal'
 import SavedCalculationsList from './components/calculators/SavedCalculationsList'
-
-// import BankComparison from './components/calculators/BankComparison' // REMOVED
 import { getSavedCalculations, type SavedCalculation } from './utils/calculationStorage'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useWIBOR } from './hooks/useWIBOR'
 import WIBORDisplay from './components/shared/WIBORDisplay'
+import AffordabilityPage from './pages/AffordabilityPage'
+import CalculatorPage from './pages/CalculatorPage'
+import PaymentComparisonPage from './pages/PaymentComparisonPage'
+import WiborSimulatorPage from './pages/WiborSimulatorPage'
 
 function App() {
-  const [activeTab, setActiveTab] = useState('affordability')
   const {
     register,
     handleSubmit,
@@ -37,49 +38,12 @@ function App() {
     setResults,
     setValue
   } = useLoanCalculator()
-  
-  const { wibor, loading: wiborLoading, error: wiborError, lastUpdate, source, refresh } = useWIBOR(true)
-
-  // Auto-fill WIBOR when loaded
-  useEffect(() => {
-    if (wibor && (!getValues().wibor || getValues().wibor === 5.85)) {
-      setValue('wibor', wibor)
-    }
-  }, [wibor, setValue, getValues])
-
-  const [showSaveModal, setShowSaveModal] = useState(false)
-  const [showLoadModal, setShowLoadModal] = useState(false)
-  const [savedScenariosCount, setSavedScenariosCount] = useState(0)
-
-  useEffect(() => {
-    setSavedScenariosCount(getSavedCalculations().length)
-  }, [])
-
-  const handleLoadScenario = (scenario: SavedCalculation) => {
-    reset(scenario.formData)
-    setResults(scenario.results)
-    alert(`✓ Wczytano scenariusz: ${scenario.name}`)
-  }
-
-  const handleSaved = () => {
-    setSavedScenariosCount(getSavedCalculations().length)
-  }
-  
-  const shakeElement = (element: HTMLElement) => {
-    animate(
-      element as HTMLElement,
-      { x: [0, -10, 10, -10, 10, 0] },
-      { duration: 0.4, ease: "easeInOut" }
-    )
-  }
 
   const tabs = [
-    { id: 'affordability', label: 'Zdolność kredytowa', icon: '💰' },
-    { id: 'calculator', label: 'Kalkulator raty', icon: '🧮' },
-    { id: 'comparison', label: 'Porównanie rat', icon: '⚖️' },
-    { id: 'wibor', label: 'Symulacja WIBOR', icon: '📊' },
-    { id: 'wibor', label: 'Symulacja WIBOR', icon: '📊' },
-    // { id: 'banks', label: 'Porównanie banków', icon: '🏦' } // REMOVED
+    { id: 'affordability', label: 'Zdolność kredytowa', icon: '💰', path: '/zdolnosc-kredytowa' },
+    { id: 'calculator', label: 'Kalkulator raty', icon: '🧮', path: '/kalkulator-raty' },
+    { id: 'comparison', label: 'Porównanie rat', icon: '⚖️', path: '/porownanie-rat' },
+    { id: 'wibor', label: 'Symulacja WIBOR', icon: '📊', path: '/symulacja-wibor' },
   ]
 
   return (
@@ -98,160 +62,75 @@ function App() {
           <div className="max-w-6xl mx-auto px-4">
             <div className="flex flex-wrap gap-2 py-4">
               {tabs.map((tab) => (
-                <button
+                <NavLink
                   key={tab.id}
-                  onClick={() => setActiveTab(tab.id)}
-                  className={`
-                    flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-all
-                    ${activeTab === tab.id 
-                      ? 'bg-blue-600 text-white shadow-md' 
-                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                    }
-                  `}
+                  to={tab.path}
+                  className={({ isActive }) =>
+                    `flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-all
+                     ${isActive 
+                       ? 'bg-blue-600 text-white shadow-md' 
+                       : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                     }`
+                  }
                 >
                   <span className="text-xl">{tab.icon}</span>
                   <span className="hidden sm:inline">{tab.label}</span>
-                </button>
+                </NavLink>
               ))}
             </div>
           </div>
         </nav>
 
         <main className="space-y-8">
-          {activeTab === 'calculator' && (
-            <TabContainer
-              title="Oblicz ratę swojego kredytu"
-              subtitle="Wypełnij formularz, aby zobaczyć szczegółowy koszt kredytu"
-            >
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
-                <div className="space-y-8">
-                  <section>
-                    <div className="mb-6">
-                      <WIBORDisplay 
-                        wibor={wibor} 
-                        loading={wiborLoading} 
-                        error={wiborError} 
-                        lastUpdate={lastUpdate} 
-                        source={source} 
-                        onRefresh={refresh} 
-                      />
-                    </div>
-                    <LoanForm 
-                      onSubmit={handleSubmit(onSubmit)}
-                      isLoading={isLoading}
-                      register={register}
-                      trigger={trigger}
-                      errors={errors}
-                    />
-                  </section>
-
-                  {savedOffers.length > 0 && (
-                    <section data-animate-item>
-                      <Card title="Twoje porównania">
-                        <ComparisonTable 
-                          offers={savedOffers}
-                          onDelete={deleteOffer}
-                        />
-                      </Card>
-                    </section>
-                  )}
-                </div>
-
-                <section className="sticky top-8">
-                  {error && (
-                    <div 
-                      ref={(el) => el && shakeElement(el)}
-                      className="bg-red-50 border border-red-200 text-red-800 p-4 rounded-lg mb-6"
-                    >
-                      {error}
-                    </div>
-                  )}
-
-                  {results ? (
-                    <ResultsCard 
-                      {...results}
-                      loanAmount={getValues().principal}
-                      propertyValue={getValues().propertyValue || getValues().principal / 0.8}
-                      wibor={getValues().wibor}
-                      margin={getValues().margin}
-                      loanTermYears={getValues().years}
-                      onSave={saveOffer}
-                    />
-                  ) : (
-                    <div className="bg-white p-12 rounded-2xl shadow-sm border border-dashed border-gray-300 text-center">
-                      <div className="text-4xl mb-4">📊</div>
-                      <p className="text-gray-500 font-medium">Wprowadź dane kredytu, aby zobaczyć szczegółowe wyliczenia</p>
-                    </div>
-                  )}
-
-                  <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <button
-                      onClick={() => setShowLoadModal(true)}
-                      className="flex items-center justify-center gap-3 px-6 py-4 bg-white border-2 border-blue-600 text-blue-600 rounded-xl hover:bg-blue-50 font-bold transition-all shadow-lg shadow-blue-500/5 group"
-                    >
-                      <span className="text-2xl group-hover:scale-110 transition-transform">📂</span>
-                      <div className="text-left">
-                        <div className="text-sm leading-tight">Zapisane wyliczenia</div>
-                        <div className="text-[10px] uppercase tracking-wider opacity-70">Zapisano: {savedScenariosCount}</div>
-                      </div>
-                    </button>
-
-                    {results && (
-                      <button
-                        onClick={() => setShowSaveModal(true)}
-                        className="flex items-center justify-center gap-3 px-6 py-4 bg-green-600 text-white rounded-xl hover:bg-green-700 font-bold transition-all shadow-lg shadow-green-500/20 group"
-                      >
-                        <span className="text-2xl group-hover:scale-110 transition-transform">💾</span>
-                        <div className="text-left">
-                          <div className="text-sm leading-tight">Zapisz wyliczenie</div>
-                          <div className="text-[10px] uppercase tracking-wider opacity-70">Do pamięci lokalnej</div>
-                        </div>
-                      </button>
-                    )}
-                  </div>
-                </section>
-              </div>
-
-              <SaveCalculationModal
-                isOpen={showSaveModal}
-                onClose={() => setShowSaveModal(false)}
-                formData={{
-                  ...getValues(),
-                  propertyValue: getValues().propertyValue || getValues().principal / 0.8
-                }}
-                results={results!}
-                onSaved={handleSaved}
-              />
-
-              <SavedCalculationsList
-                isOpen={showLoadModal}
-                onClose={() => setShowLoadModal(false)}
-                onLoad={handleLoadScenario}
-              />
-            </TabContainer>
-          )}
-
-          {activeTab === 'affordability' && <AffordabilityCalc />}
-
-          {activeTab === 'comparison' && (
-            <PaymentComparison
-              loanAmount={Number(getValues().principal) || 400000}
-              annualRate={Number(getValues().wibor || 5.85) + Number(getValues().margin || 2)}
-              loanTermYears={Number(getValues().years) || 25}
+          <Routes>
+            <Route path="/" element={<Navigate to="/zdolnosc-kredytowa" replace />} />
+            <Route path="/zdolnosc-kredytowa" element={<AffordabilityPage />} />
+            <Route 
+              path="/kalkulator-raty" 
+              element={
+                <CalculatorPage
+                  register={register}
+                  handleSubmit={handleSubmit}
+                  trigger={trigger}
+                  onSubmit={onSubmit}
+                  results={results}
+                  savedOffers={savedOffers}
+                  isLoading={isLoading}
+                  error={error}
+                  saveOffer={saveOffer}
+                  deleteOffer={deleteOffer}
+                  errors={errors}
+                  getValues={getValues}
+                  reset={reset}
+                  setResults={setResults}
+                  setValue={setValue}
+                />
+              } 
             />
-          )}
-
-          {activeTab === 'wibor' && (
-            <WiborSimulator
-              loanAmount={Number(getValues().principal) || 400000}
-              loanTermYears={Number(getValues().years) || 25}
-              margin={Number(getValues().margin || 2)}
-              baseWibor={Number(getValues().wibor || 5.85)}
-              installmentType={getValues().installmentType || 'equal'}
+            <Route 
+              path="/porownanie-rat" 
+              element={
+                <PaymentComparisonPage
+                  loanAmount={Number(getValues().principal) || 400000}
+                  annualRate={Number(getValues().wibor || 5.85) + Number(getValues().margin || 2)}
+                  loanTermYears={Number(getValues().years) || 25}
+                />
+              } 
             />
-          )}
-
-
+            <Route 
+              path="/symulacja-wibor" 
+              element={
+                <WiborSimulatorPage
+                  loanAmount={Number(getValues().principal) || 400000}
+                  loanTermYears={Number(getValues().years) || 25}
+                  margin={Number(getValues().margin || 2)}
+                  baseWibor={Number(getValues().wibor || 5.85)}
+                  installmentType={getValues().installmentType || 'equal'}
+                />
+              } 
+            />
+            <Route path="*" element={<Navigate to="/zdolnosc-kredytowa" replace />} />
+          </Routes>
         </main>
       </div>
 
