@@ -1,17 +1,24 @@
 export const handler = async () => {
   try {
-    const url = 'https://stooq.pl/q/d/l/?s=wibor3m&i=d'
+    // Using wibor3m symbol with explicit CSV format
+    const url = 'https://stooq.pl/q/l/?s=wibor3m&f=sd2ohlc&e=csv'
     const res = await fetch(url, {
       headers: {
-        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+        'Accept': 'text/csv,text/plain,*/*',
+        'Accept-Language': 'pl-PL,pl;q=0.9,en-US;q=0.8,en;q=0.7',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36',
+        'Referer': 'https://stooq.pl/q/?s=wibor3m'
       }
     })
     if (!res.ok) {
-      return { statusCode: res.status, body: JSON.stringify({ error: 'stooq_failed' }) }
+      return { statusCode: res.status, body: JSON.stringify({ error: `stooq_failed_http_${res.status}` }) }
     }
 
-    const csv = await res.text()
-    const lines = csv.trim().split('\n')
+    const csv = (await res.text()).trim()
+    if (csv.includes('Brak danych')) {
+        throw new Error('Stooq returned "Brak danych" - possibly rate limited or market closed.')
+    }
+    const lines = csv.split('\n')
     const last = lines[lines.length - 1]
     const cols = last.split(',')
 
