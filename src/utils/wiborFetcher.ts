@@ -5,7 +5,7 @@ export interface WIBORData {
   timestamp: number
 }
 
-const STOOQ_URL = 'https://stooq.pl/q/d/l/?s=wibor3m&i=d'
+const STOOQ_URL = '/.netlify/functions/wibor'
 const FALLBACK_WIBOR = 5.85
 const CACHE_KEY = 'wibor_cache'
 const CACHE_DURATION = 3600000 // 1 hour in ms
