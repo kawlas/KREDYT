@@ -35,9 +35,9 @@ export function calculateCostBreakdown(
   const actualReceived = loanAmount - provision
 
   // Total koszt
-  const allPayments = monthlyPayment * loanTermYears * 12
-  const yearlyCosts25Years = yearlyTotal * loanTermYears
-  const grandTotal = allPayments + upfrontTotal + yearlyCosts25Years
+  const allPayments = loanAmount + totalInterest
+  const yearlyCostsOverTerm = yearlyTotal * loanTermYears
+  const grandTotal = allPayments + upfrontTotal + yearlyCostsOverTerm
 
   return {
     upfrontCosts: {
@@ -60,7 +60,7 @@ export function calculateCostBreakdown(
       principal: loanAmount,
       interest: totalInterest,
       upfrontCosts: upfrontTotal,
-      yearlyCosts25Years,
+      yearlyCostsOverTerm,
       grandTotal
     }
   }

@@ -14,6 +14,9 @@ export const calculateMonthlyPayment = (
   if (principal < 0 || months < 0 || annualRate < 0) {
     throw new Error('Negative values are not allowed')
   }
+  if (annualRate > 100) {
+    throw new Error('Annual rate exceeds 100% — please check WIBOR and margin values')
+  }
 
   if (months === 0) return 0
   if (principal === 0) return 0
@@ -47,8 +50,7 @@ interface AmortizationRow {
 /**
  * Generates a full amortization schedule.
  */
-// Internal helper - UI for schedule is post-MVP
-const generateAmortizationSchedule = (
+export const generateAmortizationSchedule = (
   principal: number,
   annualRate: number,
   months: number,
@@ -123,90 +125,60 @@ export const calculateTotalCost = (
 }
 
 /**
- * Calculates RRSO (Real Annual Percentage Rate) using binary search to find IRR.
- * Assumes the total cost is paid in equal monthly installments for the estimation.
- * Formula: Sum(Payment / (1+r)^i) = Principal
- * RRSO = ((1+r)^12 - 1) * 100
+ * Calculates RRSO (Rzeczywista Roczna Stopa Oprocentowania) using binary search
+ * on the actual amortization schedule cash flows.
+ *
+ * Cash flows:
+ *   t=0: -(principal - commission)  [net amount received]
+ *   t=1..months: +monthlyPayment_t  [installment payments]
+ *   t=12,24,...: +yearlyCosts       [yearly insurance etc.]
+ *
+ * Finds the monthly rate r such that NPV = 0, then annualizes: ((1+r)^12 - 1) * 100
  */
 export const calculateRRSO = (
   principal: number,
-  totalCost: number,
-  months: number
+  annualRate: number,
+  months: number,
+  installmentType: 'equal' | 'declining',
+  commission: number = 0,
+  upfrontCostsExclCommission: number = 0,
+  yearlyCosts: number = 0
 ): number => {
-  if (principal <= 0 || totalCost <= 0 || months <= 0) return 0
-  if (totalCost <= principal) return 0
+  if (principal <= 0 || months <= 0) return 0
 
-  const avgMonthlyPayment = totalCost / months
-  
-  // Binary search for monthly rate 'r'
-  let low = 0
-  let high = 1 // 100% monthly rate is a safe upper bound
-  let guess = 0.05 / 12
-  const epsilon = 0.000001 // Precision
-  
-  for (let i = 0; i < 50; i++) { // Max iterations
-    guess = (low + high) / 2
-    
-    // Calculate Present Value of payments at this rate
-    // PV = Payment * (1 - (1+r)^-n) / r
-    let pv = 0
-    if (guess === 0) {
-      pv = avgMonthlyPayment * months
-    } else {
-      pv = avgMonthlyPayment * ((1 - Math.pow(1 + guess, -months)) / guess)
+  const schedule = generateAmortizationSchedule(principal, annualRate, months, installmentType)
+  const netReceived = principal - commission - upfrontCostsExclCommission
+  if (netReceived <= 0) return 0
+
+  let low = -0.01
+  let high = 0.15
+  const epsilon = 1e-8
+
+  for (let i = 0; i < 80; i++) {
+    const r = (low + high) / 2
+    let npv = -netReceived
+
+    for (let j = 0; j < schedule.length; j++) {
+      const month = j + 1
+      let payment = schedule[j].totalPayment
+      if (yearlyCosts > 0 && month % 12 === 0) {
+        payment += yearlyCosts
+      }
+      npv += payment / Math.pow(1 + r, month)
     }
-    
-    if (Math.abs(pv - principal) < epsilon) {
-      break
-    }
-    
-    if (pv > principal) {
-      // Rate is too low (Present Value is too high)
-      low = guess
-    } else {
-      // Rate is too high
-      high = guess
-    }
+
+    if (Math.abs(npv) < epsilon) break
+    if (npv > 0) low = r
+    else high = r
   }
-  
-  const r = guess
-  // Annualize: ((1+r)^12 - 1) * 100
-  return (Math.pow(1 + r, 12) - 1) * 100
+
+  const monthlyRate = (low + high) / 2
+  return (Math.pow(1 + monthlyRate, 12) - 1) * 100
 }
 
-export interface RefinancingResult {
-    monthlySavings: number
-    totalSavings: number
-    breakevenMonths: number
-}
+// Replaced by src/utils/refinancing.ts
 
-/**
- * Calculates potential savings from refinancing.
- * Assumes equal installments for basic comparison.
- */
-export const calculateRefinancingCost = (
-    currentBalance: number,
-    oldAnnualRate: number,
-    newAnnualRate: number,
-    remainingMonths: number,
-    transferFees: number = 0
-): RefinancingResult => {
-    const oldMonthlyPayment = calculateMonthlyPayment(currentBalance, oldAnnualRate, remainingMonths, 'equal')
-    const newMonthlyPayment = calculateMonthlyPayment(currentBalance, newAnnualRate, remainingMonths, 'equal')
-    
-    const monthlySavings = oldMonthlyPayment - newMonthlyPayment
-    const totalOldCost = oldMonthlyPayment * remainingMonths
-    const totalNewCost = (newMonthlyPayment * remainingMonths) + transferFees
-    
-    const totalSavings = totalOldCost - totalNewCost
-    const breakevenMonths = monthlySavings > 0 ? transferFees / monthlySavings : 0
-
-    return {
-        monthlySavings,
-        totalSavings,
-        breakevenMonths
-    }
-}
+// Removed — use calculateRefinancingAnalysis from refinancing.ts
 
 /**
  * Main wrapper function used by the UI components.
@@ -214,21 +186,15 @@ export const calculateRefinancingCost = (
  * Maintains backward compatibility with LoanFormData using the new core functions.
  */
 export const calculateLoanResults = (data: LoanFormData): LoanResults => {
-  const { principal, years, wibor, margin, installmentType, commission = 0, propertyValue } = data
+  const { principal, years, wibor, margin, installmentType, propertyValue: rawPropertyValue } = data
+  const commission = Number.isFinite(data.commission) ? data.commission : 0
+  const propertyValue = Number.isFinite(rawPropertyValue) ? rawPropertyValue : principal / 0.8
   const months = years * 12
   const annualRate = wibor + margin
 
-  // 1. Monthly Payment
   const monthlyPayment = calculateMonthlyPayment(principal, annualRate, months, installmentType)
-
-  // 2. Total Cost & Interest
   const totalInterestBase = calculateTotalCost(principal, annualRate, months, installmentType, 0) - principal
-  
-  // 3. RRSO
-  const totalCostIncludingCommission = principal + totalInterestBase + commission
-  const rrso = calculateRRSO(principal, totalCostIncludingCommission, months)
 
-  // 4. Detailed Breakdown
   const breakdown = calculateCostBreakdown(
     principal,
     propertyValue || principal / 0.8,
@@ -237,23 +203,24 @@ export const calculateLoanResults = (data: LoanFormData): LoanResults => {
     years
   )
 
+  const upfrontExclCommission = breakdown.upfrontCosts.total - breakdown.upfrontCosts.provision
+
+  const rrso = calculateRRSO(
+    principal, annualRate, months, installmentType,
+    commission + breakdown.upfrontCosts.provision,
+    upfrontExclCommission,
+    breakdown.yearlyCosts.total
+  )
+
   return {
     monthlyPayment,
-    totalCost: breakdown.totalCost.grandTotal, // Aktualizujemy pole totalCost na pełniejszą sumę
+    totalCost: breakdown.totalCost.allPayments,
     totalInterest: totalInterestBase,
     rrso,
+    allInCost: breakdown.totalCost.grandTotal,
     breakdown
   }
 }
 
 
-/**
- * Calculates total interest (Total Cost - Principal - Commission)
- */
-export const calculateTotalInterest = (
-  totalCost: number,
-  principal: number,
-  commission: number = 0
-): number => {
-  return totalCost - principal - commission
-}
+// calculateTotalInterest removed — computed directly in calculateLoanResults

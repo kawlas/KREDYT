@@ -64,3 +64,23 @@ const { rates, updated } = await response.json();
 console.log('WIBOR 3M:', rates['3M']);
 ```
 
+
+---
+
+## 📊 Źródła danych o ofertach bankowych
+
+Aplikacja wykorzystuje dane o aktualnych marżach kredytowych z następujących źródeł:
+
+### Aktualne źródło (bezpłatne)
+- **Bankier.pl** - ranking kredytów hipotecznych (dane publicznie dostępne)
+- Automatyczna aktualizacja przez GitHub Actions co tydzień
+- Skrypt: `scripts/fetch-bank-offers.js`
+- Workflow: `.github/workflows/update-bank-offers.yml`
+
+### Alternatywne źródła (planowane na przyszłość)
+- **Rankomat.pl** - posiada szczegółowe dane B2B, wymaga płatnego dostępu API
+- **TotalMoney.pl** - porównywarka produktów finansowych, dane dostępne w modelu B2B
+- Możliwość integracji w przyszłości po uzyskaniu odpowiednich licencji dostępu do danych
+
+> ℹ️ Źródła Rankomat i TotalMoney oferują bardziej szczegółowe dane B2B, ale obecnie wymagają płatnych subskrypcji. Ich integracja jest możliwa w przyszłości jako rozwinięcie funkcjonalności porównywarki ofert.
+

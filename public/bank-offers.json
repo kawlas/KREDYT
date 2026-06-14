@@ -1,0 +1,16 @@
+{
+  "updated": "2026-06-14T10:00:00.000Z",
+  "wiborRef": 3.85,
+  "source": "Bankier.pl — ranking kredytów hipotecznych (dane z Q2 2026)",
+  "sourceUrl": "https://www.bankier.pl/smart/mieszkaniowe/ranking-kredytow-hipotecznych",
+  "banks": [
+    { "id": "pko-bp", "name": "PKO BP", "margin": 2.00, "totalRate": 5.85 },
+    { "id": "ing", "name": "ING Bank Śląski", "margin": 1.95, "totalRate": 5.80 },
+    { "id": "santander", "name": "Santander Bank Polska", "margin": 2.80, "totalRate": 6.65 },
+    { "id": "mbank", "name": "mBank", "margin": 2.10, "totalRate": 5.95 },
+    { "id": "millennium", "name": "Bank Millennium", "margin": 2.50, "totalRate": 6.35 },
+    { "id": "pekao", "name": "Bank Pekao SA", "margin": 3.10, "totalRate": 6.95 },
+    { "id": "alior", "name": "Alior Bank", "margin": 2.60, "totalRate": 6.45 }
+  ],
+  "disclaimer": "Marże są wartościami orientacyjnymi na podstawie publicznie dostępnych rankingów. Rzeczywista oferta zależy od indywidualnej oceny zdolności kredytowej, LTV i negocjacji z bankiem."
+}

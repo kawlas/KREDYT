@@ -3,7 +3,6 @@ import {
   calculateMonthlyPayment,
   calculateTotalCost,
   calculateRRSO,
-  calculateRefinancingCost,
 } from './loanCalculations'
 
 describe('loanCalculations', () => {
@@ -26,6 +25,10 @@ describe('loanCalculations', () => {
 
     it('throws error for negative values', () => {
       expect(() => calculateMonthlyPayment(-100, 5, 300, 'equal')).toThrow()
+    })
+
+    it('throws error for rate > 100%', () => {
+      expect(() => calculateMonthlyPayment(100000, 150, 300, 'equal')).toThrow()
     })
   })
 
@@ -68,39 +71,24 @@ describe('loanCalculations', () => {
   })
 
   describe('calculateRRSO', () => {
-    it('calculates RRSO correctly for simple case', () => {
-      // 1000 PLN, 1 year, 10% interest, 0 fees, equal installments
-      // Total cost approx 1055.
-      // RRSO should be close to nominal 10% if no fees? Actually APR vs APY.
-      // 1000 loan, 12 payments of 87.92.
-      // 10% nominal.
-      const rrso = calculateRRSO(1000, 1054.99, 12)
-      expect(rrso).toBeCloseTo(10.47, 1) // Approximate check
+    it('calculates RRSO correctly for simple case (no fees)', () => {
+      // 1000 PLN, 1 year, 10% nominal, equal installments, no fees
+      // RRSO should match the APY: (1 + 0.10/12)^12 - 1 ≈ 10.47%
+      const rrso = calculateRRSO(1000, 10, 12, 'equal', 0, 0, 0)
+      expect(rrso).toBeCloseTo(10.47, 1)
     })
-    
-    it('calculates RRSO with fees', () => {
-      // High fees should increase RRSO significantly
-      const rrso = calculateRRSO(1000, 1500, 12)
-      expect(rrso).toBeGreaterThan(10)
+
+    it('calculates RRSO higher with fees', () => {
+      // Commission reduces net received → RRSO > nominal
+      const rrsoWithFees = calculateRRSO(1000, 10, 12, 'equal', 200, 0, 0)
+      const rrsoNoFees = calculateRRSO(1000, 10, 12, 'equal', 0, 0, 0)
+      expect(rrsoWithFees).toBeGreaterThan(rrsoNoFees)
+    })
+
+    it('returns 0 for invalid inputs', () => {
+      expect(calculateRRSO(0, 10, 12, 'equal')).toBe(0)
+      expect(calculateRRSO(1000, 10, 0, 'equal')).toBe(0)
     })
   })
 
-  describe('calculateRefinancingCost', () => {
-    it('calculates savings correctly', () => {
-      // 300k debt
-      // Old: 9%, New: 6%
-      // Remaining: 20 years (240 months)
-      // Fees: 2000
-      
-      const result = calculateRefinancingCost(300000, 9, 6, 240, 2000)
-      expect(result.monthlySavings).toBeGreaterThan(0)
-      expect(result.totalSavings).toBeGreaterThan(0)
-      expect(result.breakevenMonths).toBeGreaterThan(0)
-    })
-
-    it('returns 0 savings if new rate is higher', () => {
-      const result = calculateRefinancingCost(300000, 5, 8, 240, 0)
-      expect(result.monthlySavings).toBeLessThan(0)
-    })
-  })
 })

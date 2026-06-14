@@ -29,6 +29,25 @@ export function calculateAffordability(params: AffordabilityParams): Affordabili
   const { income, employmentType, obligations, dependents, age, wibor, margin } = params
   const constants = LOAN_CONSTANTS.AFFORDABILITY
 
+  const alerts: AffordabilityResult['alerts'] = []
+
+  // 0. Age validation
+  if (age < 18) {
+    return {
+      maxLoanAmount: 0, maxMonthlyPayment: 0, maxTermMonths: 0,
+      effectiveIncome: 0, disposableIncome: 0, ltv80PropertyValue: 0,
+      alerts: [{ type: 'warning', message: 'Minimalny wiek kredytobiorcy to 18 lat.' }]
+    }
+  }
+
+  if (age >= constants.MAX_AGE) {
+    return {
+      maxLoanAmount: 0, maxMonthlyPayment: 0, maxTermMonths: 0,
+      effectiveIncome: 0, disposableIncome: 0, ltv80PropertyValue: 0,
+      alerts: [{ type: 'warning', message: `Wiek (${age} lat) przekracza maksymalny wiek kredytowania (${constants.MAX_AGE} lat).` }]
+    }
+  }
+
   // 1. Effective Income based on employment type
   const multiplier = constants.EMPLOYMENT_MULTIPLIERS[employmentType]
   const effectiveIncome = income * multiplier
@@ -37,7 +56,6 @@ export function calculateAffordability(params: AffordabilityParams): Affordabili
   const minLivingCosts = constants.MIN_LIVING_COST_PER_PERSON * (dependents + 1)
 
   // 3. Disposable income for loan installment
-  // Formula: (Effective Income - obligations - min living) * MAX_DSTI
   const incomeRemaining = effectiveIncome - obligations - minLivingCosts
   const disposableIncome = Math.max(0, incomeRemaining * constants.MAX_DSTI)
 
@@ -68,8 +86,6 @@ export function calculateAffordability(params: AffordabilityParams): Affordabili
   const ltv80PropertyValue = maxLoanAmount / 0.8
 
   // 7. Contextual Alerts
-  const alerts: AffordabilityResult['alerts'] = []
-
   if (employmentType === 'B2B') {
     alerts.push({
       type: 'info',

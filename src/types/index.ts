@@ -38,16 +38,17 @@ export interface CostBreakdown {
     principal: number
     interest: number
     upfrontCosts: number
-    yearlyCosts25Years: number
+    yearlyCostsOverTerm: number
     grandTotal: number
   }
 }
 
 export interface LoanResults {
   monthlyPayment: number     // Miesięczna rata (bazowa)
-  totalCost: number          // Całkowity koszt (stare pole, zachowane dla kompatybilności)
+  totalCost: number          // Suma wszystkich rat (kapitał + odsetki)
   totalInterest: number      // Suma odsetek
   rrso: number               // RRSO w %
+  allInCost?: number         // Pełny koszt kredytu (raty + prowizje + ubezpieczenia)
   breakdown?: CostBreakdown   // Szczegółowy podział kosztów
 }
 

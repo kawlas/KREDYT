@@ -72,7 +72,7 @@ export default function SaveCalculationModal({
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
-            <span className="text-3xl">💾</span> Zapisz obliczenia
+            Zapisz obliczenia
           </h2>
           <button 
             onClick={handleClose} 
@@ -135,7 +135,7 @@ export default function SaveCalculationModal({
           </div>
           {error && (
             <p className="mt-3 text-sm text-red-600 font-medium flex items-center gap-1.5">
-              <span className="text-lg">⚠️</span> {error}
+              {error}
             </p>
           )}
         </div>
@@ -155,7 +155,7 @@ export default function SaveCalculationModal({
           >
             {saving ? 'Zapisuję...' : (
               <>
-                <span>💾</span> Zapisz
+                Zapisz
               </>
             )}
           </button>

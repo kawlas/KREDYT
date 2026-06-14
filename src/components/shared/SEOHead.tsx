@@ -2,22 +2,41 @@
 import { Helmet } from 'react-helmet-async'
 import { useLocation } from 'react-router-dom'
 
+interface BreadcrumbItem {
+  name: string
+  href: string
+}
+
 interface SEOHeadProps {
   title: string
   description: string
   type?: 'website' | 'article'
+  image?: string
+  publishedTime?: string
+  breadcrumbs?: BreadcrumbItem[]
 }
 
-export default function SEOHead({ title, description, type = 'website' }: SEOHeadProps) {
+const siteUrl = (typeof import.meta !== 'undefined' && import.meta.env?.VITE_SITE_URL)
+  || 'https://kredytkalkulator.netlify.app'
+
+function breadcrumbJsonLd(items: BreadcrumbItem[]) {
+  return JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: items.map((item, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: item.name,
+      item: item.href,
+    })),
+  })
+}
+
+export default function SEOHead({ title, description, type = 'website', image, publishedTime, breadcrumbs }: SEOHeadProps) {
   const location = useLocation()
-  
-  // In a real build, VITE_SITE_URL would be passed in via env or config.
-  // For now we fallback to a placeholder or localhost if not set.
-  const siteUrl = import.meta.env.VITE_SITE_URL || 'https://kredytkalkulator.netlify.app'
-  
-  // Construct canonical URL (stripping query params)
-  // Ensure we append trailing slash if needed or just use pathname
+
   const canonicalUrl = `${siteUrl}${location.pathname}`.replace(/\/$/, '') + '/'
+  const ogImage = image || `${siteUrl}/og-image.png`
 
   return (
     <Helmet>
@@ -31,8 +50,23 @@ export default function SEOHead({ title, description, type = 'website' }: SEOHea
       <meta property="og:description" content={description} />
       <meta property="og:type" content={type} />
       <meta property="og:url" content={canonicalUrl} />
-      
-      {/* Future: Twitter card, etc. */}
+      <meta property="og:image" content={ogImage} />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="630" />
+
+      {/* Twitter Card */}
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:title" content={title} />
+      <meta name="twitter:description" content={description} />
+      <meta name="twitter:image" content={ogImage} />
+
+      {publishedTime && type === 'article' && (
+        <meta property="article:published_time" content={publishedTime} />
+      )}
+
+      {breadcrumbs && breadcrumbs.length > 0 && (
+        <script type="application/ld+json">{breadcrumbJsonLd(breadcrumbs)}</script>
+      )}
     </Helmet>
   )
 }

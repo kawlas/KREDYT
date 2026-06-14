@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate, NavLink } from 'react-router-dom'
+import { Routes, Route, Navigate } from 'react-router-dom'
 import { useLoanCalculator } from './context/LoanCalculatorContext'
 import AffordabilityPage from './pages/AffordabilityPage'
 import CalculatorPage from './pages/CalculatorPage'
@@ -12,8 +12,15 @@ import ContactPage from './pages/ContactPage'
 import PrivacyPolicyPage from './pages/PrivacyPolicyPage'
 import TopicPage from './pages/TopicPage'
 import NotFoundPage from './pages/NotFoundPage'
+import DailyInterestPage from './pages/DailyInterestPage'
+import OverpaymentPage from './pages/OverpaymentPage'
+import RefinancingPage from './pages/RefinancingPage'
+import BankComparisonPage from './pages/BankComparisonPage'
 import Footer from './components/layout/Footer'
+import NavBar from './components/layout/NavBar'
 import ScrollToTop from './components/shared/ScrollToTop'
+import ErrorBoundary from './components/shared/ErrorBoundary'
+import ToastContainer from './components/shared/Toast'
 
 function App() {
   const {
@@ -31,69 +38,25 @@ function App() {
     getValues,
     reset,
     setResults,
-    setValue
+    setValue,
+    control,
   } = useLoanCalculator()
 
-  // const location = useLocation()
-
-  // New tab structure matching SEO routes
-  const tabs = [
-    { id: 'hub', label: 'Start', icon: '🏠', path: '/' },
-    { id: 'calculator', label: 'Kalkulator', icon: '🧮', path: '/kalkulator-raty-kredytu/' },
-    { id: 'affordability', label: 'Zdolność', icon: '💰', path: '/zdolnosc-kredytowa/' },
-    { id: 'comparison', label: 'Porównanie', icon: '⚖️', path: '/raty-rowne-czy-malejace/' },
-    { id: 'wibor', label: 'WIBOR', icon: '📊', path: '/symulacja-wibor/' },
-    { id: 'faq', label: 'FAQ', icon: '❓', path: '/faq-kredyt-hipoteczny/' },
-  ]
-
   return (
-    <div className="min-h-screen bg-gray-50 py-8 px-4">
-        <ScrollToTop />
-        {/* ... */}
-      <div className="max-w-7xl mx-auto">
-      {/* ... */}
-          <header className="text-center mb-10">
-            <div className="text-4xl font-extrabold text-gray-900 sm:text-5xl mb-4">
-              Kalkulator Kredytu Hipotecznego
-            </div>
-            <p className="text-lg text-gray-500 max-w-2xl mx-auto">
-              Profesjonalne narzędzia do analizy Twojego kredytu w jednym miejscu.
-            </p>
-          </header>
+    <div className="min-h-screen bg-white">
+      <ScrollToTop />
+      <NavBar />
 
-          <nav className="bg-white shadow-sm border-b border-gray-200 mb-8 rounded-xl overflow-hidden scrollbar-hide overflow-x-auto">
-            <div className="max-w-6xl mx-auto px-4">
-              <div className="flex whitespace-nowrap gap-2 py-4">
-                {tabs.map((tab) => (
-                  <NavLink
-                    key={tab.id}
-                    to={tab.path}
-                    className={({ isActive }) =>
-                      `flex items-center gap-2 px-4 py-2 sm:px-6 sm:py-3 rounded-lg font-medium transition-all text-sm sm:text-base
-                       ${isActive 
-                         ? 'bg-blue-600 text-white shadow-md' 
-                         : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                       }`
-                    }
-                  >
-                    <span className="text-lg">{tab.icon}</span>
-                    <span>{tab.label}</span>
-                  </NavLink>
-                ))}
-              </div>
-            </div>
-          </nav>
-
-          <main className="space-y-8">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <main>
+          <ErrorBoundary>
             <Routes>
-              {/* Redirects */}
               <Route path="/kalkulator-kredytu-hipotecznego/" element={<Navigate to="/" replace />} />
-              
-              {/* Routes */}
+
               <Route path="/" element={<HubPage />} />
-              
-              <Route 
-                path="/kalkulator-raty-kredytu/" 
+
+              <Route
+                path="/kalkulator-raty-kredytu/"
                 element={
                   <CalculatorPage
                     register={register}
@@ -111,25 +74,26 @@ function App() {
                     reset={reset}
                     setResults={setResults}
                     setValue={setValue}
+                    control={control}
                   />
-                } 
+                }
               />
 
               <Route path="/zdolnosc-kredytowa/" element={<AffordabilityPage />} />
-              
-              <Route 
-                path="/raty-rowne-czy-malejace/" 
+
+              <Route
+                path="/raty-rowne-czy-malejace/"
                 element={
                   <PaymentComparisonPage
                     loanAmount={Number(getValues().principal) || 400000}
                     annualRate={Number(getValues().wibor || 5.85) + Number(getValues().margin || 2)}
                     loanTermYears={Number(getValues().years) || 25}
                   />
-                } 
+                }
               />
-              
-              <Route 
-                path="/symulacja-wibor/" 
+
+              <Route
+                path="/symulacja-wibor/"
                 element={
                   <WiborSimulatorPage
                     loanAmount={Number(getValues().principal) || 400000}
@@ -138,25 +102,30 @@ function App() {
                     baseWibor={Number(getValues().wibor || 5.85)}
                     installmentType={getValues().installmentType || 'equal'}
                   />
-                } 
+                }
               />
 
+              <Route path="/odsetki-dzienne/" element={<DailyInterestPage />} />
+              <Route path="/symulator-nadplat/" element={<OverpaymentPage />} />
+              <Route path="/refinansowanie-kredytu/" element={<RefinancingPage />} />
+              <Route path="/porownanie-ofert-bankow/" element={<BankComparisonPage />} />
               <Route path="/faq-kredyt-hipoteczny/" element={<FAQPage />} />
               <Route path="/o-projekcie/" element={<AboutPage />} />
               <Route path="/metodologia/" element={<MethodologyPage />} />
               <Route path="/kontakt/" element={<ContactPage />} />
               <Route path="/polityka-prywatnosci/" element={<PrivacyPolicyPage />} />
-              
+
               <Route path="/:topicSlug/" element={<TopicPage />} />
               <Route path="/404/" element={<NotFoundPage />} />
-              
-              {/* Fallback */}
+
               <Route path="*" element={<Navigate to="/404/" replace />} />
             </Routes>
-          </main>
-        </div>
+          </ErrorBoundary>
+        </main>
+      </div>
 
-        <Footer />
+      <Footer />
+      <ToastContainer />
     </div>
   )
 }

@@ -1,33 +1,28 @@
 import React, { useMemo } from 'react'
-// import { useForm } from 'react-hook-form' - removed
-// import type { AffordabilityFormData } from '../../types'
 import { calculateAffordability } from '../../utils/affordabilityFormulas'
 import { formatCurrency, formatMonths } from '../../utils/formatters'
 import Card from '../shared/Card'
 import Alert from '../shared/Alert'
-// import { LOAN_CONSTANTS } from '../../types/constants'
 
 import TabContainer from '../layout/TabContainer'
 
 import { useLoanCalculator } from '../../context/LoanCalculatorContext'
+import { useWIBOR } from '../../hooks/useWIBOR'
 
 export const AffordabilityCalc: React.FC = () => {
   const { affordabilityForm } = useLoanCalculator()
   const { register, watch } = affordabilityForm
-  // const { register, watch } = useForm<AffordabilityFormData>({ ... }) - removed local state
+  const { wibor: liveWibor } = useWIBOR(true)
 
-  // Watch for changes to trigger real-time calc
   const values = watch()
-  
-  // Actually wibor/margin should come from a central place, but for now we let user adjust or use defaults
-  // In a real app we might fetch these or use common defaults
+
   const affordabilityResults = useMemo(() => {
     return calculateAffordability({
       ...values,
-      wibor: 5.85, // Default for now
+      wibor: liveWibor ?? values.wibor ?? 5.85,
       margin: values.margin || 2.0
     })
-  }, [values])
+  }, [values, liveWibor])
 
   return (
     <TabContainer
@@ -48,7 +43,7 @@ export const AffordabilityCalc: React.FC = () => {
                 <div className="relative">
                   <input
                     type="number"
-                    {...register('income', { valueAsNumber: true })}
+                    {...register('income', { valueAsNumber: true, required: 'Pole wymagane', min: { value: 0, message: 'Wartość nie może być ujemna' } })}
                     className="w-full pl-3 pr-10 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
                   />
                   <span className="absolute right-3 top-2 text-gray-400">PLN</span>
@@ -76,7 +71,7 @@ export const AffordabilityCalc: React.FC = () => {
                 <div className="relative">
                   <input
                     type="number"
-                    {...register('obligations', { valueAsNumber: true })}
+                    {...register('obligations', { valueAsNumber: true, min: { value: 0, message: 'Wartość nie może być ujemna' } })}
                     className="w-full pl-3 pr-10 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
                   />
                   <span className="absolute right-3 top-2 text-gray-400">PLN</span>
@@ -90,7 +85,7 @@ export const AffordabilityCalc: React.FC = () => {
                   </label>
                   <input
                     type="number"
-                    {...register('dependents', { valueAsNumber: true })}
+                    {...register('dependents', { valueAsNumber: true, min: 0, max: 20 })}
                     className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
                   />
                 </div>
@@ -100,7 +95,7 @@ export const AffordabilityCalc: React.FC = () => {
                   </label>
                   <input
                     type="number"
-                    {...register('age', { valueAsNumber: true })}
+                    {...register('age', { valueAsNumber: true, min: 18, max: 80 })}
                     className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
                   />
                 </div>
@@ -124,7 +119,7 @@ export const AffordabilityCalc: React.FC = () => {
         {/* Results Section */}
         <div className="space-y-6 md:sticky md:top-8">
           {/* Card 1: Available Loan */}
-          <Card title="💰 Dostępny kredyt (szacunkowo)">
+          <Card title="Dostępny kredyt (szacunkowo)">
             <div className="bg-green-50 rounded-xl p-6 border border-green-100 mb-6">
               <p className="text-3xl font-bold text-gray-900">
                 {formatCurrency(affordabilityResults.maxLoanAmount)}
@@ -156,7 +151,7 @@ export const AffordabilityCalc: React.FC = () => {
           </Card>
 
           {/* Card 2: Max Installment */}
-          <Card title="📈 Maksymalna rata">
+          <Card title="Maksymalna rata">
             <div className="bg-blue-50 rounded-xl p-6 border border-blue-100 mb-6">
               <p className="text-3xl font-bold text-gray-900">
                 {formatCurrency(affordabilityResults.maxMonthlyPayment)}

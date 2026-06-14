@@ -24,10 +24,18 @@ const baseRoutes = [
   '/404/'
 ]
 
-// Dynamically add topics from topics.ts
+// Extract topic routes — match slug as an object property (not inside comments or strings)
+function extractTopicSlugs(source) {
+  // Remove single-line and block comments first
+  const noComments = source
+    .replace(/\/\/.*$/gm, '')
+    .replace(/\/\*[\s\S]*?\*\//g, '')
+  const re = /^\s*slug:\s*['"]([^'"]+)['"]/gm
+  return Array.from(noComments.matchAll(re), m => `/${m[1]}/`)
+}
+
 const topicsContent = fs.readFileSync(toAbsolute('src/data/topics.ts'), 'utf-8')
-const slugMatches = topicsContent.matchAll(/slug:\s*['"]([^'"]+)['"]/g)
-const topicRoutes = Array.from(slugMatches).map(match => `/${match[1]}/`)
+const topicRoutes = extractTopicSlugs(topicsContent)
 
 const routesToPrerender = Array.from(new Set([...baseRoutes, ...topicRoutes]))
 
@@ -39,21 +47,27 @@ const routesToPrerender = Array.from(new Set([...baseRoutes, ...topicRoutes]))
     const appHtml = render(url, helmetContext)
     const { helmet } = helmetContext
 
+    // Strip AdSense/Google scripts from helmet to avoid double injection
+    // (the hardcoded AdSense loader is already in index.html)
+    const scriptStr = helmet.script.toString()
+      .replace(/<script[^>]*adsbygoogle[^>]*><\/script>/gi, '')
+      .replace(/<script[^>]*googlesyndication[^>]*><\/script>/gi, '')
+
     const html = template
-      .replace(`<!--app-head-->`, `
+      .replace('<!--app-head-->', `
         ${helmet.title.toString()}
         ${helmet.meta.toString()}
         ${helmet.link.toString()}
-        ${helmet.script.toString()}
+        ${scriptStr}
       `)
-      .replace(`<!--app-html-->`, appHtml)
+      .replace('<!--app-html-->', appHtml)
 
     const filePath = `dist/static${url === '/' ? '/index.html' : url + 'index.html'}`
     const dir = path.dirname(filePath)
     if (!fs.existsSync(dir)) {
       fs.mkdirSync(dir, { recursive: true })
     }
-    
+
     fs.writeFileSync(filePath, html)
     console.log('Prerendered:', filePath)
   }

@@ -1,14 +1,18 @@
 import React from 'react'
+import { Helmet } from 'react-helmet-async'
 import TabContainer from '../components/layout/TabContainer'
 import SEOHead from '../components/shared/SEOHead'
 
 const PrivacyPolicyPage: React.FC = () => {
   return (
     <TabContainer title="Polityka Prywatności" subtitle="Twoje dane są u nas bezpieczne">
-      <SEOHead 
+      <SEOHead
         title="Polityka Prywatności | Kalkulator Kredytowy"
         description="Zasady przetwarzania danych i polityka cookies."
       />
+      <Helmet>
+        <meta name="robots" content="noindex, follow" />
+      </Helmet>
       <div className="max-w-3xl mx-auto prose prose-blue text-gray-600">
         <p className="mb-4">
           Cenimy Twoją prywatność. Większość obliczeń w naszym serwisie odbywa się lokalnie w Twojej przeglądarce. 

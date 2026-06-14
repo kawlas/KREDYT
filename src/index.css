@@ -3,10 +3,9 @@
 @tailwind utilities;
 
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.6;
   font-weight: 400;
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -15,10 +14,15 @@
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
   min-width: 320px;
   min-height: 100vh;
+}
+
+/* Focus ring */
+*:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+  border-radius: 4px;
 }
 
 @layer utilities {
@@ -27,23 +31,13 @@ body {
   }
 }
 
-/* ============================================
- GLOBAL LAYOUT UTILITIES
- ============================================ */
-
-/* Container widths - consistent across all tabs */
+/* Tab container — shared wrapper for all calculator pages */
 .tab-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 1.5rem 1rem;
-}
-
-.tab-content-wrapper {
-  max-width: 1200px;
+  max-width: 1280px;
   margin: 0 auto;
 }
 
-/* Two column layout for comparison sections */
+/* Two-column comparison layout */
 .two-column-layout {
   display: grid;
   grid-template-columns: 1fr;
@@ -52,75 +46,6 @@ body {
 
 @media (min-width: 768px) {
   .two-column-layout {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-/* ============================================
- CARD STYLES
- ============================================ */
-
-/* Standard card */
-.card-standard {
-  background: white;
-  border-radius: 0.75rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  padding: 1.5rem;
-}
-
-/* Highlighted card (info) */
-.card-info {
-  background: #eff6ff; /* blue-50 */
-  border: 1px solid #bfdbfe; /* blue-200 */
-  border-radius: 0.75rem;
-  padding: 1.5rem;
-}
-
-/* Success card */
-.card-success {
-  background: #f0fdf4; /* green-50 */
-  border: 1px solid #bbf7d0; /* green-200 */
-  border-radius: 0.75rem;
-  padding: 1.5rem;
-}
-
-/* Warning card */
-.card-warning {
-  background: #fefce8; /* yellow-50 */
-  border: 1px solid #fef08a; /* yellow-200 */
-  border-radius: 0.75rem;
-  padding: 1.5rem;
-}
-
-/* ============================================
- TYPOGRAPHY
- ============================================ */
-
-.section-title {
-  font-size: 1.125rem; /* text-lg */
-  font-weight: 600;
-  color: #111827; /* gray-900 */
-  margin-bottom: 1rem;
-}
-
-.section-subtitle {
-  font-size: 0.875rem; /* text-sm */
-  color: #6b7280; /* gray-600 */
-}
-
-/* ============================================
- COMPARISON CARDS
- ============================================ */
-
-.comparison-card-wrapper {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.5rem;
-  margin-bottom: 1.5rem;
-}
-
-@media (min-width: 768px) {
-  .comparison-card-wrapper {
     grid-template-columns: 1fr 1fr;
   }
 }

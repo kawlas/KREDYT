@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { type UseFormRegister, type FieldErrors, type UseFormTrigger } from 'react-hook-form';
 import { animate } from 'motion';
 import type { LoanFormData } from '../types';
@@ -22,7 +22,7 @@ const LoanForm: React.FC<LoanFormProps> = ({ onSubmit, isLoading, register, trig
     }
     timeoutRef.current = setTimeout(() => {
       trigger(name);
-    }, 500); // 500ms delay as requested
+    }, 300);
   };
 
   const handleFocus = (e: React.FocusEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -67,8 +67,9 @@ const LoanForm: React.FC<LoanFormProps> = ({ onSubmit, isLoading, register, trig
         <input
           id="principal"
           type="number"
-          {...registerWithDebounce('principal', { 
-            required: 'Pole wymagane', 
+          inputMode="decimal"
+          {...registerWithDebounce('principal', {
+            required: 'Pole wymagane',
             min: { value: 50000, message: 'Kwota kredytu musi być między 50 000 a 2 000 000 PLN' },
             max: { value: 2000000, message: 'Kwota kredytu musi być między 50 000 a 2 000 000 PLN' },
             valueAsNumber: true
@@ -165,21 +166,8 @@ const LoanForm: React.FC<LoanFormProps> = ({ onSubmit, isLoading, register, trig
         </select>
       </div>
 
-      {/* Prowizja bankowa */}
-      <div>
-        <label htmlFor="commission" className="block text-sm font-medium text-gray-700">Prowizja bankowa (PLN) (opcjonalne)</label>
-        <input
-          id="commission"
-          type="number"
-          {...registerWithDebounce('commission', {
-            min: { value: 0, message: 'Minimum 0 PLN' },
-            max: { value: 100000, message: 'Maksimum 100 000 PLN' },
-            valueAsNumber: true
-          })}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm border p-2 origin-left"
-        />
-        {errors.commission && <p className="mt-1 text-sm text-red-600">{errors.commission.message}</p>}
-      </div>
+      {/* Advanced options toggle */}
+      <AdvancedSection registerWithDebounce={registerWithDebounce} errors={errors} />
 
       <button
         type="submit"
@@ -202,5 +190,42 @@ const LoanForm: React.FC<LoanFormProps> = ({ onSubmit, isLoading, register, trig
     </Card>
   );
 };
+
+function AdvancedSection({ registerWithDebounce, errors }: {
+  registerWithDebounce: (name: keyof LoanFormData, options?: unknown) => any
+  errors: FieldErrors<LoanFormData>
+}) {
+  const [open, setOpen] = useState(false)
+  return (
+    <div className="border-t pt-4">
+      <button
+        type="button"
+        onClick={() => setOpen(!open)}
+        className="flex items-center gap-2 text-sm text-gray-500 hover:text-gray-700 transition-colors w-full"
+      >
+        <svg className={`w-4 h-4 transition-transform ${open ? 'rotate-90' : ''}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="9 18 15 12 9 6"/></svg>
+        {open ? 'Ukryj zaawansowane' : 'Pokaż zaawansowane'}
+      </button>
+      {open && (
+        <div className="mt-4 space-y-4">
+          <div>
+            <label htmlFor="commission" className="block text-sm font-medium text-gray-700">Prowizja bankowa (PLN)</label>
+            <input id="commission" type="number"
+              {...registerWithDebounce('commission', { min: { value: 0, message: 'Minimum 0 PLN' }, valueAsNumber: true })}
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm border p-2" />
+            {errors.commission && <p className="mt-1 text-sm text-red-600">{errors.commission.message}</p>}
+          </div>
+          <div>
+            <label htmlFor="propertyValue" className="block text-sm font-medium text-gray-700">Wartość nieruchomości (PLN)</label>
+            <input id="propertyValue" type="number" placeholder="Do obliczenia LTV"
+              {...registerWithDebounce('propertyValue', { min: { value: 0, message: 'Minimum 0 PLN' }, valueAsNumber: true })}
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm border p-2" />
+            {errors.propertyValue && <p className="mt-1 text-sm text-red-600">{errors.propertyValue.message}</p>}
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
 
 export default LoanForm;

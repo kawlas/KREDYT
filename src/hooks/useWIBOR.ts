@@ -1,65 +1,68 @@
 import { useState, useEffect, useCallback } from 'react'
 import { fetchCurrentWIBOR, formatWIBORTimestamp, type WIBORData } from '../utils/wiborFetcher'
 
-interface UseWIBORResult {
+interface WIBORState {
   wibor: number | null
   rates: { '3M': number; '6M': number } | null
   loading: boolean
   error: string | null
   lastUpdate: string
   source: string | null
+}
+
+interface UseWIBORResult extends WIBORState {
   refresh: () => Promise<void>
 }
 
+const initialState: WIBORState = {
+  wibor: null,
+  rates: null,
+  loading: true,
+  error: null,
+  lastUpdate: '',
+  source: null,
+}
+
 export function useWIBOR(autoFetch = true): UseWIBORResult {
-  const [wibor, setWibor] = useState<number | null>(null)
-  const [rates, setRates] = useState<{ '3M': number; '6M': number } | null>(null)
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
-  const [lastUpdate, setLastUpdate] = useState('')
-  const [source, setSource] = useState<string | null>(null)
+  const [state, setState] = useState<WIBORState>(initialState)
 
   const fetchWIBOR = useCallback(async (useCache = true) => {
-    setLoading(true)
-    setError(null)
-    
+    setState(prev => ({ ...prev, loading: true, error: null }))
+
     try {
       const data: WIBORData = await fetchCurrentWIBOR(useCache)
-      setWibor(data.value)
-      setRates(data.rates)
-      setSource(data.source)
-      setLastUpdate(formatWIBORTimestamp(data.timestamp))
-      
-      if (data.source === 'fallback') {
-        setError('Nie udało się pobrać aktualnego WIBOR. Używam wartości zastępczej.')
-      }
+      setState({
+        wibor: data.value,
+        rates: data.rates,
+        loading: false,
+        error: data.source === 'fallback'
+          ? 'Nie udało się pobrać aktualnego WIBOR. Używam wartości zastępczej.'
+          : null,
+        lastUpdate: formatWIBORTimestamp(data.timestamp),
+        source: data.source,
+      })
     } catch (err) {
-      setError('Błąd pobierania WIBOR')
+      setState(prev => ({
+        ...prev,
+        loading: false,
+        error: 'Błąd pobierania WIBOR',
+      }))
       console.error('WIBOR fetch error:', err)
-    } finally {
-      setLoading(false)
     }
   }, [])
 
-  // Auto-fetch on mount
   useEffect(() => {
     if (autoFetch) {
       fetchWIBOR(true)
     }
   }, [autoFetch, fetchWIBOR])
 
-  // Refresh handler (without cache)
   const refresh = useCallback(async () => {
     await fetchWIBOR(false)
   }, [fetchWIBOR])
 
   return {
-    wibor,
-    rates,
-    loading,
-    error,
-    lastUpdate,
-    source,
-    refresh
+    ...state,
+    refresh,
   }
 }

@@ -88,7 +88,7 @@ const ResultsCard: React.FC<ResultsCardProps> = (props) => {
         </div>
 
         {/* Section 1: Monthly Payment */}
-        <div className="bg-blue-50 rounded-xl p-6 border border-blue-100 mb-6" data-animate-item>
+        <div className="bg-blue-50 rounded-xl p-6 border border-blue-100 mb-6" data-animate-item aria-live="polite">
           <div className="flex items-center gap-2 mb-1">
             <p className="text-sm font-medium text-blue-800">Miesięczna rata bazowa</p>
             <Tooltip text="Sama rata kapitałowo-odsetkowa, bez ubezpieczeń.">
@@ -143,7 +143,7 @@ const ResultsCard: React.FC<ResultsCardProps> = (props) => {
                 co pozwala na uzyskanie niższej marży i uniknięcie dodatkowych ubezpieczeń.
               </p>
               {ltv > 100 && (
-                <Alert type="error" icon="🚨" className="mt-2">
+                <Alert type="error" className="mt-2">
                   <p className="font-bold">Uwaga: LTV powyżej 100%</p>
                   <p className="text-xs">Kwota kredytu przewyższa wartość nieruchomości. Większość banków nie udzieli takiego finansowania.</p>
                 </Alert>
@@ -154,7 +154,7 @@ const ResultsCard: React.FC<ResultsCardProps> = (props) => {
       </Card>
 
       {/* SECTION 2: Total Cost Breakdown */}
-      <Card title="💰 Ile naprawdę zapłacisz?" data-animate-item>
+      <Card title="Ile naprawdę zapłacisz?" data-animate-item>
         <div className="space-y-4">
           <div className="grid grid-cols-2 gap-4 text-sm">
             <div>
@@ -183,7 +183,7 @@ const ResultsCard: React.FC<ResultsCardProps> = (props) => {
             </div>
           </div>
 
-          <Alert type="warning" icon="⚠️">
+          <Alert type="warning">
             <div className="text-sm">
               <strong>Rzeczywistość:</strong> Pożyczasz {formatCurrencyShort(props.loanAmount)}, 
               ale zwrócisz {formatCurrencyShort(totalCost.allPayments)} 
@@ -195,9 +195,9 @@ const ResultsCard: React.FC<ResultsCardProps> = (props) => {
 
       {/* SECTION 3: Upfront Costs - COLLAPSIBLE */}
       <div data-animate-item>
-        <Collapsible 
-          title="💳 Koszty na start (musisz zapłacić z góry)" 
-          icon="💳"
+        <Collapsible
+          title="Koszty na start (musisz zapłacić z góry)"
+         
           defaultOpen={false}
         >
           <div className="space-y-2">
@@ -246,7 +246,7 @@ const ResultsCard: React.FC<ResultsCardProps> = (props) => {
           </div>
 
           <div className="mt-4">
-            <Alert type="error" icon="💸">
+            <Alert type="error">
               <div>
                 <div className="font-semibold mb-1">Faktycznie dostaniesz na rękę:</div>
                 <div className="text-2xl font-bold">
@@ -263,9 +263,9 @@ const ResultsCard: React.FC<ResultsCardProps> = (props) => {
 
       {/* SECTION 4: Yearly Costs - COLLAPSIBLE */}
       <div data-animate-item>
-        <Collapsible 
-          title="📅 Koszty roczne (oprócz raty)" 
-          icon="📅"
+        <Collapsible
+          title="Koszty roczne (oprócz raty)"
+         
           defaultOpen={false}
         >
           <div className="space-y-2 text-sm">
@@ -282,7 +282,7 @@ const ResultsCard: React.FC<ResultsCardProps> = (props) => {
             {yearlyCosts.creditInsurance > 0 && (
               <div className="flex justify-between text-sm">
                 <div className="flex items-center gap-1">
-                  <span className="text-gray-700">Ubezpieczenie kredytu ⚠️</span>
+                  <span className="text-gray-700">Ubezpieczenie kredytu</span>
                   <Tooltip text={`Wymagane gdy LTV > 80%. Twoje LTV: ${ltv.toFixed(1)}%`} align="left">
                     <span className="text-blue-400 cursor-help text-xs">ⓘ</span>
                   </Tooltip>
@@ -295,7 +295,7 @@ const ResultsCard: React.FC<ResultsCardProps> = (props) => {
 
             <div className="flex justify-between">
               <span className="text-gray-700">Prowadzenie rachunku</span>
-              <span className="font-semibold text-green-600">0 zł ✓</span>
+              <span className="font-semibold text-green-600">0 zł</span>
             </div>
 
             <div className="border-t pt-2 mt-2">
@@ -312,7 +312,7 @@ const ResultsCard: React.FC<ResultsCardProps> = (props) => {
       </div>
 
       {/* SECTION 5: RRSO vs Nominal */}
-      <Card title="📊 Oprocentowanie: Nominalne vs RRSO" data-animate-item>
+      <Card title="Oprocentowanie: Nominalne vs RRSO" data-animate-item>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
           <div className="bg-gray-50 p-4 rounded-lg">
             <div className="text-sm text-gray-600 mb-1">Oprocentowanie nominalne</div>
@@ -330,7 +330,7 @@ const ResultsCard: React.FC<ResultsCardProps> = (props) => {
           </div>
         </div>
 
-        <Alert type="info" icon="💡">
+        <Alert type="info">
           <div className="text-sm">
             <strong>RRSO jest wyższe</strong> bo uwzględnia prowizję i wszystkie opłaty. 
             To jest <strong>faktyczny</strong> koszt kredytu rocznie.
@@ -351,7 +351,7 @@ const ResultsCard: React.FC<ResultsCardProps> = (props) => {
             <div className="text-sm text-gray-700 space-y-1">
               <div>Wszystkie raty: {formatCurrencyShort(totalCost.allPayments)}</div>
               <div>+ Koszty start: {formatCurrencyShort(upfrontCosts.total)}</div>
-              <div>+ Koszty roczne: {formatCurrencyShort(totalCost.yearlyCosts25Years)}</div>
+              <div>+ Koszty roczne: {formatCurrencyShort(totalCost.yearlyCostsOverTerm)}</div>
             </div>
             <div className="mt-4 pt-4 border-t border-red-300">
               <div className="text-base font-semibold">
@@ -368,11 +368,11 @@ const ResultsCard: React.FC<ResultsCardProps> = (props) => {
       {/* SECTION 7: Recommended Topics */}
       <Card data-animate-item>
         <h3 className="text-sm font-bold text-gray-900 uppercase tracking-widest mb-4 border-b pb-2">
-          📖 Polecane poradniki
+          Polecane poradniki
         </h3>
         <div className="space-y-3">
           <Link to="/koszty-kredytu-hipotecznego-jakie/" className="flex items-center justify-between p-3 rounded-lg border border-gray-100 hover:border-blue-200 hover:bg-blue-50 transition-all group">
-            <span className="text-sm font-medium text-gray-700 group-hover:text-blue-600">Jakie są koszy kredytu?</span>
+            <span className="text-sm font-medium text-gray-700 group-hover:text-blue-600">Jakie są koszty kredytu?</span>
             <span className="text-blue-400 group-hover:translate-x-1 transition-transform">→</span>
           </Link>
           <Link to="/wklad-wlasny-10-czy-20/" className="flex items-center justify-between p-3 rounded-lg border border-gray-100 hover:border-blue-200 hover:bg-blue-50 transition-all group">
@@ -393,7 +393,7 @@ const ResultsCard: React.FC<ResultsCardProps> = (props) => {
             onClick={handleSave}
             className="w-full py-4 bg-blue-600 text-white text-lg font-semibold rounded-lg hover:bg-blue-700 transition-colors shadow-lg hover:shadow-xl flex items-center justify-center gap-2"
           >
-            <span>💾</span> Dodaj do porównania
+            Dodaj do porównania
           </button>
         ) : (
           <div className="bg-white p-4 rounded-xl border-2 border-blue-200 shadow-lg animate-in fade-in slide-in-from-bottom-2 duration-300">

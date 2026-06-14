@@ -6,7 +6,7 @@ interface WIBORDisplayProps {
   loading: boolean
   error: string | null
   lastUpdate: string
-  source: 'stooq' | 'fallback' | null
+  source: string | null
   onRefresh: () => void
   compact?: boolean
 }
@@ -37,7 +37,7 @@ export default function WIBORDisplay({
               className="text-blue-600 hover:text-blue-800 disabled:opacity-50"
               title="Odśwież WIBOR"
             >
-              🔄
+              ↻
             </button>
           </>
         )}
@@ -68,19 +68,19 @@ export default function WIBORDisplay({
           disabled={loading}
           className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
         >
-          <span>🔄</span>
+          <span>↻</span>
           <span>Odśwież</span>
         </button>
       </div>
       
       <div className="flex items-center gap-4 text-xs text-gray-600">
         <div>
-          📅 Zaktualizowano: {lastUpdate}
+          Zaktualizowano: {lastUpdate}
         </div>
-        {source === 'stooq' && (
+        {source && source !== 'fallback' && (
           <div className="flex items-center gap-1">
             <span className="w-2 h-2 bg-green-500 rounded-full"></span>
-            <span>Stooq.pl</span>
+            <span>{source}</span>
           </div>
         )}
         {source === 'fallback' && (
@@ -93,7 +93,7 @@ export default function WIBORDisplay({
       
       {error && (
         <div className="mt-2 text-xs text-yellow-700 bg-yellow-50 p-2 rounded">
-          ⚠️ {error}
+          {error}
         </div>
       )}
     </div>

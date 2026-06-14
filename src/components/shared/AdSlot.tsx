@@ -3,36 +3,43 @@ import { useEffect } from 'react'
 interface AdSlotProps {
   className?: string
   slot?: string
+  compact?: boolean
 }
 
-const DEFAULT_PUB_ID = "ca-pub-9858525623868903"
+const PUB_ID = import.meta.env.VITE_ADSENSE_PUB_ID as string || ''
 
-export default function AdSlot({ className = '', slot }: AdSlotProps) {
+export default function AdSlot({ className = '', slot, compact = false }: AdSlotProps) {
   useEffect(() => {
+    if (!slot || !PUB_ID) return
     try {
-      // @ts-ignore
-      (window.adsbygoogle = window.adsbygoogle || []).push({});
-    } catch (e) {
-      // Quietly fail if ads are blocked or not loaded yet
+      // @ts-expect-error adsbygoogle is injected by AdSense script
+      (window.adsbygoogle = window.adsbygoogle || []).push({})
+    } catch {
+      // Quietly fail if ads are blocked
     }
-  }, []);
+  }, [slot])
 
-  // If no slot is provided and you are NOT using Auto Ads, 
-  // you should provide one to see manual ad units.
-  const adSlotId = slot || "YOUR_AD_SLOT_ID"
+  if (!slot) {
+    if (import.meta.env.DEV) {
+      return (
+        <div className={`w-full bg-gray-100 border border-dashed border-gray-300 rounded-lg flex items-center justify-center text-gray-400 ${className}`} style={{ minHeight: compact ? '90px' : '250px' }}>
+          <span className="text-xs">AdSlot: missing slot id</span>
+        </div>
+      )
+    }
+    return null
+  }
 
   return (
-    <div className={`w-full bg-gray-100 border border-gray-200 rounded-lg flex flex-col items-center justify-center text-gray-400 p-4 relative ${className}`} style={{ minHeight: '250px' }}>
+    <div className={`w-full bg-gray-100 border border-gray-200 rounded-lg flex flex-col items-center justify-center text-gray-400 p-4 relative ${className}`} style={{ minHeight: compact ? '90px' : '250px' }}>
       <span className="text-xs uppercase tracking-widest font-semibold mb-2">Reklama</span>
       <div className="w-full h-full flex items-center justify-center bg-gray-50 rounded border border-dashed border-gray-300 overflow-hidden">
-        {/* Google AdSense Unit */}
         <ins className="adsbygoogle"
              style={{ display: 'block' }}
-             data-ad-client={DEFAULT_PUB_ID}
-             data-ad-slot={adSlotId}
+             data-ad-client={PUB_ID}
+             data-ad-slot={slot}
              data-ad-format="auto"
              data-full-width-responsive="true"></ins>
-        
         <span className="text-sm absolute pointer-events-none">Miejsce na Twoją reklamę</span>
       </div>
     </div>

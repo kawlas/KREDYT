@@ -1,3 +1,5 @@
+import { safeGetItem, safeSetItem, safeRemoveItem } from './safeStorage'
+
 export interface WIBORData {
   value: number // Standard 3M for backward compatibility
   rates: {
@@ -23,61 +25,43 @@ interface WiborJsonResponse {
   }
 }
 
-/**
- * Get cached WIBOR if still valid
- */
 function getCachedWIBOR(): WIBORData | null {
   try {
-    const cached = localStorage.getItem(CACHE_KEY)
+    const cached = safeGetItem(CACHE_KEY)
     if (!cached) return null
 
     const data: WIBORData = JSON.parse(cached)
     const now = Date.now()
 
-    // Check if cache is still valid
     if (now - data.timestamp < CACHE_DURATION) {
       return data
     }
 
     return null
-  } catch (error) {
-    console.error('Error reading WIBOR cache:', error)
+  } catch {
     return null
   }
 }
 
-/**
- * Save WIBOR to cache
- */
 function cacheWIBOR(data: WIBORData): void {
   try {
-    localStorage.setItem(CACHE_KEY, JSON.stringify(data))
-  } catch (error) {
-    console.error('Error caching WIBOR:', error)
+    safeSetItem(CACHE_KEY, JSON.stringify(data))
+  } catch {
+    // Storage unavailable
   }
 }
 
-/**
- * Fetch current WIBOR 3M via /wibor.json
- */
 export async function fetchCurrentWIBOR(useCache = true): Promise<WIBORData> {
-  // Check cache first
   if (useCache) {
     const cached = getCachedWIBOR()
     if (cached) {
-      console.log('Using cached WIBOR:', cached.value)
       return cached
     }
   }
 
-  // Fetch from /wibor.json
   try {
-    console.log('Fetching WIBOR from /wibor.json...')
-    
     const response = await fetch(`${WIBOR_URL}?t=${Date.now()}`, {
-      headers: {
-        'Accept': 'application/json'
-      }
+      headers: { 'Accept': 'application/json' }
     })
 
     if (!response.ok) {
@@ -85,8 +69,7 @@ export async function fetchCurrentWIBOR(useCache = true): Promise<WIBORData> {
     }
 
     const json: WiborJsonResponse = await response.json()
-    console.log('WIBOR source response:', json)
-    
+
     const data: WIBORData = {
       value: json.rates['3M'],
       rates: json.rates,
@@ -96,13 +79,10 @@ export async function fetchCurrentWIBOR(useCache = true): Promise<WIBORData> {
     }
 
     cacheWIBOR(data)
-    console.log('WIBOR fetched successfully:', data.value)
-
     return data
   } catch (error) {
-    console.error('Failed to fetch WIBOR from /wibor.json:', error)
-    
-    // Return fallback
+    console.error('Failed to fetch WIBOR:', error)
+
     const fallbackData: WIBORData = {
       value: FALLBACK_WIBOR,
       rates: {
@@ -122,7 +102,7 @@ export async function fetchCurrentWIBOR(useCache = true): Promise<WIBORData> {
  * Clear WIBOR cache (for testing)
  */
 export function clearWIBORCache(): void {
-  localStorage.removeItem(CACHE_KEY)
+  safeRemoveItem(CACHE_KEY)
 }
 
 /**

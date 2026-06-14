@@ -1,11 +1,13 @@
 import { createContext, useContext, useState, useEffect } from 'react'
 import type { ReactNode } from 'react'
-import { useForm, type UseFormRegister, type UseFormHandleSubmit, type UseFormTrigger, type FieldErrors, type UseFormSetValue, type UseFormReturn } from 'react-hook-form'
+import { useForm, type UseFormRegister, type UseFormHandleSubmit, type UseFormTrigger, type FieldErrors, type UseFormSetValue, type UseFormReturn, type Control } from 'react-hook-form'
 import type { LoanFormData, LoanResults, LoanOffer, AffordabilityFormData } from '../types'
 import { calculateLoanResults } from '../utils/loanCalculations'
+import { saveCalculation, deleteCalculation } from '../utils/calculationStorage'
+import { toast } from '../components/shared/Toast'
+import { MAX_OFFERS } from '../types/constants'
 
 const STORAGE_KEY = 'loan-calculator-offers'
-const MAX_OFFERS = 5
 
 interface LoanCalculatorContextType {
   register: UseFormRegister<LoanFormData>
@@ -24,6 +26,7 @@ interface LoanCalculatorContextType {
   reset: (values: LoanFormData) => void
   setResults: (results: LoanResults | null) => void
   setValue: UseFormSetValue<LoanFormData>
+  control: Control<LoanFormData>
   affordabilityForm: UseFormReturn<AffordabilityFormData>
 }
 
@@ -32,6 +35,12 @@ const LoanCalculatorContext = createContext<LoanCalculatorContextType | undefine
 // Helper: Session Storage keys
 const SESSION_KEY_LOAN = 'loan-calculator-form-data'
 const SESSION_KEY_AFFORDABILITY = 'loan-calculator-affordability-data'
+
+// Secure random ID generator with fallback for older browsers
+const generateId = (): string =>
+  typeof crypto !== 'undefined' && 'randomUUID' in crypto
+    ? crypto.randomUUID()
+    : `${Date.now()}-${Math.random().toString(36).slice(2, 10)}`
 
 export function LoanCalculatorProvider({ children }: { children: ReactNode }) {
   const [results, setResults] = useState<LoanResults | null>(null)
@@ -73,7 +82,7 @@ export function LoanCalculatorProvider({ children }: { children: ReactNode }) {
       }
     })
     return () => sub.unsubscribe()
-  }, [loanForm.watch])
+  }, []) // loanForm.watch is stable in RHF 7.52+
 
   // -- AFFORDABILITY FORM --
   const defaultAffordabilityValues: AffordabilityFormData = {
@@ -108,7 +117,7 @@ export function LoanCalculatorProvider({ children }: { children: ReactNode }) {
       }
     })
     return () => sub.unsubscribe()
-  }, [affordabilityForm.watch])
+  }, []) // affordabilityForm.watch is stable in RHF 7.52+
 
 
   // Load offers from localStorage on mount
@@ -145,43 +154,51 @@ export function LoanCalculatorProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (typeof window === 'undefined') return
     const params = new URLSearchParams(window.location.search)
-    // Check if we have shareable params
     if (params.has('amount') || params.has('period')) {
       const updates: Partial<LoanFormData> = {}
-      
+
       const pAmount = params.get('amount')
-      if (pAmount) updates.principal = Number(pAmount)
-      
+      if (pAmount) {
+        const n = Number(pAmount)
+        if (Number.isFinite(n) && n > 0) updates.principal = n
+      }
+
       const pPeriod = params.get('period')
-      if (pPeriod) updates.years = Number(pPeriod)
-      
+      if (pPeriod) {
+        const n = Number(pPeriod)
+        if (Number.isFinite(n) && n > 0) updates.years = n
+      }
+
       const pWibor = params.get('wibor')
       if (pWibor) {
-        updates.wibor = Number(pWibor)
-        affordabilityForm.setValue('wibor', Number(pWibor)) // Sync both?
+        const n = Number(pWibor)
+        if (Number.isFinite(n) && n > 0) {
+          updates.wibor = n
+          affordabilityForm.setValue('wibor', n)
+        }
       }
-      
+
       const pMargin = params.get('margin')
       if (pMargin) {
-        updates.margin = Number(pMargin)
-        affordabilityForm.setValue('margin', Number(pMargin)) // Sync both?
+        const n = Number(pMargin)
+        if (Number.isFinite(n) && n > 0) {
+          updates.margin = n
+          affordabilityForm.setValue('margin', n)
+        }
       }
-      
+
       const pType = params.get('type')
       if (pType && (pType === 'equal' || pType === 'declining')) updates.installmentType = pType as 'equal' | 'declining'
 
       const pValue = params.get('property')
-      if (pValue) updates.propertyValue = Number(pValue)
-      
+      if (pValue) {
+        const n = Number(pValue)
+        if (Number.isFinite(n) && n > 0) updates.propertyValue = n
+      }
+
       if (Object.keys(updates).length > 0) {
-        // Merge with current values (which might have just been loaded from session? Race condition?)
-        // Ideally URL params override session.
-        // We defer this slightly or chain logic.
-        // For simplicity: URL params win.
-        setTimeout(() => {
-            loanForm.reset({ ...loanForm.getValues(), ...updates })
-            loanForm.trigger()
-        }, 200) 
+        loanForm.reset({ ...loanForm.getValues(), ...updates })
+        loanForm.trigger()
       }
     }
   }, []) // run once on mount
@@ -208,23 +225,54 @@ export function LoanCalculatorProvider({ children }: { children: ReactNode }) {
   const saveOffer = (name: string) => {
     if (!results) return
     if (savedOffers.length >= MAX_OFFERS) {
-      alert('Możesz zapisać maksymalnie 5 ofert. Usuń jedną, aby dodać nową.')
+      toast('Możesz zapisać maksymalnie 5 ofert. Usuń jedną, aby dodać nową.', 'error')
+      return
+    }
+    if (savedOffers.some(o => o.name === name)) {
+      toast('Oferta o tej nazwie już istnieje.', 'error')
       return
     }
 
+    const formData = loanForm.getValues()
     const newOffer: LoanOffer = {
-      id: crypto.randomUUID(),
+      id: generateId(),
       name,
-      formData: loanForm.getValues(),
+      formData,
       results: results,
       savedAt: new Date().toISOString()
     }
 
     setSavedOffers(prev => [...prev, newOffer])
+
+    // Sync to calculationStorage
+    try {
+      saveCalculation(name, {
+        principal: formData.principal,
+        propertyValue: formData.propertyValue || formData.principal / 0.8,
+        years: formData.years,
+        wibor: formData.wibor,
+        margin: formData.margin,
+        installmentType: formData.installmentType,
+        commission: formData.commission,
+      }, {
+        monthlyPayment: results.monthlyPayment,
+        totalCost: results.totalCost,
+        totalInterest: results.totalInterest,
+        rrso: results.rrso,
+        allInCost: results.allInCost,
+      })
+    } catch {
+      // Non-critical — context storage is primary
+    }
   }
 
   const deleteOffer = (id: string) => {
     setSavedOffers(prev => prev.filter(offer => offer.id !== id))
+    try {
+      deleteCalculation(id)
+    } catch {
+      // Non-critical if calculationStorage key doesn't match
+    }
   }
 
   const clearAllOffers = () => {
@@ -249,7 +297,7 @@ export function LoanCalculatorProvider({ children }: { children: ReactNode }) {
     reset: loanForm.reset,
     setResults,
     setValue: loanForm.setValue,
-    // @ts-ignore - extending context type on the fly or I should update interface
+    control: loanForm.control,
     affordabilityForm
   }
 

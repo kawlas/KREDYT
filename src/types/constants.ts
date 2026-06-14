@@ -1,3 +1,6 @@
+export const MAX_OFFERS = 5
+export const HYDRATION_DELAY_MS = 200
+
 export const LOAN_CONSTANTS = {
   // Prowizje
   PROVISION_RATE: 0.02, // 2% standardowo

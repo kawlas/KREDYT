@@ -29,6 +29,10 @@ const Footer: React.FC = () => {
               <li><Link to="/zdolnosc-kredytowa/" className="text-gray-500 hover:text-blue-600 transition">Zdolność Kredytowa</Link></li>
               <li><Link to="/raty-rowne-czy-malejace/" className="text-gray-500 hover:text-blue-600 transition">Raty Równe czy Malejące</Link></li>
               <li><Link to="/symulacja-wibor/" className="text-gray-500 hover:text-blue-600 transition">Symulacja WIBOR</Link></li>
+              <li><Link to="/odsetki-dzienne/" className="text-gray-500 hover:text-blue-600 transition">Odsetki dzienne</Link></li>
+              <li><Link to="/symulator-nadplat/" className="text-gray-500 hover:text-blue-600 transition">Symulator nadpłat</Link></li>
+              <li><Link to="/refinansowanie-kredytu/" className="text-gray-500 hover:text-blue-600 transition">Refinansowanie</Link></li>
+              <li><Link to="/porownanie-ofert-bankow/" className="text-gray-500 hover:text-blue-600 transition">Porównanie banków</Link></li>
             </ul>
           </div>
 
@@ -56,9 +60,6 @@ const Footer: React.FC = () => {
           <p className="text-gray-400 text-xs">
             © {currentYear} Kalkulator Kredytowy. Wszystkie dane mają charakter informacyjny i nie stanowią oferty w rozumieniu KC.
           </p>
-          <div className="flex gap-4">
-            {/* Social icons could go here */}
-          </div>
         </div>
       </div>
     </footer>

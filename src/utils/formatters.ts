@@ -18,10 +18,6 @@ export const formatPercent = (value: number, decimals: number = 2): string => {
   return value.toFixed(decimals) + '%'
 }
 
-export const formatNumber = (value: number): string => {
-  return new Intl.NumberFormat('pl-PL').format(Math.round(value))
-}
-
 export const formatMonths = (months: number): string => {
   const years = Math.floor(months / 12)
   const remainingMonths = months % 12

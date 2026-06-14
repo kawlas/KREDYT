@@ -1,0 +1,33 @@
+name: Update Bank Offers Weekly
+
+on:
+  schedule:
+    - cron: '0 6 * * 1'  # Every Monday at 7:00 CET (6:00 UTC)
+  workflow_dispatch:
+
+jobs:
+  fetch-offers:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Fetch bank offers
+        run: node scripts/fetch-bank-offers.js
+
+      - name: Commit if changed
+        run: |
+          git config user.name "Bank Offers Bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add public/bank-offers.json
+          git diff --quiet && git diff --staged --quiet || \
+            (git commit -m "chore: update bank mortgage margins $(date +'%Y-%m-%d')" && git push)

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef, useMemo } from 'react';
 import { animate } from 'motion';
 import type { LoanOffer } from '../types';
 
@@ -13,9 +13,12 @@ const ComparisonTable: React.FC<ComparisonTableProps> = ({ offers, onDelete }) =
   const tableRef = useRef<HTMLTableSectionElement>(null);
 
   // Znajdź najtańszą ofertę (najniższy koszt całkowity)
-  const cheapestOffer = offers.reduce((prev, current) => 
-    (prev.results.totalCost < current.results.totalCost) ? prev : current
-  , offers[0]);
+  const cheapestOffer = useMemo(() => {
+    if (offers.length === 0) return null
+    return offers.reduce((prev, current) =>
+      (prev.results.totalCost < current.results.totalCost) ? prev : current
+    )
+  }, [offers]);
 
   // Animate new row
   useEffect(() => {
@@ -42,10 +45,10 @@ const ComparisonTable: React.FC<ComparisonTableProps> = ({ offers, onDelete }) =
           <div 
             key={offer.id} 
             className={`p-4 rounded-lg border shadow-sm ${
-              offer.name === cheapestOffer?.name ? 'border-green-500 ring-1 ring-green-500 relative' : 'border-gray-200'
+              cheapestOffer && offer.id === cheapestOffer.id ? 'border-green-500 ring-1 ring-green-500 relative' : 'border-gray-200'
             }`}
           >
-            {offer.name === cheapestOffer?.name && (
+            {cheapestOffer && offer.id === cheapestOffer.id && (
               <span className="absolute -top-3 left-4 px-2 py-0.5 text-xs font-semibold text-white bg-green-500 rounded">
                 Najtańsza
               </span>
@@ -71,9 +74,15 @@ const ComparisonTable: React.FC<ComparisonTableProps> = ({ offers, onDelete }) =
                 <span className="font-medium">{formatCurrency(offer.results.monthlyPayment)}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-500">Całkowity koszt:</span>
+                <span className="text-gray-500">Suma rat:</span>
                 <span className="font-bold text-gray-900">{formatCurrency(offer.results.totalCost)}</span>
               </div>
+              {offer.results.allInCost && offer.results.allInCost !== offer.results.totalCost && (
+                <div className="flex justify-between">
+                  <span className="text-gray-500">Pełny koszt:</span>
+                  <span className="font-bold text-red-600">{formatCurrency(offer.results.allInCost)}</span>
+                </div>
+              )}
             </div>
           </div>
         ))}
@@ -91,7 +100,7 @@ const ComparisonTable: React.FC<ComparisonTableProps> = ({ offers, onDelete }) =
                 Rata
               </th>
               <th scope="col" className="px-3 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Koszt
+                Suma rat
               </th>
               <th scope="col" className="px-3 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                 RRSO
@@ -103,7 +112,7 @@ const ComparisonTable: React.FC<ComparisonTableProps> = ({ offers, onDelete }) =
           </thead>
           <tbody ref={tableRef} className="bg-white divide-y divide-gray-200">
             {offers.map((offer, index) => {
-              const matchesCheapest = offer.name === cheapestOffer?.name;
+              const matchesCheapest = cheapestOffer ? offer.id === cheapestOffer.id : false;
               return (
                 <tr 
                   key={offer.id}
@@ -126,8 +135,11 @@ const ComparisonTable: React.FC<ComparisonTableProps> = ({ offers, onDelete }) =
                   <td className="px-3 py-4 whitespace-nowrap text-sm text-right text-gray-500 font-semibold">
                     {formatCurrency(offer.results.monthlyPayment)}
                   </td>
-                  <td className="px-3 py-4 whitespace-nowrap text-sm text-right text-gray-900 font-bold">
-                    {formatCurrency(offer.results.totalCost)}
+                  <td className="px-3 py-4 whitespace-nowrap text-sm text-right text-gray-900">
+                    <div className="font-bold">{formatCurrency(offer.results.totalCost)}</div>
+                    {offer.results.allInCost && offer.results.allInCost !== offer.results.totalCost && (
+                      <div className="text-[11px] text-red-500 mt-0.5">pełny: {formatCurrency(offer.results.allInCost)}</div>
+                    )}
                   </td>
                   <td className="px-3 py-4 whitespace-nowrap text-sm text-right text-blue-600 font-medium">
                     {offer.results.rrso.toFixed(2)}%

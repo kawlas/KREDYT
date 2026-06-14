@@ -165,7 +165,7 @@ export default function WiborSimulator({
           </Card>
 
           {wiborChange > 2 && (
-            <Alert type="warning" icon="⚠️">
+            <Alert type="warning">
               <div className="font-semibold mb-1 text-sm">Scenariusz pesymistyczny</div>
               <p className="text-xs">
                 Wzrost o 2-3 p.p. w krótkim czasie jest możliwy (historia 2021-2022). Upewnij się, że masz poduszkę finansową na wypadek takich zmian.

@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
+import { Helmet } from 'react-helmet-async'
 import TabContainer from '../components/layout/TabContainer'
 import SEOHead from '../components/shared/SEOHead'
 import Alert from '../components/shared/Alert'
 import Card from '../components/shared/Card'
+import { toast } from '../components/shared/Toast'
 
 const ContactPage: React.FC = () => {
   const [submitted, setSubmitted] = useState(false)
@@ -18,22 +20,27 @@ const ContactPage: React.FC = () => {
     fetch("/", {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: new URLSearchParams(formData as any).toString(),
+      body: new URLSearchParams(
+        [...formData.entries()].map(([k, v]) => [k, v as string] as [string, string])
+      ).toString(),
     })
       .then(() => setSubmitted(true))
-      .catch((error) => alert(error))
+      .catch((error) => toast(String(error), 'error'))
   }
 
   return (
     <TabContainer title="Kontakt" subtitle="Masz propozycje ulepszenia strony lub współpracy?">
-      <SEOHead 
+      <SEOHead
         title="Kontakt | Kalkulator Kredytowy"
         description="Skontaktuj się z nami w sprawie kalkulatora kredytowego. Wyślij wiadomość przez formularz kontaktowy."
       />
+      <Helmet>
+        <meta name="robots" content="noindex, follow" />
+      </Helmet>
       <div className="max-w-2xl mx-auto">
         {submitted ? (
           <div className="text-center py-12">
-            <div className="text-6xl mb-6">✅</div>
+            <div className="text-6xl mb-6"><svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="1.5" class="mx-auto"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
             <h2 className="text-2xl font-bold text-gray-900 mb-2">Wiadomość wysłana!</h2>
             <p className="text-gray-600 mb-8">Dziękujemy za kontakt. Odpowiemy tak szybko, jak to możliwe.</p>
             <button 
@@ -115,7 +122,7 @@ const ContactPage: React.FC = () => {
         )}
         
         <div className="mt-12">
-          <Alert type="info" icon="💡">
+          <Alert type="info">
             <p className="text-sm">
               Znalazłeś błąd w wyliczeniach? A może masz pomysł na nową funkcję? 
               Napisz do nas – każdą wiadomość czytamy osobiście.

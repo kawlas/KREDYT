@@ -27,7 +27,7 @@ export default function WiborSimulatorPage({
     margin: margin,
     wibor: baseWibor,
     installmentType: installmentType,
-    propertyValue: 0 // Optional
+    propertyValue: loanAmount / 0.8 // Assume 80% LTV for shared link
   })
 
   return (

@@ -1,7 +1,8 @@
 import { useState } from 'react'
+import type { LoanFormData } from '../../types'
 
 interface ShareButtonProps {
-  getValues: () => any
+  getValues: () => LoanFormData
   className?: string
 }
 

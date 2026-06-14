@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo, useRef } from 'react'
+import { useWatch } from 'react-hook-form'
 import Card from '../components/shared/Card'
 import { animate } from 'motion'
 import LoanForm from '../components/LoanForm'
@@ -8,32 +9,40 @@ import TabContainer from '../components/layout/TabContainer'
 import SaveCalculationModal from '../components/calculators/SaveCalculationModal'
 import SavedCalculationsList from '../components/calculators/SavedCalculationsList'
 import { getSavedCalculations, type SavedCalculation } from '../utils/calculationStorage'
+import { calculateLoanResults } from '../utils/loanCalculations'
 import { useWIBOR } from '../hooks/useWIBOR'
 import WIBORDisplay from '../components/shared/WIBORDisplay'
 import SEOHead from '../components/shared/SEOHead'
 import AdSlot from '../components/shared/AdSlot'
 import ShareButton from '../components/shared/ShareButton'
+import { toast } from '../components/shared/Toast'
 import FaqBlock from '../components/seo/FaqBlock'
 import { FAQ_DATA } from '../data/faqData'
 import RelatedTools from '../components/seo/RelatedTools'
 
+import type { UseFormRegister, UseFormHandleSubmit, UseFormTrigger, FieldErrors, UseFormSetValue, Control } from 'react-hook-form'
+import type { LoanFormData, LoanResults, LoanOffer } from '../types'
+
 interface CalculatorPageProps {
-  register: any
-  handleSubmit: any
-  trigger: any
-  onSubmit: any
-  results: any
-  savedOffers: any[]
+  register: UseFormRegister<LoanFormData>
+  handleSubmit: UseFormHandleSubmit<LoanFormData>
+  trigger: UseFormTrigger<LoanFormData>
+  onSubmit: (data: LoanFormData) => void
+  results: LoanResults | null
+  savedOffers: LoanOffer[]
   isLoading: boolean
   error: string | null
   saveOffer: (name: string) => void
   deleteOffer: (id: string) => void
-  errors: any
-  getValues: any
-  reset: any
-  setResults: any
-  setValue: any
+  errors: FieldErrors<LoanFormData>
+  getValues: () => LoanFormData
+  reset: (values: LoanFormData) => void
+  setResults: (results: LoanResults | null) => void
+  setValue: UseFormSetValue<LoanFormData>
+  control: Control<LoanFormData>
 }
+
+const DEBOUNCE_MS = 400
 
 export default function CalculatorPage({
   register,
@@ -50,33 +59,63 @@ export default function CalculatorPage({
   getValues,
   reset,
   setResults,
-  setValue
+  setValue,
+  control,
 }: CalculatorPageProps) {
   const { wibor, loading: wiborLoading, error: wiborError, lastUpdate, source, refresh } = useWIBOR(true)
 
-  // Auto-fill WIBOR when loaded
   useEffect(() => {
-    if (wibor && (!getValues().wibor || getValues().wibor === 5.85)) {
+    if (wibor && !getValues().wibor) {
       setValue('wibor', wibor)
     }
   }, [wibor, setValue, getValues])
 
-  const [showSaveModal, setShowSaveModal] = useState(false)
-  const [showLoadModal, setShowLoadModal] = useState(false)
-  const [savedScenariosCount, setSavedScenariosCount] = useState(0)
+  // Auto-calculation: watch form values with debounce
+  const watchedValues = useWatch({ control })
+  const [debouncedValues, setDebouncedValues] = useState(watchedValues)
+  const timerRef = useRef<ReturnType<typeof setTimeout>>()
 
   useEffect(() => {
-    setSavedScenariosCount(getSavedCalculations().length)
-  }, [])
+    if (timerRef.current) clearTimeout(timerRef.current)
+    timerRef.current = setTimeout(() => {
+      setDebouncedValues(watchedValues)
+    }, DEBOUNCE_MS)
+    return () => { if (timerRef.current) clearTimeout(timerRef.current) }
+  }, [watchedValues])
+
+  const autoResults = useMemo(() => {
+    if (!debouncedValues?.principal || debouncedValues.principal <= 0) return null
+    try {
+      return calculateLoanResults(debouncedValues as LoanFormData)
+    } catch {
+      return null
+    }
+  }, [debouncedValues])
+
+  const displayResults = autoResults || results
+
+  const [showSaveModal, setShowSaveModal] = useState(false)
+  const [showLoadModal, setShowLoadModal] = useState(false)
+  const savedScenariosCount = savedOffers.length
 
   const handleLoadScenario = (scenario: SavedCalculation) => {
     reset(scenario.formData)
-    setResults(scenario.results)
-    alert(`✓ Wczytano scenariusz: ${scenario.name}`)
+    // Recompute to get full results including breakdown
+    const recomputed = calculateLoanResults({
+      principal: scenario.formData.principal,
+      years: scenario.formData.years,
+      wibor: scenario.formData.wibor,
+      margin: scenario.formData.margin,
+      installmentType: scenario.formData.installmentType,
+      commission: scenario.formData.commission,
+      propertyValue: scenario.formData.propertyValue,
+    })
+    setResults(recomputed)
+    toast(`Wczytano scenariusz: ${scenario.name}`, 'success')
   }
 
   const handleSaved = () => {
-    setSavedScenariosCount(getSavedCalculations().length)
+    // Count is derived from savedOffers.length — no action needed
   }
   
   const shakeElement = (element: HTMLElement) => {
@@ -130,7 +169,7 @@ export default function CalculatorPage({
           )}
         </div>
 
-        <section className="sticky top-8">
+        <section className="sticky top-20">
           {error && (
             <div 
               ref={(el) => el && shakeElement(el)}
@@ -140,7 +179,7 @@ export default function CalculatorPage({
             </div>
           )}
 
-          {results ? (
+          {displayResults ? (
             <>
               <ResultsCard 
                 {...results}
@@ -157,7 +196,7 @@ export default function CalculatorPage({
             </>
           ) : (
             <div className="bg-white p-12 rounded-2xl shadow-sm border border-dashed border-gray-300 text-center">
-              <div className="text-4xl mb-4">📊</div>
+              <div className="text-4xl mb-4"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" className="mx-auto text-gray-300"><rect x="3" y="12" width="3" height="9" rx="1"/><rect x="10" y="7" width="3" height="14" rx="1"/><rect x="17" y="3" width="3" height="18" rx="1"/></svg></div>
               <p className="text-gray-500 font-medium">Wprowadź dane kredytu, aby zobaczyć szczegółowe wyliczenia</p>
             </div>
           )}
@@ -167,7 +206,7 @@ export default function CalculatorPage({
               onClick={() => setShowLoadModal(true)}
               className="flex items-center justify-center gap-3 px-4 py-4 bg-white border-2 border-blue-600 text-blue-600 rounded-xl hover:bg-blue-50 font-bold transition-all shadow-lg shadow-blue-500/5 group"
             >
-              <span className="text-2xl group-hover:scale-110 transition-transform">📂</span>
+              <span className="text-2xl group-hover:scale-110 transition-transform"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/></svg></span>
               <div className="text-left">
                 <div className="text-sm leading-tight">Wczytaj</div>
                 <div className="text-[10px] uppercase tracking-wider opacity-70">Zapisane: {savedScenariosCount}</div>
@@ -184,7 +223,7 @@ export default function CalculatorPage({
                 onClick={() => setShowSaveModal(true)}
                 className="flex items-center justify-center gap-3 px-4 py-4 bg-green-600 text-white rounded-xl hover:bg-green-700 font-bold transition-all shadow-lg shadow-green-500/20 group sm:col-span-2 lg:col-span-1"
               >
-                <span className="text-2xl group-hover:scale-110 transition-transform">💾</span>
+                <span className="text-2xl group-hover:scale-110 transition-transform"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg></span>
                 <div className="text-left">
                   <div className="text-sm leading-tight">Zapisz</div>
                   <div className="text-[10px] uppercase tracking-wider opacity-70">Lokalnie</div>
