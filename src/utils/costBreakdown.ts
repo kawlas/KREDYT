@@ -5,7 +5,6 @@ export function calculateCostBreakdown(
   loanAmount: number,
   propertyValue: number,
   totalInterest: number,
-  monthlyPayment: number,
   loanTermYears: number
 ): CostBreakdown {
   const ltv = loanAmount / propertyValue

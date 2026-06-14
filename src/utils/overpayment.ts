@@ -68,7 +68,6 @@ export function simulateOverpayment(params: OverpaymentParams): OverpaymentResul
   const scheduleSummary: OverpaymentResult['scheduleSummary'] = []
 
   // For reduce-installment mode, recalculate payment after each overpayment
-  let effectiveMonths = months
   let currentMonthlyPayment = originalMonthlyPayment
 
   while (balance > 0 && month < months * 2) {
@@ -113,7 +112,6 @@ export function simulateOverpayment(params: OverpaymentParams): OverpaymentResul
     if (overpaymentApplied > 0 && balance > 0) {
       if (mode === 'reduce-installment') {
         // Recalculate monthly payment for remaining balance and remaining term
-        const remaining = effectiveMonths - (month - (effectiveMonths - months > 0 ? effectiveMonths - months : 0))
         const remainingAfterThis = months - month
         if (remainingAfterThis > 0 && monthlyRate > 0) {
           const pow = Math.pow(1 + monthlyRate, remainingAfterThis)

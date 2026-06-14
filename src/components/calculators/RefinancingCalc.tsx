@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
 import { calculateRefinancingAnalysis } from '../../utils/refinancing'
-import { formatCurrency, formatCurrencyShort, formatMonths, formatPercent } from '../../utils/formatters'
+import { formatCurrency, formatCurrencyShort, formatMonths } from '../../utils/formatters'
 import { BANK_PROFILES } from '../../data/bankProfiles'
 import Card from '../shared/Card'
 import Alert from '../shared/Alert'

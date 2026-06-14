@@ -1,7 +1,6 @@
 import { useMemo, useState } from 'react'
 import {
   calculateDailyInterest,
-  calculateDailyInterestAct360,
   compare365vs360,
   calculateAccumulatedInterest,
 } from '../../utils/dailyInterest'
@@ -18,10 +17,6 @@ export default function DailyInterestCalc() {
 
   const act365 = useMemo(
     () => calculateDailyInterest(principal, annualRate, daysInMonth),
-    [principal, annualRate, daysInMonth]
-  )
-  const act360 = useMemo(
-    () => calculateDailyInterestAct360(principal, annualRate, daysInMonth),
     [principal, annualRate, daysInMonth]
   )
   const comparison = useMemo(

@@ -40,7 +40,7 @@ const ContactPage: React.FC = () => {
       <div className="max-w-2xl mx-auto">
         {submitted ? (
           <div className="text-center py-12">
-            <div className="text-6xl mb-6"><svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="1.5" class="mx-auto"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+            <div className="text-6xl mb-6"><svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="1.5" className="mx-auto"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
             <h2 className="text-2xl font-bold text-gray-900 mb-2">Wiadomość wysłana!</h2>
             <p className="text-gray-600 mb-8">Dziękujemy za kontakt. Odpowiemy tak szybko, jak to możliwe.</p>
             <button 

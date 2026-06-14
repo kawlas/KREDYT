@@ -8,7 +8,7 @@ import ComparisonTable from '../components/ComparisonTable'
 import TabContainer from '../components/layout/TabContainer'
 import SaveCalculationModal from '../components/calculators/SaveCalculationModal'
 import SavedCalculationsList from '../components/calculators/SavedCalculationsList'
-import { getSavedCalculations, type SavedCalculation } from '../utils/calculationStorage'
+import type { SavedCalculation } from '../utils/calculationStorage'
 import { calculateLoanResults } from '../utils/loanCalculations'
 import { useWIBOR } from '../hooks/useWIBOR'
 import WIBORDisplay from '../components/shared/WIBORDisplay'
@@ -181,8 +181,8 @@ export default function CalculatorPage({
 
           {displayResults ? (
             <>
-              <ResultsCard 
-                {...results}
+              <ResultsCard
+                {...displayResults}
                 loanAmount={getValues().principal}
                 propertyValue={getValues().propertyValue || getValues().principal / 0.8}
                 wibor={getValues().wibor}

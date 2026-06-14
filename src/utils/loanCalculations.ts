@@ -187,7 +187,7 @@ export const calculateRRSO = (
  */
 export const calculateLoanResults = (data: LoanFormData): LoanResults => {
   const { principal, years, wibor, margin, installmentType, propertyValue: rawPropertyValue } = data
-  const commission = Number.isFinite(data.commission) ? data.commission : 0
+  const commission = Number(data.commission || 0)
   const propertyValue = Number.isFinite(rawPropertyValue) ? rawPropertyValue : principal / 0.8
   const months = years * 12
   const annualRate = wibor + margin
@@ -199,7 +199,6 @@ export const calculateLoanResults = (data: LoanFormData): LoanResults => {
     principal,
     propertyValue || principal / 0.8,
     totalInterestBase,
-    monthlyPayment,
     years
   )
 
