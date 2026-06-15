@@ -13,9 +13,11 @@ import PrivacyPolicyPage from './pages/PrivacyPolicyPage'
 import TopicPage from './pages/TopicPage'
 import NotFoundPage from './pages/NotFoundPage'
 import DailyInterestPage from './pages/DailyInterestPage'
+import FixedVsVariablePage from './pages/FixedVsVariablePage'
 import OverpaymentPage from './pages/OverpaymentPage'
 import RefinancingPage from './pages/RefinancingPage'
 import BankComparisonPage from './pages/BankComparisonPage'
+import LTVPage from './pages/LTVPage'
 import Footer from './components/layout/Footer'
 import NavBar from './components/layout/NavBar'
 import ScrollToTop from './components/shared/ScrollToTop'
@@ -76,9 +78,11 @@ function App() {
               />
 
               <Route path="/odsetki-dzienne/" element={<DailyInterestPage />} />
+              <Route path="/stale-vs-zmienne-oprocentowanie/" element={<FixedVsVariablePage />} />
               <Route path="/symulator-nadplat/" element={<OverpaymentPage />} />
               <Route path="/refinansowanie-kredytu/" element={<RefinancingPage />} />
               <Route path="/porownanie-ofert-bankow/" element={<BankComparisonPage />} />
+              <Route path="/ltv-kalkulator/" element={<LTVPage />} />
               <Route path="/faq-kredyt-hipoteczny/" element={<FAQPage />} />
               <Route path="/o-projekcie/" element={<AboutPage />} />
               <Route path="/metodologia/" element={<MethodologyPage />} />

@@ -3,21 +3,61 @@ import SEOHead from '../components/shared/SEOHead'
 import Card from '../components/shared/Card'
 import AdSlot from '../components/shared/AdSlot'
 
-const tools = [
-  { to: '/zdolnosc-kredytowa/', title: 'Zdolność kredytowa', desc: 'Ile maksymalnie możesz pożyczyć? Sprawdź w 30 sekund.', step: 1 },
-  { to: '/kalkulator-raty-kredytu/', title: 'Kalkulator raty', desc: 'Oblicz miesięczną ratę, RRSO i całkowity koszt kredytu.', step: 2 },
-  { to: '/raty-rowne-czy-malejace/', title: 'Raty równe czy malejące', desc: 'Który typ rat wybrać? Porównaj koszty.', step: 3 },
-  { to: '/symulacja-wibor/', title: 'Symulacja WIBOR', desc: 'Co stanie się z ratą, gdy stopy wzrosną?', step: 4 },
-  { to: '/odsetki-dzienne/', title: 'Odsetki dzienne', desc: 'Jak bank nalicza odsetki każdego dnia.', step: 5 },
-  { to: '/symulator-nadplat/', title: 'Symulator nadpłat', desc: 'Ile zaoszczędzisz nadpłacając kredyt?', step: 6 },
-  { to: '/refinansowanie-kredytu/', title: 'Refinansowanie', desc: 'Czy warto przenieść kredyt do innego banku?', step: 7 },
-  { to: '/porownanie-ofert-bankow/', title: 'Porównanie banków', desc: 'Który bank najtaniej? PKO BP, ING, Santander...', step: 8 },
+interface Tool {
+  to: string
+  title: string
+  desc: string
+}
+
+interface Phase {
+  id: string
+  icon: string
+  title: string
+  subtitle: string
+  tools: Tool[]
+}
+
+const phases: Phase[] = [
+  {
+    id: 'sprawdz',
+    icon: '📋',
+    title: 'Sprawdź',
+    subtitle: 'Ile możesz dostać? Ile zapłacisz?',
+    tools: [
+      { to: '/zdolnosc-kredytowa/', title: 'Zdolność kredytowa', desc: 'Ile maksymalnie możesz pożyczyć? Sprawdź w 30 sekund.' },
+      { to: '/kalkulator-raty-kredytu/', title: 'Kalkulator raty', desc: 'Oblicz miesięczną ratę, RRSO i całkowity koszt kredytu.' },
+      { to: '/ltv-kalkulator/', title: 'Kalkulator LTV', desc: 'Jaki wkład własny jest potrzebny? Sprawdź wskaźnik LTV.' },
+      { to: '/raty-rowne-czy-malejace/', title: 'Raty równe czy malejące', desc: 'Który typ rat wybrać? Porównaj koszty.' },
+    ],
+  },
+  {
+    id: 'symuluj',
+    icon: '📊',
+    title: 'Symuluj',
+    subtitle: 'A co jeśli? Sprawdź scenariusze.',
+    tools: [
+      { to: '/symulacja-wibor/', title: 'Symulacja WIBOR', desc: 'Co stanie się z ratą, gdy stopy wzrosną lub spadną?' },
+      { to: '/symulator-nadplat/', title: 'Symulator nadpłat', desc: 'Ile zaoszczędzisz nadpłacając kredyt?' },
+      { to: '/odsetki-dzienne/', title: 'Odsetki dzienne', desc: 'Jak bank nalicza odsetki każdego dnia? act/365 vs act/360.' },
+    ],
+  },
+  {
+    id: 'porownaj',
+    icon: '🎯',
+    title: 'Porównaj',
+    subtitle: 'Gdzie jest najlepiej? Znajdź optymalną ofertę.',
+    tools: [
+      { to: '/stale-vs-zmienne-oprocentowanie/', title: 'Stałe czy zmienne', desc: 'Które oprocentowanie wybrać? Porównaj koszty.' },
+      { to: '/porownanie-ofert-bankow/', title: 'Porównanie banków', desc: 'Który bank najtaniej? PKO BP, ING, Santander...' },
+      { to: '/refinansowanie-kredytu/', title: 'Refinansowanie', desc: 'Czy warto przenieść kredyt do innego banku?' },
+    ],
+  },
 ]
 
 const steps = [
-  { num: '01', title: 'Wpisz dane kredytu', desc: 'Kwota, okres, oprocentowanie — wystarczą 4 pola.' },
-  { num: '02', title: 'Zobacz pełny koszt', desc: 'Rata, RRSO, całkowity koszt — w jednym miejscu.' },
-  { num: '03', title: 'Porównaj i zapisz', desc: 'Zestaw oferty, zapisz lokalnie, bez rejestracji.' },
+  { num: '01', title: 'Sprawdź swoją sytuację', desc: 'Zdolność, rata, LTV, typ rat — poznaj swoje możliwości.' },
+  { num: '02', title: 'Symuluj scenariusze', desc: 'WIBOR, nadpłaty, odsetki — sprawdź, co się stanie gdy...' },
+  { num: '03', title: 'Porównaj i wybierz', desc: 'Zestaw oferty banków, sprawdź refinansowanie, wybierz najlepsze.' },
 ]
 
 export default function HubPage() {
@@ -25,7 +65,7 @@ export default function HubPage() {
     <div className="space-y-16 pb-8">
       <SEOHead
         title="Kalkulator Kredytu Hipotecznego — Sprawdź Ratę, RRSO i Zdolność"
-        description="Darmowy kalkulator kredytu hipotecznego. Oblicz ratę, RRSO, zdolność. Porównaj oferty banków. Aktualny WIBOR. Bez rejestracji."
+        description="Darmowy kalkulator kredytu hipotecznego. Oblicz ratę, RRSO, zdolność, LTV. Porównaj oprocentowanie stałe vs zmienne i oferty banków. Aktualny WIBOR. Bez rejestracji."
       />
 
       {/* Hero */}
@@ -65,22 +105,36 @@ export default function HubPage() {
         <AdSlot slot="5567225861" />
       </div>
 
-      {/* Tools grid */}
+      {/* Tools by phase */}
       <section>
-        <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 text-center mb-4">Co możesz zrobić</h2>
-        <p className="text-gray-500 text-center mb-12 max-w-xl mx-auto">
-          Narzędzia ułożone od decyzji o kredycie po wybór najlepszej oferty.
-        </p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {tools.map(tool => (
-            <Link key={tool.to} to={tool.to} className="group block bg-white rounded-xl border border-gray-100 p-6 hover:border-blue-200 hover:shadow-md transition-all">
-              <div className="text-xs font-bold text-blue-400 mb-2">KROK {tool.step}</div>
-              <h3 className="font-semibold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">{tool.title}</h3>
-              <p className="text-sm text-gray-500 leading-relaxed">{tool.desc}</p>
-              <div className="mt-4 text-blue-600 text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">Sprawdź &rarr;</div>
-            </Link>
-          ))}
-        </div>
+        <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 text-center mb-12">Co możesz zrobić</h2>
+        {phases.map((phase, idx) => {
+          const borderClass = idx === 0 ? 'border-l-blue-500' : idx === 1 ? 'border-l-emerald-500' : 'border-l-violet-500'
+          const badgeClass = idx === 0 ? 'bg-blue-50 text-blue-700' : idx === 1 ? 'bg-emerald-50 text-emerald-700' : 'bg-violet-50 text-violet-700'
+          const hoverBorderClass = idx === 0 ? 'hover:border-blue-200' : idx === 1 ? 'hover:border-emerald-200' : 'hover:border-violet-200'
+          const hoverTextClass = idx === 0 ? 'group-hover:text-blue-600' : idx === 1 ? 'group-hover:text-emerald-600' : 'group-hover:text-violet-600'
+          const arrowClass = idx === 0 ? 'text-blue-600' : idx === 1 ? 'text-emerald-600' : 'text-violet-600'
+          return (
+            <section key={phase.id} className="mb-12 last:mb-0">
+              <div className="flex items-center gap-3 mb-6">
+                <span className="text-2xl">{phase.icon}</span>
+                <h2 className="text-2xl font-bold text-gray-900">{phase.title}</h2>
+                <span className="text-gray-300 hidden sm:inline">—</span>
+                <p className="text-gray-500 text-lg hidden sm:block">{phase.subtitle}</p>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                {phase.tools.map((tool) => (
+                  <Link key={tool.to} to={tool.to} className={`group block bg-white rounded-xl border border-gray-100 p-6 border-l-4 ${borderClass} ${hoverBorderClass} hover:shadow-md transition-all`}>
+                    <span className={`inline-block text-xs font-semibold px-2 py-0.5 rounded-full ${badgeClass} mb-3`}>{phase.title}</span>
+                    <h3 className={`font-semibold text-gray-900 mb-2 ${hoverTextClass} transition-colors`}>{tool.title}</h3>
+                    <p className="text-sm text-gray-500 leading-relaxed">{tool.desc}</p>
+                    <div className={`mt-4 ${arrowClass} text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity`}>Sprawdź &rarr;</div>
+                  </Link>
+                ))}
+              </div>
+            </section>
+          )
+        })}
       </section>
 
       {/* Trust */}

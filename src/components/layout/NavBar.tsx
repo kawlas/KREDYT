@@ -10,12 +10,14 @@ const items: NavItem[] = [
   { path: '/', label: 'Start' },
   { path: '/zdolnosc-kredytowa/', label: 'Zdolność' },
   { path: '/kalkulator-raty-kredytu/', label: 'Kalkulator' },
+  { path: '/ltv-kalkulator/', label: 'LTV' },
   { path: '/raty-rowne-czy-malejace/', label: 'Raty' },
   { path: '/symulacja-wibor/', label: 'WIBOR' },
   { path: '/odsetki-dzienne/', label: 'Odsetki' },
   { path: '/symulator-nadplat/', label: 'Nadpłaty' },
   { path: '/refinansowanie-kredytu/', label: 'Refinansowanie' },
   { path: '/porownanie-ofert-bankow/', label: 'Banki' },
+  { path: '/stale-vs-zmienne-oprocentowanie/', label: 'Stałe/Zmienne' },
   { path: '/faq-kredyt-hipoteczny/', label: 'FAQ' },
 ]
 

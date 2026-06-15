@@ -6,15 +6,23 @@ import { FAQ_DATA } from '../data/faqData'
 import RelatedTools from '../components/seo/RelatedTools'
 
 interface PaymentComparisonPageProps {
-  loanAmount: number
-  annualRate: number
-  loanTermYears: number
+  loanAmount?: number
+  annualRate?: number
+  loanTermYears?: number
+  source?: 'calculator' | 'none'
+  onSourceApply?: (values: { loanAmount: number; annualRate: number; loanTermYears: number }) => void
+  wibor?: number
+  margin?: number
 }
 
 export default function PaymentComparisonPage({ 
   loanAmount, 
   annualRate, 
-  loanTermYears 
+  loanTermYears,
+  source,
+  onSourceApply,
+  wibor,
+  margin
 }: PaymentComparisonPageProps) {
   return (
     <>
@@ -27,6 +35,10 @@ export default function PaymentComparisonPage({
           loanAmount={loanAmount}
           annualRate={annualRate}
           loanTermYears={loanTermYears}
+          source={source}
+          onSourceApply={onSourceApply}
+          wibor={wibor}
+          margin={margin}
         />
         <div className="max-w-6xl mx-auto px-4">
           <AdSlot />

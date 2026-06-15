@@ -1,35 +1,65 @@
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import { comparePaymentTypes, type PaymentTypeComparison } from '../../utils/paymentComparison'
 import { formatCurrency, formatCurrencyShort } from '../../utils/formatters'
 import Card from '../shared/Card'
 import Alert from '../shared/Alert'
+import DataSourceBanner from '../shared/DataSourceBanner'
 
 import TabContainer from '../layout/TabContainer'
 
 interface PaymentComparisonProps {
-  loanAmount: number
-  annualRate: number
-  loanTermYears: number
+  loanAmount?: number
+  annualRate?: number
+  loanTermYears?: number
+  source?: 'calculator' | 'none'
+  onSourceApply?: (values: { loanAmount: number; annualRate: number; loanTermYears: number }) => void
+  wibor?: number
+  margin?: number
 }
 
 export default function PaymentComparison({
   loanAmount,
   annualRate,
-  loanTermYears
+  loanTermYears,
+  source,
+  onSourceApply,
+  wibor,
+  margin
 }: PaymentComparisonProps) {
+  const [localValues, setLocalValues] = useState<{ loanAmount: number; annualRate: number; loanTermYears: number } | null>(null)
+
+  const effectiveLoanAmount = localValues?.loanAmount ?? loanAmount ?? 400000
+  const effectiveAnnualRate = localValues?.annualRate ?? annualRate ?? 7
+  const effectiveLoanTermYears = localValues?.loanTermYears ?? loanTermYears ?? 25
+
   const comparison = useMemo(
-    () => comparePaymentTypes(loanAmount, annualRate, loanTermYears),
-    [loanAmount, annualRate, loanTermYears]
+    () => comparePaymentTypes(effectiveLoanAmount, effectiveAnnualRate, effectiveLoanTermYears),
+    [effectiveLoanAmount, effectiveAnnualRate, effectiveLoanTermYears]
   )
   const { equal, decreasing, recommendation } = comparison
+
+  const handleSourceApply = (values: { loanAmount: number; annualRate: number; loanTermYears: number }) => {
+    setLocalValues(values)
+    onSourceApply?.(values)
+  }
 
   return (
     <TabContainer
       title="Porównanie typów rat"
       subtitle="Raty równe vs malejące"
-      contextInfo={`Dla wybranej kalkulacji: ${formatCurrencyShort(loanAmount)} na ${loanTermYears} lat`}
     >
       <div className="space-y-6">
+        <DataSourceBanner
+          source={source ?? 'none'}
+          values={{
+            loanAmount: effectiveLoanAmount,
+            annualRate: effectiveAnnualRate,
+            loanTermYears: effectiveLoanTermYears,
+            wibor,
+            margin,
+          }}
+          onApply={handleSourceApply}
+        />
         {/* Side by side comparison cards */}
         <div className="two-column-layout">
           <ComparisonCard data={equal} isRecommended={false} />
@@ -97,7 +127,7 @@ export default function PaymentComparison({
                     {formatCurrencyShort(decreasing.firstPayment)} → {formatCurrencyShort(decreasing.lastPayment)}
                   </div>
                   <div className="text-sm text-gray-600">
-                    Maleje o ~{formatCurrencyShort((decreasing.firstPayment - decreasing.lastPayment) / loanTermYears)}/rok
+                    Maleje o ~{formatCurrencyShort((decreasing.firstPayment - decreasing.lastPayment) / effectiveLoanTermYears)}/rok
                   </div>
                 </div>
               </div>

@@ -13,7 +13,9 @@ const { render } = await import('./dist/server/entry-server.js')
 const baseRoutes = [
   '/',
   '/kalkulator-raty-kredytu/',
+  '/ltv-kalkulator/',
   '/raty-rowne-czy-malejace/',
+  '/stale-vs-zmienne-oprocentowanie/',
   '/symulacja-wibor/',
   '/zdolnosc-kredytowa/',
   '/faq-kredyt-hipoteczny/',
