@@ -11,36 +11,17 @@ import SavedCalculationsList from '../components/calculators/SavedCalculationsLi
 import type { SavedCalculation } from '../utils/calculationStorage'
 import { calculateLoanResults } from '../utils/loanCalculations'
 import { useWIBOR } from '../hooks/useWIBOR'
+import { useLoanCalculator } from '../context/LoanCalculatorContext'
 import WIBORDisplay from '../components/shared/WIBORDisplay'
 import SEOHead from '../components/shared/SEOHead'
 import AdSlot from '../components/shared/AdSlot'
 import ShareButton from '../components/shared/ShareButton'
-import { toast } from '../components/shared/Toast'
+import { toast } from '../components/shared/toast'
 import FaqBlock from '../components/seo/FaqBlock'
 import { FAQ_DATA } from '../data/faqData'
 import RelatedTools from '../components/seo/RelatedTools'
 
-import type { UseFormRegister, UseFormHandleSubmit, UseFormTrigger, FieldErrors, UseFormSetValue, Control } from 'react-hook-form'
-import type { LoanFormData, LoanResults, LoanOffer } from '../types'
-
-interface CalculatorPageProps {
-  register: UseFormRegister<LoanFormData>
-  handleSubmit: UseFormHandleSubmit<LoanFormData>
-  trigger: UseFormTrigger<LoanFormData>
-  onSubmit: (data: LoanFormData) => void
-  results: LoanResults | null
-  savedOffers: LoanOffer[]
-  isLoading: boolean
-  error: string | null
-  saveOffer: (name: string) => void
-  deleteOffer: (id: string) => void
-  errors: FieldErrors<LoanFormData>
-  getValues: () => LoanFormData
-  reset: (values: LoanFormData) => void
-  setResults: (results: LoanResults | null) => void
-  setValue: UseFormSetValue<LoanFormData>
-  control: Control<LoanFormData>
-}
+import type { LoanFormData } from '../types'
 
 const DEBOUNCE_MS = 400
 
@@ -67,25 +48,13 @@ export const getDisplayResultsInputs = (
   }
 }
 
-export default function CalculatorPage({
-  register,
-  handleSubmit,
-  trigger,
-  onSubmit,
-  results,
-  savedOffers,
-  isLoading,
-  error,
-  saveOffer,
-  deleteOffer,
-  errors,
-  getValues,
-  reset,
-  setResults,
-  setValue,
-  control,
-}: CalculatorPageProps) {
+export default function CalculatorPage() {
   const { wibor, loading: wiborLoading, error: wiborError, lastUpdate, source, refresh } = useWIBOR(true)
+  const {
+    register, handleSubmit, trigger, onSubmit, results, savedOffers,
+    isLoading, error, saveOffer, deleteOffer, errors, getValues,
+    reset, setResults, setValue, control,
+  } = useLoanCalculator()
 
   useEffect(() => {
     if (wibor && !getValues().wibor) {

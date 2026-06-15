@@ -4,7 +4,7 @@ import { useForm, type UseFormRegister, type UseFormHandleSubmit, type UseFormTr
 import type { LoanFormData, LoanResults, LoanOffer, AffordabilityFormData } from '../types'
 import { calculateLoanResults } from '../utils/loanCalculations'
 import { saveCalculation, deleteCalculation } from '../utils/calculationStorage'
-import { toast } from '../components/shared/Toast'
+import { toast } from '../components/shared/toast'
 import { MAX_OFFERS } from '../types/constants'
 
 const STORAGE_KEY = 'loan-calculator-offers'
@@ -63,6 +63,7 @@ export function LoanCalculatorProvider({ children }: { children: ReactNode }) {
   const loanForm = useForm<LoanFormData>({ defaultValues: defaultLoanValues })
   
   // Hydrate from SessionStorage (Client Only)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     if (typeof window !== 'undefined') {
       try {
@@ -75,6 +76,7 @@ export function LoanCalculatorProvider({ children }: { children: ReactNode }) {
     }
   }, []) // Run once on mount
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     const sub = loanForm.watch((data) => {
       if (typeof window !== 'undefined') {
@@ -98,6 +100,7 @@ export function LoanCalculatorProvider({ children }: { children: ReactNode }) {
   const affordabilityForm = useForm<AffordabilityFormData>({ defaultValues: defaultAffordabilityValues })
 
   // Hydrate Affordability from Session
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     if (typeof window !== 'undefined') {
       try {
@@ -110,6 +113,7 @@ export function LoanCalculatorProvider({ children }: { children: ReactNode }) {
     }
   }, [])
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     const sub = affordabilityForm.watch((data) => {
       if (typeof window !== 'undefined') {
@@ -151,6 +155,7 @@ export function LoanCalculatorProvider({ children }: { children: ReactNode }) {
   }, [savedOffers])
 
   // Hydrate from URL params on mount (SEO/Sharing)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     if (typeof window === 'undefined') return
     const params = new URLSearchParams(window.location.search)

@@ -4,7 +4,7 @@ import TabContainer from '../components/layout/TabContainer'
 import SEOHead from '../components/shared/SEOHead'
 import Alert from '../components/shared/Alert'
 import Card from '../components/shared/Card'
-import { toast } from '../components/shared/Toast'
+import { toast } from '../components/shared/toast'
 
 const ContactPage: React.FC = () => {
   const [submitted, setSubmitted] = useState(false)

@@ -20,27 +20,10 @@ import Footer from './components/layout/Footer'
 import NavBar from './components/layout/NavBar'
 import ScrollToTop from './components/shared/ScrollToTop'
 import ErrorBoundary from './components/shared/ErrorBoundary'
-import ToastContainer from './components/shared/Toast'
+import ToastContainer from './components/shared/ToastContainer'
 
 function App() {
-  const {
-    register,
-    handleSubmit,
-    trigger,
-    onSubmit,
-    results,
-    savedOffers,
-    isLoading,
-    error,
-    saveOffer,
-    deleteOffer,
-    errors,
-    getValues,
-    reset,
-    setResults,
-    setValue,
-    control,
-  } = useLoanCalculator()
+  const { getValues } = useLoanCalculator()
 
   return (
     <div className="min-h-screen bg-white">
@@ -57,26 +40,7 @@ function App() {
 
               <Route
                 path="/kalkulator-raty-kredytu/"
-                element={
-                  <CalculatorPage
-                    register={register}
-                    handleSubmit={handleSubmit}
-                    trigger={trigger}
-                    onSubmit={onSubmit}
-                    results={results}
-                    savedOffers={savedOffers}
-                    isLoading={isLoading}
-                    error={error}
-                    saveOffer={saveOffer}
-                    deleteOffer={deleteOffer}
-                    errors={errors}
-                    getValues={getValues}
-                    reset={reset}
-                    setResults={setResults}
-                    setValue={setValue}
-                    control={control}
-                  />
-                }
+                element={<CalculatorPage />}
               />
 
               <Route path="/zdolnosc-kredytowa/" element={<AffordabilityPage />} />

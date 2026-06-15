@@ -1,70 +1,70 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
-import { animate } from 'motion';
-import type { LoanResults } from '../types';
-import { formatCurrency, formatCurrencyShort, formatPercent } from '../utils/formatters';
-import Card from './shared/Card';
-import Alert from './shared/Alert';
-import Tooltip from './shared/Tooltip';
-import Collapsible from './shared/Collapsible';
+import React, { useState, useEffect, useRef } from 'react'
+import { Link } from 'react-router-dom'
+import { animate } from 'motion'
+import type { LoanResults } from '../types'
+import { formatCurrency, formatCurrencyShort, formatPercent } from '../utils/formatters'
+import Card from './shared/Card'
+import Alert from './shared/Alert'
+import Tooltip from './shared/Tooltip'
+import Collapsible from './shared/Collapsible'
 
 interface ResultsCardProps extends LoanResults {
-  loanAmount: number;
-  propertyValue: number;
-  wibor: number;
-  margin: number;
-  loanTermYears: number;
-  onSave: (name: string) => void;
+  loanAmount: number
+  propertyValue: number
+  wibor: number
+  margin: number
+  loanTermYears: number
+  onSave: (name: string) => void
 }
 
 const ResultsCard: React.FC<ResultsCardProps> = (props) => {
-  const { monthlyPayment, totalInterest, rrso, breakdown, onSave } = props;
-  const [offerName, setOfferName] = useState('');
-  const [isSaving, setIsSaving] = useState(false);
-  const cardRef = useRef<HTMLDivElement>(null);
+  const { monthlyPayment, totalInterest, rrso, breakdown, onSave } = props
+  const [offerName, setOfferName] = useState('')
+  const [isSaving, setIsSaving] = useState(false)
+  const cardRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    if (!cardRef.current) return;
+    if (!cardRef.current) return
     
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReducedMotion) return;
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (prefersReducedMotion) return
     
     // Card entrance
     animate(
       cardRef.current,
       { opacity: [0, 1], y: [20, 0] },
       { duration: 0.3, ease: "easeOut" }
-    );
+    )
 
     // Stagger children
-    const items = cardRef.current.querySelectorAll('[data-animate-item]');
+    const items = cardRef.current.querySelectorAll('[data-animate-item]')
     if (items.length > 0) {
       items.forEach((item, index) => {
         animate(
           item,
           { opacity: [0, 1], x: [-10, 0] },
           { duration: 0.3, delay: index * 0.05 }
-        );
-      });
+        )
+      })
     }
-  }, []);
+  }, [])
 
   const handleSave = () => {
     if (!isSaving) {
-      setIsSaving(true);
-      if (!offerName) setOfferName(`Oferta ${new Date().toLocaleDateString()}`);
-      return;
+      setIsSaving(true)
+      if (!offerName) setOfferName(`Oferta ${new Date().toLocaleDateString()}`)
+      return
     }
 
     if (!offerName.trim()) {
       // If still empty when clicking OK, just reset
-      setIsSaving(false);
-      return;
+      setIsSaving(false)
+      return
     }
-    onSave(offerName.trim());
-    setOfferName('');
-    setIsSaving(false);
-  };
+    onSave(offerName.trim())
+    setOfferName('')
+    setIsSaving(false)
+  }
 
   if (!breakdown) {
     return (
@@ -73,12 +73,12 @@ const ResultsCard: React.FC<ResultsCardProps> = (props) => {
           <p className="text-gray-500 italic">Brak danych do wyświetlenia podsumowania</p>
         </Card>
       </div>
-    );
+    )
   }
 
-  const { upfrontCosts, yearlyCosts, totalCost, actualAmountReceived } = breakdown;
-  const nominalRate = props.wibor + props.margin;
-  const ltv = (props.loanAmount / props.propertyValue) * 100;
+  const { upfrontCosts, yearlyCosts, totalCost, actualAmountReceived } = breakdown
+  const nominalRate = props.wibor + props.margin
+  const ltv = (props.loanAmount / props.propertyValue) * 100
 
   return (
     <div ref={cardRef} className="space-y-4">
@@ -409,8 +409,8 @@ const ResultsCard: React.FC<ResultsCardProps> = (props) => {
                 className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
                 autoFocus
                 onKeyDown={(e) => {
-                  if (e.key === 'Enter') handleSave();
-                  if (e.key === 'Escape') setIsSaving(false);
+                  if (e.key === 'Enter') handleSave()
+                  if (e.key === 'Escape') setIsSaving(false)
                 }}
               />
               <button 
@@ -430,7 +430,7 @@ const ResultsCard: React.FC<ResultsCardProps> = (props) => {
         )}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default ResultsCard;
+export default ResultsCard

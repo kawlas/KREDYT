@@ -1,7 +1,7 @@
 import { calculateMonthlyPayment, calculateTotalCost } from './loanCalculations'
 
 export interface PaymentTypeComparison {
-  type: 'equal' | 'decreasing'
+  type: 'equal' | 'declining'
   typeName: string
   firstPayment: number
   lastPayment: number
@@ -107,7 +107,7 @@ export function comparePaymentTypes(
   }
 
   const decreasingResult: PaymentTypeComparison = {
-    type: 'decreasing',
+    type: 'declining',
     typeName: 'Raty malejące',
     firstPayment: decreasing.firstPayment,
     lastPayment: decreasing.lastPayment,

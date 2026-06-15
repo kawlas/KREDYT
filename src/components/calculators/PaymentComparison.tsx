@@ -205,7 +205,7 @@ function ComparisonCard({
         </div>
 
         {/* Savings indicator (for decreasing) */}
-        {data.type === 'decreasing' && data.totalSavings > 0 && (
+        {data.type === 'declining' && data.totalSavings > 0 && (
           <div className="bg-green-100 text-green-800 p-2 rounded text-sm text-center font-medium">
             Oszczędzasz {formatCurrencyShort(data.totalSavings)}
           </div>

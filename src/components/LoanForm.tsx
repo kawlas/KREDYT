@@ -1,46 +1,46 @@
-import React, { useRef, useState } from 'react';
-import { type UseFormRegister, type FieldErrors, type UseFormTrigger } from 'react-hook-form';
-import { animate } from 'motion';
-import type { LoanFormData } from '../types';
-import Card from './shared/Card';
+import React, { useRef, useState } from 'react'
+import { type UseFormRegister, type FieldErrors, type UseFormTrigger } from 'react-hook-form'
+import { animate } from 'motion'
+import type { LoanFormData } from '../types'
+import Card from './shared/Card'
 
 interface LoanFormProps {
-  onSubmit: (e?: React.BaseSyntheticEvent) => Promise<void>;
-  isLoading: boolean;
-  register: UseFormRegister<LoanFormData>;
-  trigger: UseFormTrigger<LoanFormData>;
-  errors: FieldErrors<LoanFormData>;
+  onSubmit: (e?: React.BaseSyntheticEvent) => Promise<void>
+  isLoading: boolean
+  register: UseFormRegister<LoanFormData>
+  trigger: UseFormTrigger<LoanFormData>
+  errors: FieldErrors<LoanFormData>
 }
 
 const LoanForm: React.FC<LoanFormProps> = ({ onSubmit, isLoading, register, trigger, errors }) => {
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null)
 
   // Custom debounce handler for validation
   const debouncedValidate = (name: keyof LoanFormData) => {
     if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current);
+      clearTimeout(timeoutRef.current)
     }
     timeoutRef.current = setTimeout(() => {
-      trigger(name);
-    }, 300);
-  };
+      trigger(name)
+    }, 300)
+  }
 
   const handleFocus = (e: React.FocusEvent<HTMLInputElement | HTMLSelectElement>) => {
     animate(e.target, 
       { scale: 1.02 },
       { duration: 0.2, ease: "easeOut" }
-    );
-  };
+    )
+  }
 
   const handleBlur = (e: React.FocusEvent<HTMLInputElement | HTMLSelectElement>) => {
     animate(e.target,
       { scale: 1 },
       { duration: 0.2 }
-    );
-  };
+    )
+  }
 
   const registerWithDebounce = (name: keyof LoanFormData, options?: unknown) => {
-    const { onChange, onBlur, ...rest } = register(name, options as never);
+    const { onChange, onBlur, ...rest } = register(name, options as never)
     return {
       ...rest,
       onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -48,14 +48,14 @@ const LoanForm: React.FC<LoanFormProps> = ({ onSubmit, isLoading, register, trig
         debouncedValidate(name); // Trigger validation with delay
       },
       onBlur: (e: React.FocusEvent<HTMLInputElement>) => {
-        onBlur(e);
-        handleBlur(e);
+        onBlur(e)
+        handleBlur(e)
       },
       onFocus: handleFocus
-    };
-  };
+    }
+  }
 
-  const selectRegistration = register('installmentType');
+  const selectRegistration = register('installmentType')
 
   return (
     <Card className="shadow-md">
@@ -156,8 +156,8 @@ const LoanForm: React.FC<LoanFormProps> = ({ onSubmit, isLoading, register, trig
           {...selectRegistration}
           onFocus={handleFocus}
           onBlur={(e) => {
-            selectRegistration.onBlur(e);
-            handleBlur(e);
+            selectRegistration.onBlur(e)
+            handleBlur(e)
           }}
           className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm border p-2 bg-white origin-left"
         >
@@ -188,8 +188,8 @@ const LoanForm: React.FC<LoanFormProps> = ({ onSubmit, isLoading, register, trig
       </button>
       </form>
     </Card>
-  );
-};
+  )
+}
 
 function AdvancedSection({ registerWithDebounce, errors }: {
   registerWithDebounce: (name: keyof LoanFormData, options?: unknown) => Record<string, unknown>
@@ -228,4 +228,4 @@ function AdvancedSection({ registerWithDebounce, errors }: {
   )
 }
 
-export default LoanForm;
+export default LoanForm
