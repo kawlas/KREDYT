@@ -19,6 +19,10 @@ export default function RefinancingCalc() {
   const [newProvision, setNewProvision] = useState(0)
   const [earlyFee, setEarlyFee] = useState(0)
   const [selectedBank, setSelectedBank] = useState('')
+  const [settlementDay, setSettlementDay] = useState(15)
+  const [lastPaymentDay, setLastPaymentDay] = useState(1)
+  const [capitalizeCosts, setCapitalizeCosts] = useState(false)
+  const [newTermYears, setNewTermYears] = useState(0)
 
   const handleBankSelect = (id: string) => {
     setSelectedBank(id)
@@ -42,8 +46,13 @@ export default function RefinancingCalc() {
       newLoanProvision: newProvision,
       transferFees,
       earlyRepaymentFeePercent: earlyFee,
+      settlementDay,
+      lastPaymentDay,
+      capitalizeCosts,
+      bridgingInsuranceMonths: 3,
+      newTermMonths: newTermYears > 0 ? newTermYears * 12 : 0,
     })
-  }, [principal, oldRate, newRate, totalYears, monthsPaid, installmentType, newProvision, transferFees, earlyFee])
+  }, [principal, oldRate, newRate, totalYears, monthsPaid, installmentType, newProvision, transferFees, earlyFee, settlementDay, lastPaymentDay, capitalizeCosts, newTermYears])
 
   return (
     <TabContainer
@@ -127,6 +136,36 @@ export default function RefinancingCalc() {
                   className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none" />
                 <p className="text-xs text-gray-400 mt-1">Przy zmiennym oprocentowaniu: 0% po 1. roku</p>
               </div>
+
+              <details className="border-t pt-4">
+                <summary className="text-sm font-medium text-gray-600 cursor-pointer hover:text-gray-800">Opcje zaawansowane</summary>
+                <div className="mt-4 space-y-4">
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">Dzień rozliczenia</label>
+                      <input type="number" value={settlementDay} onChange={e => setSettlementDay(Math.max(1, Math.min(28, Number(e.target.value))))} min={1} max={28}
+                        className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none" />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">Dzień ostatniej raty</label>
+                      <input type="number" value={lastPaymentDay} onChange={e => setLastPaymentDay(Math.max(1, Math.min(28, Number(e.target.value))))} min={1} max={28}
+                        className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none" />
+                    </div>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Nowy okres (lat) — opcjonalnie</label>
+                    <input type="number" value={newTermYears} onChange={e => setNewTermYears(Math.max(0, Number(e.target.value)))} min={0}
+                      className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none" />
+                    <p className="text-xs text-gray-400 mt-1">Pozostaw 0, aby zachować pozostały okres kredytowania</p>
+                  </div>
+                  <label className="flex items-center gap-2 text-sm cursor-pointer">
+                    <input type="checkbox" checked={capitalizeCosts} onChange={e => setCapitalizeCosts(e.target.checked)}
+                      className="w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
+                    <span className="font-medium text-gray-700">Dodaj koszty do kapitału nowego kredytu</span>
+                  </label>
+                  <p className="text-xs text-gray-400">Koszty refinansowania doliczane do salda — niższy wydatek z góry, ale wyższa rata.</p>
+                </div>
+              </details>
             </div>
           </Card>
         </div>
@@ -140,6 +179,12 @@ export default function RefinancingCalc() {
                   <div className="bg-blue-50 p-4 rounded-lg">
                     <div className="text-sm text-gray-600 mb-1">Saldo do spłaty</div>
                     <div className="text-2xl font-bold text-gray-900">{formatCurrencyShort(result.remainingBalance)}</div>
+                    {result.newPrincipal !== result.remainingBalance && (
+                      <div className="text-xs text-gray-500 mt-1">
+                        Nowa kwota kredytu: {formatCurrencyShort(result.newPrincipal)}
+                        <span className="text-orange-500"> (+{formatCurrencyShort(result.capitalizedCosts)} kosztów w kapitale)</span>
+                      </div>
+                    )}
                   </div>
                   <div className="grid grid-cols-2 gap-4">
                     <div className="bg-green-50 p-4 rounded-lg">
@@ -149,13 +194,27 @@ export default function RefinancingCalc() {
                       </div>
                     </div>
                     <div className="bg-yellow-50 p-4 rounded-lg">
-                      <div className="text-sm text-gray-600 mb-1">Całkowite koszty</div>
-                      <div className="text-xl font-bold text-yellow-700">{formatCurrencyShort(result.totalCosts)}</div>
+                      <div className="text-sm text-gray-600 mb-1">{capitalizeCosts ? 'Dodane do kapitału' : 'Koszty z góry'}</div>
+                      <div className={`text-xl font-bold ${capitalizeCosts ? 'text-orange-600' : 'text-yellow-700'}`}>
+                        {capitalizeCosts ? formatCurrencyShort(result.capitalizedCosts) : formatCurrencyShort(result.totalCosts)}
+                      </div>
                     </div>
                   </div>
                   <div className="border-t pt-4 space-y-2">
+                    {result.detailedCosts.accruedInterest > 0 && (
+                      <div className="flex justify-between text-xs text-gray-500">
+                        <span>Odsetki międzyratowe ({(() => { const d = settlementDay >= lastPaymentDay ? settlementDay - lastPaymentDay : 30 + settlementDay - lastPaymentDay; return `${d} dni` })()}):</span>
+                        <span>{formatCurrencyShort(result.detailedCosts.accruedInterest)}</span>
+                      </div>
+                    )}
+                    {result.detailedCosts.bridgingInsurance > 0 && (
+                      <div className="flex justify-between text-xs text-gray-500">
+                        <span>Ubezpieczenie pomostowe (3 mies.):</span>
+                        <span>{formatCurrencyShort(result.detailedCosts.bridgingInsurance)}</span>
+                      </div>
+                    )}
                     <div className="flex justify-between text-sm">
-                      <span className="text-gray-600">Koszty refinansowania:</span>
+                      <span className="text-gray-600">Całkowite koszty refinansowania:</span>
                       <span className="font-medium">{formatCurrencyShort(result.totalCosts)}</span>
                     </div>
                     <div className="flex justify-between text-sm">
@@ -188,6 +247,9 @@ export default function RefinancingCalc() {
                     <div>Stara rata: {formatCurrency(result.oldMonthlyPayment)}/mies.</div>
                     <div>Nowa rata: {formatCurrency(result.newMonthlyPayment)}/mies.</div>
                     <div>Okres zwrotu: {formatMonths(result.breakevenMonths)}</div>
+                    {result.capitalizedCosts > 0 && (
+                      <div className="text-orange-600">Koszty dodane do kapitału: {formatCurrencyShort(result.capitalizedCosts)}</div>
+                    )}
                   </div>
                 </div>
               </Card>
@@ -198,6 +260,11 @@ export default function RefinancingCalc() {
                   wpis do KW (200 zł), wykreślenie hipoteki (100 zł). Przy zmiennym oprocentowaniu po 1. roku
                   nie ma opłat za wcześniejszą spłatę.
                 </p>
+                {!capitalizeCosts && result.detailedCosts.accruedInterest > 0 && (
+                  <p className="text-xs text-gray-400 mt-2">
+                    Uwzględniono odsetki międzyratowe za {(() => { const d = settlementDay >= lastPaymentDay ? settlementDay - lastPaymentDay : 30 + settlementDay - lastPaymentDay; return d })()} dni oraz ubezpieczenie pomostowe.
+                  </p>
+                )}
               </Alert>
             </>
           )}
