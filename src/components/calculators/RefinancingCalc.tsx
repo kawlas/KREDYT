@@ -120,9 +120,10 @@ export default function RefinancingCalc() {
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Koszty jednorazowe (PLN)</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Koszty dodatkowe (wpisane ręcznie)</label>
                   <input type="number" value={transferFees} onChange={e => setTransferFees(Number(e.target.value))} min={0}
                     className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none" />
+                  <p className="text-xs text-gray-400 mt-1">Suma: wycena (~500 zł) + notariusz (~1000-3000 zł) + wpis do KW (200 zł) + wykreślenie hipoteki (100 zł)</p>
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Prowizja nowego banku (%)</label>
@@ -200,7 +201,26 @@ export default function RefinancingCalc() {
                       </div>
                     </div>
                   </div>
-                  <div className="border-t pt-4 space-y-2">
+                  <div className="border-t pt-4 space-y-1">
+                    <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mt-2">Wpisane ręcznie</p>
+                    <div className="flex justify-between text-xs text-gray-500">
+                      <span>Koszty dodatkowe (wycena, notariusz, KW):</span>
+                      <span>{formatCurrencyShort(result.detailedCosts.transferFees)}</span>
+                    </div>
+
+                    <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mt-3">Wyliczone automatycznie</p>
+                    {result.detailedCosts.newProvision > 0 && (
+                      <div className="flex justify-between text-xs text-gray-500">
+                        <span>Prowizja nowego banku ({(newProvision * 100).toFixed(1)}%):</span>
+                        <span>{formatCurrencyShort(result.detailedCosts.newProvision)}</span>
+                      </div>
+                    )}
+                    {result.detailedCosts.earlyRepaymentFee > 0 && (
+                      <div className="flex justify-between text-xs text-gray-500">
+                        <span>Opłata za wcześniejszą spłatę:</span>
+                        <span>{formatCurrencyShort(result.detailedCosts.earlyRepaymentFee)}</span>
+                      </div>
+                    )}
                     {result.detailedCosts.accruedInterest > 0 && (
                       <div className="flex justify-between text-xs text-gray-500">
                         <span>Odsetki międzyratowe ({(() => { const d = settlementDay >= lastPaymentDay ? settlementDay - lastPaymentDay : 30 + settlementDay - lastPaymentDay; return `${d} dni` })()}):</span>
@@ -213,9 +233,10 @@ export default function RefinancingCalc() {
                         <span>{formatCurrencyShort(result.detailedCosts.bridgingInsurance)}</span>
                       </div>
                     )}
-                    <div className="flex justify-between text-sm">
-                      <span className="text-gray-600">Całkowite koszty refinansowania:</span>
-                      <span className="font-medium">{formatCurrencyShort(result.totalCosts)}</span>
+
+                    <div className="flex justify-between text-sm border-t pt-2 mt-3">
+                      <span className="text-gray-700 font-semibold">Całkowite koszty refinansowania:</span>
+                      <span className="font-bold">{formatCurrencyShort(result.totalCosts)}</span>
                     </div>
                     <div className="flex justify-between text-sm">
                       <span className="text-gray-600">Oszczędność na odsetkach:</span>
@@ -255,16 +276,14 @@ export default function RefinancingCalc() {
               </Card>
 
               <Alert type="info">
-                <p className="text-sm">
-                  Typowe koszty refinansowania: wycena nieruchomości (~500 zł), notariusz (~1000-3000 zł),
-                  wpis do KW (200 zł), wykreślenie hipoteki (100 zł). Przy zmiennym oprocentowaniu po 1. roku
-                  nie ma opłat za wcześniejszą spłatę.
-                </p>
-                {!capitalizeCosts && result.detailedCosts.accruedInterest > 0 && (
-                  <p className="text-xs text-gray-400 mt-2">
-                    Uwzględniono odsetki międzyratowe za {(() => { const d = settlementDay >= lastPaymentDay ? settlementDay - lastPaymentDay : 30 + settlementDay - lastPaymentDay; return d })()} dni oraz ubezpieczenie pomostowe.
-                  </p>
-                )}
+                <p className="text-sm font-medium mb-1">Jak wypełnić kalkulator?</p>
+                <ul className="text-xs space-y-1 list-disc list-inside">
+                  <li><strong>Koszty dodatkowe</strong> — wpisz sumę: wycena (~500 zł) + notariusz (~1000-3000 zł) + wpis do KW (200 zł) + wykreślenie hipoteki (100 zł). To pole wypełniasz ręcznie.</li>
+                  <li><strong>Prowizja nowego banku</strong> — ustaw procent. Kwota prowizji liczona jest automatycznie: od salda (gdy koszty płacisz z góry) lub od pełnej nowej kwoty (gdy koszty dodane do kapitału).</li>
+                  <li><strong>Odsetki międzyratowe</strong> — liczone automatycznie z różnicy dni między ostatnią ratą a rozliczeniem.</li>
+                  <li><strong>Ubezpieczenie pomostowe</strong> — doliczane automatycznie (3 mies. × 300 zł).</li>
+                  <li>Przy zmiennym oprocentowaniu po 1. roku nie ma opłat za wcześniejszą spłatę.</li>
+                </ul>
               </Alert>
             </>
           )}
