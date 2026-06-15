@@ -22,7 +22,6 @@ export const handler = async () => {
     const last = lines[lines.length - 1]
     const cols = last.split(',')
 
-    const date = cols[0]
     if (cols.length < 5) {
         throw new Error(`CSV parse error: too few columns. Line: "${last}"`)
     }

@@ -64,5 +64,5 @@ export function generateBankOffer(bank: BankProfile, params: LoanParams, marginO
 export function compareBanks(banks: BankProfile[], params: LoanParams): BankOfferResult[] {
   return banks
     .map(bank => generateBankOffer(bank, params))
-    .sort((a, b) => a.results.allInCost! - b.results.allInCost!)
+    .sort((a, b) => (a.results.allInCost ?? Infinity) - (b.results.allInCost ?? Infinity))
 }

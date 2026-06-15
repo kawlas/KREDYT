@@ -192,7 +192,7 @@ const LoanForm: React.FC<LoanFormProps> = ({ onSubmit, isLoading, register, trig
 };
 
 function AdvancedSection({ registerWithDebounce, errors }: {
-  registerWithDebounce: (name: keyof LoanFormData, options?: unknown) => any
+  registerWithDebounce: (name: keyof LoanFormData, options?: unknown) => Record<string, unknown>
   errors: FieldErrors<LoanFormData>
 }) {
   const [open, setOpen] = useState(false)

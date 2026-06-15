@@ -41,17 +41,37 @@ export interface OverpaymentResult {
  *    when the balance reaches zero.
  */
 export function simulateOverpayment(params: OverpaymentParams): OverpaymentResult {
+  // Clamp negative inputs to prevent crashes from downstream validators
+  const principal = Math.max(0, params.principal)
+  const annualRate = Math.max(0, params.annualRate)
+  const months = Math.max(0, params.months)
+  const overpaymentAmount = Math.max(0, params.overpaymentAmount)
+  const overpaymentStartMonth = Math.max(1, params.overpaymentStartMonth)
+
   const {
-    principal,
-    annualRate,
-    months,
     installmentType,
-    overpaymentAmount,
     overpaymentType,
     overpaymentFrequencyMonths,
-    overpaymentStartMonth,
     mode,
   } = params
+
+  // Use original start month to determine if overpayment should ever trigger
+  const neverStart = params.overpaymentStartMonth < 1
+
+  if (months === 0 || principal === 0) {
+    return {
+      originalTotalInterest: 0,
+      newTotalInterest: 0,
+      interestSaved: 0,
+      originalPayoffMonths: 0,
+      newPayoffMonths: 0,
+      monthsSaved: 0,
+      originalMonthlyPayment: 0,
+      newMonthlyPayment: 0,
+      totalOverpaid: 0,
+      scheduleSummary: [],
+    }
+  }
 
   const monthlyRate = annualRate / 12 / 100
   const baseSchedule = generateAmortizationSchedule(principal, annualRate, months, installmentType)
@@ -74,11 +94,10 @@ export function simulateOverpayment(params: OverpaymentParams): OverpaymentResul
     month++
     const interestPaid = balance * monthlyRate
     let principalPaid = currentMonthlyPayment - interestPaid
-    let paid = currentMonthlyPayment
 
     // Apply overpayment this month?
     let overpaymentApplied = 0
-    if (month >= overpaymentStartMonth && overpaymentAmount > 0) {
+    if (!neverStart && month >= overpaymentStartMonth && overpaymentAmount > 0) {
       const isOverpaymentMonth =
         overpaymentType === 'one-time'
           ? month === overpaymentStartMonth
@@ -87,15 +106,12 @@ export function simulateOverpayment(params: OverpaymentParams): OverpaymentResul
       if (isOverpaymentMonth) {
         overpaymentApplied = overpaymentAmount
         principalPaid += overpaymentApplied
-        paid += overpaymentApplied
         totalOverpaid += overpaymentApplied
       }
     }
 
     balance -= principalPaid
     if (balance < 0) {
-      // Overpaid — excess reduces the negative balance
-      paid += balance // balance is negative, so this reduces paid
       balance = 0
     }
     totalInterestPaid += interestPaid

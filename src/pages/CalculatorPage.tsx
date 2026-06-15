@@ -44,6 +44,29 @@ interface CalculatorPageProps {
 
 const DEBOUNCE_MS = 400
 
+interface DisplayResultsInputs {
+  loanAmount: number
+  propertyValue: number
+  wibor: number
+  margin: number
+  loanTermYears: number
+}
+
+export const getDisplayResultsInputs = (
+  sourceValues: Partial<LoanFormData> | undefined,
+  fallbackValues: LoanFormData
+): DisplayResultsInputs => {
+  const principal = sourceValues?.principal || fallbackValues.principal
+
+  return {
+    loanAmount: principal,
+    propertyValue: sourceValues?.propertyValue || fallbackValues.propertyValue || principal / 0.8,
+    wibor: sourceValues?.wibor || fallbackValues.wibor,
+    margin: sourceValues?.margin || fallbackValues.margin,
+    loanTermYears: sourceValues?.years || fallbackValues.years,
+  }
+}
+
 export default function CalculatorPage({
   register,
   handleSubmit,
@@ -93,6 +116,10 @@ export default function CalculatorPage({
   }, [debouncedValues])
 
   const displayResults = autoResults || results
+  const displayResultsInputs = useMemo(
+    () => getDisplayResultsInputs(debouncedValues, getValues()),
+    [debouncedValues, getValues]
+  )
 
   const [showSaveModal, setShowSaveModal] = useState(false)
   const [showLoadModal, setShowLoadModal] = useState(false)
@@ -183,11 +210,11 @@ export default function CalculatorPage({
             <>
               <ResultsCard
                 {...displayResults}
-                loanAmount={getValues().principal}
-                propertyValue={getValues().propertyValue || getValues().principal / 0.8}
-                wibor={getValues().wibor}
-                margin={getValues().margin}
-                loanTermYears={getValues().years}
+                loanAmount={displayResultsInputs.loanAmount}
+                propertyValue={displayResultsInputs.propertyValue}
+                wibor={displayResultsInputs.wibor}
+                margin={displayResultsInputs.margin}
+                loanTermYears={displayResultsInputs.loanTermYears}
                 onSave={saveOffer}
               />
               <div className="mt-8">

@@ -43,8 +43,15 @@ describe('overpayment', () => {
     expect(result.interestSaved).toBeGreaterThan(0)
   })
 
+  it('tracks total overpaid amount for recurring overpayments', () => {
+    const result = simulateOverpayment(baseParams)
+    expect(result.totalOverpaid).toBeGreaterThan(500)
+    expect(result.scheduleSummary.some((row) => row.overpayment > 0)).toBe(true)
+  })
+
   it('no overpayment keeps effectively the same term', () => {
     const result = simulateOverpayment({ ...baseParams, overpaymentAmount: 0 })
+    expect(result.totalOverpaid).toBe(0)
     expect(Math.abs(result.monthsSaved)).toBeLessThanOrEqual(1) // rounding tolerance
     expect(Math.abs(result.interestSaved)).toBeLessThan(1000) // negligible
   })
@@ -63,5 +70,67 @@ describe('overpayment', () => {
     })
     expect(result.newPayoffMonths).toBeLessThan(200)
     expect(result.interestSaved).toBeGreaterThan(50000)
+  })
+
+  // --- Edge-case tests for negative value handling ---
+
+  it('handles negative principal gracefully', () => {
+    const result = simulateOverpayment({
+      ...baseParams,
+      principal: -100000,
+      overpaymentAmount: 0,
+    })
+    // Should not crash, return sensible result
+    expect(result).toBeDefined()
+    expect(result.totalOverpaid).toBe(0)
+  })
+
+  it('handles negative overpayment amount gracefully', () => {
+    const result = simulateOverpayment({
+      ...baseParams,
+      overpaymentAmount: -500,
+    })
+    // Negative overpayment is effectively zero
+    expect(result.totalOverpaid).toBe(0)
+    expect(result.monthsSaved).toBeLessThanOrEqual(0)
+  })
+
+  it('handles negative overpaymentStartMonth gracefully', () => {
+    // Negative start month should not trigger overpayment
+    const result = simulateOverpayment({
+      ...baseParams,
+      overpaymentStartMonth: -5,
+    })
+    expect(result.totalOverpaid).toBe(0)
+  })
+
+  it('handles zero principal', () => {
+    const result = simulateOverpayment({
+      ...baseParams,
+      principal: 0,
+      overpaymentAmount: 0,
+    })
+    expect(result.newTotalInterest).toBe(0)
+    expect(result.newPayoffMonths).toBe(0)
+  })
+
+  it('handles negative annualRate gracefully', () => {
+    const result = simulateOverpayment({
+      ...baseParams,
+      annualRate: -5,
+      overpaymentAmount: 0,
+    })
+    // Should not crash — negative rate is technically invalid
+    expect(result).toBeDefined()
+  })
+
+  it('handles negative months (tenure) gracefully', () => {
+    const result = simulateOverpayment({
+      ...baseParams,
+      months: -10,
+      overpaymentAmount: 0,
+    })
+    expect(result).toBeDefined()
+    expect(result.newPayoffMonths).toBeGreaterThanOrEqual(0)
   })
 })

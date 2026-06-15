@@ -1,7 +1,9 @@
 # Plan poprawek — KREDYT (Kalkulator Kredytu Hipotecznego)
 
 **Data utworzenia:** 2026-06-14
-**Status:** W trakcie realizacji
+**Status:** ✅ Faza 1 (P0) i Faza 2 (P1) zrealizowane
+
+> **Aktualizacja 2026-06-15:** Przeprowadzono pełny audyt kodu + 3 cykle TDD Red-Green. Naprawiono bug krytyczny (`paid is not defined`), dodano 13 nowych testów (75 łącznie), wyeliminowano niebezpieczne `!` assertions, dodano walidację ujemnych wartości. Wszystkie testy przechodzą.
 
 ## Kontekst audytu
 
