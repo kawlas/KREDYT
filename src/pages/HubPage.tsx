@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import SEOHead from '../components/shared/SEOHead'
 import Card from '../components/shared/Card'
+import AdSlot from '../components/shared/AdSlot'
 
 const tools = [
   { to: '/zdolnosc-kredytowa/', title: 'Zdolność kredytowa', desc: 'Ile maksymalnie możesz pożyczyć? Sprawdź w 30 sekund.', step: 1 },
@@ -58,6 +59,11 @@ export default function HubPage() {
           ))}
         </div>
       </section>
+
+      {/* Ad placement */}
+      <div className="py-4">
+        <AdSlot slot="5567225861" />
+      </div>
 
       {/* Tools grid */}
       <section>

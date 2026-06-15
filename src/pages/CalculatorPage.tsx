@@ -187,7 +187,7 @@ export default function CalculatorPage() {
                 onSave={saveOffer}
               />
               <div className="mt-8">
-                <AdSlot />
+                <AdSlot slot="5567225861" />
               </div>
             </>
           ) : (

@@ -1,6 +1,7 @@
 import { useParams, Link } from 'react-router-dom'
 import TabContainer from '../components/layout/TabContainer'
 import SEOHead from '../components/shared/SEOHead'
+import AdSlot from '../components/shared/AdSlot'
 import FaqBlock from '../components/seo/FaqBlock'
 import { TOPICS } from '../data/topics'
 import NotFoundPage from './NotFoundPage'
@@ -88,6 +89,10 @@ export default function TopicPage() {
             ))}
           </section>
         )}
+
+        <div className="my-8">
+          <AdSlot slot="5567225861" />
+        </div>
 
         <FaqBlock items={faqItems} title={`Pytania i odpowiedzi: ${topic.slug.split('-').join(' ')}`} />
 

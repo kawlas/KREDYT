@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 
 interface AdSlotProps {
   className?: string
@@ -6,16 +6,20 @@ interface AdSlotProps {
   compact?: boolean
 }
 
-const PUB_ID = import.meta.env.VITE_ADSENSE_PUB_ID as string || ''
+const PUB_ID = import.meta.env.VITE_ADSENSE_PUB_ID || 'ca-pub-9858525623868903'
 
 export default function AdSlot({ className = '', slot, compact = false }: AdSlotProps) {
+  const initialized = useRef(false)
+
   useEffect(() => {
     if (!slot || !PUB_ID) return
+    if (initialized.current) return
+    initialized.current = true
+
     try {
-      // @ts-expect-error adsbygoogle is injected by AdSense script
       (window.adsbygoogle = window.adsbygoogle || []).push({})
     } catch {
-      // Quietly fail if ads are blocked
+      // AdBlock or offline — silently ignore
     }
   }, [slot])
 
@@ -23,12 +27,14 @@ export default function AdSlot({ className = '', slot, compact = false }: AdSlot
     if (import.meta.env.DEV) {
       return (
         <div className={`w-full bg-gray-100 border border-dashed border-gray-300 rounded-lg flex items-center justify-center text-gray-400 ${className}`} style={{ minHeight: compact ? '90px' : '250px' }}>
-          <span className="text-xs">AdSlot: missing slot id</span>
+          <span className="text-xs">AdSlot: brak slot ID</span>
         </div>
       )
     }
     return null
   }
+
+  if (typeof document === 'undefined') return null
 
   return (
     <div className={`w-full bg-gray-100 border border-gray-200 rounded-lg flex flex-col items-center justify-center text-gray-400 p-4 relative ${className}`} style={{ minHeight: compact ? '90px' : '250px' }}>

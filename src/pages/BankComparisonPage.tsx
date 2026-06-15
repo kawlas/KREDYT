@@ -15,7 +15,7 @@ export default function BankComparisonPage() {
       />
       <BankComparisonCalc />
       <div className="max-w-6xl mx-auto px-4 mt-8">
-        <AdSlot />
+        <AdSlot slot="5567225861" />
       </div>
       <div className="max-w-6xl mx-auto px-4 mt-8">
         <FaqBlock items={FAQ_DATA.filter(i => [14, 15].includes(i.id))} />
