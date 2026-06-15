@@ -2,11 +2,13 @@ import { useMemo, useState } from 'react'
 import { calculateRefinancingAnalysis } from '../../utils/refinancing'
 import { formatCurrency, formatCurrencyShort, formatMonths } from '../../utils/formatters'
 import { BANK_PROFILES } from '../../data/bankProfiles'
+import { useWIBOR } from '../../hooks/useWIBOR'
 import Card from '../shared/Card'
 import Alert from '../shared/Alert'
 import TabContainer from '../layout/TabContainer'
 
 export default function RefinancingCalc() {
+  const { wibor: liveWibor } = useWIBOR(true)
   const [principal, setPrincipal] = useState(400000)
   const [oldRate, setOldRate] = useState(7.85)
   const [totalYears, setTotalYears] = useState(25)
@@ -22,7 +24,8 @@ export default function RefinancingCalc() {
     setSelectedBank(id)
     const bank = BANK_PROFILES.find(b => b.id === id)
     if (bank) {
-      setNewRate((bank.typicalMarginMin + bank.typicalMarginMax) / 2 + 5.85) // WIBOR estimate
+      const wiborValue = liveWibor ?? 5.85
+      setNewRate((bank.typicalMarginMin + bank.typicalMarginMax) / 2 + wiborValue)
       setNewProvision(bank.provision)
     }
   }

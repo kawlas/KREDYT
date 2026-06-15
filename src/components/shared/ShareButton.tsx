@@ -36,7 +36,7 @@ export default function ShareButton({ getValues, className = '' }: ShareButtonPr
       className={`flex items-center justify-center gap-2 px-4 py-2 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 rounded-lg font-semibold transition-colors ${className}`}
       title="Skopiuj link do obecnych ustawień"
     >
-      <span>{copied ? 'Copied!' : '🔗 Udostępnij'}</span>
+      <span>{copied ? 'Skopiowano!' : '🔗 Udostępnij'}</span>
     </button>
   )
 }

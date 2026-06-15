@@ -223,7 +223,7 @@ export default function CalculatorPage({
             </>
           ) : (
             <div className="bg-white p-12 rounded-2xl shadow-sm border border-dashed border-gray-300 text-center">
-              <div className="text-4xl mb-4"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" className="mx-auto text-gray-300"><rect x="3" y="12" width="3" height="9" rx="1"/><rect x="10" y="7" width="3" height="14" rx="1"/><rect x="17" y="3" width="3" height="18" rx="1"/></svg></div>
+              <div className="text-4xl mb-4"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="mx-auto text-gray-300"><rect x="3" y="12" width="3" height="9" rx="1"/><rect x="10" y="7" width="3" height="14" rx="1"/><rect x="17" y="3" width="3" height="18" rx="1"/></svg></div>
               <p className="text-gray-500 font-medium">Wprowadź dane kredytu, aby zobaczyć szczegółowe wyliczenia</p>
             </div>
           )}
@@ -233,7 +233,7 @@ export default function CalculatorPage({
               onClick={() => setShowLoadModal(true)}
               className="flex items-center justify-center gap-3 px-4 py-4 bg-white border-2 border-blue-600 text-blue-600 rounded-xl hover:bg-blue-50 font-bold transition-all shadow-lg shadow-blue-500/5 group"
             >
-              <span className="text-2xl group-hover:scale-110 transition-transform"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/></svg></span>
+              <span className="text-2xl group-hover:scale-110 transition-transform"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/></svg></span>
               <div className="text-left">
                 <div className="text-sm leading-tight">Wczytaj</div>
                 <div className="text-[10px] uppercase tracking-wider opacity-70">Zapisane: {savedScenariosCount}</div>
@@ -250,7 +250,7 @@ export default function CalculatorPage({
                 onClick={() => setShowSaveModal(true)}
                 className="flex items-center justify-center gap-3 px-4 py-4 bg-green-600 text-white rounded-xl hover:bg-green-700 font-bold transition-all shadow-lg shadow-green-500/20 group sm:col-span-2 lg:col-span-1"
               >
-                <span className="text-2xl group-hover:scale-110 transition-transform"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg></span>
+                <span className="text-2xl group-hover:scale-110 transition-transform"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg></span>
                 <div className="text-left">
                   <div className="text-sm leading-tight">Zapisz</div>
                   <div className="text-[10px] uppercase tracking-wider opacity-70">Lokalnie</div>

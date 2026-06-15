@@ -216,8 +216,8 @@ function AdvancedSection({ registerWithDebounce, errors }: {
             {errors.commission && <p className="mt-1 text-sm text-red-600">{errors.commission.message}</p>}
           </div>
           <div>
-            <label htmlFor="propertyValue" className="block text-sm font-medium text-gray-700">Wartość nieruchomości (PLN)</label>
-            <input id="propertyValue" type="number" placeholder="Do obliczenia LTV"
+            <label htmlFor="propertyValueAdvanced" className="block text-sm font-medium text-gray-700">Wartość nieruchomości (PLN)</label>
+            <input id="propertyValueAdvanced" type="number" placeholder="Do obliczenia LTV"
               {...registerWithDebounce('propertyValue', { min: { value: 0, message: 'Minimum 0 PLN' }, valueAsNumber: true })}
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm border p-2" />
             {errors.propertyValue && <p className="mt-1 text-sm text-red-600">{errors.propertyValue.message}</p>}
