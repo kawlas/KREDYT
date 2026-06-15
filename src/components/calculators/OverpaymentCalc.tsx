@@ -5,6 +5,55 @@ import Card from '../shared/Card'
 import Alert from '../shared/Alert'
 import TabContainer from '../layout/TabContainer'
 
+function CostComparisonChart({ principal, originalInterest, newInterest }: { principal: number, originalInterest: number, newInterest: number }) {
+  const originalTotal = principal + originalInterest
+  const newTotal = principal + newInterest
+  const max = Math.max(originalTotal, newTotal)
+  
+  const scale = (val: number) => (val / max) * 100
+  
+  return (
+    <div className="space-y-6">
+      <div className="space-y-2">
+        <div className="flex justify-between text-xs font-semibold text-gray-600">
+          <span>Bez nadpłat (łącznie: {formatCurrencyShort(originalTotal)})</span>
+          <span className="text-gray-400">{Math.round((originalInterest / originalTotal) * 100)}% odsetek</span>
+        </div>
+        <div className="h-8 w-full bg-gray-100 rounded-lg overflow-hidden flex shadow-sm">
+          <div className="h-full bg-blue-500 transition-all duration-1000" style={{ width: `${scale(principal)}%` }} />
+          <div className="h-full bg-red-400 transition-all duration-1000" style={{ width: `${scale(originalInterest)}%` }} />
+        </div>
+      </div>
+
+      <div className="space-y-2">
+        <div className="flex justify-between text-xs font-semibold text-gray-600">
+          <span>Z nadpłatami (łącznie: {formatCurrencyShort(newTotal)})</span>
+          <span className="text-green-600">Zysk: {formatCurrencyShort(originalTotal - newTotal)}</span>
+        </div>
+        <div className="h-8 w-full bg-gray-100 rounded-lg overflow-hidden flex shadow-sm">
+          <div className="h-full bg-blue-500 transition-all duration-1000" style={{ width: `${scale(principal)}%` }} />
+          <div className="h-full bg-green-500 transition-all duration-1000" style={{ width: `${scale(newInterest)}%` }} />
+        </div>
+      </div>
+
+      <div className="flex flex-wrap gap-x-6 gap-y-2 pt-2 border-t border-gray-100">
+        <div className="flex items-center gap-2">
+          <div className="w-4 h-4 bg-blue-500 rounded shadow-sm" />
+          <span className="text-xs text-gray-500 font-medium">Kapitał</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="w-4 h-4 bg-red-400 rounded shadow-sm" />
+          <span className="text-xs text-gray-500 font-medium">Odsetki bazowe</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="w-4 h-4 bg-green-500 rounded shadow-sm" />
+          <span className="text-xs text-gray-500 font-medium">Odsetki po nadpłatach</span>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 export default function OverpaymentCalc() {
   const [principal, setPrincipal] = useState(400000)
   const [annualRate, setAnnualRate] = useState(7.0)
@@ -131,13 +180,13 @@ export default function OverpaymentCalc() {
               <Card title="Wyniki symulacji">
                 <div className="space-y-4">
                   <div className="grid grid-cols-2 gap-4">
-                    <div className="bg-green-50 p-4 rounded-lg">
-                      <div className="text-sm text-gray-600 mb-1">Oszczędność na odsetkach</div>
-                      <div className="text-2xl font-bold text-green-700">{formatCurrencyShort(result.interestSaved)}</div>
+                    <div className="bg-green-50 p-4 rounded-xl border border-green-100 shadow-sm">
+                      <div className="text-xs text-green-700 font-semibold mb-1 uppercase tracking-wider">Oszczędność</div>
+                      <div className="text-2xl font-bold text-green-800">{formatCurrencyShort(result.interestSaved)}</div>
                     </div>
-                    <div className="bg-blue-50 p-4 rounded-lg">
-                      <div className="text-sm text-gray-600 mb-1">Skrócenie kredytu o</div>
-                      <div className="text-2xl font-bold text-blue-700">{formatMonths(result.monthsSaved)}</div>
+                    <div className="bg-blue-50 p-4 rounded-xl border border-blue-100 shadow-sm">
+                      <div className="text-xs text-blue-700 font-semibold mb-1 uppercase tracking-wider">Krócej o</div>
+                      <div className="text-2xl font-bold text-blue-800">{formatMonths(result.monthsSaved)}</div>
                     </div>
                   </div>
 
@@ -162,6 +211,14 @@ export default function OverpaymentCalc() {
                     </div>
                   </div>
                 </div>
+              </Card>
+
+              <Card title="Porównanie kosztów całkowitych">
+                <CostComparisonChart 
+                  principal={principal}
+                  originalInterest={result.originalTotalInterest}
+                  newInterest={result.newTotalInterest}
+                />
               </Card>
 
               <Card title="Porównanie odsetek">
