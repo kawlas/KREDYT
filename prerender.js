@@ -79,7 +79,7 @@ const routesToPrerender = Array.from(new Set([...baseRoutes, ...topicRoutes]))
     .filter(route => route !== '/404/')
     .map(route => `
   <url>
-    <loc>https://kalkulatorkredytowy.pl${route}</loc>
+    <loc>https://kredytkalkulator.netlify.app${route}</loc>
     <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>${route === '/' ? '1.0' : '0.8'}</priority>
@@ -116,7 +116,7 @@ Allow: /
 User-agent: CCBot
 Allow: /
 
-Sitemap: https://kalkulatorkredytowy.pl/sitemap.xml`
+Sitemap: https://kredytkalkulator.netlify.app/sitemap.xml`
 
   fs.writeFileSync(toAbsolute('dist/static/robots.txt'), robots)
   console.log('Generated robots.txt')

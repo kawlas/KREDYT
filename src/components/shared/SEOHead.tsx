@@ -17,7 +17,7 @@ interface SEOHeadProps {
 }
 
 const siteUrl = (typeof import.meta !== 'undefined' && import.meta.env?.VITE_SITE_URL)
-  || 'https://kalkulatorkredytowy.pl'
+  || 'https://kredytkalkulator.netlify.app'
 
 function breadcrumbJsonLd(items: BreadcrumbItem[]) {
   return JSON.stringify({

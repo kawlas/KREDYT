@@ -47,7 +47,7 @@ export default function TopicPage() {
           dateModified: new Date().toISOString().split('T')[0],
           mainEntityOfPage: {
             '@type': 'WebPage',
-            '@id': `${(() => { const u = typeof import.meta !== 'undefined' && import.meta.env?.VITE_SITE_URL || 'https://kalkulatorkredytowy.pl'; return u })()}/${topic.slug}/`,
+            '@id': `${(() => { const u = typeof import.meta !== 'undefined' && import.meta.env?.VITE_SITE_URL || 'https://kredytkalkulator.netlify.app'; return u })()}/${topic.slug}/`,
           },
         })}
       </script>
