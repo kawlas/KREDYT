@@ -21,6 +21,7 @@ import NavBar from './components/layout/NavBar'
 import ScrollToTop from './components/shared/ScrollToTop'
 import ErrorBoundary from './components/shared/ErrorBoundary'
 import ToastContainer from './components/shared/ToastContainer'
+import CookieConsent from './components/shared/CookieConsent'
 
 function App() {
   const { getValues } = useLoanCalculator()
@@ -95,6 +96,7 @@ function App() {
 
       <Footer />
       <ToastContainer />
+      <CookieConsent />
     </div>
   )
 }
