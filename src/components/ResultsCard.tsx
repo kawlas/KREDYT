@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import { animate } from 'motion'
 import type { LoanResults } from '../types'
@@ -7,6 +7,8 @@ import Card from './shared/Card'
 import Alert from './shared/Alert'
 import Tooltip from './shared/Tooltip'
 import Collapsible from './shared/Collapsible'
+import { prepareChartData, getAmortizationInsights } from '../utils/amortizationChart'
+import AmortizationChart from './calculators/AmortizationChart'
 
 interface ResultsCardProps extends LoanResults {
   loanAmount: number
@@ -14,6 +16,7 @@ interface ResultsCardProps extends LoanResults {
   wibor: number
   margin: number
   loanTermYears: number
+  installmentType?: 'equal' | 'declining'
   onSave: (name: string) => void
 }
 
@@ -66,6 +69,17 @@ const ResultsCard: React.FC<ResultsCardProps> = (props) => {
     setIsSaving(false)
   }
 
+  const nominalRate = props.wibor + props.margin
+
+  const chartData = useMemo(
+    () => prepareChartData(props.loanAmount, nominalRate, props.loanTermYears, props.installmentType || 'equal'),
+    [props.loanAmount, nominalRate, props.loanTermYears, props.installmentType]
+  )
+  const amortizationInsights = useMemo(
+    () => getAmortizationInsights(props.loanAmount, nominalRate, props.loanTermYears),
+    [props.loanAmount, nominalRate, props.loanTermYears]
+  )
+
   if (!breakdown) {
     return (
       <div ref={cardRef}>
@@ -77,7 +91,6 @@ const ResultsCard: React.FC<ResultsCardProps> = (props) => {
   }
 
   const { upfrontCosts, yearlyCosts, totalCost, actualAmountReceived } = breakdown
-  const nominalRate = props.wibor + props.margin
   const ltv = (props.loanAmount / props.propertyValue) * 100
 
   return (
@@ -337,6 +350,15 @@ const ResultsCard: React.FC<ResultsCardProps> = (props) => {
           </div>
         </Alert>
       </Card>
+
+      {/* SECTION 5b: Amortization Chart */}
+      {chartData.length > 0 && (
+        <AmortizationChart
+          data={chartData}
+          insights={amortizationInsights}
+          loanAmount={props.loanAmount}
+        />
+      )}
 
       {/* SECTION 6: GRAND TOTAL */}
       <Card data-animate-item>

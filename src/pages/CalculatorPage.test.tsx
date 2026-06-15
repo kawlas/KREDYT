@@ -66,6 +66,7 @@ describe('CalculatorPage', () => {
       wibor: 5.5,
       margin: 2.25,
       loanTermYears: 30,
+      installmentType: 'equal',
     })
   })
 

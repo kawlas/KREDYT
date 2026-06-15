@@ -27,6 +27,7 @@ const Footer: React.FC = () => {
               <li><Link to="/" className="text-gray-500 hover:text-blue-600 transition">Start</Link></li>
               <li><Link to="/kalkulator-raty-kredytu/" className="text-gray-500 hover:text-blue-600 transition">Kalkulator Raty</Link></li>
               <li><Link to="/ltv-kalkulator/" className="text-gray-500 hover:text-blue-600 transition">Kalkulator LTV</Link></li>
+              <li><Link to="/co-wplywa-na-zdolnosc/" className="text-gray-500 hover:text-blue-600 transition">Scoring BIK — co wpływa?</Link></li>
               <li><Link to="/zdolnosc-kredytowa/" className="text-gray-500 hover:text-blue-600 transition">Zdolność Kredytowa</Link></li>
               <li><Link to="/raty-rowne-czy-malejace/" className="text-gray-500 hover:text-blue-600 transition">Raty Równe czy Malejące</Link></li>
               <li><Link to="/symulacja-wibor/" className="text-gray-500 hover:text-blue-600 transition">Symulacja WIBOR</Link></li>
@@ -34,6 +35,7 @@ const Footer: React.FC = () => {
               <li><Link to="/symulator-nadplat/" className="text-gray-500 hover:text-blue-600 transition">Symulator nadpłat</Link></li>
               <li><Link to="/refinansowanie-kredytu/" className="text-gray-500 hover:text-blue-600 transition">Refinansowanie</Link></li>
               <li><Link to="/porownanie-ofert-bankow/" className="text-gray-500 hover:text-blue-600 transition">Porównanie banków</Link></li>
+              <li><Link to="/ukryte-koszty-kredytu/" className="text-gray-500 hover:text-blue-600 transition">Ukryte koszty</Link></li>
               <li><Link to="/stale-vs-zmienne-oprocentowanie/" className="text-gray-500 hover:text-blue-600 transition">Stałe czy zmienne</Link></li>
             </ul>
           </div>

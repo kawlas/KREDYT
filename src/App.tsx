@@ -18,6 +18,8 @@ import OverpaymentPage from './pages/OverpaymentPage'
 import RefinancingPage from './pages/RefinancingPage'
 import BankComparisonPage from './pages/BankComparisonPage'
 import LTVPage from './pages/LTVPage'
+import HiddenCostsPage from './pages/HiddenCostsPage'
+import BIKSimulatorPage from './pages/BIKSimulatorPage'
 import Footer from './components/layout/Footer'
 import NavBar from './components/layout/NavBar'
 import ScrollToTop from './components/shared/ScrollToTop'
@@ -83,6 +85,8 @@ function App() {
               <Route path="/refinansowanie-kredytu/" element={<RefinancingPage />} />
               <Route path="/porownanie-ofert-bankow/" element={<BankComparisonPage />} />
               <Route path="/ltv-kalkulator/" element={<LTVPage />} />
+              <Route path="/ukryte-koszty-kredytu/" element={<HiddenCostsPage />} />
+              <Route path="/co-wplywa-na-zdolnosc/" element={<BIKSimulatorPage />} />
               <Route path="/faq-kredyt-hipoteczny/" element={<FAQPage />} />
               <Route path="/o-projekcie/" element={<AboutPage />} />
               <Route path="/metodologia/" element={<MethodologyPage />} />

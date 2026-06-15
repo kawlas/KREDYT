@@ -27,6 +27,7 @@ const phases: Phase[] = [
       { to: '/zdolnosc-kredytowa/', title: 'Zdolność kredytowa', desc: 'Ile maksymalnie możesz pożyczyć? Sprawdź w 30 sekund.' },
       { to: '/kalkulator-raty-kredytu/', title: 'Kalkulator raty', desc: 'Oblicz miesięczną ratę, RRSO i całkowity koszt kredytu.' },
       { to: '/ltv-kalkulator/', title: 'Kalkulator LTV', desc: 'Jaki wkład własny jest potrzebny? Sprawdź wskaźnik LTV.' },
+      { to: '/co-wplywa-na-zdolnosc/', title: 'Co wpływa na zdolność?', desc: 'Sprawdź, jak scoring BIK zmienia się pod wpływem różnych czynników.' },
       { to: '/raty-rowne-czy-malejace/', title: 'Raty równe czy malejące', desc: 'Który typ rat wybrać? Porównaj koszty.' },
     ],
   },
@@ -50,6 +51,7 @@ const phases: Phase[] = [
       { to: '/stale-vs-zmienne-oprocentowanie/', title: 'Stałe czy zmienne', desc: 'Które oprocentowanie wybrać? Porównaj koszty.' },
       { to: '/porownanie-ofert-bankow/', title: 'Porównanie banków', desc: 'Który bank najtaniej? PKO BP, ING, Santander...' },
       { to: '/refinansowanie-kredytu/', title: 'Refinansowanie', desc: 'Czy warto przenieść kredyt do innego banku?' },
+      { to: '/ukryte-koszty-kredytu/', title: 'Ukryte koszty kredytu', desc: 'Sprawdź 20+ ukrytych opłat które bank może naliczyć.' },
     ],
   },
 ]

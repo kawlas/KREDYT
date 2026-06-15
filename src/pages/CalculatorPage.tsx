@@ -31,6 +31,7 @@ interface DisplayResultsInputs {
   wibor: number
   margin: number
   loanTermYears: number
+  installmentType: 'equal' | 'declining'
 }
 
 export const getDisplayResultsInputs = (
@@ -45,6 +46,7 @@ export const getDisplayResultsInputs = (
     wibor: sourceValues?.wibor || fallbackValues.wibor,
     margin: sourceValues?.margin || fallbackValues.margin,
     loanTermYears: sourceValues?.years || fallbackValues.years,
+    installmentType: sourceValues?.installmentType || fallbackValues.installmentType,
   }
 }
 
@@ -184,6 +186,7 @@ export default function CalculatorPage() {
                 wibor={displayResultsInputs.wibor}
                 margin={displayResultsInputs.margin}
                 loanTermYears={displayResultsInputs.loanTermYears}
+                installmentType={displayResultsInputs.installmentType}
                 onSave={saveOffer}
               />
               <div className="mt-8">
