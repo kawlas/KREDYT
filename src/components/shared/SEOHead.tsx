@@ -17,7 +17,7 @@ interface SEOHeadProps {
 }
 
 const siteUrl = (typeof import.meta !== 'undefined' && import.meta.env?.VITE_SITE_URL)
-  || 'https://kredytkalkulator.netlify.app'
+  || 'https://kalkulatorkredytowy.pl'
 
 function breadcrumbJsonLd(items: BreadcrumbItem[]) {
   return JSON.stringify({
@@ -32,17 +32,36 @@ function breadcrumbJsonLd(items: BreadcrumbItem[]) {
   })
 }
 
+function websiteJsonLd() {
+  return JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'Kalkulator Kredytowy',
+    url: siteUrl,
+    description: 'Darmowy kalkulator kredytu hipotecznego. Oblicz ratę, RRSO, zdolność kredytową, porównaj oferty banków.',
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: {
+        '@type': 'EntryPoint',
+        urlTemplate: `${siteUrl}/?q={search_term_string}`,
+      },
+      'query-input': 'required name=search_term_string',
+    },
+  })
+}
+
 export default function SEOHead({ title, description, type = 'website', image, publishedTime, breadcrumbs }: SEOHeadProps) {
   const location = useLocation()
 
   const canonicalUrl = `${siteUrl}${location.pathname}`.replace(/\/$/, '') + '/'
-  const ogImage = image || `${siteUrl}/og-image.png`
+  const ogImage = image || `${siteUrl}/og-image.svg`
 
   return (
     <Helmet>
       {/* Basic Meta */}
       <title>{title}</title>
       <meta name="description" content={description} />
+      <meta name="robots" content="index, follow" />
       <link rel="canonical" href={canonicalUrl} />
 
       {/* Open Graph */}
@@ -53,6 +72,7 @@ export default function SEOHead({ title, description, type = 'website', image, p
       <meta property="og:image" content={ogImage} />
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
+      <meta property="og:site_name" content="Kalkulator Kredytowy" />
 
       {/* Twitter Card */}
       <meta name="twitter:card" content="summary_large_image" />
@@ -63,6 +83,9 @@ export default function SEOHead({ title, description, type = 'website', image, p
       {publishedTime && type === 'article' && (
         <meta property="article:published_time" content={publishedTime} />
       )}
+
+      {/* Structured Data */}
+      <script type="application/ld+json">{websiteJsonLd()}</script>
 
       {breadcrumbs && breadcrumbs.length > 0 && (
         <script type="application/ld+json">{breadcrumbJsonLd(breadcrumbs)}</script>

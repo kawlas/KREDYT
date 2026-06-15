@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e40af" />
+      <stop offset="100%" style="stop-color:#3b82f6" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)" />
+  <text x="600" y="260" text-anchor="middle" fill="white" font-family="Inter, sans-serif" font-size="72" font-weight="700">Kalkulator Kredytowy</text>
+  <text x="600" y="330" text-anchor="middle" fill="#bfdbfe" font-family="Inter, sans-serif" font-size="32" font-weight="400">Darmowe narzędzia kredytu hipotecznego</text>
+  <rect x="440" y="370" width="320" height="4" rx="2" fill="#60a5fa" />
+  <text x="600" y="420" text-anchor="middle" fill="#93c5fd" font-family="Inter, sans-serif" font-size="22">Oblicz ratę · RRSO · Zdolność kredytową · Refinansowanie</text>
+</svg>

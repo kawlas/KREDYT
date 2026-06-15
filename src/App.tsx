@@ -28,10 +28,15 @@ function App() {
   return (
     <div className="min-h-screen bg-white">
       <ScrollToTop />
-      <NavBar />
+      <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-blue-600 focus:text-white focus:rounded-lg focus:outline-none">
+        Przejdź do treści
+      </a>
+      <header>
+        <NavBar />
+      </header>
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        <main>
+        <main id="main-content">
           <ErrorBoundary>
             <Routes>
               <Route path="/kalkulator-kredytu-hipotecznego/" element={<Navigate to="/" replace />} />

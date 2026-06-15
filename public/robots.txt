@@ -1,0 +1,27 @@
+# Allow all crawlers — strona w pełni publiczna
+User-agent: *
+Allow: /
+Disallow: /404/
+Disallow: /kontakt/
+Disallow: /polityka-prywatnosci/
+
+# AI crawlers — explicitly allowed (content jest publiczny)
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+Sitemap: https://kalkulatorkredytowy.pl/sitemap.xml

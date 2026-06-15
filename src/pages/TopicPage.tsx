@@ -30,7 +30,27 @@ export default function TopicPage() {
         title={topic.metaTitle}
         description={topic.metaDescription}
         type="article"
+        publishedTime={new Date().toISOString()}
       />
+
+      <script type="application/ld+json">
+        {JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'Article',
+          headline: topic.metaTitle,
+          description: topic.metaDescription,
+          author: {
+            '@type': 'Organization',
+            name: 'Kalkulator Kredytowy',
+          },
+          datePublished: '2026-01-15',
+          dateModified: new Date().toISOString().split('T')[0],
+          mainEntityOfPage: {
+            '@type': 'WebPage',
+            '@id': `${(() => { const u = typeof import.meta !== 'undefined' && import.meta.env?.VITE_SITE_URL || 'https://kalkulatorkredytowy.pl'; return u })()}/${topic.slug}/`,
+          },
+        })}
+      </script>
       
       <article className="max-w-4xl mx-auto">
         <section className="mb-10">
