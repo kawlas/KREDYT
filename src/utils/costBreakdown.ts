@@ -30,8 +30,8 @@ export function calculateCostBreakdown(
 
   const yearlyTotal = homeInsurance + creditInsurance + accountFee
 
-  // Faktycznie otrzymana kwota
-  const actualReceived = loanAmount - provision
+  // Faktycznie otrzymana kwota (po odjęciu wszystkich kosztów początkowych)
+  const actualReceived = loanAmount - upfrontTotal
 
   // Total koszt
   const allPayments = loanAmount + totalInterest

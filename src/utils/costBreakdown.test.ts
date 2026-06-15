@@ -8,7 +8,7 @@ describe('costBreakdown', () => {
     expect(result.upfrontCosts.provision).toBeCloseTo(8000, 0)
     expect(result.upfrontCosts.notary).toBeGreaterThan(1000)
     expect(result.upfrontCosts.total).toBeGreaterThan(0)
-    expect(result.actualAmountReceived).toBe(400000 - result.upfrontCosts.provision)
+    expect(result.actualAmountReceived).toBe(400000 - result.upfrontCosts.total)
 
     // LTV = 80%, no credit insurance (<= 80%)
     expect(result.yearlyCosts.creditInsurance).toBe(0)
