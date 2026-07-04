@@ -256,7 +256,7 @@ export default function RefinancingCalc() {
                 <div className="space-y-4">
                   <div className={`p-4 rounded-lg ${result.isWorthIt ? 'bg-green-50 border border-green-200' : 'bg-red-50 border border-red-200'}`}>
                     <div className="text-lg font-bold mb-1">
-                      {result.isWorthIt ? '✅ Refinansowanie się opłaca!' : '❌ Refinansowanie się nie opłaca'}
+                      {result.isWorthIt ? 'Refinansowanie się opłaca!' : 'Refinansowanie się nie opłaca'}
                     </div>
                     <p className="text-sm text-gray-600">
                       {result.isWorthIt

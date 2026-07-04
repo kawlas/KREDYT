@@ -159,7 +159,7 @@ export default function PaymentComparison({
 
                 {/* Total savings */}
                 <div className="bg-green-50 border border-green-200 rounded-xl p-6">
-                  <div className="font-medium text-gray-900 mb-1">💰 Oszczędność</div>
+                  <div className="font-medium text-gray-900 mb-1">Oszczędność</div>
                   <div className="text-2xl font-bold text-green-600">
                     {formatCurrencyShort(decreasing.totalSavings)}
                   </div>
@@ -192,7 +192,7 @@ function ComparisonCard({
     >
       {isRecommended && (
         <div className="absolute top-0 right-0 bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-bl-lg rounded-tr-lg">
-          ⭐ LEPSZY WYBÓR
+          LEPSZY WYBÓR
         </div>
       )}
       

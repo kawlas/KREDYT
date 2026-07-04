@@ -158,7 +158,7 @@ const WiborARataPage: React.FC = () => {
             to="/symulacja-wibor/" 
             className="inline-block bg-blue-600 text-white px-8 py-4 rounded-xl font-bold hover:bg-blue-700 transition-colors"
           >
-            👉 Symuluj wpływ WIBOR na ratę
+            Symuluj wpływ WIBOR na ratę
           </Link>
         </div>
 

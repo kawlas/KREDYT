@@ -45,7 +45,7 @@ export default function RefinancingPage() {
       </section>
 
       <section className="mt-8 border-t border-gray-100 pt-6">
-        <h3 className="text-sm font-bold text-gray-700 mb-3">📖 Zobacz także:</h3>
+        <h3 className="text-sm font-bold text-gray-700 mb-3">Zobacz także:</h3>
         <ul className="space-y-1">
           <li><Link to="/poradniki/jak-obliczyc-rate/" className="text-blue-600 hover:underline text-sm">Jak obliczyć ratę kredytu? — Kompendium wiedzy</Link></li>
           <li><Link to="/poradniki/zdolnosc-kredytowa/" className="text-blue-600 hover:underline text-sm">Zdolność kredytowa — Kompendium wiedzy</Link></li>

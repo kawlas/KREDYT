@@ -147,7 +147,7 @@ export default function SavedCalculationsList({
                         onClick={() => handleLoad(calc)}
                         className="flex-1 md:w-32 px-5 py-3.5 bg-blue-600 text-white rounded-xl hover:bg-blue-700 font-bold text-sm shadow-md shadow-blue-200 transition-all flex items-center justify-center gap-2"
                       >
-                        <span className="text-lg">🔄</span> Wczytaj
+                        Wczytaj
                       </button>
                       
                       {deleteConfirm === calc.id ? (

@@ -42,8 +42,8 @@ export function getCostsByCategory(category: CostCategory): HiddenCostItem[] {
 
 export function getCategories(): { key: CostCategory; label: string; icon: string }[] {
   return [
-    { key: 'initial', label: 'Koszty początkowe', icon: '🏦' },
-    { key: 'monthly', label: 'Koszty miesięczne', icon: '📅' },
+    { key: 'initial', label: 'Koszty początkowe', icon: '' },
+    { key: 'monthly', label: 'Koszty miesięczne', icon: '' },
     { key: 'oneTime', label: 'Opłaty jednorazowe', icon: '📄' },
     { key: 'exit', label: 'Koszty wyjścia', icon: '🚪' },
     { key: 'risk', label: 'Ryzyka', icon: '⚠️' },

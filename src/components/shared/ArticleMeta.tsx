@@ -8,7 +8,7 @@ export default function ArticleMeta({ date = "lipiec 2026", expert = "Piotr Radw
     <div className="flex items-center gap-4 text-sm text-gray-500 mb-8 border-b border-gray-100 pb-4">
       {date && (
         <time dateTime="2026-07-04" className="flex items-center gap-1">
-          📅 {date}
+          {date}
         </time>
       )}
       {expert && (

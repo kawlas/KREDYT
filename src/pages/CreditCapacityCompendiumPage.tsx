@@ -128,7 +128,7 @@ const CreditCapacityCompendiumPage: React.FC = () => {
             to="/zdolnosc-kredytowa/" 
             className="inline-block bg-blue-600 text-white px-8 py-4 rounded-xl font-bold hover:bg-blue-700 transition-colors"
           >
-            👉 Sprawdź swoją zdolność w kalkulatorze
+            Sprawdź swoją zdolność w kalkulatorze
           </Link>
         </div>
 
