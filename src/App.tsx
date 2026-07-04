@@ -28,6 +28,7 @@ import BIKSimulatorPage from './pages/BIKSimulatorPage'
 import Footer from './components/layout/Footer'
 import NavBar from './components/layout/NavBar'
 import ScrollToTop from './components/shared/ScrollToTop'
+import BreadcrumbNav from './components/shared/BreadcrumbNav'
 import ErrorBoundary from './components/shared/ErrorBoundary'
 import ToastContainer from './components/shared/ToastContainer'
 import CookieConsent from './components/shared/CookieConsent'
@@ -44,6 +45,8 @@ function App() {
       <header>
         <NavBar />
       </header>
+
+      <BreadcrumbNav />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         <main id="main-content">
