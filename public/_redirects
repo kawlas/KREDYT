@@ -10,5 +10,8 @@
 /refinansowanie-kredytu/*  /refinansowanie-kredytu/index.html  200
 /porownanie-ofert-bankow/*  /porownanie-ofert-bankow/index.html  200
 
+# Prerendered poradniki pages
+/poradniki/*  /poradniki/index.html  200
+
 # SPA/History Fallback
 /* /index.html 200

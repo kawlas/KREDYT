@@ -1,30 +1,74 @@
-import { useState, useEffect } from 'react'
-import { NavLink } from 'react-router-dom'
+import { useState, useEffect, useRef } from 'react'
+import { NavLink, Link } from 'react-router-dom'
 
-interface NavItem {
-  path: string
-  label: string
+interface ToolCategory {
+  name: string
+  items: { path: string; label: string }[]
 }
 
-const items: NavItem[] = [
+const toolCategories: ToolCategory[] = [
+  {
+    name: 'Kalkulatory',
+    items: [
+      { path: '/kalkulator-raty-kredytu/', label: 'Kalkulator raty' },
+      { path: '/zdolnosc-kredytowa/', label: 'Zdolność kredytowa' },
+      { path: '/ltv-kalkulator/', label: 'Kalkulator LTV' },
+      { path: '/odsetki-dzienne/', label: 'Odsetki dzienne' },
+      { path: '/symulacja-wibor/', label: 'Symulacja WIBOR' },
+    ],
+  },
+  {
+    name: 'Porównaj',
+    items: [
+      { path: '/raty-rowne-czy-malejace/', label: 'Raty równe/malejące' },
+      { path: '/porownanie-ofert-bankow/', label: 'Porównanie banków' },
+      { path: '/refinansowanie-kredytu/', label: 'Refinansowanie' },
+      { path: '/stale-vs-zmienne-oprocentowanie/', label: 'Stałe/Zmienne' },
+    ],
+  },
+  {
+    name: 'Analiza',
+    items: [
+      { path: '/ukryte-koszty-kredytu/', label: 'Ukryte koszty' },
+      { path: '/co-wplywa-na-zdolnosc/', label: 'Scoring BIK' },
+      { path: '/symulator-nadplat/', label: 'Nadpłaty' },
+    ],
+  },
+]
+
+const desktopNavItems = [
   { path: '/', label: 'Start' },
-  { path: '/zdolnosc-kredytowa/', label: 'Zdolność' },
-  { path: '/kalkulator-raty-kredytu/', label: 'Kalkulator' },
-  { path: '/ltv-kalkulator/', label: 'LTV' },
-  { path: '/co-wplywa-na-zdolnosc/', label: 'Scoring BIK' },
-  { path: '/raty-rowne-czy-malejace/', label: 'Raty' },
-  { path: '/symulacja-wibor/', label: 'WIBOR' },
-  { path: '/odsetki-dzienne/', label: 'Odsetki' },
-  { path: '/symulator-nadplat/', label: 'Nadpłaty' },
-  { path: '/ukryte-koszty-kredytu/', label: 'Ukryte koszty' },
-  { path: '/refinansowanie-kredytu/', label: 'Refinansowanie' },
-  { path: '/porownanie-ofert-bankow/', label: 'Banki' },
-  { path: '/stale-vs-zmienne-oprocentowanie/', label: 'Stałe/Zmienne' },
+  { path: '/poradniki/', label: 'Poradniki' },
   { path: '/faq-kredyt-hipoteczny/', label: 'FAQ' },
+  { path: '/o-projekcie/', label: 'O projekcie' },
+]
+
+// Mobile nav items — all links including tools expanded
+const mobileNavItems = [
+  { path: '/', label: 'Start' },
+  // Tools expanded
+  { path: '/kalkulator-raty-kredytu/', label: '🧮 Kalkulator raty' },
+  { path: '/zdolnosc-kredytowa/', label: '📊 Zdolność kredytowa' },
+  { path: '/ltv-kalkulator/', label: '📐 LTV' },
+  { path: '/odsetki-dzienne/', label: '📆 Odsetki dzienne' },
+  { path: '/symulacja-wibor/', label: '📈 Symulacja WIBOR' },
+  { path: '/raty-rowne-czy-malejace/', label: '⚖️ Raty równe/malejące' },
+  { path: '/porownanie-ofert-bankow/', label: '🏦 Porównanie banków' },
+  { path: '/refinansowanie-kredytu/', label: '🔄 Refinansowanie' },
+  { path: '/stale-vs-zmienne-oprocentowanie/', label: '🔒 Stałe/Zmienne' },
+  { path: '/ukryte-koszty-kredytu/', label: '🔍 Ukryte koszty' },
+  { path: '/co-wplywa-na-zdolnosc/', label: '📋 Scoring BIK' },
+  { path: '/symulator-nadplat/', label: '💰 Nadpłaty' },
+  // Main links
+  { path: '/poradniki/', label: '📖 Poradniki' },
+  { path: '/faq-kredyt-hipoteczny/', label: '❓ FAQ' },
+  { path: '/o-projekcie/', label: 'ℹ️ O projekcie' },
 ]
 
 export default function NavBar() {
   const [open, setOpen] = useState(false)
+  const [toolsOpen, setToolsOpen] = useState(false)
+  const toolsRef = useRef<HTMLDivElement>(null)
 
   // Lock body scroll when menu is open
   useEffect(() => {
@@ -32,8 +76,22 @@ export default function NavBar() {
     return () => { document.body.style.overflow = '' }
   }, [open])
 
+  // Close tools dropdown on outside click
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (toolsRef.current && !toolsRef.current.contains(e.target as Node)) {
+        setToolsOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [])
+
   // Close on route change
-  const close = () => setOpen(false)
+  const close = () => {
+    setOpen(false)
+    setToolsOpen(false)
+  }
 
   return (
     <nav className="border-b border-gray-100 bg-white sticky top-0 z-50">
@@ -45,7 +103,70 @@ export default function NavBar() {
 
         {/* Desktop nav */}
         <div className="hidden md:flex items-center gap-1">
-          {items.map(item => (
+          <NavLink
+            to="/"
+            end
+            className={({ isActive }) =>
+              `px-3 py-2 text-sm font-medium rounded-md transition-colors ${
+                isActive
+                  ? 'text-blue-600 bg-blue-50/70'
+                  : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+              }`
+            }
+          >
+            Start
+          </NavLink>
+
+          {/* Tools dropdown */}
+          <div className="relative" ref={toolsRef}>
+            <button
+              onClick={() => setToolsOpen(!toolsOpen)}
+              className={`px-3 py-2 text-sm font-medium rounded-md transition-colors flex items-center gap-1 ${
+                toolsOpen
+                  ? 'text-blue-600 bg-blue-50/70'
+                  : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+              }`}
+            >
+              Narzędzia
+              <svg
+                className={`w-3.5 h-3.5 transition-transform ${toolsOpen ? 'rotate-180' : ''}`}
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth="2"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+
+            {toolsOpen && (
+              <div className="absolute left-0 mt-1 bg-white border border-gray-100 rounded-xl shadow-lg py-3 px-2 min-w-[260px] z-50">
+                {toolCategories.map((cat) => (
+                  <div key={cat.name}>
+                    <div className="px-3 py-1.5 text-xs font-semibold text-gray-400 uppercase tracking-wider">
+                      {cat.name}
+                    </div>
+                    {cat.items.map((item) => (
+                      <Link
+                        key={item.path}
+                        to={item.path}
+                        onClick={close}
+                        className="block px-3 py-1.5 text-sm text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-md transition-colors"
+                      >
+                        {item.label}
+                      </Link>
+                    ))}
+                    {cat !== toolCategories[toolCategories.length - 1] && (
+                      <div className="border-t border-gray-50 my-1 mx-3" />
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Main nav items */}
+          {desktopNavItems.slice(1).map(item => (
             <NavLink
               key={item.path}
               to={item.path}
@@ -91,7 +212,7 @@ export default function NavBar() {
         }`}
       >
         <div className="flex flex-col p-4 gap-1 overflow-y-auto h-full pb-24">
-          {items.map((item, i) => (
+          {mobileNavItems.map((item, i) => (
             <NavLink
               key={item.path}
               to={item.path}

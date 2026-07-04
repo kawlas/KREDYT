@@ -11,6 +11,10 @@ import MethodologyPage from './pages/MethodologyPage'
 import ContactPage from './pages/ContactPage'
 import PrivacyPolicyPage from './pages/PrivacyPolicyPage'
 import EditorialPolicyPage from './pages/EditorialPolicyPage'
+import CompendiumsListPage from './pages/CompendiumsListPage'
+import JakObliczycRatePage from './pages/JakObliczycRatePage'
+import CreditCapacityCompendiumPage from './pages/CreditCapacityCompendiumPage'
+import WiborARataPage from './pages/WiborARataPage'
 import TopicPage from './pages/TopicPage'
 import NotFoundPage from './pages/NotFoundPage'
 import DailyInterestPage from './pages/DailyInterestPage'
@@ -94,6 +98,10 @@ function App() {
               <Route path="/kontakt/" element={<ContactPage />} />
               <Route path="/polityka-prywatnosci/" element={<PrivacyPolicyPage />} />
               <Route path="/polityka-redakcyjna/" element={<EditorialPolicyPage />} />
+              <Route path="/poradniki/" element={<CompendiumsListPage />} />
+              <Route path="/poradniki/jak-obliczyc-rate/" element={<JakObliczycRatePage />} />
+              <Route path="/poradniki/zdolnosc-kredytowa/" element={<CreditCapacityCompendiumPage />} />
+              <Route path="/poradniki/wibor-a-rata/" element={<WiborARataPage />} />
 
               <Route path="/:topicSlug/" element={<TopicPage />} />
               <Route path="/404/" element={<NotFoundPage />} />

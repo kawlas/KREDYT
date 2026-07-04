@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import OverpaymentCalc from '../components/calculators/OverpaymentCalc'
 import SEOHead from '../components/shared/SEOHead'
 import AdSlot from '../components/shared/AdSlot'
@@ -40,6 +41,14 @@ export default function OverpaymentPage() {
           <li>Rekomendacje <a href="https://www.knf.gov.pl/dla-rynku/regulacje-i-standaryzacja/rekomendacje-i-zalecenia" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">KNF</a> dot. wyznaczania zdolności kredytowej</li>
           <li>Dane WIBOR z <a href="https://www.nbp.pl/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">NBP</a></li>
           <li><time dateTime="2026-07-04">Ostatnia aktualizacja: 4 lipca 2026</time></li>
+        </ul>
+      </section>
+
+      <section className="mt-8 border-t border-gray-100 pt-6">
+        <h3 className="text-sm font-bold text-gray-700 mb-3">📖 Zobacz także:</h3>
+        <ul className="space-y-1">
+          <li><Link to="/poradniki/jak-obliczyc-rate/" className="text-blue-600 hover:underline text-sm">Jak obliczyć ratę kredytu? — Kompendium wiedzy</Link></li>
+          <li><Link to="/poradniki/zdolnosc-kredytowa/" className="text-blue-600 hover:underline text-sm">Zdolność kredytowa — Kompendium wiedzy</Link></li>
         </ul>
       </section>
 

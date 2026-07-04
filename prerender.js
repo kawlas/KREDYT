@@ -29,7 +29,12 @@ const baseRoutes = [
   '/metodologia/',
   '/kontakt/',
   '/polityka-prywatnosci/',
-  '/404/'
+  '/404/',
+  '/polityka-redakcyjna/',
+  '/poradniki/',
+  '/poradniki/jak-obliczyc-rate/',
+  '/poradniki/zdolnosc-kredytowa/',
+  '/poradniki/wibor-a-rata/'
 ]
 
 // Extract topic routes — match slug as an object property (not inside comments or strings)

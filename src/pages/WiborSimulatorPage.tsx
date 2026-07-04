@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import WiborSimulator from '../components/calculators/WiborSimulator'
 import SEOHead from '../components/shared/SEOHead'
 import AdSlot from '../components/shared/AdSlot'
@@ -65,6 +66,15 @@ export default function WiborSimulatorPage({
             <li><time dateTime="2026-07-04">Ostatnia aktualizacja: 4 lipca 2026</time></li>
           </ul>
         </section>
+        <div className="max-w-6xl mx-auto px-4 mt-8">
+          <section className="border-t border-gray-100 pt-6">
+            <h3 className="text-sm font-bold text-gray-700 mb-3">📖 Zobacz także:</h3>
+            <ul className="space-y-1">
+              <li><Link to="/poradniki/jak-obliczyc-rate/" className="text-blue-600 hover:underline text-sm">Jak obliczyć ratę kredytu? — Kompendium wiedzy</Link></li>
+              <li><Link to="/poradniki/zdolnosc-kredytowa/" className="text-blue-600 hover:underline text-sm">Zdolność kredytowa — Kompendium wiedzy</Link></li>
+            </ul>
+          </section>
+        </div>
         <div className="max-w-6xl mx-auto px-4">
            <FaqBlock items={FAQ_DATA.filter(i => [6, 7, 8].includes(i.id))} />
         </div>
