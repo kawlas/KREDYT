@@ -2,8 +2,6 @@
 User-agent: *
 Allow: /
 Disallow: /404/
-Disallow: /kontakt/
-Disallow: /polityka-prywatnosci/
 
 # AI crawlers — explicitly allowed (content jest publiczny)
 User-agent: GPTBot
