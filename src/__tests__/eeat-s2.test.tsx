@@ -148,7 +148,7 @@ const calculatorPages: { name: string; component: JSX.Element }[] = [
 ]
 
 describe('Strony kalkulatorów — Źródła danych i odniesienia prawne', () => {
-  it.each(calculatorPages)('$name ma sekcję "Źródła danych" z widocznym nagłówkiem', ({ name, component }) => {
+  it.each(calculatorPages)('$name ma sekcję "Źródła danych" z widocznym nagłówkiem', ({ component }) => {
     const { container } = renderPage(component)
     const html = getHtml(container)
     const hasSourceSection =
@@ -159,7 +159,7 @@ describe('Strony kalkulatorów — Źródła danych i odniesienia prawne', () =>
     expect(hasSourceSection).toBe(true)
   })
 
-  it.each(calculatorPages)('$name zawiera odnośnik do Ustawy o kredycie hipotecznym lub KNF', ({ name, component }) => {
+  it.each(calculatorPages)('$name zawiera odnośnik do Ustawy o kredycie hipotecznym lub KNF', ({ component }) => {
     const { container } = renderPage(component)
     const text = getText(container)
     const hasLegalRef =
