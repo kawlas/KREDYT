@@ -46,9 +46,8 @@ function App() {
         <NavBar />
       </header>
 
-      <BreadcrumbNav />
-
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <BreadcrumbNav />
         <main id="main-content">
           <ErrorBoundary>
             <Routes>
