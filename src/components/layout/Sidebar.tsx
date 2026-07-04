@@ -5,34 +5,57 @@ interface SidebarItemData {
   type: 'link' | 'category' | 'divider'
   label?: string
   path?: string
-  icon?: string
 }
 
 const sidebarItems: SidebarItemData[] = [
-  { type: 'link', label: 'Strona główna', path: '/', icon: '🏠' },
+  { type: 'link', label: 'Strona główna', path: '/' },
   { type: 'divider' },
   { type: 'category', label: 'Kalkulatory' },
-  { type: 'link', label: 'Kalkulator raty', path: '/kalkulator-raty-kredytu/', icon: '🧮' },
-  { type: 'link', label: 'Zdolność kredytowa', path: '/zdolnosc-kredytowa/', icon: '📊' },
-  { type: 'link', label: 'Kalkulator LTV', path: '/ltv-kalkulator/', icon: '📐' },
-  { type: 'link', label: 'Symulacja WIBOR', path: '/symulacja-wibor/', icon: '📈' },
-  { type: 'link', label: 'Odsetki dzienne', path: '/odsetki-dzienne/', icon: '📆' },
-  { type: 'link', label: 'Nadpłaty', path: '/symulator-nadplat/', icon: '💰' },
+  { type: 'link', label: 'Kalkulator raty', path: '/kalkulator-raty-kredytu/' },
+  { type: 'link', label: 'Zdolność kredytowa', path: '/zdolnosc-kredytowa/' },
+  { type: 'link', label: 'Kalkulator LTV', path: '/ltv-kalkulator/' },
+  { type: 'link', label: 'Symulacja WIBOR', path: '/symulacja-wibor/' },
+  { type: 'link', label: 'Odsetki dzienne', path: '/odsetki-dzienne/' },
   { type: 'divider' },
   { type: 'category', label: 'Porównaj' },
-  { type: 'link', label: 'Raty równe/malejące', path: '/raty-rowne-czy-malejace/', icon: '⚖️' },
-  { type: 'link', label: 'Porównanie banków', path: '/porownanie-ofert-bankow/', icon: '🏦' },
-  { type: 'link', label: 'Refinansowanie', path: '/refinansowanie-kredytu/', icon: '🔄' },
-  { type: 'link', label: 'Stałe/Zmienne', path: '/stale-vs-zmienne-oprocentowanie/', icon: '🔒' },
+  { type: 'link', label: 'Raty równe/malejące', path: '/raty-rowne-czy-malejace/' },
+  { type: 'link', label: 'Porównanie banków', path: '/porownanie-ofert-bankow/' },
+  { type: 'link', label: 'Refinansowanie', path: '/refinansowanie-kredytu/' },
+  { type: 'link', label: 'Stałe/Zmienne', path: '/stale-vs-zmienne-oprocentowanie/' },
   { type: 'divider' },
   { type: 'category', label: 'Analiza' },
-  { type: 'link', label: 'Ukryte koszty', path: '/ukryte-koszty-kredytu/', icon: '🔍' },
-  { type: 'link', label: 'Scoring BIK', path: '/co-wplywa-na-zdolnosc/', icon: '📋' },
+  { type: 'link', label: 'Ukryte koszty', path: '/ukryte-koszty-kredytu/' },
+  { type: 'link', label: 'Scoring BIK', path: '/co-wplywa-na-zdolnosc/' },
+  { type: 'link', label: 'Nadpłaty', path: '/symulator-nadplat/' },
   { type: 'divider' },
-  { type: 'link', label: 'Poradniki', path: '/poradniki/', icon: '📖' },
-  { type: 'link', label: 'FAQ', path: '/faq-kredyt-hipoteczny/', icon: '❓' },
-  { type: 'link', label: 'O projekcie', path: '/o-projekcie/', icon: 'ℹ️' },
+  { type: 'link', label: 'Poradniki', path: '/poradniki/' },
+  { type: 'link', label: 'FAQ', path: '/faq-kredyt-hipoteczny/' },
+  { type: 'link', label: 'O projekcie', path: '/o-projekcie/' },
 ]
+
+const categoryColors: Record<string, string> = {
+  '/kalkulator-raty-kredytu/': 'blue',
+  '/zdolnosc-kredytowa/': 'blue',
+  '/ltv-kalkulator/': 'blue',
+  '/symulacja-wibor/': 'blue',
+  '/odsetki-dzienne/': 'blue',
+  '/symulator-nadplat/': 'blue',
+  '/raty-rowne-czy-malejace/': 'violet',
+  '/porownanie-ofert-bankow/': 'violet',
+  '/refinansowanie-kredytu/': 'violet',
+  '/stale-vs-zmienne-oprocentowanie/': 'violet',
+  '/ukryte-koszty-kredytu/': 'emerald',
+  '/co-wplywa-na-zdolnosc/': 'emerald',
+}
+
+function getActiveClass(path: string | undefined, isActive: boolean): string {
+  const base = 'flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors'
+  if (!isActive) return `${base} text-gray-600 hover:text-gray-900 hover:bg-gray-50`
+  const color = path ? categoryColors[path] : undefined
+  if (color === 'violet') return `${base} text-violet-600 bg-violet-50`
+  if (color === 'emerald') return `${base} text-emerald-600 bg-emerald-50`
+  return `${base} text-blue-600 bg-blue-50`
+}
 
 interface SidebarProps {
   isOpen?: boolean
@@ -107,15 +130,8 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
                   to={item.path}
                   end={item.path === '/'}
                   onClick={handleClose}
-                  className={({ isActive }) =>
-                    `flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
-                      isActive
-                        ? 'text-blue-600 bg-blue-50'
-                        : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
-                    }`
-                  }
+                  className={({ isActive }) => getActiveClass(item.path, isActive)}
                 >
-                  <span className="flex-shrink-0 w-5 text-center">{item.icon}</span>
                   <span>{item.label}</span>
                 </NavLink>
               )

@@ -65,7 +65,7 @@ export default function TopicPage({ topicSlug: propSlug }: TopicPageProps = {}) 
 
         {topic.ctas.length > 0 && (
           <section className="my-12 flex flex-wrap justify-center gap-4 bg-blue-600 p-10 rounded-3xl text-white">
-            <div className="text-center w-full mb-6">
+            <div className="w-full mb-6">
               <h3 className="text-2xl font-bold">Zacznij działać już teraz</h3>
               <p className="opacity-90">Skorzystaj z naszych darmowych narzędzi, aby podjąć najlepszą decyzję.</p>
             </div>
@@ -103,7 +103,7 @@ export default function TopicPage({ topicSlug: propSlug }: TopicPageProps = {}) 
           </section>
         )}
 
-        <div className="mt-12 text-center pb-12">
+        <div className="mt-12 pb-12">
           <Link 
             to="/kalkulator-raty-kredytu/" 
             className="text-gray-500 hover:text-blue-600 flex items-center justify-center gap-2 transition-colors"

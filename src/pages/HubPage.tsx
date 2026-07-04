@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom'
 import SEOHead from '../components/shared/SEOHead'
-import Card from '../components/shared/Card'
 import AdSlot from '../components/shared/AdSlot'
 
 interface Tool {
@@ -11,7 +10,6 @@ interface Tool {
 
 interface Phase {
   id: string
-  icon: string
   title: string
   subtitle: string
   tools: Tool[]
@@ -20,7 +18,6 @@ interface Phase {
 const phases: Phase[] = [
   {
     id: 'sprawdz',
-    icon: '📋',
     title: 'Sprawdź',
     subtitle: 'Ile możesz dostać? Ile zapłacisz?',
     tools: [
@@ -33,7 +30,6 @@ const phases: Phase[] = [
   },
   {
     id: 'symuluj',
-    icon: '📊',
     title: 'Symuluj',
     subtitle: 'A co jeśli? Sprawdź scenariusze.',
     tools: [
@@ -44,7 +40,6 @@ const phases: Phase[] = [
   },
   {
     id: 'porownaj',
-    icon: '🎯',
     title: 'Porównaj',
     subtitle: 'Gdzie jest najlepiej? Znajdź optymalną ofertę.',
     tools: [
@@ -74,14 +69,14 @@ export default function HubPage() {
       />
 
       {/* Hero */}
-      <section className="text-center pt-8 sm:pt-12">
+      <section className="pt-8 sm:pt-12">
         <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-gray-900 mb-6">
           Kalkulator Kredytu<br /><span className="text-blue-600">Hipotecznego</span>
         </h1>
-        <p className="text-lg sm:text-xl text-gray-500 max-w-2xl mx-auto mb-10 leading-relaxed">
+        <p className="text-lg sm:text-xl text-gray-500 max-w-2xl mb-10 leading-relaxed">
           Sprawdź ratę, zdolność i całkowity koszt w 30 sekund. Bez rejestracji, bez ukrytych opłat.
         </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+        <div className="flex flex-col sm:flex-row gap-4">
           <Link to="/kalkulator-raty-kredytu/" className="inline-flex items-center justify-center px-8 py-4 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-colors shadow-sm text-lg">
             Oblicz ratę
           </Link>
@@ -93,13 +88,13 @@ export default function HubPage() {
 
       {/* How it works */}
       <section>
-        <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 text-center mb-12">Jak to działa</h2>
+        <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-12">Jak to działa</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {steps.map(s => (
-            <div key={s.num} className="text-center">
+            <div key={s.num}>
               <div className="text-4xl font-bold text-blue-100 mb-4">{s.num}</div>
               <h3 className="text-lg font-semibold text-gray-900 mb-2">{s.title}</h3>
-              <p className="text-gray-500 text-sm leading-relaxed max-w-xs mx-auto">{s.desc}</p>
+              <p className="text-gray-500 text-sm leading-relaxed max-w-xs">{s.desc}</p>
             </div>
           ))}
         </div>
@@ -112,7 +107,7 @@ export default function HubPage() {
 
       {/* Tools by phase */}
       <section>
-        <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 text-center mb-12">Co możesz zrobić</h2>
+        <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-12">Co możesz zrobić</h2>
         {phases.map((phase, idx) => {
           const borderClass = idx === 0 ? 'border-l-blue-500' : idx === 1 ? 'border-l-emerald-500' : 'border-l-violet-500'
           const badgeClass = idx === 0 ? 'bg-blue-50 text-blue-700' : idx === 1 ? 'bg-emerald-50 text-emerald-700' : 'bg-violet-50 text-violet-700'
@@ -122,18 +117,17 @@ export default function HubPage() {
           return (
             <section key={phase.id} className="mb-12 last:mb-0">
               <div className="flex items-center gap-3 mb-6">
-                <span className="text-2xl">{phase.icon}</span>
                 <h2 className="text-2xl font-bold text-gray-900">{phase.title}</h2>
                 <span className="text-gray-300 hidden sm:inline">—</span>
                 <p className="text-gray-500 text-lg hidden sm:block">{phase.subtitle}</p>
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
                 {phase.tools.map((tool) => (
-                  <Link key={tool.to} to={tool.to} className={`group block bg-white rounded-xl border border-gray-100 p-6 border-l-4 ${borderClass} ${hoverBorderClass} hover:shadow-md transition-all`}>
-                    <span className={`inline-block text-xs font-semibold px-2 py-0.5 rounded-full ${badgeClass} mb-3`}>{phase.title}</span>
-                    <h3 className={`font-semibold text-gray-900 mb-2 ${hoverTextClass} transition-colors`}>{tool.title}</h3>
-                    <p className="text-sm text-gray-500 leading-relaxed">{tool.desc}</p>
-                    <div className={`mt-4 ${arrowClass} text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity`}>Sprawdź &rarr;</div>
+                  <Link key={tool.to} to={tool.to} className={`group block bg-white rounded-lg border border-gray-100 p-4 border-l-4 ${borderClass} ${hoverBorderClass} hover:shadow-md transition-all`}>
+                    <span className={`inline-block text-[10px] font-semibold px-2 py-0.5 rounded-full ${badgeClass} mb-2`}>{phase.title}</span>
+                    <h3 className={`font-semibold text-sm text-gray-900 mb-1 ${hoverTextClass} transition-colors`}>{tool.title}</h3>
+                    <p className="text-xs text-gray-500 leading-relaxed">{tool.desc}</p>
+                    <div className={`mt-3 ${arrowClass} text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity`}>Sprawdź &rarr;</div>
                   </Link>
                 ))}
               </div>
@@ -144,8 +138,8 @@ export default function HubPage() {
 
       {/* Trust */}
       <section className="bg-gray-50 rounded-2xl p-8 sm:p-12">
-        <h2 className="text-2xl font-bold text-gray-900 text-center mb-10">Zaufaj liczbom</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center">
+        <h2 className="text-2xl font-bold text-gray-900 mb-10">Zaufaj liczbom</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
           <div><div className="text-3xl font-bold text-blue-600 mb-1">61</div><div className="text-sm text-gray-500">testów sprawdza poprawność każdego obliczenia</div></div>
           <div><div className="text-3xl font-bold text-blue-600 mb-1">Bankier.pl</div><div className="text-sm text-gray-500">aktualny WIBOR pobierany automatycznie</div></div>
           <div><div className="text-3xl font-bold text-blue-600 mb-1">Ustawa</div><div className="text-sm text-gray-500">zgodność z ustawą o kredycie hipotecznym</div></div>
@@ -153,7 +147,7 @@ export default function HubPage() {
       </section>
 
       {/* Quick FAQ */}
-      <section className="max-w-2xl mx-auto">
+      <section className="max-w-2xl">
         <div className="flex items-center justify-between mb-8">
           <h2 className="text-2xl font-bold text-gray-900">Najczęściej zadawane pytania</h2>
           <Link to="/faq-kredyt-hipoteczny/" className="text-blue-600 hover:text-blue-700 font-medium text-sm">
@@ -166,7 +160,7 @@ export default function HubPage() {
             { q: 'Raty równe czy malejące — które wybrać?', a: 'Raty równe są niższe na początku i przewidywalne — dobre przy ograniczonym budżecie. Raty malejące kosztują mniej odsetek w całym okresie, ale pierwsze raty są wyższe. Różnica przy kredycie 400 000 zł na 25 lat to nawet kilkadziesiąt tysięcy złotych.' },
             { q: 'Czy nadpłata kredytu zawsze się opłaca?', a: 'Tak — każda nadpłata zmniejsza kapitał, od którego naliczane są odsetki. Przy oprocentowaniu zmiennym, po 1. roku od zawarcia umowy bank nie może pobierać prowizji za nadpłatę (ustawa o kredycie hipotecznym).' },
           ].map((faq, i) => (
-            <Card key={i} className="!p-5">
+            <div key={i} className="bg-white rounded-lg border border-gray-100 p-4">
               <details className="group">
                 <summary className="flex justify-between items-center cursor-pointer list-none">
                   <span className="font-medium text-gray-900 pr-4">{faq.q}</span>
@@ -174,7 +168,7 @@ export default function HubPage() {
                 </summary>
                 <p className="mt-3 text-sm text-gray-600 leading-relaxed">{faq.a}</p>
               </details>
-            </Card>
+            </div>
           ))}
         </div>
       </section>
