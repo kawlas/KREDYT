@@ -61,7 +61,16 @@ const routesToPrerender = Array.from(new Set([...baseRoutes, ...topicRoutes]))
       .replace(/<script[^>]*adsbygoogle[^>]*><\/script>/gi, '')
       .replace(/<script[^>]*googlesyndication[^>]*><\/script>/gi, '')
 
-    const html = template
+    // Clean template from hardcoded SEO tags that helmet will replace
+    let cleanTemplate = template
+      .replace(/\s*<title>[^<]*<\/title>/, '')
+      .replace(/\s*<meta name="description"[^>]*>/g, '')
+      .replace(/\s*<meta name="keywords"[^>]*>/g, '')
+      .replace(/\s*<link rel="canonical"[^>]*>/g, '')
+      .replace(/\s*<meta property="og:image"[^>]*>/g, '')
+      .replace(/\n{2,}/g, '\n')  // collapse multiple empty lines
+
+    const html = cleanTemplate
       .replace('<!--app-head-->', `
         ${helmet.title.toString()}
         ${helmet.meta.toString()}

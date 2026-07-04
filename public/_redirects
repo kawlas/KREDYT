@@ -4,5 +4,11 @@
 # Handle assets
 /assets/*  /assets/:splat  200
 
+# Prerendered pages — serve static HTML files (before SPA fallback)
+/odsetki-dzienne/*  /odsetki-dzienne/index.html  200
+/symulator-nadplat/*  /symulator-nadplat/index.html  200
+/refinansowanie-kredytu/*  /refinansowanie-kredytu/index.html  200
+/porownanie-ofert-bankow/*  /porownanie-ofert-bankow/index.html  200
+
 # SPA/History Fallback
 /* /index.html 200

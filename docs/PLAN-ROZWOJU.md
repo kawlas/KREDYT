@@ -1,13 +1,343 @@
 # PLAN ROZWOJU — KREDYT (Kalkulator Kredytu Hipotecznego)
 
-**Data:** 2026-06-15
+**Data:** 2026-07-04 (aktualizacja)
 **Branch:** `plan-rozwoju`
-**Status:** Plan zatwierdzony, oczekuje na implementację
-**Cel:** Rozbudowa strony bez psucia istniejącej funkcjonalności i reklam Google AdSense
+**Status:** ⚠️ Plan rozszerzony — dodano wymogi AdSense 2026 i AI Agent Discovery
+**Cel:** Rozbudowa strony + dostosowanie do wymogów Google AdSense + optymalizacja pod AI search i agentów
 
 ---
 
-## SPIS TREŚCI
+## ⚠️ AKTUALIZACJA 2026-07-04 — KRYTYCZNE USTALENIA
+
+> Na podstawie analizy kodu źródłowego, oficjalnego filmu Google AdSense, polityk programowych Google oraz researchu AI Agent Discovery.
+
+### 🚨 GŁÓWNE ZAGROŻENIE: Odrzucenie AdSense przez problemy techniczne
+
+Analiza live site + kod źródłowy wykazała **5 poważnych problemów**, które mogą (i prawdopodobnie spowodują) odrzucenie aplikacji przez Google AdSense:
+
+| # | Problem | Wpływ na AdSense | Pilność |
+|---|---------|-----------------|---------|
+| 1 | **Podwójny `<title>`** — Helmet dodaje `data-rh="true"` ale nie usuwa hardcoded title z `index.html`. Crawler widzi PIERWSZY (zły) | Wszystkie strony mają ten sam tytuł dla Google → duplikacja | 🔴 P0 |
+| 2 | **Podwójny `<link canonical>`** — `index.html` ma `canonical=/` a Helmet dodaje właściwy | Google myli strony → indeksacja tylko strony głównej | 🔴 P0 |
+| 3 | **Ten sam meta description** — identyczny na każdej stronie | Google widzi zduplikowane opisy → niska jakość | 🔴 P0 |
+| 4 | **5 stron zwraca kopię strony głównej** — `/odsetki-dzienne/`, `/symulator-nadplat/`, `/refinansowanie-kredytu/`, `/porownanie-ofert-bankow/` są identyczne z `/` | Replicated content → odrzucenie AdSense | 🔴 P0 |
+| 5 | **4 strony bez `<h1>`** — brak nagłówka pierwszego poziomu | Słaba semantyka → niższa ocena jakości | 🟡 P1 |
+
+**Przyczyna #1-3:** `prerender.js` zamienia `<!--app-head-->` na tagi Helmeta, ale **NIE usuwa starego title/meta/canonical** z `index.html`. W efekcie każda strona ma DWA zestawy tagów — crawler Google bierze pierwszy (hardcoded, błędny).
+
+**Przyczyna #4:** Pliki prerenderowane istnieją w `dist/static/` z poprawnym contentem, ale **Netlify nie serwuje ich poprawnie** — brak reguł redirect/rewrite w `netlify.toml`.
+
+---
+
+## 📋 WYMOGI GOOGLE AdSense 2026 — PEŁNA LISTA KONTROLNA
+
+> Źródła: Oficjalny film Google AdSense (2025/2026) + support.google.com/adsense/answer/48182 + support.google.com/adsense/answer/9335564
+
+### 1. WYMOGI TECHNICZNE (z filmu Google AdSense)
+
+| Lp | Wymóg | Status w projekcie | Uwagi |
+|----|-------|-------------------|-------|
+| 1.1 | Kod AdSense w `<head>` bez zmian | ✅ OK | Jest w `index.html` linia 22 |
+| 1.2 | Strona dostępna bez hasła | ✅ OK | Netlify, działa globalnie |
+| 1.3 | robots.txt nie blokuje crawlera | ✅ OK | Allow: / |
+| 1.4 | Strona ładuje się poprawnie | ✅ OK | HTTP 200 |
+| 1.5 | **Unikalny `<title>` na każdej stronie** | ❌ **BŁĄD** | Patrz #1 w krytycznych |
+| 1.6 | **Unikalna meta description na każdej stronie** | ❌ **BŁĄD** | Patrz #3 w krytycznych |
+| 1.7 | **Unikalny canonical URL na każdej stronie** | ❌ **BŁĄD** | Patrz #2 w krytycznych |
+| 1.8 | **Oryginalna, wartościowa treść (nie duplikowana)** | ❌ **BŁĄD** | 5 stron to kopie |
+| 1.9 | **Strona łatwa w nawigacji (site navigation)** | ✅ OK | Menu + footer + kategorie |
+| 1.10 | Kod na najpopularniejszej stronie | ✅ OK | Jest w head na każdej |
+
+### 2. POLITYKA TREŚCI (Google Publisher Policies)
+
+| Lp | Zasada | Aplikacja | Stan |
+|----|--------|-----------|------|
+| 2.1 | **Zakaz treści nielegalnych** | Treści finansowe, zgodne z prawem | ✅ |
+| 2.2 | **Zakaz naruszeń własności intelektualnej** | Oryginalna treść, brak plagiatów | ✅ |
+| 2.3 | **Zakaz treści niebezpiecznych/dyskryminujących** | Treści neutralne, edukacyjne | ✅ |
+| 2.4 | **Zakaz treści wprowadzających w błąd** | Kalkulatory oparte na wzorach matematycznych, transparentne | ✅ |
+| 2.5 | **Low value content** — treść musi być wartościowa | ⚠️ **RYZYKO**: Strony z samymi kalkulatorami bez treści opisowej | 🟡 P1 |
+| 2.6 | **Replicated content** — brak duplikacji | ❌ **NARUSZONE**: 5 kopii strony głównej | 🔴 P0 |
+| 2.7 | **Site navigation** — łatwa nawigacja | ✅ OK | |
+| 2.8 | **Przejrzystość** — kto jest wydawcą, cel strony | Jest strona O Projekcie + Kontakt | ✅ |
+
+### 3. POLITYKA REKLAMOWA (AdSense Program Policies)
+
+| Lp | Zasada | Stan |
+|----|--------|------|
+| 3.1 | Zakaz klikania własnych reklam | ✅ |
+| 3.2 | Zakaz sztucznego zwiększania kliknięć/impreji | ✅ |
+| 3.3 | Ruch z legalnych źródeł (nie paid-to-click) | ✅ |
+| 3.4 | Modyfikacje kodu AdSense — tylko dozwolone | ✅ |
+| 3.5 | Odpowiednie miejsce reklam (nie w pop-upach itp.) | ✅ AdSlot w bezpiecznych miejscach |
+| 3.6 | Łatwa nawigacja dla użytkownika | ✅ |
+| 3.7 | Brak deceptywnych praktyk (fałszywe linki, redirect) | ✅ |
+
+### 4. E-E-A-T (Experience, Expertise, Authoritativeness, Trustworthiness)
+
+Google coraz mocniej stosuje E-E-A-T do oceny stron z treściami finansowymi (Your Money or Your Life — YMYL).
+
+| Lp | Wymóg | Stan | Działanie |
+|----|-------|------|-----------|
+| 4.1 | **Experience** — pokaż, że masz doświadczenie | ⚠️ Brak informacji o autorze | Dodać stronę "O autorze" z referencjami |
+| 4.2 | **Expertise** — wiedza merytoryczna | ⚠️ Brak źródeł | Dodać przypisy, linki do Ustawy o kredycie hipotecznym, rekomendacji KNF |
+| 4.3 | **Authoritativeness** — autorytet w temacie | ⚠️ Brak | Dodać cytaty z ekspertów, linki do instytucji (KNF, UOKiK, ZBP) |
+| 4.4 | **Trustworthiness** — zaufanie | ⚠️ Brak polityki redakcyjnej | Dodać politykę aktualizacji danych, daty publikacji, autorów |
+
+---
+
+## 🤖 AI AGENT DISCOVERY — JAK AGENCI I WYSZUKIWARKI AI ZNAJDUJĄ TREŚCI
+
+> W 2026 roku ruch z AI Overviews (Google), ChatGPT Search, Perplexity, Claude, Gemini i innych agentów AI stanowi już znaczący procent ruchu. Optymalizacja pod AI (GEO — Generative Engine Optimization) jest kluczowa.
+
+### 5.1. Jak działają AI search engines
+
+| AI Search | Jak znajduje treści | Co jest kluczowe |
+|-----------|---------------------|------------------|
+| **Google AI Overviews** | Indeksuje strony jak Google Search + preferuje strukturyzowane dane | Structured data, cytowalność, autorytet |
+| **ChatGPT Search** | Crawl + Bing + partnerzy | Przejrzysta treść, szybkie ładowanie, DOI dla faktów |
+| **Perplexity** | Crawl + własny indeks + Bing | Cytaty, źródła, długie treści eksperckie |
+| **Claude / Anthropic** | Przez narzędzia (web search tool) | Dostępność, szybkość, dobrze sformatowana treść |
+| **Gemini** | Indeks Google + AI processing | Structured data, faktualność, E-E-A-T |
+
+### 5.2. Wymogi AI Agent Discovery dla tej aplikacji
+
+| Lp | Wymóg | Dlaczego ważne | Stan |
+|----|-------|----------------|------|
+| 5.1 | **Structured Data (JSON-LD)** — schema.org dla każdej strony | AI search engines preferują strony z semantycznym znacznikowaniem | ✅ WebSite, ❌ brak Organization, ❌ brak Article/BreadcrumbList na stronach treściowych |
+| 5.2 | **Szybkość ładowania** — <2s LCP, <50ms TTFB | AI agenci odrzucają wolne strony | ✅ Netlify CDN |
+| 5.3 | **Dostępność bez JS** — server-side rendered content | Większość AI crawlerów nie wykonuje JS | ⚠️ Jest prerender, ale źle skonfigurowany |
+| 5.4 | **Cytowalność** — fakty z podanymi źródłami | AI search engines cytują źródła — im więcej konkretów, tym większa szansa na bycie zacytowanym | ❌ Brak na stronach kalkulatorów |
+| 5.5 | **Data publikacji i aktualizacji** | AI preferuje świeże treści | ❌ Brak dat na stronach |
+| 5.6 | **Answerability** — treść odpowiadająca wprost na pytania | AI agenci szukają konkretnych odpowiedzi, nie ogólników | ⚠️ FAQ jest dobre, ale kalkulatory nie mają Q&A w treści |
+| 5.7 | **Context-rich content** — minimum 500 słów treści na stronie | Krótkie strony są rzadziej brane pod uwagę przez AI | ❌ Strony kalkulatorów mają <200 słów treści |
+| 5.8 | **robots.txt + sitemap.xml** z priorytetami | AI crawlerzy czytają sitemap dla wskazówek | ✅ Jest sitemap, ale słaba priorytetyzacja |
+| 5.9 | **Brak blokowania AI crawlerów** w robots.txt | GPTBot, ClaudeBot, Google-Extended itp. | ✅ Są Allow w robots.txt |
+| 5.10 | **Clear hierarchy** — nagłówki H1-H3, lista, tabele | AI lepiej parse'uje uporządkowaną treść | ⚠️ Brak H1 na 4 stronach |
+
+### 5.3. Zalecane schematy structured data
+
+Dla tej aplikacji kluczowe są:
+
+```json
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",       // dla kalkulatorów
+  "name": "Kalkulator Raty Kredytu",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "All",
+  "description": "..."
+}
+```
+
+```json
+{
+  "@context": "https://schema.org",
+  "@type": "Article",               // dla stron treściowych
+  "headline": "...",
+  "datePublished": "2026-01-15",
+  "author": {
+    "@type": "Person",
+    "name": "..."
+  }
+}
+```
+
+```json
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",        // dla każdej strony
+  "itemListElement": [...]
+}
+```
+
+---
+
+## 📋 ZAKTUALIZOWANA LISTA KONTROLNA DLA ADSENSE
+
+> Wszystkie punkty z filmu Google + oficjalne polityki + AI Agent requirements
+
+### 🔴 P0 — KRYTYCZNE (zablokują AdSense)
+
+- [ ] **P0.1** Usunąć hardcoded `<title>`, `<meta description>`, `<link canonical>`, `<meta keywords>` z `index.html` — zostawić tylko w Helmet/SEOHead
+- [ ] **P0.2** Naprawić `prerender.js` żeby usuwał stare tagi przed wstawieniem helmetowych
+- [ ] **P0.3** Dodać reguły Netlify redirect/rewrite w `netlify.toml` żeby serwował poprawne prerenderowane pliki dla: `/odsetki-dzienne/`, `/symulator-nadplat/`, `/refinansowanie-kredytu/`, `/porownanie-ofert-bankow/`
+- [ ] **P0.4** Dodać `<h1>` na stronach: DailyInterestPage, OverpaymentPage, RefinancingPage, BankComparisonPage
+- [ ] **P0.5** Zweryfikować własność w Google Search Console (jeśli nie zrobione)
+
+### 🟡 P1 — WAŻNE (wpływają na jakość)
+
+- [ ] **P1.1** Dodać unikalne treści opisowe (300-500 słów) na KAŻDEJ stronie z kalkulatorem:
+  - Kontekst: dlaczego to narzędzie jest ważne
+  - Instrukcja: jak korzystać
+  - Wskazówki eksperckie
+  - Przykłady liczbowe
+- [ ] **P1.2** Dodać FAQ specyficzne dla każdej strony (nie tylko ogólne)
+- [ ] **P1.3** Dodać daty publikacji/ostatniej aktualizacji na stronach
+- [ ] **P1.4** Dodać BreadcrumbList structured data (JSON-LD) na każdej stronie
+- [ ] **P1.5** Dodać Organization schema (dane wydawcy)
+- [ ] **P1.6** Dodać WebApplication schema dla stron kalkulatorów
+- [ ] **P1.7** Dodać Article schema dla stron treściowych z autorem
+- [ ] **P1.8** Rozwiązać problem zduplikowanych stron (przekierować 301 lub dodać unikalną treść)
+
+### 🟢 P2 — OPTYMALIZACJA
+
+- [ ] **P2.1** Dodać stronę "O autorze" z referencjami (E-E-A-T)
+- [ ] **P2.2** Dodać politykę redakcyjną i źródła danych
+- [ ] **P2.3** Dodać cytaty z Ustawy o kredycie hipotecznym, rekomendacji KNF
+- [ ] **P2.4** Zwiększyć szybkość ładowania (audit Lighthouse)
+- [ ] **P2.5** Dodać linki do zewnętrznych instytucji (KNF, UOKiK, ZBP) dla autorytetu
+- [ ] **P2.6** Dodać sekcję "Źródła danych" na każdej stronie
+
+---
+
+## 📋 PRIORYTETY NAPRAWCZE — SZCZEGÓŁY TECHNICZNE
+
+### P0.1 — Usunięcie hardcoded tagów z index.html
+
+**Plik:** `index.html`
+
+**Co usunąć:**
+- `<title>Kalkulator Kredytu Hipotecznego — Darmowe Narzędzia Online</title>` (linia 4)
+- `<meta name="description"...>` (linia 5)
+- `<meta name="keywords"...>` (linia 7)
+- `<link rel="canonical"...>` (linia 11)
+- `<meta property="og:image"...>` (linia 12)
+
+**Zostawić:** charset, viewport, theme-color, favicon, font preconnect, consent script, AdSense script
+
+### P0.2 — Naprawa prerender.js
+
+**Plik:** `prerender.js`
+
+**Problem:** Skrypt wstawia helmet tags ale nie usuwa starych:
+```js
+const html = template
+  .replace('<!--app-head-->', `
+    ${helmet.title.toString()}
+    ${helmet.meta.toString()}
+    ${helmet.link.toString()}
+    ${scriptStr}
+  `)
+```
+
+**Fix:** Przed replace 'app-head', najpierw usuń stare tagi regexem:
+```js
+// Usuń stare tagi które będą nadpisane przez Helmet
+let cleanTemplate = template
+  .replace(/<title>[^<]*<\/title>/, '')
+  .replace(/<meta name="description"[^>]*>/, '')
+  .replace(/<meta name="keywords"[^>]*>/, '')
+  .replace(/<link rel="canonical"[^>]*>/, '')
+  .replace(/<meta property="og:image"[^>]*>/, '')
+
+const html = cleanTemplate
+  .replace('<!--app-head-->', `
+    ${helmet.title.toString()}
+    ${helmet.meta.toString()}
+    ${helmet.link.toString()}
+    ${scriptStr}
+  `)
+```
+
+### P0.3 — Reguły Netlify dla prerenderowanych stron
+
+**Plik:** `netlify.toml`
+
+Dodać przed główną regułą:
+```toml
+[[redirects]]
+  from = "/odsetki-dzienne/"
+  to = "/odsetki-dzienne/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/symulator-nadplat/"
+  to = "/symulator-nadplat/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/refinansowanie-kredytu/"
+  to = "/refinansowanie-kredytu/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/porownanie-ofert-bankow/"
+  to = "/porownanie-ofert-bankow/index.html"
+  status = 200
+```
+
+### P0.4 — Dodanie H1 na brakujących stronach
+
+W plikach (przed `<komponentKalkulatora />`):
+- `src/pages/DailyInterestPage.tsx` → `<h1>Kalkulator odsetek dziennych — act/365 vs act/360</h1>`
+- `src/pages/OverpaymentPage.tsx` → `<h1>Symulator nadpłat kredytu hipotecznego</h1>`
+- `src/pages/RefinancingPage.tsx` → `<h1>Kalkulator refinansowania kredytu hipotecznego</h1>`
+- `src/pages/BankComparisonPage.tsx` → `<h1>Porównanie ofert kredytów hipotecznych</h1>`
+
+---
+
+## 📋 ZAKTUALIZOWANY HARMONOGRAM WDROŻENIA
+
+### Sprint 0 — AdSense emergency (1-2 dni)
+
+| Zadanie | Czas | Zależności |
+|---------|------|-----------|
+| P0.1 — czyszczenie index.html | 15min | — |
+| P0.2 — naprawa prerender.js | 30min | P0.1 |
+| P0.3 — reguły Netlify | 15min | — |
+| P0.4 — H1 na 4 stronach | 15min | — |
+| rebuild + deploy | 10min | P0.1-P0.4 |
+| Weryfikacja w Google Search Console | 30min | deploy |
+| **Razem** | **~2h** | |
+
+### Sprint 1 — Treści i struktura (tydzień)
+
+| Zadanie | Czas | Priorytet |
+|---------|------|-----------|
+| Unikalne treści opisowe na każdej stronie (P1.1) | 8h | 🟡 |
+| FAQ na każdej stronie (P1.2) | 4h | 🟡 |
+| Daty publikacji/aktualizacji (P1.3) | 2h | 🟡 |
+| Structured data — BreadcrumbList (P1.4) | 2h | 🟡 |
+| Organizacja + WebApplication + Article schema (P1.5-P1.7) | 3h | 🟡 |
+| Rozwiązanie zduplikowanych stron (P1.8) | 2h | 🟡 |
+| **Razem** | **~21h** | |
+
+### Sprint 2 — E-E-A-T i AI Discovery (tydzień)
+
+| Zadanie | Czas | Priorytet |
+|---------|------|-----------|
+| Strona "O autorze" z referencjami (P2.1) | 3h | 🟢 |
+| Polityka redakcyjna (P2.2) | 2h | 🟢 |
+| Cytaty z Ustawy/KNF (P2.3) | 4h | 🟢 |
+| Linki do instytucji (P2.5) | 1h | 🟢 |
+| Sekcja źródła danych (P2.6) | 2h | 🟢 |
+| **Razem** | **~12h** | |
+
+### Sprint 3-5 — Rozwój funkcjonalny (zgodnie z oryginalnym planem)
+
+Następnie kontynuacja zgodnie z oryginalnym planem poniżej (Faza 0-4).
+
+---
+
+**Łączny czas napraw krytycznych: ~2h**
+**Łączny czas poprawek jakości: ~33h**
+**Łącznie (z rozwojem): ~108h**
+
+---
+
+## 🔗 ZRODŁA
+
+- Oficjalny film Google AdSense: https://www.youtube.com/watch?v=lZUG0XGlZZY
+- Program policies: https://support.google.com/adsense/answer/48182
+- Publisher policies: https://support.google.com/adsense/answer/9335564
+- Google AI Overviews: https://blog.google/products/search/ai-overviews-search-october-2024/
+- Schema.org: https://schema.org/docs/gs.html
+- Google E-E-A-T: https://developers.google.com/search/docs/fundamentals/creating-helpful-content
+
+---
+
+## SPIS TREŚCI (całość)
 
 1. [Analiza obecnej struktury](#1-analiza-obecnej-struktury)
 2. [Problemy użytkowników — research](#2-problemy-użytkowników--research)
