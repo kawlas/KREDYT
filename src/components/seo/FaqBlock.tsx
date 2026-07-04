@@ -34,7 +34,7 @@ export default function FaqBlock({ items, title = "Częste pytania", className =
       </Helmet>
       
       <div className="max-w-4xl mx-auto">
-        {title && <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">{title}</h2>}
+        {title && <h2 className="text-2xl font-bold text-gray-900 mb-6">{title}</h2>}
         
         <div className="space-y-4">
           {items.map((item) => (

@@ -16,7 +16,7 @@ export default function TabContainer({
   return (
     <div className="tab-container">
       {/* Header Section - Unified */}
-      <div className="text-center mb-8">
+      <div className="mb-8">
         <h1 className="text-3xl font-bold text-gray-900 mb-2">
           {title}
         </h1>

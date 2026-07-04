@@ -2,6 +2,8 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import TabContainer from '../components/layout/TabContainer'
 import SEOHead from '../components/shared/SEOHead'
+import BreadcrumbNav from '../components/shared/BreadcrumbNav'
+import ArticleMeta from '../components/shared/ArticleMeta'
 
 const JakObliczycRatePage: React.FC = () => {
   return (
@@ -17,8 +19,11 @@ const JakObliczycRatePage: React.FC = () => {
         schemaType="Article"
       />
       
-      <article className="max-w-3xl mx-auto prose prose-blue">
-        <h1>Jak obliczyć ratę kredytu hipotecznego? — Kompendium wiedzy</h1>
+      <BreadcrumbNav pathname="/poradniki/jak-obliczyc-rate/" />
+      <article className="max-w-3xl mx-auto">
+        <h1 className="text-3xl font-bold text-gray-900 mb-4">Jak obliczyć ratę kredytu hipotecznego? — Kompendium wiedzy</h1>
+        <ArticleMeta date="lipiec 2026" expert="Piotr Radwański" />
+        <div className="prose prose-blue">
         
         <p className="text-lg text-gray-600 mb-8">
           Zastanawiasz się, ile wyniesie Twoja miesięczna rata kredytu hipotecznego? To pytanie zadaje 
@@ -97,6 +102,35 @@ const JakObliczycRatePage: React.FC = () => {
           a marża banku to 1,90%, całkowite oprocentowanie wynosi 7,40% w skali roku.
         </p>
 
+        <h2>Przykład krok po kroku — kredyt 400 000 zł na 25 lat</h2>
+        <p>Szczegółowa symulacja pokazująca rozkład kapitału i odsetek w czasie:</p>
+        <ul>
+          <li><strong>Kwota kredytu:</strong> 400 000 zł</li>
+          <li><strong>Okres:</strong> 25 lat (300 miesięcy)</li>
+          <li><strong>Oprocentowanie:</strong> 7,00% (WIBOR 5,00% + marża 2,00%)</li>
+        </ul>
+        <p>Po 5 latach spłacania kredytu (60 rat × 2 804 zł = 168 240 zł wpłacone), kapitał zmniejszył się tylko o 36 524 zł. Reszta (131 716 zł) poszła na odsetki. Dopiero po ok. 18 latach odsetki i kapitał w racie zrównują się.</p>
+
+        <h3>Wpływ skrócenia okresu kredytowania</h3>
+        <table>
+          <thead><tr><th>Okres</th><th>Rata miesięczna</th><th>Suma odsetek</th><th>Oszczędność vs 25 lat</th></tr></thead>
+          <tbody>
+            <tr><td>20 lat</td><td>3 101 zł</td><td>344 240 zł</td><td>+96 953 zł</td></tr>
+            <tr><td><strong>25 lat</strong></td><td><strong>2 804 zł</strong></td><td><strong>441 193 zł</strong></td><td>–</td></tr>
+            <tr><td>30 lat</td><td>2 661 zł</td><td>557 960 zł</td><td>-116 767 zł</td></tr>
+            <tr><td>35 lat</td><td>2 582 zł</td><td>684 440 zł</td><td>-243 247 zł</td></tr>
+          </tbody>
+        </table>
+        <p>Przy kredycie 400 000 zł na 25 lat zapłacisz bankowi ponad 440 000 zł samych odsetek. Skrócenie okresu do 20 lat podniesie ratę do ok. 3 101 zł, ale odsetki spadną do ok. 344 240 zł — oszczędność blisko 100 000 zł.</p>
+
+        <h2>Najczęstsze błędy przy obliczaniu raty</h2>
+        <ol>
+          <li><strong>Pomylenie oprocentowania nominalnego z RRSO</strong> — Oprocentowanie 6% nie oznacza 6% od kwoty kredytu rocznie.</li>
+          <li><strong>Ignorowanie okresu kredytowania</strong> — Dłuższy okres = niższa rata, ale wyższe całkowite odsetki.</li>
+          <li><strong>Nieuwzględnienie ubezpieczeń</strong> — UNWW, ubezpieczenie nieruchomości i na życie podnoszą koszt o 50-120 zł/mc.</li>
+          <li><strong>Brak symulacji na wyższe oprocentowanie</strong> — Zawsze pytaj o symulację przy WIBOR wyższym o 2-3 pp.</li>
+        </ol>
+
         <h2>RRSO — co to jest i jak się liczy?</h2>
         <p>
           <strong>RRSO (Rzeczywista Roczna Stopa Oprocentowania)</strong> to wskaźnik, który uwzględnia 
@@ -137,7 +171,7 @@ const JakObliczycRatePage: React.FC = () => {
           </p>
         </section>
 
-        <div className="mt-8 text-center">
+        <div className="mt-8">
           <Link 
             to="/kalkulator-raty-kredytu/" 
             className="inline-block bg-blue-600 text-white px-8 py-4 rounded-xl font-bold hover:bg-blue-700 transition-colors"
@@ -146,6 +180,7 @@ const JakObliczycRatePage: React.FC = () => {
           </Link>
         </div>
 
+        </div>
         <p className="text-sm text-gray-400 mt-8">
           Data publikacji: <time dateTime="2026-01-15">15 stycznia 2026</time> | 
           Ostatnia aktualizacja: <time dateTime="2026-07-04">4 lipca 2026</time>

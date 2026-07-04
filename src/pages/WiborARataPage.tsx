@@ -2,6 +2,8 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import TabContainer from '../components/layout/TabContainer'
 import SEOHead from '../components/shared/SEOHead'
+import BreadcrumbNav from '../components/shared/BreadcrumbNav'
+import ArticleMeta from '../components/shared/ArticleMeta'
 
 const WiborARataPage: React.FC = () => {
   return (
@@ -17,8 +19,11 @@ const WiborARataPage: React.FC = () => {
         schemaType="Article"
       />
       
-      <article className="max-w-3xl mx-auto prose prose-blue">
-        <h1>WIBOR a rata kredytu — jak się zmienia? — Kompendium wiedzy</h1>
+      <BreadcrumbNav pathname="/poradniki/wibor-a-rata/" />
+      <article className="max-w-3xl mx-auto">
+        <h1 className="text-3xl font-bold text-gray-900 mb-4">WIBOR a rata kredytu — jak się zmienia? — Kompendium wiedzy</h1>
+        <ArticleMeta date="lipiec 2026" expert="Piotr Radwański" />
+        <div className="prose prose-blue">
         
         <p className="text-lg text-gray-600 mb-8">
           WIBOR to kluczowy składnik oprocentowania kredytów hipotecznych w Polsce. Zrozumienie, 
@@ -98,6 +103,24 @@ const WiborARataPage: React.FC = () => {
           wzrost raty z 1 643 zł do 3 183 zł — <strong>o 94% więcej</strong>.
         </p>
 
+        <h2>Wpływ WIBOR na ratę — tabela szczegółowa</h2>
+        <p>Założenia: kredyt na 25 lat, marża banku 2,00%. Poniżej pełna tabela wrażliwości raty na zmiany WIBOR:</p>
+        <table>
+          <thead><tr><th>WIBOR</th><th>Oprocentowanie</th><th>Rata (400k)</th><th>Rata (600k)</th></tr></thead>
+          <tbody>
+            <tr><td>2,00%</td><td>4,00%</td><td>2 114 zł</td><td>3 171 zł</td></tr>
+            <tr><td>3,00%</td><td>5,00%</td><td>2 338 zł</td><td>3 507 zł</td></tr>
+            <tr><td>4,00%</td><td>6,00%</td><td>2 582 zł</td><td>3 873 zł</td></tr>
+            <tr><td>5,00%</td><td>7,00%</td><td>2 804 zł</td><td>4 206 zł</td></tr>
+            <tr><td>5,50% (2026)</td><td>7,50%</td><td>2 889 zł</td><td>4 334 zł</td></tr>
+            <tr><td>6,92% (szczyt 2023)</td><td>8,92%</td><td>3 183 zł</td><td>4 775 zł</td></tr>
+          </tbody>
+        </table>
+        <p>Różnica między dołkiem WIBOR (0,19% w 2021) a szczytem (6,92% w 2023) to 6,73 pp. Dla kredytu 400 000 zł oznaczało to wzrost raty z 1 643 zł do 3 183 zł — o 94% więcej.</p>
+
+        <h2>Historia WIBOR — lekcja z lat 2021-2023</h2>
+        <p>W 2021 roku WIBOR 3M wynosił zaledwie 0,19%. W 2023 roku osiągnął 6,92%. To oznacza, że rata kredytu 400 000 zł na 25 lat wzrosła z 1 643 zł do 3 183 zł w ciągu zaledwie dwóch lat. Tysiące kredytobiorców doświadczyło szoku stóp procentowych. Od 2024 roku banki oferują stałe oprocentowanie na 5 lub 10 lat jako alternatywę.</p>
+
         <h2>Stałe vs zmienne oprocentowanie</h2>
         <p>
           <strong>Oprocentowanie stałe</strong> (na 5–10 lat) daje pewność wysokości raty 
@@ -130,7 +153,7 @@ const WiborARataPage: React.FC = () => {
           </p>
         </section>
 
-        <div className="mt-8 text-center">
+        <div className="mt-8">
           <Link 
             to="/symulacja-wibor/" 
             className="inline-block bg-blue-600 text-white px-8 py-4 rounded-xl font-bold hover:bg-blue-700 transition-colors"
@@ -139,6 +162,7 @@ const WiborARataPage: React.FC = () => {
           </Link>
         </div>
 
+        </div>
         <p className="text-sm text-gray-400 mt-8">
           Data publikacji: <time dateTime="2026-01-15">15 stycznia 2026</time> | 
           Ostatnia aktualizacja: <time dateTime="2026-07-04">4 lipca 2026</time>

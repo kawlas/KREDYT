@@ -2,6 +2,8 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import TabContainer from '../components/layout/TabContainer'
 import SEOHead from '../components/shared/SEOHead'
+import BreadcrumbNav from '../components/shared/BreadcrumbNav'
+import ArticleMeta from '../components/shared/ArticleMeta'
 
 const CreditCapacityCompendiumPage: React.FC = () => {
   return (
@@ -17,8 +19,11 @@ const CreditCapacityCompendiumPage: React.FC = () => {
         schemaType="Article"
       />
       
-      <article className="max-w-3xl mx-auto prose prose-blue">
-        <h1>Zdolność kredytowa — ile możesz pożyczyć? — Kompendium wiedzy</h1>
+      <BreadcrumbNav pathname="/poradniki/zdolnosc-kredytowa/" />
+      <article className="max-w-3xl mx-auto">
+        <h1 className="text-3xl font-bold text-gray-900 mb-4">Zdolność kredytowa — ile możesz pożyczyć? — Kompendium wiedzy</h1>
+        <ArticleMeta date="lipiec 2026" expert="Piotr Radwański" />
+        <div className="prose prose-blue">
         
         <p className="text-lg text-gray-600 mb-8">
           Zdolność kredytowa to najważniejsza liczba, którą powinieneś poznać przed rozpoczęciem 
@@ -79,6 +84,15 @@ const CreditCapacityCompendiumPage: React.FC = () => {
           Negatywne wpisy (opóźnienia w spłatach) mogą całkowicie zablokować kredyt.
         </p>
 
+        <h2>Bufor na wzrost stóp procentowych</h2>
+        <p>Zgodnie z Rekomendacją S KNF, banki muszą uwzględnić bufor w wysokości co najmniej 2,5 punktu procentowego do oprocentowania nominalnego kredytu. Oznacza to, że zdolność jest obliczana przy założeniu wyższego oprocentowania niż obecne. To zabezpieczenie chroni zarówno kredytobiorcę, jak i bank przed ryzykiem wzrostu stóp procentowych.</p>
+
+        <h3>Wpływ formy zatrudnienia na zdolność</h3>
+        <p>Umowa o pracę (UoP) to najlepiej widziana forma zatrudnienia — bank bierze pod uwagę 100% dochodu netto. Dla działalności gospodarczej (B2B) banki uśredniają dochód z 12-24 miesięcy i często pomniejszają go o 20-30%. Umowy zlecenia i o dzieło są akceptowane po udokumentowaniu średniej z 6-12 miesięcy. Osoby pracujące za granicą mogą liczyć na ograniczone uznanie dochodu — niektóre banki akceptują tylko 50-70%.</p>
+
+        <h3>Limit wieku a zdolność kredytowa</h3>
+        <p>Większość banków wymaga spłaty kredytu przed 70. lub 75. rokiem życia. Dla 45-latka oznacza to maksymalny okres kredytowania 25-30 lat, co przekłada się na wyższą ratę miesięczną i niższą dostępną kwotę kredytu. Osoby starsze mogą skorzystać z opcji współkredytobiorcy (np. dorosłe dzieci).</p>
+
         <h2>Jak zwiększyć zdolność kredytową?</h2>
         <ul>
           <li><strong>Spłać zobowiązania</strong> — nawet niewielka spłata karty kredytowej pomaga</li>
@@ -109,7 +123,7 @@ const CreditCapacityCompendiumPage: React.FC = () => {
           </p>
         </section>
 
-        <div className="mt-8 text-center">
+        <div className="mt-8">
           <Link 
             to="/zdolnosc-kredytowa/" 
             className="inline-block bg-blue-600 text-white px-8 py-4 rounded-xl font-bold hover:bg-blue-700 transition-colors"
@@ -118,6 +132,7 @@ const CreditCapacityCompendiumPage: React.FC = () => {
           </Link>
         </div>
 
+        </div>
         <p className="text-sm text-gray-400 mt-8">
           Data publikacji: <time dateTime="2026-01-15">15 stycznia 2026</time> | 
           Ostatnia aktualizacja: <time dateTime="2026-07-04">4 lipca 2026</time>
