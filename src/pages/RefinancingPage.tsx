@@ -35,7 +35,7 @@ export default function RefinancingPage() {
       </section>
 
       <section className="max-w-6xl mx-auto px-4 mt-8 border-t border-gray-100 pt-8">
-        <h2 className="text-xl font-bold text-gray-900 mb-4">Podstawa prawna i źródła danych</h2>
+        <h2 className="text-2xl font-bold text-gray-900 mb-4">Podstawa prawna i źródła danych</h2>
         <ul className="list-disc pl-6 space-y-2 text-sm text-gray-600">
           <li>Obliczenia oparte na wzorach z <a href="https://isap.sejm.gov.pl/isap.nsf/DocDetails.xsp?id=WDU20170000819" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">Ustawy o kredycie hipotecznym</a> (Dz.U. 2017 poz. 819)</li>
           <li>Rekomendacje <a href="https://www.knf.gov.pl/dla-rynku/regulacje-i-standaryzacja/rekomendacje-i-zalecenia" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">KNF</a> dot. wyznaczania zdolności kredytowej</li>

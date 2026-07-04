@@ -90,7 +90,7 @@ export default function TopicPage({ topicSlug: propSlug }: TopicPageProps = {}) 
 
         {topic.related.length > 0 && (
           <section className="mt-12 bg-gray-100 p-8 rounded-2xl">
-            <h2 className="text-xl font-bold text-gray-900 mb-6">Powiązane poradniki</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">Powiązane poradniki</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {topic.related.map((rel, idx) => (
                 <Link key={idx} to={rel.to}>

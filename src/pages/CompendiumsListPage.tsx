@@ -8,21 +8,18 @@ const compendiums = [
     title: 'Jak obliczyć ratę kredytu hipotecznego?',
     description: 'Poznaj wzory matematyczne, wpływ WIBOR i oprocentowania na ratę. Kompleksowe kompendium z przykładami liczbowymi.',
     slug: 'jak-obliczyc-rate',
-    icon: '🔢',
     calculatorLink: '/kalkulator-raty-kredytu/',
   },
   {
     title: 'Zdolność kredytowa — ile możesz pożyczyć?',
     description: 'Jak bank liczy zdolność? Wpływ formy zatrudnienia, zobowiązań i kosztów utrzymania. Porady eksperta.',
     slug: 'zdolnosc-kredytowa',
-    icon: '📊',
     calculatorLink: '/zdolnosc-kredytowa/',
   },
   {
     title: 'WIBOR a rata kredytu — jak się zmienia?',
     description: 'Symulacje wzrostu i spadku WIBOR, wpływ na ratę przy różnych kwotach. Przygotuj się na zmiany stóp.',
     slug: 'wibor-a-rata',
-    icon: '📈',
     calculatorLink: '/symulacja-wibor/',
   },
 ]
@@ -55,9 +52,8 @@ const CompendiumsListPage: React.FC = () => {
               className="block bg-white rounded-xl border border-gray-100 p-6 hover:shadow-md hover:border-blue-200 transition-all"
             >
               <div className="flex items-start gap-4">
-                <span className="text-3xl">{comp.icon}</span>
                 <div className="flex-1">
-                  <h2 className="text-xl font-bold text-gray-900 mb-2">{comp.title}</h2>
+                  <h2 className="text-2xl font-bold text-gray-900 mb-2">{comp.title}</h2>
                   <p className="text-gray-600 mb-3">{comp.description}</p>
                   <span className="text-blue-600 font-medium text-sm">
                     Czytaj więcej →
@@ -69,7 +65,7 @@ const CompendiumsListPage: React.FC = () => {
         </div>
 
         <section className="mt-12 bg-gray-50 rounded-xl p-6">
-          <h2 className="text-lg font-bold text-gray-900 mb-3">O autorze</h2>
+          <h2 className="text-2xl font-bold text-gray-900 mb-3">O autorze</h2>
           <p className="text-gray-600 text-sm">
             Kompendia przygotowane przez <strong>Piotra Radwańskiego</strong>, analityka finansowego 
             z 14-letnim doświadczeniem w analizie produktów bankowych i rynku kredytów hipotecznych. 

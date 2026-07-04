@@ -70,7 +70,7 @@ export default function HubPage() {
 
       {/* Hero */}
       <section className="pt-8 sm:pt-12">
-        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-gray-900 mb-6">
+        <h1 className="text-3xl font-bold tracking-tight text-gray-900 mb-6">
           Kalkulator Kredytu<br /><span className="text-blue-600">Hipotecznego</span>
         </h1>
         <p className="text-lg sm:text-xl text-gray-500 max-w-2xl mb-10 leading-relaxed">
