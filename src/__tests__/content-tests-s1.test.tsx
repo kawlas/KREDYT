@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeAll, vi } from 'vitest'
-import { render, screen } from '@testing-library/react'
+import { render } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import { HelmetProvider } from 'react-helmet-async'
 import { LoanCalculatorProvider } from '../context/LoanCalculatorContext'
@@ -156,7 +156,7 @@ const pages: PageConfig[] = [
 
 // ########## TESTY INDYWIDUALNE DLA KAŻDEJ STRONY ##########
 
-describe.each(pages)('$name - treść i struktura', ({ name, component, expectedKeywords }) => {
+describe.each(pages)('$name - treść i struktura', ({ component }) => {
   // Render once per test (vitest creates clean DOM per it() by default with jsdom)
   // We'll render inside each test for isolation
 
@@ -198,12 +198,6 @@ describe.each(pages)('$name - treść i struktura', ({ name, component, expected
     const summaries = container.querySelectorAll('summary')
 
     // Check for heading with "częste pytania" or "FAQ"
-    const text = getVisibleText(container).toLowerCase()
-    const hasFaqHeading =
-      text.includes('częste pytania') ||
-      text.includes('faq') ||
-      text.includes('pytanie')
-
     const questionCount = details.length > 0 ? details.length : summaries.length
     expect(questionCount).toBeGreaterThanOrEqual(3)
   })
@@ -242,7 +236,7 @@ describe('Globalne - brak duplikacji treści', () => {
 })
 
 describe('Globalne - renderowanie bez błędów', () => {
-  it.each(pages)('$name renderuje się bez exception', ({ name, component }) => {
+  it.each(pages)('$name renderuje się bez exception', ({ component }) => {
     expect(() => renderPage(component)).not.toThrow()
   })
 })

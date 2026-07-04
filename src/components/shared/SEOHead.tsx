@@ -27,17 +27,17 @@ const siteUrl = (typeof import.meta !== 'undefined' && import.meta.env?.VITE_SIT
   || 'https://kredytkalkulator.netlify.app'
 
 function organizationJsonLd() {
-  return {
+  return JSON.stringify({
     '@context': 'https://schema.org',
     '@type': 'Organization',
     name: 'KredytKalkulator',
     url: siteUrl,
     description: 'Darmowe kalkulatory kredytu hipotecznego i narzędzia finansowe',
-  }
+  })
 }
 
 function websiteJsonLd() {
-  return {
+  return JSON.stringify({
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     name: 'Kalkulator Kredytowy',
@@ -51,11 +51,11 @@ function websiteJsonLd() {
       },
       'query-input': 'required name=search_term_string',
     },
-  }
+  })
 }
 
 function breadcrumbJsonLd(items: BreadcrumbItem[]) {
-  return {
+  return JSON.stringify({
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: items.map((item, i) => ({
@@ -64,11 +64,11 @@ function breadcrumbJsonLd(items: BreadcrumbItem[]) {
       name: item.name,
       item: item.href.startsWith('http') ? item.href : `${siteUrl}${item.href}`,
     })),
-  }
+  })
 }
 
 function webApplicationJsonLd(title: string, description: string, appUrl: string) {
-  return {
+  return JSON.stringify({
     '@context': 'https://schema.org',
     '@type': 'WebApplication',
     name: title,
@@ -77,11 +77,11 @@ function webApplicationJsonLd(title: string, description: string, appUrl: string
     description,
     url: appUrl,
     dateModified: '2026-07-04',
-  }
+  })
 }
 
 function articleJsonLd(title: string, description: string) {
-  return {
+  return JSON.stringify({
     '@context': 'https://schema.org',
     '@type': 'Article',
     headline: title,
@@ -92,11 +92,11 @@ function articleJsonLd(title: string, description: string) {
       '@type': 'Organization',
       name: 'KredytKalkulator',
     },
-  }
+  })
 }
 
 function faqPageJsonLd(items: FaqItem[]) {
-  return {
+  return JSON.stringify({
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
     mainEntity: items.map(item => ({
@@ -107,7 +107,7 @@ function faqPageJsonLd(items: FaqItem[]) {
         text: item.answer,
       },
     })),
-  }
+  })
 }
 
 export default function SEOHead({
@@ -127,71 +127,59 @@ export default function SEOHead({
   const ogImage = image || `${siteUrl}/og-image.svg`
   const fullAppUrl = appUrl || canonicalUrl
 
-  // Generate all JSON-LD schemas
-  const schemas: Record<string, unknown>[] = []
-  
-  // Always include Organization
-  schemas.push(organizationJsonLd())
-  
-  // Always include WebSite
-  schemas.push(websiteJsonLd())
-  
-  // BreadcrumbList if provided
-  if (breadcrumbs && breadcrumbs.length > 0) {
-    schemas.push(breadcrumbJsonLd(breadcrumbs))
-  }
-  
-  // WebApplication for calculator pages
-  if (schemaType === 'WebApplication') {
-    schemas.push(webApplicationJsonLd(title, description, fullAppUrl))
-  }
-  
-  // Article for content pages
-  if (schemaType === 'Article') {
-    schemas.push(articleJsonLd(title, description))
-  }
-  
-  // FAQPage if provided
-  if (faqItems && faqItems.length > 0) {
-    schemas.push(faqPageJsonLd(faqItems))
-  }
-
   return (
-    <>
-      <Helmet>
-        {/* Basic Meta */}
-        <title>{title}</title>
-        <meta name="description" content={description} />
-        <meta name="robots" content="index, follow" />
-        <link rel="canonical" href={canonicalUrl} />
+    <Helmet>
+      {/* Basic Meta */}
+      <title>{title}</title>
+      <meta name="description" content={description} />
+      <meta name="robots" content="index, follow" />
+      <link rel="canonical" href={canonicalUrl} />
 
-        {/* Open Graph */}
-        <meta property="og:title" content={title} />
-        <meta property="og:description" content={description} />
-        <meta property="og:type" content={type} />
-        <meta property="og:url" content={canonicalUrl} />
-        <meta property="og:image" content={ogImage} />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
-        <meta property="og:site_name" content="Kalkulator Kredytowy" />
+      {/* Open Graph */}
+      <meta property="og:title" content={title} />
+      <meta property="og:description" content={description} />
+      <meta property="og:type" content={type} />
+      <meta property="og:url" content={canonicalUrl} />
+      <meta property="og:image" content={ogImage} />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="630" />
+      <meta property="og:site_name" content="Kalkulator Kredytowy" />
 
-        {/* Twitter Card */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={title} />
-        <meta name="twitter:description" content={description} />
-        <meta name="twitter:image" content={ogImage} />
+      {/* Twitter Card */}
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:title" content={title} />
+      <meta name="twitter:description" content={description} />
+      <meta name="twitter:image" content={ogImage} />
 
-        {publishedTime && type === 'article' && (
-          <meta property="article:published_time" content={publishedTime} />
-        )}
-      </Helmet>
+      {publishedTime && type === 'article' && (
+        <meta property="article:published_time" content={publishedTime} />
+      )}
 
-      {/* Structured Data - rendered in body for test compatibility */}
-      {schemas.map((schema, i) => (
-        <script key={i} type="application/ld+json">
-          {JSON.stringify(schema)}
-        </script>
-      ))}
-    </>
+      {/* Structured Data - Organization */}
+      <script type="application/ld+json">{organizationJsonLd()}</script>
+
+      {/* Structured Data - WebSite */}
+      <script type="application/ld+json">{websiteJsonLd()}</script>
+
+      {/* Structured Data - BreadcrumbList */}
+      {breadcrumbs && breadcrumbs.length > 0 && (
+        <script type="application/ld+json">{breadcrumbJsonLd(breadcrumbs)}</script>
+      )}
+
+      {/* Structured Data - WebApplication */}
+      {schemaType === 'WebApplication' && (
+        <script type="application/ld+json">{webApplicationJsonLd(title, description, fullAppUrl)}</script>
+      )}
+
+      {/* Structured Data - Article */}
+      {schemaType === 'Article' && (
+        <script type="application/ld+json">{articleJsonLd(title, description)}</script>
+      )}
+
+      {/* Structured Data - FAQPage */}
+      {faqItems && faqItems.length > 0 && (
+        <script type="application/ld+json">{faqPageJsonLd(faqItems)}</script>
+      )}
+    </Helmet>
   )
 }
