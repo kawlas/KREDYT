@@ -44,7 +44,7 @@ export default function PaymentComparisonPage({
           <AdSlot />
         </div>
         <div className="max-w-6xl mx-auto px-4">
-           <FaqBlock items={FAQ_DATA.filter(i => [5, 6].includes(i.id))} />
+           <FaqBlock items={FAQ_DATA.filter(i => [5, 6, 4].includes(i.id))} />
         </div>
         <RelatedTools />
       </div>
