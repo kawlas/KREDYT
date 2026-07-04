@@ -33,7 +33,7 @@ export default function FaqBlock({ items, title = "Częste pytania", className =
         </script>
       </Helmet>
       
-      <div className="max-w-4xl mx-auto">
+      <div>
         {title && <h2 className="text-2xl font-bold text-gray-900 mb-6">{title}</h2>}
         
         <div className="space-y-4">
