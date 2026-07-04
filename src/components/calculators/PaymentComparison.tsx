@@ -70,15 +70,15 @@ export default function PaymentComparison({
         </div>
 
         {/* TWO COLUMN LAYOUT - NEW */}
-        <div className="two-column-layout">
+        <div className="two-column-layout items-start">
           {/* LEFT COLUMN */}
           <div className="space-y-6">
             {/* Którą ratę wybrać - MOVED TO TOP */}
             <Card>
               <h3 className="text-lg font-semibold text-gray-900 mb-4">Którą ratę wybrać?</h3>
               <div className="space-y-3">
-                <div className="bg-green-50 border border-green-200 rounded-xl p-6">
-                  <div className="font-semibold text-green-900 mb-2">Raty równe gdy:</div>
+                <div className="bg-blue-50 border border-blue-200 rounded-xl p-6">
+                  <div className="font-semibold text-blue-900 mb-2">Raty równe gdy:</div>
                   <ul className="text-sm text-gray-700 space-y-1 list-disc list-inside">
                     <li>Chcesz stabilnej raty</li>
                     <li>Budżet napięty na początku</li>
@@ -112,7 +112,7 @@ export default function PaymentComparison({
           <div className="space-y-6">
             {/* Jak zmieniają się raty - KEPT FIRST */}
             <div className="bg-blue-50 border border-blue-200 rounded-xl p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Jak zmieniają się raty?</h3>
+              <h3 className="text-lg font-semibold text-gray-900 mb-4 bg-blue-50">Jak zmieniają się raty?</h3>
               <div className="space-y-4">
                 <div>
                   <div className="font-medium text-gray-900 mb-1">Raty równe</div>
@@ -158,9 +158,9 @@ export default function PaymentComparison({
                 </div>
 
                 {/* Total savings */}
-                <div className="bg-green-50 border border-green-200 rounded-xl p-6">
+                <div className="bg-blue-50 border border-blue-200 rounded-xl p-6">
                   <div className="font-medium text-gray-900 mb-1">Oszczędność</div>
-                  <div className="text-2xl font-bold text-green-600">
+                  <div className="text-2xl font-bold text-blue-600">
                     {formatCurrencyShort(decreasing.totalSavings)}
                   </div>
                   <div className="text-sm text-gray-600 mt-1">
@@ -187,11 +187,11 @@ function ComparisonCard({
   return (
     <Card 
       className={`relative border-2 ${
-        isRecommended ? 'border-green-500 bg-gradient-to-br from-green-50 to-white' : 'border-gray-200'
+        isRecommended ? 'border-blue-500 bg-gradient-to-br from-blue-50 to-white' : 'border-gray-200'
       }`}
     >
       {isRecommended && (
-        <div className="absolute top-0 right-0 bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-bl-lg rounded-tr-lg">
+        <div className="absolute top-0 right-0 bg-blue-500 text-white text-xs font-bold px-3 py-1 rounded-bl-lg rounded-tr-lg">
           LEPSZY WYBÓR
         </div>
       )}
@@ -236,7 +236,7 @@ function ComparisonCard({
 
         {/* Savings indicator (for decreasing) */}
         {data.type === 'declining' && data.totalSavings > 0 && (
-          <div className="bg-green-100 text-green-800 p-2 rounded text-sm text-center font-medium">
+          <div className="bg-blue-100 text-blue-800 p-2 rounded text-sm text-center font-medium">
             Oszczędzasz {formatCurrencyShort(data.totalSavings)}
           </div>
         )}
