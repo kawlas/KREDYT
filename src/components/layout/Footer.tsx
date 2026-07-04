@@ -56,7 +56,20 @@ const Footer: React.FC = () => {
             <h4 className="text-gray-900 font-bold mb-4">Prywatność</h4>
             <ul className="space-y-2 text-sm">
               <li><Link to="/polityka-prywatnosci/" className="text-gray-500 hover:text-blue-600 transition">Polityka prywatności</Link></li>
+              <li><Link to="/polityka-redakcyjna/" className="text-gray-500 hover:text-blue-600 transition">Polityka redakcyjna</Link></li>
             </ul>
+          </div>
+        </div>
+
+        {/* Institution links */}
+        <div className="border-t border-gray-100 pt-8 mt-8">
+          <h4 className="text-gray-700 font-bold mb-4 text-sm">Instytucje i źródła danych</h4>
+          <div className="flex flex-wrap gap-4 text-xs">
+            <a href="https://www.nbp.pl/" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-blue-600 transition">NBP — Narodowy Bank Polski</a>
+            <a href="https://www.knf.gov.pl/" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-blue-600 transition">KNF — Komisja Nadzoru Finansowego</a>
+            <a href="https://www.uokik.gov.pl/" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-blue-600 transition">UOKiK</a>
+            <a href="https://www.zbp.pl/" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-blue-600 transition">ZBP — Związek Banków Polskich</a>
+            <a href="https://isap.sejm.gov.pl/" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-blue-600 transition">ISAP — Akty prawne</a>
           </div>
         </div>
 

@@ -10,6 +10,7 @@ import AboutPage from './pages/AboutPage'
 import MethodologyPage from './pages/MethodologyPage'
 import ContactPage from './pages/ContactPage'
 import PrivacyPolicyPage from './pages/PrivacyPolicyPage'
+import EditorialPolicyPage from './pages/EditorialPolicyPage'
 import TopicPage from './pages/TopicPage'
 import NotFoundPage from './pages/NotFoundPage'
 import DailyInterestPage from './pages/DailyInterestPage'
@@ -92,6 +93,7 @@ function App() {
               <Route path="/metodologia/" element={<MethodologyPage />} />
               <Route path="/kontakt/" element={<ContactPage />} />
               <Route path="/polityka-prywatnosci/" element={<PrivacyPolicyPage />} />
+              <Route path="/polityka-redakcyjna/" element={<EditorialPolicyPage />} />
 
               <Route path="/:topicSlug/" element={<TopicPage />} />
               <Route path="/404/" element={<NotFoundPage />} />
