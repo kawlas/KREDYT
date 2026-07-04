@@ -11,6 +11,11 @@ export default function OverpaymentPage() {
       <SEOHead
         title="Symulator Nadpłat Kredytu Hipotecznego — Sprawdź ile zaoszczędzisz"
         description="Ile możesz zaoszczędzić nadpłacając kredyt? Symulacja nadpłat: skrócenie okresu lub zmniejszenie raty. Sprawdź efekt jednorazowej i comiesięcznej nadpłaty."
+        breadcrumbs={[
+          { name: 'Strona główna', href: '/' },
+          { name: 'Symulator nadpłat', href: '/symulator-nadplat/' },
+        ]}
+        schemaType="WebApplication"
       />
       <OverpaymentCalc />
       <section className="max-w-6xl mx-auto px-4 mt-8 prose max-w-none mb-8">

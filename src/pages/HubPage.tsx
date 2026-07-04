@@ -68,6 +68,9 @@ export default function HubPage() {
       <SEOHead
         title="Kalkulator Kredytu Hipotecznego — Sprawdź Ratę, RRSO i Zdolność"
         description="Darmowy kalkulator kredytu hipotecznego. Oblicz ratę, RRSO, zdolność, LTV. Porównaj oprocentowanie stałe vs zmienne i oferty banków. Aktualny WIBOR. Bez rejestracji."
+        breadcrumbs={[
+          { name: 'Strona główna', href: '/' },
+        ]}
       />
 
       {/* Hero */}

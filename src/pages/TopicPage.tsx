@@ -7,8 +7,13 @@ import { TOPICS } from '../data/topics'
 import NotFoundPage from './NotFoundPage'
 import Card from '../components/shared/Card'
 
-export default function TopicPage() {
-  const { topicSlug } = useParams<{ topicSlug: string }>()
+interface TopicPageProps {
+  topicSlug?: string
+}
+
+export default function TopicPage({ topicSlug: propSlug }: TopicPageProps = {}) {
+  const { topicSlug: paramSlug } = useParams<{ topicSlug: string }>()
+  const topicSlug = propSlug || paramSlug
   
   const topic = TOPICS.find(t => t.slug === topicSlug)
 
@@ -32,26 +37,13 @@ export default function TopicPage() {
         description={topic.metaDescription}
         type="article"
         publishedTime={new Date().toISOString()}
+        breadcrumbs={[
+          { name: 'Strona główna', href: '/' },
+          { name: topic.h1, href: `/${topic.slug}/` },
+        ]}
+        schemaType="Article"
+        faqItems={topic.faqs.map(f => ({ question: f.q, answer: f.a }))}
       />
-
-      <script type="application/ld+json">
-        {JSON.stringify({
-          '@context': 'https://schema.org',
-          '@type': 'Article',
-          headline: topic.metaTitle,
-          description: topic.metaDescription,
-          author: {
-            '@type': 'Organization',
-            name: 'Kalkulator Kredytowy',
-          },
-          datePublished: '2026-01-15',
-          dateModified: new Date().toISOString().split('T')[0],
-          mainEntityOfPage: {
-            '@type': 'WebPage',
-            '@id': `${(() => { const u = typeof import.meta !== 'undefined' && import.meta.env?.VITE_SITE_URL || 'https://kredytkalkulator.netlify.app'; return u })()}/${topic.slug}/`,
-          },
-        })}
-      </script>
       
       <article className="max-w-4xl mx-auto">
         <section className="mb-10">

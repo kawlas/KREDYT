@@ -13,6 +13,11 @@ export default function FAQPage() {
       <SEOHead 
         title="FAQ Kredyt Hipoteczny - 20 Najważniejszych Pytań i Odpowiedzi"
         description="Masz pytania o kredyt hipoteczny? Zobacz 20 najczęściej zadawanych pytań: rata, zdolność, wkład własny, nadpłata. Sprawdź odpowiedzi ekspertów."
+        breadcrumbs={[
+          { name: 'Strona główna', href: '/' },
+          { name: 'FAQ', href: '/faq-kredyt-hipoteczny/' },
+        ]}
+        faqItems={FAQ_DATA.slice(0, 5).map(i => ({ question: i.question, answer: i.answer }))}
       />
       <div className="max-w-3xl mx-auto text-gray-600 mb-8">
         <p className="mb-6">

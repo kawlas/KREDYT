@@ -39,9 +39,11 @@ export default function BIKSimulatorPage() {
         title="Symulator BIK — co wpływa na scoring kredytowy? | Kalkulator Kredytowy"
         description="Sprawdź, jakie czynniki wpływają na Twój scoring BIK. Symulator pokaże Ci, jak terminowe spłaty, opóźnienia i inne czynniki zmieniają Twój wynik punktowy."
         breadcrumbs={[
-          { name: 'Start', href: 'https://kredytkalkulator.netlify.app/' },
-          { name: 'Co wpływa na zdolność kredytową?', href: 'https://kredytkalkulator.netlify.app/co-wplywa-na-zdolnosc/' },
+          { name: 'Strona główna', href: '/' },
+          { name: 'Co wpływa na zdolność', href: '/co-wplywa-na-zdolnosc/' },
         ]}
+        schemaType="WebApplication"
+        faqItems={bikFaq.map(i => ({ question: i.question, answer: i.answer }))}
       />
 
       <div className="max-w-6xl mx-auto px-4 py-8">

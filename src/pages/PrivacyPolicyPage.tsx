@@ -9,6 +9,11 @@ const PrivacyPolicyPage: React.FC = () => {
       <SEOHead
         title="Polityka Prywatności | Kalkulator Kredytowy"
         description="Zasady przetwarzania danych i polityka cookies."
+        breadcrumbs={[
+          { name: 'Strona główna', href: '/' },
+          { name: 'Polityka prywatności', href: '/polityka-prywatnosci/' },
+        ]}
+        schemaType="Article"
       />
       <Helmet>
         <meta name="robots" content="noindex, follow" />

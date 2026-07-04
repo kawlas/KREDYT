@@ -11,6 +11,11 @@ export default function RefinancingPage() {
       <SEOHead
         title="Kalkulator Refinansowania Kredytu Hipotecznego — Czy warto zmienić bank?"
         description="Ile zaoszczędzisz na refinansowaniu kredytu? Porównaj obecną ratę z nową ofertą. Sprawdź całkowite koszty i okres zwrotu refinansowania."
+        breadcrumbs={[
+          { name: 'Strona główna', href: '/' },
+          { name: 'Refinansowanie kredytu', href: '/refinansowanie-kredytu/' },
+        ]}
+        schemaType="WebApplication"
       />
       <RefinancingCalc />
       <section className="max-w-6xl mx-auto px-4 mt-8 prose max-w-none mb-8">

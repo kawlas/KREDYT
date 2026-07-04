@@ -11,6 +11,11 @@ export default function DailyInterestPage() {
       <SEOHead
         title="Kalkulator Odsetek Dziennych Kredytu — act/365 vs act/360"
         description="Sprawdź jak banki naliczają odsetki od kredytu hipotecznego. Porównaj konwencje act/365 i act/360. Kalkulator dziennych odsetek."
+        breadcrumbs={[
+          { name: 'Strona główna', href: '/' },
+          { name: 'Odsetki dzienne', href: '/odsetki-dzienne/' },
+        ]}
+        schemaType="WebApplication"
       />
       <DailyInterestCalc />
       <section className="max-w-6xl mx-auto px-4 mt-8 prose max-w-none mb-8">

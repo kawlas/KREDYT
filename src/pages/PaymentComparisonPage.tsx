@@ -29,6 +29,11 @@ export default function PaymentComparisonPage({
       <SEOHead 
         title="Raty Równe czy Malejące? Porównanie Kalkulator"
         description="Sprawdź ile zaoszczędzisz wybierając raty malejące. Porównaj koszty całkowite, harmonogram spłat i wysokość pierwszej raty. Darmowy symulator."
+        breadcrumbs={[
+          { name: 'Strona główna', href: '/' },
+          { name: 'Raty równe vs malejące', href: '/raty-rowne-czy-malejace/' },
+        ]}
+        schemaType="WebApplication"
       />
       <div className="space-y-8">
         <PaymentComparison

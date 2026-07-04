@@ -8,6 +8,11 @@ const MethodologyPage: React.FC = () => {
       <SEOHead 
         title="Metodologia Obliczeń | Kalkulator Kredytowy"
         description="Dokładne wzory i założenia stosowane w naszych kalkulatorach kredytowych."
+        breadcrumbs={[
+          { name: 'Strona główna', href: '/' },
+          { name: 'Metodologia', href: '/metodologia/' },
+        ]}
+        schemaType="Article"
       />
       <div className="max-w-3xl mx-auto prose prose-blue text-gray-600">
         <h3 className="text-xl font-bold text-gray-900 mb-4">Raty równe (Annuity)</h3>

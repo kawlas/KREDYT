@@ -33,6 +33,10 @@ const ContactPage: React.FC = () => {
       <SEOHead
         title="Kontakt | Kalkulator Kredytowy"
         description="Skontaktuj się z nami w sprawie kalkulatora kredytowego. Wyślij wiadomość przez formularz kontaktowy."
+        breadcrumbs={[
+          { name: 'Strona główna', href: '/' },
+          { name: 'Kontakt', href: '/kontakt/' },
+        ]}
       />
       <Helmet>
         <meta name="robots" content="noindex, follow" />

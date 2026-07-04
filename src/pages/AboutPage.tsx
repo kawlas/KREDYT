@@ -8,6 +8,11 @@ const AboutPage: React.FC = () => {
       <SEOHead 
         title="O Projekcie | Kalkulator Kredytowy"
         description="Dowiedz się więcej o naszej misji budowania przejrzystości w finansach hipotecznych."
+        breadcrumbs={[
+          { name: 'Strona główna', href: '/' },
+          { name: 'O projekcie', href: '/o-projekcie/' },
+        ]}
+        schemaType="Article"
       />
       <div className="max-w-3xl mx-auto prose prose-blue">
         <p className="text-gray-600 leading-relaxed">

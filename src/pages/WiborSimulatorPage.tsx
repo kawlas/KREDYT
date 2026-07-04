@@ -35,6 +35,12 @@ export default function WiborSimulatorPage({
       <SEOHead 
         title="Symulacja WIBOR - Jak Wzrost Stóp Zmieni Twoją Ratę?"
         description="Boisz się wzrostu rat? Przeprowadź symulację zmiany WIBOR 3M/6M. Zobacz o ile wzrośnie rata przy zmianie stóp procentowych. Analiza ryzyka."
+        breadcrumbs={[
+          { name: 'Strona główna', href: '/' },
+          { name: 'Symulacja WIBOR', href: '/symulacja-wibor/' },
+        ]}
+        schemaType="WebApplication"
+        faqItems={FAQ_DATA.filter(i => [6, 7, 8].includes(i.id)).map(i => ({ question: i.question, answer: i.answer }))}
       />
       <div className="max-w-6xl mx-auto px-4 mb-4 flex justify-end">
         <ShareButton getValues={getValues} />

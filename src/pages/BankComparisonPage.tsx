@@ -12,6 +12,11 @@ export default function BankComparisonPage() {
         title="Porównanie Ofert Kredytów Hipotecznych — Ranking Banków 2026"
         description="Porównaj oferty kredytów hipotecznych PKO BP, ING, Santander, mBank, Millennium, Pekao i Alior. Sprawdź raty, RRSO i całkowity koszt."
         type="article"
+        breadcrumbs={[
+          { name: 'Strona główna', href: '/' },
+          { name: 'Porównanie ofert banków', href: '/porownanie-ofert-bankow/' },
+        ]}
+        schemaType="WebApplication"
       />
       <BankComparisonCalc />
       <section className="max-w-6xl mx-auto px-4 mt-8 prose max-w-none mb-8">

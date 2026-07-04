@@ -10,6 +10,12 @@ export default function AffordabilityPage() {
       <SEOHead 
         title="Kalkulator Zdolności Kredytowej - Ile mogę pożyczyć?"
         description="Sprawdź swoją zdolność kredytową online. Oblicz maksymalną kwotę kredytu hipotecznego przy Twoich zarobkach (UoP, B2B). Darmowy kalkulator."
+        breadcrumbs={[
+          { name: 'Strona główna', href: '/' },
+          { name: 'Zdolność kredytowa', href: '/zdolnosc-kredytowa/' },
+        ]}
+        schemaType="WebApplication"
+        faqItems={FAQ_DATA.filter(i => [10, 11, 12].includes(i.id)).map(i => ({ question: i.question, answer: i.answer }))}
       />
       <AffordabilityCalc />
       <section className="max-w-7xl mx-auto px-4 mt-8 prose max-w-none mb-8">

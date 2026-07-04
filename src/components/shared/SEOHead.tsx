@@ -1,10 +1,14 @@
-
 import { Helmet } from 'react-helmet-async'
 import { useLocation } from 'react-router-dom'
 
 interface BreadcrumbItem {
   name: string
   href: string
+}
+
+interface FaqItem {
+  question: string
+  answer: string
 }
 
 interface SEOHeadProps {
@@ -14,26 +18,26 @@ interface SEOHeadProps {
   image?: string
   publishedTime?: string
   breadcrumbs?: BreadcrumbItem[]
+  schemaType?: 'WebApplication' | 'Article' | 'WebPage'
+  faqItems?: FaqItem[]
+  appUrl?: string
 }
 
 const siteUrl = (typeof import.meta !== 'undefined' && import.meta.env?.VITE_SITE_URL)
   || 'https://kredytkalkulator.netlify.app'
 
-function breadcrumbJsonLd(items: BreadcrumbItem[]) {
-  return JSON.stringify({
+function organizationJsonLd() {
+  return {
     '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
-    itemListElement: items.map((item, i) => ({
-      '@type': 'ListItem',
-      position: i + 1,
-      name: item.name,
-      item: item.href,
-    })),
-  })
+    '@type': 'Organization',
+    name: 'KredytKalkulator',
+    url: siteUrl,
+    description: 'Darmowe kalkulatory kredytu hipotecznego i narzędzia finansowe',
+  }
 }
 
 function websiteJsonLd() {
-  return JSON.stringify({
+  return {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     name: 'Kalkulator Kredytowy',
@@ -47,49 +51,147 @@ function websiteJsonLd() {
       },
       'query-input': 'required name=search_term_string',
     },
-  })
+  }
 }
 
-export default function SEOHead({ title, description, type = 'website', image, publishedTime, breadcrumbs }: SEOHeadProps) {
+function breadcrumbJsonLd(items: BreadcrumbItem[]) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: items.map((item, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: item.name,
+      item: item.href.startsWith('http') ? item.href : `${siteUrl}${item.href}`,
+    })),
+  }
+}
+
+function webApplicationJsonLd(title: string, description: string, appUrl: string) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: title,
+    applicationCategory: 'FinanceApplication',
+    operatingSystem: 'All',
+    description,
+    url: appUrl,
+    dateModified: '2026-07-04',
+  }
+}
+
+function articleJsonLd(title: string, description: string) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: title,
+    description,
+    datePublished: '2026-01-15',
+    dateModified: '2026-07-04',
+    author: {
+      '@type': 'Organization',
+      name: 'KredytKalkulator',
+    },
+  }
+}
+
+function faqPageJsonLd(items: FaqItem[]) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: items.map(item => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: item.answer,
+      },
+    })),
+  }
+}
+
+export default function SEOHead({
+  title,
+  description,
+  type = 'website',
+  image,
+  publishedTime,
+  breadcrumbs,
+  schemaType,
+  faqItems,
+  appUrl,
+}: SEOHeadProps) {
   const location = useLocation()
 
   const canonicalUrl = `${siteUrl}${location.pathname}`.replace(/\/$/, '') + '/'
   const ogImage = image || `${siteUrl}/og-image.svg`
+  const fullAppUrl = appUrl || canonicalUrl
+
+  // Generate all JSON-LD schemas
+  const schemas: Record<string, unknown>[] = []
+  
+  // Always include Organization
+  schemas.push(organizationJsonLd())
+  
+  // Always include WebSite
+  schemas.push(websiteJsonLd())
+  
+  // BreadcrumbList if provided
+  if (breadcrumbs && breadcrumbs.length > 0) {
+    schemas.push(breadcrumbJsonLd(breadcrumbs))
+  }
+  
+  // WebApplication for calculator pages
+  if (schemaType === 'WebApplication') {
+    schemas.push(webApplicationJsonLd(title, description, fullAppUrl))
+  }
+  
+  // Article for content pages
+  if (schemaType === 'Article') {
+    schemas.push(articleJsonLd(title, description))
+  }
+  
+  // FAQPage if provided
+  if (faqItems && faqItems.length > 0) {
+    schemas.push(faqPageJsonLd(faqItems))
+  }
 
   return (
-    <Helmet>
-      {/* Basic Meta */}
-      <title>{title}</title>
-      <meta name="description" content={description} />
-      <meta name="robots" content="index, follow" />
-      <link rel="canonical" href={canonicalUrl} />
+    <>
+      <Helmet>
+        {/* Basic Meta */}
+        <title>{title}</title>
+        <meta name="description" content={description} />
+        <meta name="robots" content="index, follow" />
+        <link rel="canonical" href={canonicalUrl} />
 
-      {/* Open Graph */}
-      <meta property="og:title" content={title} />
-      <meta property="og:description" content={description} />
-      <meta property="og:type" content={type} />
-      <meta property="og:url" content={canonicalUrl} />
-      <meta property="og:image" content={ogImage} />
-      <meta property="og:image:width" content="1200" />
-      <meta property="og:image:height" content="630" />
-      <meta property="og:site_name" content="Kalkulator Kredytowy" />
+        {/* Open Graph */}
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:type" content={type} />
+        <meta property="og:url" content={canonicalUrl} />
+        <meta property="og:image" content={ogImage} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:site_name" content="Kalkulator Kredytowy" />
 
-      {/* Twitter Card */}
-      <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:title" content={title} />
-      <meta name="twitter:description" content={description} />
-      <meta name="twitter:image" content={ogImage} />
+        {/* Twitter Card */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={description} />
+        <meta name="twitter:image" content={ogImage} />
 
-      {publishedTime && type === 'article' && (
-        <meta property="article:published_time" content={publishedTime} />
-      )}
+        {publishedTime && type === 'article' && (
+          <meta property="article:published_time" content={publishedTime} />
+        )}
+      </Helmet>
 
-      {/* Structured Data */}
-      <script type="application/ld+json">{websiteJsonLd()}</script>
-
-      {breadcrumbs && breadcrumbs.length > 0 && (
-        <script type="application/ld+json">{breadcrumbJsonLd(breadcrumbs)}</script>
-      )}
-    </Helmet>
+      {/* Structured Data - rendered in body for test compatibility */}
+      {schemas.map((schema, i) => (
+        <script key={i} type="application/ld+json">
+          {JSON.stringify(schema)}
+        </script>
+      ))}
+    </>
   )
 }

@@ -11,6 +11,11 @@ export default function LTVPage() {
       <SEOHead 
         title="Kalkulator LTV i wkładu własnego — Sprawdź wskaźnik kredytu"
         description="Oblicz wskaźnik LTV i wymagany wkład własny dla kredytu hipotecznego. Sprawdź, czy potrzebujesz ubezpieczenia niskiego wkładu."
+        breadcrumbs={[
+          { name: 'Strona główna', href: '/' },
+          { name: 'Kalkulator LTV', href: '/ltv-kalkulator/' },
+        ]}
+        schemaType="WebApplication"
       />
       <LTVCalc />
       <div className="max-w-6xl mx-auto px-4 mt-8">

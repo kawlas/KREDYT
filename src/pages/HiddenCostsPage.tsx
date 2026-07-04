@@ -9,6 +9,15 @@ export default function HiddenCostsPage() {
       <SEOHead 
         title="Ukryte koszty kredytu hipotecznego - lista kontrolna | Kalkulator Kredytowy"
         description="Poznaj 20+ ukrytych kosztów kredytu hipotecznego: prowizje, ubezpieczenia, opłaty notarialne. Sprawdź ile naprawdę zapłacisz za kredyt."
+        breadcrumbs={[
+          { name: 'Strona główna', href: '/' },
+          { name: 'Ukryte koszty kredytu', href: '/ukryte-koszty-kredytu/' },
+        ]}
+        faqItems={[
+          { question: 'Czy bank może pobrać prowizję po podpisaniu umowy?', answer: 'Tak, jeśli przekroczysz limit wcześniejszej spłaty w okresie karencji.' },
+          { question: 'Czy ubezpieczenie w banku jest droższe niż na zewnątrz?', answer: 'Zazwyczaj tak. Banki oferują ubezpieczenia 30-50% droższe niż polisy kupione samodzielnie.' },
+          { question: 'Co to jest ubezpieczenie niskiego wkładu i kto musi je płacić?', answer: 'Ubezpieczenie niskiego wkładu własnego jest wymagane, gdy wkład własny jest niższy niż 20% wartości nieruchomości.' },
+        ]}
       />
       <div className="max-w-4xl mx-auto px-4 py-8">
         <h1 className="text-3xl font-bold text-gray-900 mb-4">Ukryte koszty kredytu hipotecznego — lista kontrolna</h1>

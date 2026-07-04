@@ -421,5 +421,39 @@ export const TOPICS: Topic[] = [
       { label: 'Jakie są koszty kredytu?', to: '/koszty-kredytu-hipotecznego-jakie/' },
       { label: 'Wkład własny 10% czy 20%?', to: '/wklad-wlasny-10-czy-20/' }
     ]
+  },
+  {
+    slug: 'jak-dziala-wibor',
+    metaTitle: 'Jak działa WIBOR? Wpływ na ratę kredytu | Kalkulator Kredytowy',
+    metaDescription: 'Dowiedz się, czym jest WIBOR i jak wpływa na Twoją ratę kredytu hipotecznego. Symulacje wzrostu stóp procentowych i porady ekspertów.',
+    h1: 'Jak działa WIBOR i wpływa na ratę kredytu?',
+    intro: 'WIBOR (Warsaw Interbank Offered Rate) to kluczowy wskaźnik, który determinuje oprocentowanie Twojego kredytu hipotecznego. Zrozumienie jego mechanizmu pomoże Ci lepiej planować budżet.',
+    sections: [
+      {
+        heading: 'Czym jest WIBOR?',
+        body: 'WIBOR to referencyjna stopa procentowa, po której banki w Polsce udzielają sobie wzajemnie pożyczek. Jest wyznaczana codziennie na podstawie danych z rynku międzybankowego. Dla kredytów hipotecznych najczęściej stosowany jest WIBOR 3M (aktualizowany co kwartał) lub WIBOR 6M (aktualizowany co pół roku).'
+      },
+      {
+        heading: 'Jak WIBOR wpływa na ratę?',
+        body: 'Oprocentowanie Twojego kredytu to suma WIBOR-u plus marża banku. Jeśli WIBOR wzrośnie o 1 punkt procentowy, Twoje oprocentowanie również wzrośnie o 1 p.p., co przełoży się na wyższą ratę. Przy kredycie 400 000 zł na 25 lat, wzrost o 1 p.p. oznacza wyższą ratę o około 200-250 zł miesięcznie.'
+      },
+      {
+        heading: 'Jak się przygotować na wzrost WIBOR?',
+        body: 'Warto mieć poduszkę finansową oraz rozważyć oprocentowanie stałe (na 5-10 lat), które daje pewność wysokości raty. Możesz również regularnie nadpłacać kredyt, zmniejszając kapitał, od którego naliczane są odsetki.'
+      }
+    ],
+    faqs: [
+      { q: 'Czym jest WIBOR?', a: 'WIBOR to referencyjna stopa procentowa na polskim rynku międzybankowym, która stanowi podstawę oprocentowania kredytów hipotecznych ze zmiennym oprocentowaniem.' },
+      { q: 'Jak często zmienia się WIBOR?', a: 'WIBOR 3M jest aktualizowany co 3 miesiące, a WIBOR 6M co 6 miesięcy. Zmiana następuje automatycznie zgodnie z harmonogramem w umowie kredytowej.' },
+      { q: 'O ile wzrośnie rata przy wzroście WIBOR o 1 p.p.?', a: 'Przy kredycie 400 000 zł na 25 lat, wzrost WIBOR o 1 p.p. oznacza wyższą ratę o około 200-250 zł miesięcznie.' }
+    ],
+    ctas: [
+      { label: 'Symuluj wpływ WIBOR', to: '/symulacja-wibor/' },
+      { label: 'Oblicz ratę', to: '/kalkulator-raty-kredytu/' }
+    ],
+    related: [
+      { label: 'Symulacja WIBOR', to: '/symulacja-wibor/' },
+      { label: 'Stałe vs zmienne oprocentowanie', to: '/stale-vs-zmienne-oprocentowanie/' }
+    ]
   }
 ];

@@ -11,6 +11,10 @@ export default function NotFoundPage() {
       <SEOHead 
         title="404 - Strona nie znaleziona | Kalkulator Kredytowy"
         description="Niestety nie znaleźliśmy strony o podanym adresie. Zapraszamy do skorzystania z naszych kalkulatorów kredytowych."
+        breadcrumbs={[
+          { name: 'Strona główna', href: '/' },
+          { name: 'Błąd 404', href: '/404/' },
+        ]}
       />
       <div className="text-center py-12">
         <div className="text-6xl mb-6 text-gray-300"><svg width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="mx-auto"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>

@@ -132,6 +132,12 @@ export default function CalculatorPage() {
       <SEOHead 
         title="Darmowy Kalkulator Raty Kredytu Hipotecznego"
         description="Oblicz ratę kredytu hipotecznego, sprawdź harmonogram spłat i koszt całkowity. Aktualny WIBOR, raty równe i malejące. Sprawdź teraz!"
+        breadcrumbs={[
+          { name: 'Strona główna', href: '/' },
+          { name: 'Kalkulator raty kredytu', href: '/kalkulator-raty-kredytu/' },
+        ]}
+        schemaType="WebApplication"
+        faqItems={FAQ_DATA.filter(i => [1, 2, 3].includes(i.id)).map(i => ({ question: i.question, answer: i.answer }))}
       />
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
         <div className="space-y-8">
