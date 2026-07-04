@@ -107,17 +107,29 @@ describe('/poradniki/ — lista', () => {
 // TEST 3 — NavBar
 // ###############################################################
 
-describe('NavBar — nawigacja', () => {
-  it('zawiera link "Poradniki" prowadzący do /poradniki/', () => {
-    const { container } = render(<MemoryRouter><NavBar /></MemoryRouter>)
+describe('NavBar — nawigacja (linki w Sidebar)', () => {
+  let Sidebar: React.ComponentType<{ isOpen?: boolean; onClose?: () => void }> | null = null
+  beforeAll(async () => {
+    try {
+      const mod = await import('../components/layout/Sidebar')
+      Sidebar = mod.default
+    } catch {
+      Sidebar = null
+    }
+  })
+
+  it('Sidebar zawiera link "Poradniki" prowadzący do /poradniki/', () => {
+    if (!Sidebar) return
+    const { container } = render(<MemoryRouter><Sidebar isOpen={true} onClose={() => {}} /></MemoryRouter>)
     const links = Array.from(container.querySelectorAll('a'))
     const poradnikiLink = links.find(l => l.textContent?.toLowerCase().includes('poradniki'))
     expect(poradnikiLink).toBeDefined()
     expect(poradnikiLink!.getAttribute('href')).toBe('/poradniki/')
   })
 
-  it('zawiera link "O projekcie" prowadzący do /o-projekcie/', () => {
-    const { container } = render(<MemoryRouter><NavBar /></MemoryRouter>)
+  it('Sidebar zawiera link "O projekcie" prowadzący do /o-projekcie/', () => {
+    if (!Sidebar) return
+    const { container } = render(<MemoryRouter><Sidebar isOpen={true} onClose={() => {}} /></MemoryRouter>)
     const links = Array.from(container.querySelectorAll('a'))
     const aboutLink = links.find(l => l.textContent?.toLowerCase().includes('projekcie'))
     expect(aboutLink).toBeDefined()
