@@ -45,7 +45,7 @@ export default function TopicPage({ topicSlug: propSlug }: TopicPageProps = {}) 
         faqItems={topic.faqs.map(f => ({ question: f.q, answer: f.a }))}
       />
       
-      <article className="max-w-4xl mx-auto">
+      <article>
         <section className="mb-10">
           <p className="text-xl text-gray-600 leading-relaxed italic border-l-4 border-blue-500 pl-6 py-2 bg-blue-50/30 rounded-r-xl">
             {topic.intro}

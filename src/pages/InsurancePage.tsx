@@ -17,14 +17,20 @@ export default function InsurancePage() {
         ]}
         schemaType="WebApplication"
       />
-      <InsuranceCalc />
-      <div className="max-w-6xl mx-auto px-4 mt-8">
-        <AdSlot />
+      <div className="space-y-8">
+        <h1 className="text-3xl font-bold text-gray-900 mb-2">Kalkulator ubezpieczeń kredytu hipotecznego</h1>
+        <p className="text-lg text-gray-600 mb-4">
+          Sprawdź, ile kosztują ubezpieczenia kredytu hipotecznego: UNWW (niskiego wkładu), na życie z cesją, pomostowe i od utraty pracy.
+        </p>
+        <InsuranceCalc />
+        <div>
+          <AdSlot />
+        </div>
+        <div>
+          <FaqBlock items={FAQ_DATA.filter(i => [7, 9].includes(i.id))} />
+        </div>
+        <RelatedTools />
       </div>
-      <div className="max-w-6xl mx-auto px-4 mt-8">
-        <FaqBlock items={FAQ_DATA.filter(i => [7, 9].includes(i.id))} />
-      </div>
-      <RelatedTools />
     </>
   )
 }

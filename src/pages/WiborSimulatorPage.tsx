@@ -44,6 +44,10 @@ export default function WiborSimulatorPage({
         schemaType="WebApplication"
         faqItems={FAQ_DATA.filter(i => [6, 7, 8].includes(i.id)).map(i => ({ question: i.question, answer: i.answer }))}
       />
+      <h1 className="text-3xl font-bold text-gray-900 mb-2">Symulacja WIBOR — Jak wzrost stóp zmieni Twoją ratę?</h1>
+      <p className="text-lg text-gray-600 mb-4">
+        Boisz się wzrostu rat? Przeprowadź symulację zmiany WIBOR 3M/6M. Zobacz o ile wzrośnie rata przy zmianie stóp procentowych.
+      </p>
       <div className="flex justify-end gap-2">
         <ExportPdfButton
           variant="outline"

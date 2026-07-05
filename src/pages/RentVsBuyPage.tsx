@@ -17,14 +17,20 @@ export default function RentVsBuyPage() {
         ]}
         schemaType="WebApplication"
       />
-      <RentVsBuyCalc />
-      <div className="max-w-6xl mx-auto px-4 mt-8">
-        <AdSlot />
+      <div className="space-y-8">
+        <h1 className="text-3xl font-bold text-gray-900 mb-2">Kredyt hipoteczny czy wynajem? — Kalkulator</h1>
+        <p className="text-lg text-gray-600 mb-4">
+          Porównaj koszty kredytu hipotecznego i wynajmu. Sprawdź, co bardziej się opłaca w Twojej sytuacji.
+        </p>
+        <RentVsBuyCalc />
+        <div>
+          <AdSlot />
+        </div>
+        <div>
+          <FaqBlock items={FAQ_DATA.filter(i => [1, 2].includes(i.id))} />
+        </div>
+        <RelatedTools />
       </div>
-      <div className="max-w-6xl mx-auto px-4 mt-8">
-        <FaqBlock items={FAQ_DATA.filter(i => [1, 2].includes(i.id))} />
-      </div>
-      <RelatedTools />
     </>
   )
 }

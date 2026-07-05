@@ -42,8 +42,8 @@ export default function PreparationChecklist() {
   const timeframes = ['6 miesięcy przed', '3 miesiące przed', '1 miesiąc przed']
 
   return (
-    <div className="max-w-3xl mx-auto space-y-8 pb-12">
-      <div className="text-center">
+    <div className="space-y-8 pb-12">
+      <div>
         <h2 className="text-3xl font-bold text-gray-900 mb-4">Twoja lista przygotowań</h2>
         <p className="text-gray-600">Zaznacz wykonane kroki, aby mieć pewność, że jesteś gotowy na wizytę w banku.</p>
       </div>
@@ -79,7 +79,7 @@ export default function PreparationChecklist() {
         </div>
       ))}
 
-      <div className="text-center pt-8">
+      <div className="pt-8">
         <button
           onClick={() => {
             if (confirm('Czy na pewno chcesz wyczyścić całą listę?')) {

@@ -17,14 +17,20 @@ export default function CommissionPage() {
         ]}
         schemaType="WebApplication"
       />
-      <CommissionCalc />
-      <div className="max-w-6xl mx-auto px-4 mt-8">
-        <AdSlot />
+      <div className="space-y-8">
+        <h1 className="text-3xl font-bold text-gray-900 mb-2">Kalkulator prowizji bankowej</h1>
+        <p className="text-lg text-gray-600 mb-4">
+          Sprawdź, czy bardziej opłaca się kredyt z prowizją i niższą marżą, czy bez prowizji z wyższą marżą.
+        </p>
+        <CommissionCalc />
+        <div>
+          <AdSlot />
+        </div>
+        <div>
+          <FaqBlock items={FAQ_DATA.filter(i => [7, 9].includes(i.id))} />
+        </div>
+        <RelatedTools />
       </div>
-      <div className="max-w-6xl mx-auto px-4 mt-8">
-        <FaqBlock items={FAQ_DATA.filter(i => [7, 9].includes(i.id))} />
-      </div>
-      <RelatedTools />
     </>
   )
 }
