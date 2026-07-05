@@ -182,13 +182,13 @@ export const calculateRRSO = (
 
 /**
  * Calculates the new monthly payment after a change in WIBOR.
- * @param currentMonthlyPayment - Current monthly payment (PLN).
  * @param currentRate - Current annual interest rate (WIBOR + margin).
  * @param wiborChange - Change in WIBOR (e.g., 0.02 for +2%).
+ * @param principal - Loan amount (PLN).
+ * @param months - Loan term in months.
  * @returns New monthly payment (PLN).
  */
 export const calculateNewMonthlyPayment = (
-  currentMonthlyPayment: number,
   currentRate: number, // Oprocentowanie w skali roku (np. 5 dla 5%)
   wiborChange: number, // Zmiana WIBOR w skali roku (np. 2 dla +2%)
   principal: number = 500000, // Domyślna kwota kredytu (PLN)

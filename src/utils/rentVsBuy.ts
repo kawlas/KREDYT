@@ -14,7 +14,7 @@
  *   - Zysk: oszczędność (różnica między dochodem a kosztami najmu) zainwestowana
  */
 
-import { calculateMonthlyPayment, generateAmortizationSchedule } from './loanCalculations'
+import { generateAmortizationSchedule } from './loanCalculations'
 
 export interface RentVsBuyInput {
   // Property
@@ -92,14 +92,8 @@ export function compareRentVsBuy(input: RentVsBuyInput): RentVsBuyResult {
   const pcc = propertyPrice * (pccPercent / 100)
   const totalUpfrontBuy = downPayment + commission + notaryCosts + pcc + renovationCosts
 
-  // Upfront costs for renting (refundable deposit)
-  const rentDeposit = monthlyRent * 1 // one month deposit
+  // Upfront costs for renting (refundable deposit, not included)
   const totalUpfrontRent = 0 // deposit is returned
-
-  // Monthly mortgage payment
-  const monthlyPayment = principal > 0
-    ? calculateMonthlyPayment(principal, loanRate, totalMonths, 'equal')
-    : 0
 
   // Generate amortization schedule
   const schedule = principal > 0
@@ -141,7 +135,6 @@ export function compareRentVsBuy(input: RentVsBuyInput): RentVsBuyResult {
 
     // Remaining debt
     const monthsPaid = Math.min(year * 12, totalMonths)
-    const remainingMonths = Math.max(0, totalMonths - monthsPaid)
     const remainingDebt = monthsPaid < schedule.length
       ? schedule[monthsPaid - 1]?.remainingBalance ?? 0
       : 0

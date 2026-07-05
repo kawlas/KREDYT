@@ -11,7 +11,6 @@ import { prepareChartData, getAmortizationInsights } from '../utils/amortization
 import AmortizationChart from './calculators/AmortizationChart'
 import ExportPdfButton from './shared/ExportPdfButton'
 import CsvExportButton from './shared/CsvExportButton'
-import type { PdfExportData } from '../utils/exportPdf'
 
 interface ResultsCardProps extends LoanResults {
   loanAmount: number

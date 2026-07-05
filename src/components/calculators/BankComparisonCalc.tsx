@@ -36,8 +36,8 @@ export default function BankComparisonCalc() {
   const [wibor, setWibor] = useState(5.85)
   const [installmentType, setInstallmentType] = useState<'equal' | 'declining'>('equal')
   const [propertyValue, setPropertyValue] = useState(500000)
-  const [sortKey, setSortKey] = useState<SortKey>('totalCost')
-  const [sortDir, setSortDir] = useState<SortDirection>('asc')
+  const [sortKey] = useState<SortKey>('totalCost')
+  const [sortDir] = useState<SortDirection>('asc')
 
   const effectiveWibor = liveWibor ?? wibor
 

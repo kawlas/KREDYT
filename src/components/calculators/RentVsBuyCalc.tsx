@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react'
 import { compareRentVsBuy } from '../../utils/rentVsBuy'
-import { formatCurrency, formatCurrencyShort, formatPercent } from '../../utils/formatters'
+import { formatCurrencyShort } from '../../utils/formatters'
 import Card from '../shared/Card'
 import Slider from '../shared/Slider'
 import Alert from '../shared/Alert'

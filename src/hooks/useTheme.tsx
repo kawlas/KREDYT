@@ -16,14 +16,17 @@ const ThemeContext = createContext<ThemeContextValue>({
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [theme, setThemeState] = useState<Theme>(() => {
-    // Check localStorage first, then system preference
-    const stored = localStorage.getItem('theme')
-    if (stored === 'dark' || stored === 'light') return stored
-    try {
-      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
-    } catch {
-      return 'light'
-  }
+    // Check localStorage first, then system preference (SSR-safe)
+    if (typeof window !== 'undefined') {
+      const stored = localStorage.getItem('theme')
+      if (stored === 'dark' || stored === 'light') return stored
+      try {
+        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+      } catch {
+        return 'light'
+      }
+    }
+    return 'light'
   })
 
   const setTheme = (newTheme: Theme) => {

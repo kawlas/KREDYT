@@ -85,7 +85,7 @@ describe('ThemeToggle', () => {
   })
 
   it('ThemeToggle renderuje się poprawnie w providerze', () => {
-    const { rerender } = renderWithProvider()
+    renderWithProvider()
     // Provider renders children, component should be there
     expect(document.querySelector('button')).toBeTruthy()
   })

@@ -42,7 +42,6 @@ const WiborSimulator: React.FC<WiborSimulatorProps> = ({
     const wiborChangePct = wiborChangeDecimal * 100;
 
     const newMonthlyPayment = calculateNewMonthlyPayment(
-      currentMonthlyPayment,
       currentRate,
       wiborChangePct,
       loanAmount,

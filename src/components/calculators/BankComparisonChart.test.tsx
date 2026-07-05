@@ -30,8 +30,8 @@ describe('BankComparisonChart', () => {
 
   it('pokazuje nazwy banków', () => {
     const { getByText } = render(<BankComparisonChart data={chartData} />)
-    // At least some bank names should be visible
-    const bankFound = chartData.some(d => {
+    // At least some bank names should appear in the SVG
+    const hasBankLabels = chartData.some(d => {
       try {
         getByText(d.label)
         return true
@@ -39,7 +39,6 @@ describe('BankComparisonChart', () => {
         return false
       }
     })
-    // Names are in the SVG text elements
-    expect(true).toBe(true) // renders without error
+    expect(hasBankLabels).toBe(true)
   })
 })

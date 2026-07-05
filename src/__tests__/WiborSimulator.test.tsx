@@ -7,17 +7,17 @@ import {
 // Testy dla funkcji calculateNewMonthlyPayment
 describe('calculateNewMonthlyPayment', () => {
   test('should return correct new monthly payment when WIBOR increases', () => {
-    const result = calculateNewMonthlyPayment(2684.11, 5, 2, 500000, 360);
+    const result = calculateNewMonthlyPayment(5, 2, 500000, 360);
     expect(result).toBeCloseTo(3326.51, 2);
   });
 
   test('should return correct new monthly payment when WIBOR decreases', () => {
-    const result = calculateNewMonthlyPayment(2684.11, 5, -1, 500000, 360);
+    const result = calculateNewMonthlyPayment(5, -1, 500000, 360);
     expect(result).toBeCloseTo(2387.08, 2);
   });
 
   test('should return original payment when WIBOR change is 0', () => {
-    const result = calculateNewMonthlyPayment(2684.11, 5, 0, 500000, 360);
+    const result = calculateNewMonthlyPayment(5, 0, 500000, 360);
     expect(result).toBeCloseTo(2684.11, 2);
   });
 });

@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { downloadCsv } from '../../utils/csvExport'
 import { generateAmortizationSchedule } from '../../utils/loanCalculations'
-import type { AmortizationRow } from '../../utils/loanCalculations'
 
 interface CsvExportButtonProps {
   principal: number

@@ -71,7 +71,7 @@ export function amortizationToCsv(
     { key: 'interestPart' as keyof AmortizationRow, label: 'Część odsetkowa (zł)' },
     { key: 'remainingBalance' as keyof AmortizationRow, label: 'Pozostało do spłaty (zł)' },
   ]
-  return objectsToCsv(schedule, columns, options)
+  return objectsToCsv(schedule as unknown as Record<string, unknown>[], columns, options)
 }
 
 
