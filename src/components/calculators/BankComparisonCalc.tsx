@@ -10,11 +10,17 @@ import BankComparisonChart from './BankComparisonChart'
 import { prepareChartData, sortOffers, type SortKey, type SortDirection } from '../../utils/bankComparisonEnhanced'
 
 interface OffersMeta {
-  updated: string
+  version: string
+  updatedAt: string
+  lastVerifiedAt: string
+  wiborRef: number | null
   source: string
   sourceUrl: string
+  wiborSourceUrl: string
   disclaimer: string
   liveWibor: number | null
+  wiborSource: string | null
+  dataType: string
 }
 
 export default function BankComparisonCalc() {
@@ -28,11 +34,17 @@ export default function BankComparisonCalc() {
       .then(r => r.json())
       .then(data => {
         setOffersMeta({
-          updated: data.updated,
+          version: data.version,
+          updatedAt: data.updatedAt,
+          lastVerifiedAt: data.lastVerifiedAt,
+          wiborRef: data.wiborRef,
           source: data.source,
           sourceUrl: data.sourceUrl,
+          wiborSourceUrl: data.wiborSourceUrl,
           disclaimer: data.disclaimer,
           liveWibor: data.liveWibor,
+          wiborSource: data.wiborSource,
+          dataType: data.dataType,
         })
       })
       .catch(() => {
@@ -40,11 +52,17 @@ export default function BankComparisonCalc() {
         fetch('/bank-offers.json')
           .then(r => r.json())
           .then(data => setOffersMeta({
-            updated: data.updated,
+            version: data.version,
+            updatedAt: data.updatedAt,
+            lastVerifiedAt: data.lastVerifiedAt,
+            wiborRef: data.wiborRef,
             source: data.source,
             sourceUrl: data.sourceUrl,
+            wiborSourceUrl: data.wiborSourceUrl,
             disclaimer: data.disclaimer,
             liveWibor: null,
+            wiborSource: null,
+            dataType: data.dataType,
           }))
           .catch(() => {})
       })
@@ -117,25 +135,40 @@ export default function BankComparisonCalc() {
           </Card>
 
           {offersMeta && (
-            <div className="bg-white rounded-xl border border-gray-200 p-4 space-y-2">
-              <div className="flex items-center gap-2">
-                <div className={`w-2 h-2 rounded-full ${Date.now() - new Date(offersMeta.updated).getTime() < 14 * 86400000 ? 'bg-green-500' : 'bg-yellow-500'}`} />
-                <span className="text-xs text-gray-600">
-                  Aktualizacja: <strong>{new Date(offersMeta.updated).toLocaleDateString('pl-PL')}</strong>
+            <div className="bg-white rounded-xl border border-gray-200 p-4 space-y-3">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <div className={`w-2 h-2 rounded-full ${Date.now() - new Date(offersMeta.lastVerifiedAt).getTime() < 45 * 86400000 ? 'bg-green-500' : 'bg-yellow-500'}`} />
+                  <span className="text-xs text-gray-600">
+                    Dane z <strong>{offersMeta.version}</strong>
+                  </span>
+                </div>
+                <span className="text-[11px] text-gray-400">
+                  zweryfikowano {new Date(offersMeta.lastVerifiedAt).toLocaleDateString('pl-PL')}
                 </span>
               </div>
-              <div className="space-y-1">
+              <div className="border-t border-gray-100 pt-2 space-y-1.5">
                 <p className="text-xs text-gray-500">
-                  📊 Marże: <a href={offersMeta.sourceUrl} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">Bankier.pl</a>
+                  📊 Marże banków: <a href={offersMeta.sourceUrl} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">{offersMeta.source}</a>
                 </p>
                 <p className="text-xs text-gray-500">
-                  💹 WIBOR: <a href="https://nbp.pl/statystyka-i-wskazniki/wibor/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">NBP</a>
+                  💹 WIBOR: <a href={offersMeta.wiborSourceUrl} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">NBP (stopy referencyjne)</a>
                   {offersMeta.liveWibor !== null && (
-                    <span className="text-green-600"> (na żywo: {offersMeta.liveWibor.toFixed(2)}%)</span>
+                    <span className="text-green-600"> — na żywo: {offersMeta.liveWibor.toFixed(2)}% {offersMeta.wiborSource && `(via ${offersMeta.wiborSource})`}</span>
+                  )}
+                  {offersMeta.liveWibor === null && (
+                    <span className="text-gray-400"> — ostatnia znana: {offersMeta.wiborRef}%</span>
                   )}
                 </p>
               </div>
-              <p className="text-[11px] text-gray-400 leading-relaxed">{offersMeta.disclaimer}</p>
+              <div className="border-t border-gray-100 pt-2 space-y-1">
+                <p className="text-[11px] text-gray-400 leading-relaxed">{offersMeta.disclaimer}</p>
+                <p className="text-[11px]">
+                  <a href="https://github.com/kawlas/KREDYT/issues/new" target="_blank" rel="noopener noreferrer" className="text-orange-500 hover:underline">
+                    Zgłoś nieaktualne dane →
+                  </a>
+                </p>
+              </div>
             </div>
           )}
 

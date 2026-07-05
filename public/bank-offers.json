@@ -1,9 +1,14 @@
 {
-  "updated": "2026-07-05T12:00:00.000Z",
+  "version": "2026-07",
+  "updatedAt": "2026-07-05T12:00:00.000Z",
+  "lastVerifiedAt": "2026-07-05T12:00:00.000Z",
   "wiborRef": 3.85,
-  "source": "Bankier.pl – ranking kredytów hipotecznych (bankier.pl/smart/kredyty-hipoteczne) + NBP",
+  "source": "Bankier.pl (ranking kredytów hipotecznych) + NBP (stopy referencyjne)",
   "sourceUrl": "https://www.bankier.pl/smart/kredyty-hipoteczne",
   "wiborSourceUrl": "https://nbp.pl/statystyka-i-wskazniki/wibor/",
+  "wiborSource": "NBP (stopy referencyjne)",
+  "disclaimer": "Marże banków to wartości szacunkowe według rankingu Bankier.pl z lipca 2026. Rzeczywista oferta zależy od indywidualnej oceny zdolności kredytowej, LTV, wkładu własnego oraz negocjacji z bankiem. Przed podjęciem decyzji zweryfikuj aktualne stawki bezpośrednio w banku lub u doradcy finansowego. Dane nie stanowią oferty w rozumieniu Kodeksu cywilnego.",
+  "dataType": "manual/monthly",
   "banks": [
     { "id": "pko-bp", "name": "PKO BP", "margin": 2.00, "totalRate": 5.85 },
     { "id": "ing", "name": "ING Bank Śląski", "margin": 1.95, "totalRate": 5.80 },
@@ -12,6 +17,5 @@
     { "id": "millennium", "name": "Bank Millennium", "margin": 2.50, "totalRate": 6.35 },
     { "id": "pekao", "name": "Bank Pekao SA", "margin": 3.10, "totalRate": 6.95 },
     { "id": "alior", "name": "Alior Bank", "margin": 2.60, "totalRate": 6.45 }
-  ],
-  "disclaimer": "Prezentowane marże są wartościami szacunkowymi opartymi na danych z Bankier.pl (ranking kredytów hipotecznych). Rzeczywista oferta zależy od indywidualnej oceny zdolności kredytowej, LTV oraz negocjacji z bankiem. Dane nie stanowią oferty w rozumieniu Kodeksu cywilnego."
+  ]
 }

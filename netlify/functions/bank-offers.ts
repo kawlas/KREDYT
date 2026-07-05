@@ -1,6 +1,8 @@
 // Netlify function: bank-offers
 // Returns current bank offer data with live WIBOR.
-// Falls back to static bank-offers.json if live data unavailable.
+// Margins come from static bank-offers.json (manual monthly update, source: Bankier.pl)
+// WIBOR is fetched live from stooq.pl, so total rates are always current.
+// Falls back to static JSON if live WIBOR unavailable.
 // Cache: 1 hour (Netlify CDN)
 
 import bankOffersJson from '../../public/bank-offers.json'
@@ -10,25 +12,28 @@ interface BankOffer {
   name: string
   margin: number
   totalRate: number
-  sourceUrl: string
 }
 
 interface BankOffersResponse {
-  updated: string
+  version: string
+  updatedAt: string
+  lastVerifiedAt: string
   wiborRef: number | null
   source: string
   sourceUrl: string
+  wiborSourceUrl: string
+  wiborSource: string | null
   banks: BankOffer[]
   disclaimer: string
   liveWibor: number | null
-  wiborSource: string
+  dataType: string
 }
 
 export const handler = async () => {
   try {
     // 1. Fetch live WIBOR from stooq.pl
     let liveWibor: number | null = null
-    let wiborSource = 'fallback'
+    let wiborSource: string | null = null
     try {
       const wiborUrl = 'https://stooq.pl/q/l/?s=wibor3m&f=sd2ohlc&e=csv'
       const res = await fetch(wiborUrl, {
@@ -49,33 +54,40 @@ export const handler = async () => {
             const value = Number(cols[4])
             if (!isNaN(value)) {
               liveWibor = value
-              wiborSource = 'stooq'
+              wiborSource = 'stooq.pl'
             }
           }
         }
       }
     } catch {
-      // Fallback to static WIBOR from bank-offers.json
+      // Fallback — live WIBOR stays null, total rates stay as stored
     }
 
-    // 2. Recalculate total rates with live WIBOR
+    // 2. Recalculate total rates: totalRate = margin + liveWibor
+    //    Fallback to static totalRate if no live WIBOR
     const wiborRef = liveWibor ?? bankOffersJson.wiborRef
     const banks = bankOffersJson.banks.map(b => ({
-      ...b,
+      id: b.id,
+      name: b.name,
+      margin: b.margin,
       totalRate: liveWibor !== null
-        ? parseFloat((liveWibor + (b.margin - (bankOffersJson.wiborRef - 3.85))).toFixed(2))
+        ? parseFloat((b.margin + liveWibor).toFixed(2))
         : b.totalRate,
     }))
 
     const response: BankOffersResponse = {
-      updated: new Date().toISOString(),
+      version: bankOffersJson.version,
+      updatedAt: new Date().toISOString(),
+      lastVerifiedAt: bankOffersJson.lastVerifiedAt,
       wiborRef,
-      source: 'Bankier.pl – ranking kredytów hipotecznych (bankier.pl/smart/kredyty-hipoteczne) + NBP',
-      sourceUrl: 'https://www.bankier.pl/smart/kredyty-hipoteczne',
+      source: "Bankier.pl (ranking kredytów hipotecznych) + NBP (stopy referencyjne)",
+      sourceUrl: bankOffersJson.sourceUrl,
+      wiborSourceUrl: bankOffersJson.wiborSourceUrl,
+      wiborSource,
       banks,
       disclaimer: bankOffersJson.disclaimer,
       liveWibor,
-      wiborSource,
+      dataType: bankOffersJson.dataType,
     }
 
     return {
@@ -98,9 +110,9 @@ export const handler = async () => {
       },
       body: JSON.stringify({
         ...bankOffersJson,
-        updated: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
         liveWibor: null,
-        wiborSource: 'fallback',
+        wiborSource: null,
       }),
     }
   }
