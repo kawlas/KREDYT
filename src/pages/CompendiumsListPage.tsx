@@ -37,7 +37,7 @@ const CompendiumsListPage: React.FC = () => {
         schemaType="Article"
       />
       
-      <div className="max-w-3xl mx-auto">
+      <div>
         <p className="text-lg text-gray-600 mb-8">
           Profesjonalne kompendia wiedzy o kredytach hipotecznych. Przygotowane przez analityków 
           finansowych z wieloletnim doświadczeniem. Każde kompendium zawiera przykłady liczbowe, 

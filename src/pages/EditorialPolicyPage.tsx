@@ -15,7 +15,7 @@ const EditorialPolicyPage: React.FC = () => {
         schemaType="Article"
       />
       
-      <div className="max-w-3xl mx-auto prose prose-blue text-gray-600 space-y-6">
+      <div className="text-gray-600 space-y-6">
         <section>
           <h2 className="text-2xl font-bold text-gray-900 mb-4">Misja edukacyjna</h2>
           <p>

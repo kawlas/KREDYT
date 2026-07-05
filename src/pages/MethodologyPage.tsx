@@ -14,7 +14,7 @@ const MethodologyPage: React.FC = () => {
         ]}
         schemaType="Article"
       />
-      <div className="max-w-3xl mx-auto prose prose-blue text-gray-600">
+      <div className="text-gray-600">
         <h3 className="text-xl font-bold text-gray-900 mb-4">Raty równe (Annuity)</h3>
         <p className="mb-6">
           Stosujemy standardowy wzór na ratę równą: M = P * (i * (1 + i)^n) / ((1 + i)^n - 1), 

@@ -20,10 +20,10 @@ const CreditCapacityCompendiumPage: React.FC = () => {
       />
       
       <BreadcrumbNav pathname="/poradniki/zdolnosc-kredytowa/" />
-      <article className="max-w-3xl mx-auto">
+      <article>
         <h1 className="text-3xl font-bold text-gray-900 mb-4">Zdolność kredytowa — ile możesz pożyczyć? — Kompendium wiedzy</h1>
         <ArticleMeta date="lipiec 2026" expert="Piotr Radwański" />
-        <div className="prose prose-blue">
+        <div>
         
         <p className="text-lg text-gray-600 mb-8">
           Zdolność kredytowa to najważniejsza liczba, którą powinieneś poznać przed rozpoczęciem 

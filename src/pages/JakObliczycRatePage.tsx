@@ -20,10 +20,10 @@ const JakObliczycRatePage: React.FC = () => {
       />
       
       <BreadcrumbNav pathname="/poradniki/jak-obliczyc-rate/" />
-      <article className="max-w-3xl mx-auto">
+      <article>
         <h1 className="text-3xl font-bold text-gray-900 mb-4">Jak obliczyć ratę kredytu hipotecznego? — Kompendium wiedzy</h1>
         <ArticleMeta date="lipiec 2026" expert="Piotr Radwański" />
-        <div className="prose prose-blue">
+        <div>
         
         <p className="text-lg text-gray-600 mb-8">
           Zastanawiasz się, ile wyniesie Twoja miesięczna rata kredytu hipotecznego? To pytanie zadaje 

@@ -18,7 +18,7 @@ const PrivacyPolicyPage: React.FC = () => {
       <Helmet>
         <meta name="robots" content="noindex, follow" />
       </Helmet>
-      <div className="max-w-3xl mx-auto prose prose-blue text-gray-600 space-y-6">
+      <div className="text-gray-600 space-y-6">
         <p>
           Cenimy Twoją prywatność. Większość obliczeń w naszym serwisie odbywa się lokalnie w Twojej przeglądarce. 
           Nie przechowujemy Twoich danych finansowych na naszych serwerach.

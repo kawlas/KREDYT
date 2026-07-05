@@ -15,7 +15,7 @@ const AboutPage: React.FC = () => {
         schemaType="Article"
       />
       
-      <section className="max-w-3xl mx-auto prose prose-blue">
+      <section>
         <h2 className="text-2xl font-bold text-gray-900 mb-4">Nasza misja</h2>
         <p className="text-gray-600 leading-relaxed">
           Kalkulator Kredytowy powstał z potrzeby stworzenia niezależnego, przejrzystego narzędzia, 

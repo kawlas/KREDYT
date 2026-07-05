@@ -31,9 +31,9 @@ export default function MityPage() {
           { name: 'Mity kredytowe', href: '/mity-kredytowe/' },
         ]}
       />
-      <div className="max-w-4xl mx-auto">
-        <h1 className="text-3xl font-bold text-gray-900 mb-6">Mity o kredytach hipotecznych – obalamy popularne stereotypy</h1>
-        <p className="text-lg text-gray-600 mb-8">
+      <div className="space-y-8">
+        <h1 className="text-3xl font-bold text-gray-900 mb-2">Mity o kredytach hipotecznych – obalamy popularne stereotypy</h1>
+        <p className="text-lg text-gray-600 mb-4">
           Wokół kredytów hipotecznych narosło wiele mitów i nieporozumień. W tym artykule 
           rozwiewamy najczęstsze wątpliwości i pokazujemy, jak naprawdę działa rynek kredytowy w Polsce.
         </p>
@@ -53,7 +53,7 @@ export default function MityPage() {
           ))}
         </div>
 
-        <section className="mt-12 p-6 bg-blue-50 rounded-xl border border-blue-100">
+        <section className="p-6 bg-blue-50 rounded-xl border border-blue-100">
           <h2 className="text-2xl font-bold text-gray-900 mb-4">Sprawdź sam!</h2>
           <p className="text-gray-700 mb-4">
             Najlepszym sposobem na obalenie mitów jest samodzielne sprawdzenie faktów. 
@@ -72,7 +72,7 @@ export default function MityPage() {
           </div>
         </section>
 
-        <section className="mt-8 border-t border-gray-100 pt-8">
+        <section className="border-t border-gray-100 pt-6">
           <h3 className="text-sm font-bold text-gray-700 mb-3">Zobacz także:</h3>
           <ul className="space-y-1">
             <li><Link to="/poradniki/jak-obliczyc-rate/" className="text-blue-600 hover:underline text-sm">Jak obliczyć ratę kredytu? — Kompendium wiedzy</Link></li>

@@ -35,6 +35,24 @@ export const breadcrumbHierarchy: Record<string, BreadcrumbItem[]> = {
     { path: '/', label: 'Kalkulatory' },
     { path: '/symulacja-wibor/', label: 'Symulacja WIBOR' },
   ],
+  '/kalkulator-prowizji/': [
+    { path: '/', label: 'Start' },
+    { path: '/', label: 'Narzędzia' },
+    { path: '/', label: 'Kalkulatory' },
+    { path: '/kalkulator-prowizji/', label: 'Prowizja bankowa' },
+  ],
+  '/kalkulator-ubezpieczen/': [
+    { path: '/', label: 'Start' },
+    { path: '/', label: 'Narzędzia' },
+    { path: '/', label: 'Kalkulatory' },
+    { path: '/kalkulator-ubezpieczen/', label: 'Ubezpieczenia' },
+  ],
+  '/kredyt-vs-wynajem/': [
+    { path: '/', label: 'Start' },
+    { path: '/', label: 'Narzędzia' },
+    { path: '/', label: 'Kalkulatory' },
+    { path: '/kredyt-vs-wynajem/', label: 'Kredyt vs wynajem' },
+  ],
   '/raty-rowne-czy-malejace/': [
     { path: '/', label: 'Start' },
     { path: '/', label: 'Narzędzia' },

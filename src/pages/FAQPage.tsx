@@ -19,14 +19,14 @@ export default function FAQPage() {
         ]}
         faqItems={FAQ_DATA.slice(0, 5).map(i => ({ question: i.question, answer: i.answer }))}
       />
-      <div className="max-w-3xl mx-auto text-gray-600 mb-8">
-        <p className="mb-6">
+      <div className="text-gray-600 space-y-8">
+        <p>
           Zbraliśmy najważniejsze pytania zadawane przez przyszłych kredytobiorców. 
           Poniżej znajdziesz krótkie i konkretne odpowiedzi, które pomogą Ci zrozumieć mechanizmy kredytowe.
         </p>
         <FaqBlock items={FAQ_DATA} />
 
-        <div className="mt-12 p-8 bg-blue-50 rounded-2xl border border-blue-100">
+        <div className="p-8 bg-blue-50 rounded-2xl border border-blue-100">
           <h3 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
             Pogłębiona wiedza (Poradniki)
           </h3>

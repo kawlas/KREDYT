@@ -20,10 +20,10 @@ const WiborARataPage: React.FC = () => {
       />
       
       <BreadcrumbNav pathname="/poradniki/wibor-a-rata/" />
-      <article className="max-w-3xl mx-auto">
+      <article>
         <h1 className="text-3xl font-bold text-gray-900 mb-4">WIBOR a rata kredytu — jak się zmienia? — Kompendium wiedzy</h1>
         <ArticleMeta date="lipiec 2026" expert="Piotr Radwański" />
-        <div className="prose prose-blue">
+        <div>
         
         <p className="text-lg text-gray-600 mb-8">
           WIBOR to kluczowy składnik oprocentowania kredytów hipotecznych w Polsce. Zrozumienie, 
