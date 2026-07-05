@@ -6,6 +6,7 @@ import Card from '../shared/Card'
 import Alert from '../shared/Alert'
 import Slider from '../shared/Slider'
 import TabContainer from '../layout/TabContainer'
+import FixedVsVariableChart from './FixedVsVariableChart'
 
 export default function FixedVsVariableCalc() {
   const [principal, setPrincipal] = useState('400000')
@@ -128,6 +129,9 @@ export default function FixedVsVariableCalc() {
                 <ComparisonCard result={result} type="fixed" />
                 <ComparisonCard result={result} type="variable" />
               </div>
+
+              {/* Chart */}
+              <FixedVsVariableChart result={result} />
 
               {/* Key Difference */}
               <Card>
