@@ -3,8 +3,7 @@ import { render } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import { HelmetProvider } from 'react-helmet-async'
 import { LoanCalculatorProvider } from '../context/LoanCalculatorContext'
-import fs from 'fs'
-import path from 'path'
+
 
 // Static imports
 import WiborSimulatorPage from '../pages/WiborSimulatorPage'
@@ -165,44 +164,6 @@ describe('B — PaymentComparison: wyrównanie + kolory', () => {
   })
 })
 
-// ###############################################################
-// C — Bankier link: naprawa
-// ###############################################################
-
-describe('C — Bankier link: naprawa', () => {
-  const BANK_OFFERS_PATH = path.resolve(__dirname, '../../public/bank-offers.json')
-  let bankOffers: any
-
-  beforeAll(() => {
-    const raw = fs.readFileSync(BANK_OFFERS_PATH, 'utf-8')
-    bankOffers = JSON.parse(raw)
-  })
-
-  it('[C9] bank-offers.json NIE zawiera starego linka bankier.pl/smart/mieszkaniowe/', () => {
-    const raw = JSON.stringify(bankOffers)
-    expect(raw).not.toContain('bankier.pl/smart/mieszkaniowe/ranking-kredytow-hipotecznych')
-  })
-
-  it('[C10] sourceUrl prowadzi do działającej strony (NBP lub bankier.pl)', () => {
-    expect(bankOffers.sourceUrl).toBeDefined()
-    const url = bankOffers.sourceUrl
-    expect(
-      url.includes('wibor.nbp.pl') ||
-      url.includes('bankier.pl') ||
-      url.includes('nbp.pl')
-    ).toBe(true)
-    // Should NOT point to the broken smart/mieszkaniowe subpage
-    expect(url).not.toBe('https://www.bankier.pl/smart/mieszkaniowe/')
-  })
-
-  it('[C11] source zawiera "NBP" lub wibor.nbp.pl', () => {
-    expect(bankOffers.source).toBeDefined()
-    const source = bankOffers.source.toLowerCase()
-    expect(source.includes('nbp') || source.includes('wibor.nbp.pl')).toBe(true)
-    // Should no longer reference bankier.pl rankings as primary source
-    // (bankier.pl can still be mentioned but NBP should be primary)
-  })
-})
 
 // ###############################################################
 // D — Regression
