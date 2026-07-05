@@ -124,9 +124,17 @@ export default function BankComparisonCalc() {
                   Aktualizacja: <strong>{new Date(offersMeta.updated).toLocaleDateString('pl-PL')}</strong>
                 </span>
               </div>
-              <p className="text-xs text-gray-500">
-                Źródło: <a href={offersMeta.sourceUrl} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">{offersMeta.source}</a>
-              </p>
+              <div className="space-y-1">
+                <p className="text-xs text-gray-500">
+                  📊 Marże: <a href={offersMeta.sourceUrl} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">Bankier.pl</a>
+                </p>
+                <p className="text-xs text-gray-500">
+                  💹 WIBOR: <a href="https://nbp.pl/statystyka-i-wskazniki/wibor/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">NBP</a>
+                  {offersMeta.liveWibor !== null && (
+                    <span className="text-green-600"> (na żywo: {offersMeta.liveWibor.toFixed(2)}%)</span>
+                  )}
+                </p>
+              </div>
               <p className="text-[11px] text-gray-400 leading-relaxed">{offersMeta.disclaimer}</p>
             </div>
           )}
@@ -188,13 +196,13 @@ export default function BankComparisonCalc() {
                     </td>
                     <td className="px-4 py-3 text-sm text-center">
                       <a
-                        href={offer.bank.sourceUrl}
+                        href="https://www.bankier.pl/smart/kredyty-hipoteczne"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-blue-600 hover:text-blue-800 hover:underline text-xs font-medium"
-                        title={offer.bank.sourceLabel}
+                        title="Sprawdź aktualne oferty na Bankier.pl"
                       >
-                        Sprawdź ↗
+                        Ranking ↗
                       </a>
                     </td>
                   </tr>

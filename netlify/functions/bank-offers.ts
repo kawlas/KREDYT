@@ -70,8 +70,8 @@ export const handler = async () => {
     const response: BankOffersResponse = {
       updated: new Date().toISOString(),
       wiborRef,
-      source: 'NBP (wibor.nbp.pl) + Bankier.pl – ranking kredytów hipotecznych',
-      sourceUrl: 'https://wibor.nbp.pl/',
+      source: 'Bankier.pl – ranking kredytów hipotecznych (bankier.pl/smart/kredyty-hipoteczne) + NBP',
+      sourceUrl: 'https://www.bankier.pl/smart/kredyty-hipoteczne',
       banks,
       disclaimer: bankOffersJson.disclaimer,
       liveWibor,

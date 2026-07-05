@@ -27,8 +27,8 @@ export const BANK_PROFILES: BankProfile[] = [
     fixedRateAvailable: true,
     typicalFixedMargin: 1.50,
     earlyRepaymentPolicy: '0% po 1. roku (zmienne), 2% (stałe, pierwsze 3 lata)',
-    sourceUrl: 'https://www.pkobp.pl/kredyty-hipoteczne/',
-    sourceLabel: 'Oferta PKO BP – kredyty hipoteczne',
+    sourceUrl: 'https://www.bankier.pl/smart/kredyty-hipoteczne',
+    sourceLabel: 'Ranking kredytów hipotecznych – Bankier.pl',
   },
   {
     id: 'ing',
@@ -42,8 +42,8 @@ export const BANK_PROFILES: BankProfile[] = [
     fixedRateAvailable: true,
     typicalFixedMargin: 1.60,
     earlyRepaymentPolicy: '0% w każdym momencie (nadpłata bezpłatna)',
-    sourceUrl: 'https://www.ing.pl/kredyty-hipoteczne',
-    sourceLabel: 'Oferta ING – kredyty hipoteczne',
+    sourceUrl: 'https://www.bankier.pl/smart/kredyty-hipoteczne',
+    sourceLabel: 'Ranking kredytów hipotecznych – Bankier.pl',
   },
   {
     id: 'santander',
@@ -57,8 +57,8 @@ export const BANK_PROFILES: BankProfile[] = [
     fixedRateAvailable: true,
     typicalFixedMargin: 2.90,
     earlyRepaymentPolicy: '0% po 1. roku (zmienne), do 2% (stałe, pierwsze 3 lata)',
-    sourceUrl: 'https://www.santander.pl/klient-indywidualny/kredyty/kredyt-hipoteczny',
-    sourceLabel: 'Oferta Santander – kredyty hipoteczne',
+    sourceUrl: 'https://www.bankier.pl/smart/kredyty-hipoteczne',
+    sourceLabel: 'Ranking kredytów hipotecznych – Bankier.pl',
   },
   {
     id: 'mbank',
@@ -72,8 +72,8 @@ export const BANK_PROFILES: BankProfile[] = [
     fixedRateAvailable: true,
     typicalFixedMargin: 2.00,
     earlyRepaymentPolicy: '2% w pierwszych 3 latach (wg umowy)',
-    sourceUrl: 'https://www.mbank.pl/indywidualny/kredyty/hipoteczny/',
-    sourceLabel: 'Oferta mBank – kredyt hipoteczny',
+    sourceUrl: 'https://www.bankier.pl/smart/kredyty-hipoteczne',
+    sourceLabel: 'Ranking kredytów hipotecznych – Bankier.pl',
   },
   {
     id: 'millennium',
@@ -87,8 +87,8 @@ export const BANK_PROFILES: BankProfile[] = [
     fixedRateAvailable: true,
     typicalFixedMargin: 6.23,
     earlyRepaymentPolicy: '0% po 1. roku (zmienne)',
-    sourceUrl: 'https://www.bankmillennium.pl/kredyty/kredyt-hipoteczny',
-    sourceLabel: 'Oferta Millennium – kredyt hipoteczny',
+    sourceUrl: 'https://www.bankier.pl/smart/kredyty-hipoteczne',
+    sourceLabel: 'Ranking kredytów hipotecznych – Bankier.pl',
   },
   {
     id: 'pekao',
@@ -102,8 +102,8 @@ export const BANK_PROFILES: BankProfile[] = [
     fixedRateAvailable: true,
     typicalFixedMargin: 2.27,
     earlyRepaymentPolicy: '0% po 1. roku (zmienne), do 2% (stałe)',
-    sourceUrl: 'https://www.pekao.com.pl/indywidualny/kredyty/kredyt-hipoteczny.html',
-    sourceLabel: 'Oferta Pekao – kredyt hipoteczny',
+    sourceUrl: 'https://www.bankier.pl/smart/kredyty-hipoteczne',
+    sourceLabel: 'Ranking kredytów hipotecznych – Bankier.pl',
   },
   {
     id: 'alior',
@@ -117,8 +117,8 @@ export const BANK_PROFILES: BankProfile[] = [
     fixedRateAvailable: true,
     typicalFixedMargin: 2.50,
     earlyRepaymentPolicy: '0% po 1. roku (zmienne)',
-    sourceUrl: 'https://www.aliorbank.pl/kredyty/kredyt-hipoteczny/',
-    sourceLabel: 'Oferta Alior – kredyt hipoteczny',
+    sourceUrl: 'https://www.bankier.pl/smart/kredyty-hipoteczne',
+    sourceLabel: 'Ranking kredytów hipotecznych – Bankier.pl',
   },
 ]
 
