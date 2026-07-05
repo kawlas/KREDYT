@@ -26,6 +26,7 @@ const sidebarItems: SidebarItemData[] = [
   { type: 'category', label: 'Analiza' },
   { type: 'link', label: 'Ukryte koszty', path: '/ukryte-koszty-kredytu/' },
   { type: 'link', label: 'Prowizja banku', path: '/kalkulator-prowizji/' },
+  { type: 'link', label: 'Ubezpieczenia', path: '/kalkulator-ubezpieczen/' },
   { type: 'link', label: 'Scoring BIK', path: '/co-wplywa-na-zdolnosc/' },
   { type: 'link', label: 'Nadpłaty', path: '/symulator-nadplat/' },
   { type: 'link', label: 'Koszt utrzymania', path: '/koszt-utrzymania-nieruchomosci/' },
