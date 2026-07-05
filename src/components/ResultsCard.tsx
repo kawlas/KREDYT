@@ -473,7 +473,7 @@ const ResultsCard: React.FC<ResultsCardProps> = (props) => {
             ],
             summary: [
               { label: 'Całkowity koszt kredytu', value: formatCurrencyShort(breakdown?.totalCost?.grandTotal || totalInterest + props.loanAmount), color: 'red' as const },
-              { label: 'RRSO', value: formatPercent(rrso / 100), color: 'blue' as const },
+              { label: 'RRSO', value: formatPercent(rrso), color: 'blue' as const },
             ],
           }}
         />

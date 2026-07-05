@@ -88,6 +88,7 @@ export function compareFixedVsVariable(
   totalYears: number,
   fixedPeriodYears: number = 5
 ): FixedVsVariableComparison {
+  const totalMonths = totalYears * 12
   const fixed = calculateFixedScenario(principal, fixedRate, totalYears, fixedPeriodYears)
   const variable = calculateVariableScenario(principal, variableRate, totalYears)
 
@@ -97,7 +98,19 @@ export function compareFixedVsVariable(
     totalPaid: fixed.totalPaid - variable.totalPaid,
   }
 
-  const breakevenRate = variableRate + (fixed.monthlyPayment - variable.monthlyPayment) / principal * 12 * 100
+  // Binary search for the actual break-even rate (where monthly payments equal)
+  const targetPayment = fixed.monthlyPayment
+  let breakevenRate = variableRate
+  if (Math.abs(targetPayment - variable.monthlyPayment) > 0.01 && principal > 0 && totalYears > 0) {
+    let lo = 0, hi = 50 // search 0% to 50% annual
+    for (let i = 0; i < 50; i++) {
+      const mid = (lo + hi) / 2
+      const pmt = calculateMonthlyPayment(principal, mid, totalMonths, 'equal')
+      if (pmt > targetPayment) hi = mid
+      else lo = mid
+    }
+    breakevenRate = (lo + hi) / 2
+  }
   const breakevenRateClamped = Math.max(0, breakevenRate)
 
   let recommendation = ''
