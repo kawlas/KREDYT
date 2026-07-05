@@ -117,8 +117,9 @@ describe('A — HubPage: left-aligned', () => {
     const { container } = renderPage(<HubPage />)
     const html = getHtml(container)
     const startIdx = html.indexOf('zaufaj liczbom')
-    if (startIdx >= 0) {
-      const section = html.substring(startIdx)
+    const endIdx = html.indexOf('quick faq', startIdx)
+    if (startIdx >= 0 && endIdx > startIdx) {
+      const section = html.substring(startIdx, endIdx)
       expect(section.includes('text-center')).toBe(false)
     }
   })

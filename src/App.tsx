@@ -89,7 +89,6 @@ function App() {
                         loanAmount={Number(getValues().principal) || 400000}
                         loanTermYears={Number(getValues().years) || 25}
                         margin={Number(getValues().margin || 2)}
-                        baseWibor={Number(getValues().wibor || 5.85)}
                         installmentType={getValues().installmentType || 'equal'}
                       />
                     }

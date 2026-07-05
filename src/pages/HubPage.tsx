@@ -141,8 +141,8 @@ export default function HubPage() {
         <h2 className="text-2xl font-bold text-gray-900 mb-10">Zaufaj liczbom</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           <div><div className="text-3xl font-bold text-blue-600 mb-1">61</div><div className="text-sm text-gray-500">testów sprawdza poprawność każdego obliczenia</div></div>
-          <div><div className="text-3xl font-bold text-blue-600 mb-1">Tony Halik</div><div className="text-sm text-gray-500">ekspert rynku kredytowego — autor treści i analiz</div></div>
-          <div><div className="text-3xl font-bold text-blue-600 mb-1">Bankier.pl</div><div className="text-sm text-gray-500">aktualny WIBOR pobierany automatycznie z NBP</div></div>
+          <div><div className="text-3xl font-bold text-blue-600 mb-1">Bankier.pl</div><div className="text-sm text-gray-500">aktualny ranking kredytów hipotecznych</div></div>
+          <div><div className="text-3xl font-bold text-blue-600 mb-1">WIBOR</div><div className="text-sm text-gray-500">aktualne stopy procentowe z rynku międzybankowego</div></div>
           <div><div className="text-3xl font-bold text-blue-600 mb-1">Ustawa</div><div className="text-sm text-gray-500">zgodność z ustawą o kredycie hipotecznym</div></div>
         </div>
       </section>
@@ -173,6 +173,8 @@ export default function HubPage() {
           ))}
         </div>
       </section>
+
+      <p className="text-xs text-gray-400 text-center">Autor: Tony Halik &middot; ekspert rynku kredytowego</p>
     </div>
   )
 }

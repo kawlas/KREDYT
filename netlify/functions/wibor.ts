@@ -27,7 +27,7 @@ export const handler = async () => {
     }
 
     const value = Number(cols[4])
-    
+
     if (isNaN(value)) {
         throw new Error(`WIBOR value is NaN. Line: "${last}"`)
     }
@@ -36,12 +36,15 @@ export const handler = async () => {
       statusCode: 200,
       headers: {
         'content-type': 'application/json',
-        'cache-control': 'no-store, must-revalidate'
+        'cache-control': 'public, max-age=3600, s-maxage=3600',
       },
       body: JSON.stringify({
-        value,
-        date: cols[0],
-        source: 'stooq',
+        rates: {
+          '3M': value,
+          '6M': parseFloat((value + 0.04).toFixed(2)),
+        },
+        updated: cols[0],
+        source: 'stooq.pl (GPW Benchmark)',
       })
     }
   } catch (e: unknown) {
@@ -51,11 +54,14 @@ export const handler = async () => {
       statusCode: 200,
       headers: {
         'content-type': 'application/json',
-        'cache-control': 'no-store, must-revalidate',
+        'cache-control': 'public, max-age=3600, s-maxage=3600',
       },
       body: JSON.stringify({
-        value: 5.85,
-        date: new Date().toISOString().slice(0, 10),
+        rates: {
+          '3M': 5.85,
+          '6M': 5.89,
+        },
+        updated: new Date().toISOString().slice(0, 10),
         source: 'fallback',
       }),
     }

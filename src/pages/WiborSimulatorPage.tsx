@@ -7,12 +7,13 @@ import FaqBlock from '../components/seo/FaqBlock'
 import { FAQ_DATA } from '../data/faqData'
 import RelatedTools from '../components/seo/RelatedTools'
 import ExportPdfButton from '../components/shared/ExportPdfButton'
+import { useWIBOR } from '../hooks/useWIBOR'
 
 interface WiborSimulatorPageProps {
   loanAmount: number
   loanTermYears: number
   margin: number
-  baseWibor: number
+  baseWibor?: number
   installmentType: 'equal' | 'declining'
 }
 
@@ -20,22 +21,27 @@ export default function WiborSimulatorPage({
   loanAmount,
   loanTermYears,
   margin,
-  baseWibor,
+  baseWibor: _baseWibor,
   installmentType
 }: WiborSimulatorPageProps) {
+  const { wibor: liveWibor, lastUpdate, source } = useWIBOR(true)
+
+  // Use live WIBOR, fall back to prop value, fall back to 3.85
+  const baseWibor = liveWibor ?? _baseWibor ?? 3.85
+
   const getValues = () => ({
     principal: loanAmount,
     years: loanTermYears,
     margin: margin,
     wibor: baseWibor,
     installmentType: installmentType,
-    propertyValue: loanAmount / 0.8 // Assume 80% LTV for shared link
+    propertyValue: loanAmount / 0.8
   })
 
   return (
     <>
       <SEOHead 
-        title="Symulacja WIBOR - Jak Wzrost Stóp Zmieni Twoją Ratę?"
+        title="Symulacja WIBOR — Jak Wzrost Stóp Zmieni Twoją Ratę?"
         description="Boisz się wzrostu rat? Przeprowadź symulację zmiany WIBOR 3M/6M. Zobacz o ile wzrośnie rata przy zmianie stóp procentowych. Analiza ryzyka."
         breadcrumbs={[
           { name: 'Strona główna', href: '/' },
@@ -45,8 +51,13 @@ export default function WiborSimulatorPage({
         faqItems={FAQ_DATA.filter(i => [6, 7, 8].includes(i.id)).map(i => ({ question: i.question, answer: i.answer }))}
       />
       <h1 className="text-3xl font-bold text-gray-900 mb-2">Symulacja WIBOR — Jak wzrost stóp zmieni Twoją ratę?</h1>
-      <p className="text-lg text-gray-600 mb-4">
+      <p className="text-lg text-gray-600 mb-2">
         Boisz się wzrostu rat? Przeprowadź symulację zmiany WIBOR 3M/6M. Zobacz o ile wzrośnie rata przy zmianie stóp procentowych.
+      </p>
+      <p className="text-sm text-gray-500 mb-4">
+        Aktualny WIBOR 3M: <strong className="text-gray-700">{baseWibor.toFixed(2)}%</strong>
+        {source && <span className="text-gray-400"> ({source})</span>}
+        {lastUpdate && <span className="text-gray-400"> — {lastUpdate}</span>}
       </p>
       <div className="flex justify-end gap-2">
         <ExportPdfButton
@@ -82,8 +93,8 @@ export default function WiborSimulatorPage({
           <ul className="list-disc pl-6 space-y-2 text-sm text-gray-600">
             <li>Obliczenia oparte na wzorach z <a href="https://isap.sejm.gov.pl/isap.nsf/DocDetails.xsp?id=WDU20170000819" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">Ustawy o kredycie hipotecznym</a> (Dz.U. 2017 poz. 819)</li>
             <li>Rekomendacje <a href="https://www.knf.gov.pl/dla-rynku/regulacje-i-standaryzacja/rekomendacje-i-zalecenia" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">KNF</a> dot. wyznaczania zdolności kredytowej</li>
-            <li>Dane WIBOR z <a href="https://www.nbp.pl/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">NBP</a></li>
-            <li><time dateTime="2026-07-04">Ostatnia aktualizacja: 4 lipca 2026</time></li>
+            <li>Dane WIBOR z <a href="https://www.bankier.pl/mieszkaniowe/stopy-procentowe/wibor" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">Bankier.pl</a> (źródło: GPW Benchmark)</li>
+            <li><time dateTime={new Date().toISOString().slice(0, 10)}>Dane na żywo</time></li>
           </ul>
         </section>
         <div className="max-w-6xl mx-auto px-4 mt-8">

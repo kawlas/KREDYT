@@ -51,10 +51,6 @@ export default function TopicPage({ topicSlug: propSlug }: TopicPageProps = {}) 
             {topic.intro}
           </p>
           <div className="flex flex-wrap items-center gap-3 mt-4 text-sm text-gray-400">
-            <span>Autor: <strong>Tony Halik</strong></span>
-            <span className="hidden sm:inline">·</span>
-            <span>Ekspert rynku kredytowego</span>
-            <span className="hidden sm:inline">·</span>
             <span>Aktualizacja: <time dateTime="2026-07-04">4 lipca 2026</time></span>
           </div>
         </section>

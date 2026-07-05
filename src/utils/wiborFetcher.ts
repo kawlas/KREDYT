@@ -11,18 +11,19 @@ export interface WIBORData {
   timestamp: number
 }
 
-const WIBOR_URL = '/wibor.json'
+const FUNCTION_URL = '/.netlify/functions/wibor'
+const STATIC_URL = '/wibor.json'
 const FALLBACK_WIBOR = 5.85
 const CACHE_KEY = 'wibor_cache'
 const CACHE_DURATION = 3600000 // 1 hour in ms
 
-interface WiborJsonResponse {
-  updated: string
-  source: string
+interface WiborResponse {
   rates: {
     '3M': number
     '6M': number
   }
+  updated: string
+  source: string
 }
 
 function getCachedWIBOR(): WIBORData | null {
@@ -59,43 +60,58 @@ export async function fetchCurrentWIBOR(useCache = true): Promise<WIBORData> {
     }
   }
 
+  // Try live function first, fall back to static JSON
+  let json: WiborResponse | null = null
+
   try {
-    const response = await fetch(`${WIBOR_URL}?t=${Date.now()}`, {
-      headers: { 'Accept': 'application/json' }
+    const res = await fetch(`${FUNCTION_URL}?t=${Date.now()}`, {
+      headers: { 'Accept': 'application/json' },
     })
-
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}`)
+    if (res.ok) {
+      json = await res.json()
     }
+  } catch {
+    // Function not available (e.g. local dev), fall through to static
+  }
 
-    const json: WiborJsonResponse = await response.json()
+  // Fallback to static JSON
+  if (!json) {
+    try {
+      const res = await fetch(`${STATIC_URL}?t=${Date.now()}`, {
+        headers: { 'Accept': 'application/json' },
+      })
+      if (res.ok) {
+        json = await res.json()
+      }
+    } catch {
+      // Both failed, use hardcoded fallback
+    }
+  }
 
+  if (json && json.rates?.['3M']) {
     const data: WIBORData = {
       value: json.rates['3M'],
       rates: json.rates,
       date: json.updated,
       source: json.source,
-      timestamp: Date.now()
+      timestamp: Date.now(),
     }
-
     cacheWIBOR(data)
     return data
-  } catch (error) {
-    console.error('Failed to fetch WIBOR:', error)
-
-    const fallbackData: WIBORData = {
-      value: FALLBACK_WIBOR,
-      rates: {
-        '3M': FALLBACK_WIBOR,
-        '6M': FALLBACK_WIBOR + 0.05
-      },
-      date: new Date().toISOString(),
-      source: 'fallback',
-      timestamp: Date.now()
-    }
-
-    return fallbackData
   }
+
+  // Ultimate fallback
+  const fallbackData: WIBORData = {
+    value: FALLBACK_WIBOR,
+    rates: {
+      '3M': FALLBACK_WIBOR,
+      '6M': FALLBACK_WIBOR + 0.05,
+    },
+    date: new Date().toISOString(),
+    source: 'fallback',
+    timestamp: Date.now(),
+  }
+  return fallbackData
 }
 
 /**

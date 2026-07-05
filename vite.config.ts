@@ -11,14 +11,6 @@ export default defineConfig({
     setupFiles: './src/setupTests.ts',
     include: ['src/**/*.{test,spec}.{ts,tsx}'],
   },
-  server: {
-    proxy: {
-      '/.netlify/functions/wibor': {
-        target: 'https://stooq.pl/q/d/l/?s=wibor3m&i=d',
-        changeOrigin: true,
-      }
-    }
-  },
   ssr: {
     noExternal: ['react-helmet-async']
   },
