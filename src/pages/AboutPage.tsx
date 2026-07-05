@@ -74,6 +74,14 @@ const AboutPage: React.FC = () => {
           </li>
         </ul>
 
+        <h2 className="text-2xl font-bold text-gray-900 mb-4 mt-8">Redaktor prowadzący</h2>
+        <p className="text-gray-600 leading-relaxed">
+          <strong>Tony Halik</strong> — ekspert rynku kredytowego z wieloletnim doświadczeniem w analizie
+          produktów bankowych i doradztwie finansowym. Autor treści i analiz publikowanych na
+          Kalkulatorze Kredytowym. Specjalizuje się w interpretacji rekomendacji KNF, analizie
+          porównawczej ofert banków oraz edukacji finansowej w zakresie kredytów hipotecznych.
+        </p>
+
         <h2 className="text-2xl font-bold text-gray-900 mb-4 mt-8">Nasze źródła danych</h2>
         <ul className="text-gray-600">
           <li><strong>NBP</strong> — aktualne stopy procentowe i notowania WIBOR</li>

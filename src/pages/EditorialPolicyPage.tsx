@@ -23,6 +23,10 @@ const EditorialPolicyPage: React.FC = () => {
             zwiększenie przejrzystości w procesie ubiegania się o kredyt hipoteczny w Polsce. 
             Naszym celem jest demokratyzacja wiedzy finansowej i pomoc w podejmowaniu świadomych decyzji.
           </p>
+          <p className="mt-4">
+            Redaktorem prowadzącym i autorem głównym treści jest <strong>Tony Halik</strong> — 
+            ekspert rynku kredytowego z doświadczeniem w analizie produktów bankowych.
+          </p>
         </section>
 
         <section>
