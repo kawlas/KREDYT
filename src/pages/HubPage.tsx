@@ -74,7 +74,7 @@ export default function HubPage() {
           Kalkulator Kredytu<br /><span className="text-blue-600">Hipotecznego</span>
         </h1>
         <p className="text-lg sm:text-xl text-gray-500 max-w-2xl mb-10 leading-relaxed">
-          Sprawdź ratę, zdolność i całkowity koszt w 30 sekund. Bez rejestracji, bez ukrytych opłat.
+          Sprawdź ratę, zdolność i całkowity koszt w 30 sekund. Bez rejestracji, bez ukrytych opłat. Autor: Tony Halik, ekspert rynku kredytowego.
         </p>
         <div className="flex flex-col sm:flex-row gap-4">
           <Link to="/kalkulator-raty-kredytu/" className="inline-flex items-center justify-center px-8 py-4 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-colors shadow-sm text-lg">
@@ -139,9 +139,10 @@ export default function HubPage() {
       {/* Trust */}
       <section className="bg-gray-50 rounded-2xl p-8 sm:p-12">
         <h2 className="text-2xl font-bold text-gray-900 mb-10">Zaufaj liczbom</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           <div><div className="text-3xl font-bold text-blue-600 mb-1">61</div><div className="text-sm text-gray-500">testów sprawdza poprawność każdego obliczenia</div></div>
-          <div><div className="text-3xl font-bold text-blue-600 mb-1">Bankier.pl</div><div className="text-sm text-gray-500">aktualny WIBOR pobierany automatycznie</div></div>
+          <div><div className="text-3xl font-bold text-blue-600 mb-1">Tony Halik</div><div className="text-sm text-gray-500">ekspert rynku kredytowego — autor treści i analiz</div></div>
+          <div><div className="text-3xl font-bold text-blue-600 mb-1">Bankier.pl</div><div className="text-sm text-gray-500">aktualny WIBOR pobierany automatycznie z NBP</div></div>
           <div><div className="text-3xl font-bold text-blue-600 mb-1">Ustawa</div><div className="text-sm text-gray-500">zgodność z ustawą o kredycie hipotecznym</div></div>
         </div>
       </section>

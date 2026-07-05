@@ -6,6 +6,7 @@ import ShareButton from '../components/shared/ShareButton'
 import FaqBlock from '../components/seo/FaqBlock'
 import { FAQ_DATA } from '../data/faqData'
 import RelatedTools from '../components/seo/RelatedTools'
+import ExportPdfButton from '../components/shared/ExportPdfButton'
 
 interface WiborSimulatorPageProps {
   loanAmount: number
@@ -43,7 +44,22 @@ export default function WiborSimulatorPage({
         schemaType="WebApplication"
         faqItems={FAQ_DATA.filter(i => [6, 7, 8].includes(i.id)).map(i => ({ question: i.question, answer: i.answer }))}
       />
-      <div className="max-w-6xl mx-auto px-4 mb-4 flex justify-end">
+      <div className="max-w-6xl mx-auto px-4 mb-4 flex justify-end gap-2">
+        <ExportPdfButton
+          variant="outline"
+          label="Pobierz PDF"
+          data={{
+            title: 'Symulacja WIBOR — Analiza ryzyka',
+            fields: [
+              { label: 'Kwota kredytu', value: `${loanAmount.toLocaleString()} PLN` },
+              { label: 'Okres kredytu', value: `${loanTermYears} lat` },
+              { label: 'WIBOR bazowy', value: `${baseWibor}%` },
+              { label: 'Marża banku', value: `${margin}%` },
+              { label: 'Typ rat', value: installmentType === 'equal' ? 'Równe' : 'Malejące' },
+            ],
+            footer: 'Kalkulator kredytowy — kredytkalkulator.netlify.app | Dane mają charakter informacyjny i nie stanowią oferty w rozumieniu KC.',
+          }}
+        />
         <ShareButton getValues={getValues} />
       </div>
       <div className="space-y-8">

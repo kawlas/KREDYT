@@ -11,6 +11,10 @@ interface FaqItem {
   answer: string
 }
 
+const AUTHOR_NAME = 'Tony Halik'
+const AUTHOR_JOB_TITLE = 'Ekspert rynku kredytowego'
+const AUTHOR_URL = 'https://kredytkalkulator.netlify.app/o-projekcie/'
+
 interface SEOHeadProps {
   title: string
   description: string
@@ -33,6 +37,12 @@ function organizationJsonLd() {
     name: 'KredytKalkulator',
     url: siteUrl,
     description: 'Darmowe kalkulatory kredytu hipotecznego i narzędzia finansowe',
+    founder: {
+      '@type': 'Person',
+      name: AUTHOR_NAME,
+      jobTitle: AUTHOR_JOB_TITLE,
+      url: AUTHOR_URL,
+    },
   })
 }
 
@@ -77,6 +87,12 @@ function webApplicationJsonLd(title: string, description: string, appUrl: string
     description,
     url: appUrl,
     dateModified: '2026-07-04',
+    author: {
+      '@type': 'Person',
+      name: AUTHOR_NAME,
+      jobTitle: AUTHOR_JOB_TITLE,
+      url: AUTHOR_URL,
+    },
   })
 }
 
@@ -89,8 +105,10 @@ function articleJsonLd(title: string, description: string) {
     datePublished: '2026-01-15',
     dateModified: '2026-07-04',
     author: {
-      '@type': 'Organization',
-      name: 'KredytKalkulator',
+      '@type': 'Person',
+      name: AUTHOR_NAME,
+      jobTitle: AUTHOR_JOB_TITLE,
+      url: AUTHOR_URL,
     },
   })
 }
@@ -134,6 +152,9 @@ export default function SEOHead({
       <meta name="description" content={description} />
       <meta name="robots" content="index, follow" />
       <link rel="canonical" href={canonicalUrl} />
+
+      {/* Author (E-E-A-T) */}
+      <meta name="author" content={AUTHOR_NAME} />
 
       {/* Open Graph */}
       <meta property="og:title" content={title} />

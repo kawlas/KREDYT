@@ -9,6 +9,8 @@ import Tooltip from './shared/Tooltip'
 import Collapsible from './shared/Collapsible'
 import { prepareChartData, getAmortizationInsights } from '../utils/amortizationChart'
 import AmortizationChart from './calculators/AmortizationChart'
+import ExportPdfButton from './shared/ExportPdfButton'
+import type { PdfExportData } from '../utils/exportPdf'
 
 interface ResultsCardProps extends LoanResults {
   loanAmount: number
@@ -450,6 +452,31 @@ const ResultsCard: React.FC<ResultsCardProps> = (props) => {
             </div>
           </div>
         )}
+      </div>
+
+      {/* Export PDF Button */}
+      <div className="mt-3">
+        <ExportPdfButton
+          variant="outline"
+          label="Pobierz wyniki (PDF)"
+          className="w-full justify-center"
+          data={{
+            title: 'Kalkulacja kredytu hipotecznego',
+            fields: [
+              { label: 'Kwota kredytu', value: formatCurrency(props.loanAmount) },
+              { label: 'Wartość nieruchomości', value: formatCurrency(props.propertyValue) },
+              { label: 'WIBOR', value: `${props.wibor}%` },
+              { label: 'Marża banku', value: `${props.margin}%` },
+              { label: 'Okres kredytu', value: `${props.loanTermYears} lat` },
+              { label: 'Typ rat', value: props.installmentType === 'equal' ? 'Równe' : 'Malejące' },
+              { label: 'Miesięczna rata', value: formatCurrency(monthlyPayment), highlight: true },
+            ],
+            summary: [
+              { label: 'Całkowity koszt kredytu', value: formatCurrencyShort(breakdown?.totalCost?.grandTotal || totalInterest + props.loanAmount), color: 'red' as const },
+              { label: 'RRSO', value: formatPercent(rrso / 100), color: 'blue' as const },
+            ],
+          }}
+        />
       </div>
     </div>
   )

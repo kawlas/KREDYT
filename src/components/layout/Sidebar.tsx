@@ -32,6 +32,7 @@ const sidebarItems: SidebarItemData[] = [
   { type: 'divider' },
   { type: 'link', label: 'Poradniki', path: '/poradniki/' },
   { type: 'link', label: 'FAQ', path: '/faq-kredyt-hipoteczny/' },
+  { type: 'link', label: 'Mity kredytowe', path: '/mity-kredytowe/' },
   { type: 'link', label: 'O projekcie', path: '/o-projekcie/' },
 ]
 

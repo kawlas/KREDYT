@@ -455,5 +455,215 @@ export const TOPICS: Topic[] = [
       { label: 'Symulacja WIBOR', to: '/symulacja-wibor/' },
       { label: 'Stałe vs zmienne oprocentowanie', to: '/stale-vs-zmienne-oprocentowanie/' }
     ]
+  },
+  {
+    slug: 'paypo-a-zdolnosc-kredytowa',
+    metaTitle: 'PayPo a zdolność kredytowa – jak BNPL wpływa na kredyt?',
+    metaDescription: 'Sprawdź, jak korzystanie z PayPo i innych usług BNPL wpływa na zdolność kredytową. Dowiedz się, czy banki widzą Twoje zakupy na raty.',
+    h1: 'PayPo a zdolność kredytowa – czy BNPL szkodzi przy kredycie?',
+    intro: 'Usługi typu PayPo, Klarna czy Twisto zyskują na popularności, ale czy wiesz, jak wpływają na Twoją zdolność kredytową? Banki coraz dokładniej analizują historię finansową, a opóźnienia w płatnościach BNPL mogą negatywnie wpłynąć na ocenę Twojej wiarygodności kredytowej. W tym artykule wyjaśniamy, jak działa PayPo i jakie ma konsekwencje dla kredytu hipotecznego.',
+    sections: [
+      {
+        heading: 'Czy banki widzą PayPo?',
+        body: 'Tak, banki mają dostęp do informacji o Twoich zobowiązaniach finansowych poprzez Biuro Informacji Kredytowej (BIK) oraz inne rejestry dłużników. Jeśli regularnie korzystasz z PayPo i spłacasz w terminie, nie musisz się martwić. Problemy zaczynają się, gdy pojawiają się opóźnienia lub zaległości, które trafiają do rejestrów.'
+      },
+      {
+        heading: 'Jak BNPL wpływa na zdolność kredytową?',
+        body: 'PayPo i podobne usługi traktowane są jako zobowiązania krótkoterminowe. Banki podczas analizy zdolności kredytowej uwzględniają wszystkie Twoje stałe wydatki. Jeśli masz wiele aktywnych rat BNPL, bank może uznać, że Twoja sytuacja finansowa jest obciążona i zmniejszyć kwotę dostępnego kredytu.'
+      },
+      {
+        heading: 'Jak bezpiecznie korzystać z BNPL przed kredytem?',
+        body: 'Przed złożeniem wniosku o kredyt hipoteczny warto ograniczyć korzystanie z PayPo i spłacić istniejące zobowiązania. Zalecamy, aby na 3-6 miesięcy przed wnioskiem kredytowym unikać nowych zakupów na raty i regularnie monitorować swoją historię w BIK.'
+      }
+    ],
+    faqs: [
+      { q: 'Czy PayPo wchodzi do BIK?', a: 'PayPo samo w sobie nie raportuje do BIK przy standardowych zakupach, ale opóźnienia w płatnościach mogą trafić do rejestrów dłużników.' },
+      { q: 'Ile BNPL mogę mieć przed kredytem?', a: 'Nie ma sztywnej granicy, ale banki mogą negatywnie ocenić więcej niż 2-3 aktywne zobowiązania BNPL.' },
+      { q: 'Czy spłacone PayPo widać w historii?', a: 'Jeśli spłacasz terminowo, Twoja historia w BIK nie zawiera negatywnych wpisów. Bank może jednak zapytać o źródło finansowania poprzednich zakupów.' },
+      { q: 'Czy warto zamknąć PayPo przed kredytem?', a: 'Tak, warto spłacić wszystkie bieżące zobowiązania BNPL i zamknąć konta, aby bank widział czystą historię finansową.' },
+      { q: 'Czy PayPo wpływa na ocenę w BIK?', a: 'Opóźnienia w płatnościach PayPo po 30 dniach mogą być zgłaszane do rejestrów dłużników, co obniża Twoją ocenę w BIK.' }
+    ],
+    ctas: [
+      { label: 'Sprawdź zdolność kredytową', to: '/zdolnosc-kredytowa/' }
+    ],
+    related: [
+      { label: 'Zdolność kredytowa — kalkulator', to: '/zdolnosc-kredytowa/' },
+      { label: 'B2B a zdolność kredytowa', to: '/kredyt-na-b2b/' }
+    ]
+  },
+  {
+    slug: 'kredyt-na-b2b',
+    metaTitle: 'Kredyt na B2B – jak dostać kredyt hipoteczny jako przedsiębiorca?',
+    metaDescription: 'Dowiedz się, jak banki oceniają zdolność kredytową na B2B. Sprawdź, jakie dokumenty są potrzebne i jak zwiększyć szanse na kredyt jako przedsiębiorca.',
+    h1: 'Kredyt hipoteczny na B2B – poradnik dla przedsiębiorców',
+    intro: 'Prowadzisz działalność gospodarczą i zastanawiasz się, czy dostaniesz kredyt hipoteczny? Dobra wiadomość: tak, jest to możliwe. Banki jednak podchodzą do przedsiębiorców bardziej ostrożnie niż do pracowników etatowych. W tym poradniku wyjaśniamy, jakie warunki musisz spełnić i jak przygotować się do wniosku kredytowego na B2B.',
+    sections: [
+      {
+        heading: 'Jak bank ocenia zdolność kredytową na B2B?',
+        body: 'Banki analizują dochody przedsiębiorców na podstawie zeznań podatkowych (PIT) oraz historii rachunku bankowego. Kluczowe znaczenie ma stabilność dochodów – im dłużej prowadzisz działalność, tym lepiej. Minimalny okres prowadzenia działalności to zazwyczaj 12-24 miesięcy.'
+      },
+      {
+        heading: 'Jakie dokumenty są potrzebne?',
+        body: 'Standardowo banki wymagają: zaświadczenia o dochodach z US (PIT za ostatnie 2-3 lata), wyciągów z firmowego rachunku bankowego za ostatnie 6-12 miesięcy, oraz zaświadczenia o niezaleganiu w ZUS i US. Niektóre banki akceptują również księgowość online.'
+      },
+      {
+        heading: 'Jak zwiększyć zdolność kredytową na B2B?',
+        body: 'Możesz zwiększyć swoją zdolność poprzez: wydłużenie okresu działalności (banki wolą firmy z 3+ letnim stażem), wykazanie stabilnych dochodów (najlepiej rosnących), posiadanie wkładu własnego 20-30% (niższe LTV = lepsze warunki) oraz skorzystanie z programu Rodzinny Kredyt Mieszkaniowy.'
+      }
+    ],
+    faqs: [
+      { q: 'Czy osoba na B2B dostanie kredyt?', a: 'Tak, to jak bank oceni zdolność, zależy od stażu, dochodów i formy opodatkowania. Najłatwiej mają ryczałtowcy i księgowość pełna.' },
+      { q: 'Jaki staż firmy jest wymagany?', a: 'WiÄkszość banków wymaga minimum 12 miesięcy, ale lepsze oferty są dla firm z stażem 24+ miesięcy.' },
+      { q: 'Czy VAT wpływa na zdolność?', a: 'Banki uwzględniają dochód netto (bez VAT), ale posiadanie stałych kontrahentów i regularnych faktur może działać na Twoją korzyść.' },
+      { q: 'Czy kredyt na B2B ma wyższe oprocentowanie?', a: 'Nie, oprocentowanie zależy od LTV i zdolności, nie od formy zatrudnienia. Marża może być jednak nieco wyższa przy krótkim stażu.' },
+      { q: 'Jak liczy się dochód na ryczałcie?', a: 'Banki biorą średnią dochodów z ostatnich 12-24 miesięcy, pomniejszoną o składki ZUS i podatek.' }
+    ],
+    ctas: [
+      { label: 'Sprawdź zdolność kredytową', to: '/zdolnosc-kredytowa/' }
+    ],
+    related: [
+      { label: 'PayPo a zdolność kredytowa', to: '/paypo-a-zdolnosc-kredytowa/' },
+      { label: 'Zdolność kredytowa — kalkulator', to: '/zdolnosc-kredytowa/' }
+    ]
+  },
+  {
+    slug: 'wakacje-kredytowe',
+    metaTitle: 'Wakacje kredytowe 2026 – jak zawiesić spłatę kredytu?',
+    metaDescription: 'Sprawdź, jakie są zasady wakacji kredytowych w 2026 roku. Kto może skorzystać i jak zawiesić spłatę kredytu hipotecznego? Poradnik krok po kroku.',
+    h1: 'Wakacje kredytowe 2026 – poradnik krok po kroku',
+    intro: 'Wakacje kredytowe to możliwość zawieszenia spłaty rat kredytu hipotecznego na określony czas, nawet do kilku miesięcy w roku. To rozwiązanie dedykowane osobom, które przejściowo straciły płynność finansową z powodu utraty pracy, choroby lub wzrostu kosztów utrzymania. W 2026 roku obowiązują zmienione zasady – sprawdź, czy możesz skorzystać z tego rozwiązania i jak złożyć wniosek krok po kroku, aby uniknąć błędów formalnych.',
+    sections: [
+      {
+        heading: 'Kto może skorzystać z wakacji kredytowych?',
+        body: 'Z wakacji kredytowych mogą skorzystać osoby, które mają kredyt hipoteczny w złotówkach i znalazły się w trudnej sytuacji finansowej. Warunkiem jest spadek dochodów lub wzrost kosztów utrzymania. W 2026 roku obowiązują kryteria dochodowe – maksymalny dochód na członka rodziny nie może przekraczać określonego progu.'
+      },
+      {
+        heading: 'Jak złożyć wniosek o wakacje kredytowe?',
+        body: 'Wniosek składasz w swoim banku – osobiście, przez bankowość elektroniczną lub listownie. Bank ma 30 dni na rozpatrzenie wniosku. Do wniosku musisz dołączyć oświadczenie o spełnianiu warunków oraz dokumenty potwierdzające Twoją sytuację finansową.'
+      },
+      {
+        heading: 'Jakie są konsekwencje wakacji kredytowych?',
+        body: 'Wakacje kredytowe to nie darowanie długu – odsetki nadal narastają, a okres kredytu się wydłuża. Oznacza to, że w dłuższej perspektywie zapłacisz więcej. Wakacje to rozwiązanie awaryjne, nie strategiczne.'
+      }
+    ],
+    faqs: [
+      { q: 'Czy wakacje kredytowe są w 2026?', a: 'Tak, przepisy zostały przedłużone na 2026 rok, ale z zmodyfikowanymi kryteriami dochodowymi.' },
+      { q: 'Ile razy można skorzystać z wakacji?', a: 'Maksymalnie 4 razy w trakcie trwania kredytu, nie częściej niż raz na kwartał.' },
+      { q: 'Czy wakacje kredytowe wpływają na BIK?', a: 'Nie, wakacje kredytowe nie są odnotowywane w BIK jako opóźnienie w spłacie.' },
+      { q: 'Czy można zawiesić tylko część raty?', a: 'Tak, możesz zawiesić spłatę części kapitałowej lub odsetkowej, ale najczęściej zawiesza się całą ratę.' },
+      { q: 'Czy bank może odmówić wakacji?', a: 'Tak, jeśli nie spełniasz kryteriów dochodowych lub masz zaległości w spłacie kredytu.' }
+    ],
+    ctas: [
+      { label: 'Symuluj wpływ WIBOR', to: '/symulacja-wibor/' }
+    ],
+    related: [
+      { label: 'Symulacja WIBOR', to: '/symulacja-wibor/' },
+      { label: 'Nadpłata kredytu', to: '/symulator-nadplat/' }
+    ]
+  },
+  {
+    slug: 'inflacja-a-kredyt',
+    metaTitle: 'Inflacja a kredyt hipoteczny – jak inflacja wpływa na raty?',
+    metaDescription: 'Dowiedz się, jak inflacja wpływa na oprocentowanie kredytu hipotecznego. Sprawdź, czy inflacja jest korzystna dla kredytobiorców i jak się zabezpieczyć.',
+    h1: 'Inflacja a kredyt hipoteczny – co musisz wiedzieć?',
+    intro: 'Inflacja to wzrost ogólnego poziomu cen, który wpływa na siłę nabywczą pieniądza i bezpośrednio oddziałuje na rynek kredytów hipotecznych. Dla kredytobiorców ma dwojakie znaczenie – z jednej strony podnosi raty kredytów przez wzrost stóp procentowych i WIBOR-u, z drugiej strony zmniejsza realną wartość zadłużenia. Jak więc inflacja naprawdę wpływa na Twój kredyt hipoteczny i czy można się przed nią zabezpieczyć? Sprawdź nasz szczegółowy poradnik.',
+    sections: [
+      {
+        heading: 'Jak inflacja wpływa na WIBOR i raty?',
+        body: 'Gdy inflacja rośnie, Rada Polityki Pieniężnej (RPP) podnosi stopy procentowe, aby schłodzić gospodarkę. To z kolei powoduje wzrost WIBOR-u, a co za tym idzie – wzrost oprocentowania kredytów hipotecznych. Wysoka inflacja w latach 2022-2024 spowodowała gwałtowny wzrost rat kredytów.'
+      },
+      {
+        heading: 'Czy inflacja jest dobra dla kredytobiorców?',
+        body: 'Paradoksalnie, inflacja ma też pozytywną stronę – realna wartość Twojego zadłużenia maleje. Jeśli zarabiasz 10 000 zł, a rata wynosi 3 000 zł, to przy inflacji 10% Twoje zarobki rosną, ale rata (przy stałym oprocentowaniu) pozostaje taka sama. Niestety przy zmiennym oprocentowaniu rata rośnie razem z inflacją.'
+      },
+      {
+        heading: 'Jak zabezpieczyć się przed inflacją?',
+        body: 'Najlepszym zabezpieczeniem jest wybór oprocentowania stałego na 5-10 lat, które gwarantuje stałą ratę niezależnie od sytuacji rynkowej. Możesz też nadpłacać kredyt, aby zmniejszyć kapitał i skrócić okres ekspozycji na zmiany stóp.'
+      }
+    ],
+    faqs: [
+      { q: 'Czy inflacja zawsze podnosi raty?', a: 'Tak, jeśli masz zmienne oprocentowanie. Przy stałym oprocentowaniu rata nie zmienia się w okresie obowiązywania stawki.' },
+      { q: 'Jaka inflacja jest dobra dla kredytu?', a: 'Umiarkowana inflacja (2-3%) jest neutralna. Wysoka inflacja (powyżej 5%) szkodzi kredytobiorcom z zmiennym oprocentowaniem.' },
+      { q: 'Czy warto brać kredyt podczas inflacji?', a: 'To zależy od prognoz stóp procentowych. W szczycie inflacji lepiej wybrać stałe oprocentowanie.' },
+      { q: 'Jak inflacja wpływa na zdolność kredytową?', a: 'Wysoka inflacja obniża zdolność kredytową, bo rosną koszty utrzymania i stopy procentowe.' },
+      { q: 'Czy oprocentowanie stałe chroni przed inflacją?', a: 'Tak, w okresie obowiązywania stałego oprocentowania rata nie zmienia się, mimo wzrostu inflacji.' }
+    ],
+    ctas: [
+      { label: 'Symuluj wpływ WIBOR', to: '/symulacja-wibor/' }
+    ],
+    related: [
+      { label: 'Jak działa WIBOR?', to: '/jak-dziala-wibor/' },
+      { label: 'Stałe vs zmienne oprocentowanie', to: '/stale-vs-zmienne-oprocentowanie/' }
+    ]
+  },
+  {
+    slug: 'koszty-utrzymania-nieruchomosci',
+    metaTitle: 'Koszty utrzymania nieruchomości – kalkulator i poradnik',
+    metaDescription: 'Sprawdź, jakie są miesięczne koszty utrzymania mieszkania i domu. Dowiedz się, jak obliczyć opłaty i czy stać Cię na nieruchomość.',
+    h1: 'Koszty utrzymania nieruchomości – ile naprawdę wydasz?',
+    intro: 'Kupno nieruchomości to dopiero początek wydatków. Miesięczne koszty utrzymania mieszkania lub domu mogą być zaskakująco wysokie. W tym przewodniku szczegółowo omawiamy wszystkie opłaty, które musisz uwzględnić w swoim budżecie – od czynszu i mediów, po podatek od nieruchomości i fundusz remontowy.',
+    sections: [
+      {
+        heading: 'Jakie są stałe koszty utrzymania mieszkania?',
+        body: 'Do stałych kosztów utrzymania nieruchomości należą: czynsz (opłaty administracyjne, fundusz remontowy, wywóz śmieci), media (prąd, gaz, woda, ogrzewanie), ubezpieczenie nieruchomości, podatek od nieruchomości oraz abonamenty (internet, TV). Dla mieszkania 50m² w dużym mieście miesięczne koszty stałe mogą wynieść 800-1500 zł.'
+      },
+      {
+        heading: 'Koszty utrzymania domu vs mieszkania',
+        body: 'Dom generuje wyższe koszty niż mieszkanie – ogrzewanie (często gazowe lub olejowe), wywóz śmieci (wyższe stawki), konserwacja dachu i elewacji. Dochodzą też koszty ogrodu (woda, pielęgnacja). Różnica może wynosić 500-1000 zł miesięcznie na korzyść mieszkania.'
+      },
+      {
+        heading: 'Jak koszty utrzymania wpływają na zdolność kredytową?',
+        body: 'Banki uwzględniają koszty utrzymania przy obliczaniu zdolności kredytowej. Standardowo przyjmuje się, że koszty utrzymania to minimum 600-900 zł na osobę. Im wyższe koszty, tym niższa zdolność kredytowa. Warto więc realnie oszacować swoje wydatki przed wnioskiem kredytowym.'
+      }
+    ],
+    faqs: [
+      { q: 'Ile kosztuje utrzymanie mieszkania 50m²?', a: 'Średnio 800-1500 zł miesięcznie, w zależności od standardu i lokalizacji.' },
+      { q: 'Czy ogrzewanie to największy koszt?', a: 'Tak, ogrzewanie stanowi 40-60% kosztów utrzymania w sezonie grzewczym.' },
+      { q: 'Jak obliczyć koszt utrzymania przed zakupem?', a: 'Zapytaj sprzedającego o opłaty administracyjne i media, sprawdź stawki lokalne.' },
+      { q: 'Czy bank bierze pod uwagę koszty utrzymania?', a: 'Tak, bank uwzględnia wskaźnik kosztów utrzymania przy zdolności kredytowej.' },
+      { q: 'Ile kosztuje ubezpieczenie nieruchomości?', a: 'Od 200 do 800 zł rocznie, w zależności od wartości i zakresu ubezpieczenia.' }
+    ],
+    ctas: [
+      { label: 'Sprawdź zdolność kredytową', to: '/zdolnosc-kredytowa/' }
+    ],
+    related: [
+      { label: 'Zdolność kredytowa — kalkulator', to: '/zdolnosc-kredytowa/' },
+      { label: 'Wkład własny 10% czy 20%?', to: '/wklad-wlasny-10-czy-20/' }
+    ]
+  },
+  {
+    slug: 'harmonogram-splat-jak-czytac',
+    metaTitle: 'Harmonogram spłat kredytu – jak czytać i analizować?',
+    metaDescription: 'Dowiedz się, jak czytać harmonogram spłat kredytu hipotecznego. Zrozum strukturę rat i sprawdź, ile naprawdę zapłacisz odsetek.',
+    h1: 'Harmonogram spłat kredytu hipotecznego – praktyczny przewodnik',
+    intro: 'Harmonogram spłat to dokument, który pokazuje strukturę każdej raty w całym okresie kredytowania. Zrozumienie go pozwoli Ci lepiej planować budżet i podejmować świadome decyzje o nadpłatach. W tym przewodniku wyjaśniamy, jak analizować harmonogram i na co zwrócić uwagę.',
+    sections: [
+      {
+        heading: 'Jak czytać harmonogram spłat?',
+        body: 'Harmonogram spłat to tabela, w której dla każdego miesiąca znajdziesz: numer raty, część kapitałową, część odsetkową, łączną ratę oraz saldo pozostałego zadłużenia. W początkowym okresie spłaty większość raty stanowią odsetki, a kapitał spłacany jest w niewielkiej części.'
+      },
+      {
+        heading: 'Różnice między ratą równą a malejącą w harmonogramie',
+        body: 'Przy racie równej (annuity) każda rata jest taka sama, ale proporcje kapitału i odsetek zmieniają się w czasie. Przy racie malejącej część kapitałowa jest stała, a odsetki maleją, więc całkowita rata jest coraz niższa. W harmonogramie widać dokładnie te różnice.'
+      },
+      {
+        heading: 'Jak wykorzystać harmonogram do optymalizacji?',
+        body: 'Analizując harmonogram, możesz zobaczyć, w którym momencie opłaca się nadpłacić kredyt. Nadpłata w początkowych latach daje największe oszczędności, bo redukuje kapitał, od którego naliczane są największe odsetki. Harmonogram pokazuje też, po ilu latach spłacisz więcej kapitału niż odsetek.'
+      }
+    ],
+    faqs: [
+      { q: 'Gdzie znaleźć harmonogram spłat?', a: 'Bank wysyła harmonogram po uruchomieniu kredytu. Możesz też wygenerować go w systemie bankowości elektronicznej.' },
+      { q: 'Czy mogę sam obliczyć harmonogram?', a: 'Tak, nasz kalkulator automatycznie generuje harmonogram spłat dla każdej symulacji kredytu.' },
+      { q: 'Co to jest punkt równowagi w harmonogramie?', a: 'To moment, w którym część kapitałowa raty zrównuje się z częścią odsetkową. W przypadku rat równych następuje to około 2/3 okresu kredytowania.' },
+      { q: 'Jak nadpłata zmienia harmonogram?', a: 'Nadpłata zmniejsza saldo zadłużenia, co powoduje przeliczenie harmonogramu – krótszy okres spłaty lub niższa rata.' },
+      { q: 'Czy harmonogram zmienia się przy stałym oprocentowaniu?', a: 'Przy stałym oprocentowaniu harmonogram jest stały przez cały okres obowiązywania stawki.' }
+    ],
+    ctas: [
+      { label: 'Oblicz harmonogram spłat', to: '/kalkulator-raty-kredytu/' }
+    ],
+    related: [
+      { label: 'Równe vs malejące — porównanie', to: '/raty-rowne-czy-malejace/' },
+      { label: 'Symulacja WIBOR', to: '/symulacja-wibor/' }
+    ]
   }
 ];

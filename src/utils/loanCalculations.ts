@@ -181,35 +181,74 @@ export const calculateRRSO = (
 // Removed — use calculateRefinancingAnalysis from refinancing.ts
 
 /**
- * Main wrapper function used by the UI components.
+ * Calculates the new monthly payment after a change in WIBOR.
+ * @param currentMonthlyPayment - Current monthly payment (PLN).
+ * @param currentRate - Current annual interest rate (WIBOR + margin).
+ * @param wiborChange - Change in WIBOR (e.g., 0.02 for +2%).
+ * @returns New monthly payment (PLN).
+ */
+export const calculateNewMonthlyPayment = (
+  currentMonthlyPayment: number,
+  currentRate: number, // Oprocentowanie w skali roku (np. 5 dla 5%)
+  wiborChange: number, // Zmiana WIBOR w skali roku (np. 2 dla +2%)
+  principal: number = 500000, // Domyślna kwota kredytu (PLN)
+  months: number = 360 // Domyślny okres kredytu (30 lat)
+): number => {
+  // Pełne przeliczenie raty na podstawie nowego oprocentowania
+  const newRate = currentRate + wiborChange;
+  return calculateMonthlyPayment(principal, newRate, months, 'equal');
+};
 
+/**
+ * Determines the risk zone based on the increase in monthly payment.
+ * @param originalPayment - Original monthly payment (PLN).
+ * @param newPayment - New monthly payment (PLN).
+ * @returns Risk zone: 'safe', 'warning', or 'danger'.
+ */
+export const getRiskZone = (
+  originalPayment: number,
+  newPayment: number
+): 'safe' | 'warning' | 'danger' => {
+  const increasePercentage = ((newPayment - originalPayment) / originalPayment) * 100;
+  
+  if (increasePercentage <= 10) {
+    return 'safe';
+  } else if (increasePercentage <= 20) {
+    return 'warning';
+  } else {
+    return 'danger';
+  }
+};
+
+/**
+ * Main wrapper function used by the UI components.
  * Maintains backward compatibility with LoanFormData using the new core functions.
  */
 export const calculateLoanResults = (data: LoanFormData): LoanResults => {
-  const { principal, years, wibor, margin, installmentType, propertyValue: rawPropertyValue } = data
-  const commission = Number(data.commission || 0)
-  const propertyValue = Number.isFinite(rawPropertyValue) ? rawPropertyValue : principal / 0.8
-  const months = years * 12
-  const annualRate = wibor + margin
+  const { principal, years, wibor, margin, installmentType, propertyValue: rawPropertyValue } = data;
+  const commission = Number(data.commission || 0);
+  const propertyValue = Number.isFinite(rawPropertyValue) ? rawPropertyValue : principal / 0.8;
+  const months = years * 12;
+  const annualRate = wibor + margin;
 
-  const monthlyPayment = calculateMonthlyPayment(principal, annualRate, months, installmentType)
-  const totalInterestBase = calculateTotalCost(principal, annualRate, months, installmentType, 0) - principal
+  const monthlyPayment = calculateMonthlyPayment(principal, annualRate, months, installmentType);
+  const totalInterestBase = calculateTotalCost(principal, annualRate, months, installmentType, 0) - principal;
 
   const breakdown = calculateCostBreakdown(
     principal,
     propertyValue || principal / 0.8,
     totalInterestBase,
     years
-  )
+  );
 
-  const upfrontExclCommission = breakdown.upfrontCosts.total - breakdown.upfrontCosts.provision
+  const upfrontExclCommission = breakdown.upfrontCosts.total - breakdown.upfrontCosts.provision;
 
   const rrso = calculateRRSO(
     principal, annualRate, months, installmentType,
     commission + breakdown.upfrontCosts.provision,
     upfrontExclCommission,
     breakdown.yearlyCosts.total
-  )
+  );
 
   return {
     monthlyPayment,
@@ -218,8 +257,7 @@ export const calculateLoanResults = (data: LoanFormData): LoanResults => {
     rrso,
     allInCost: breakdown.totalCost.grandTotal,
     breakdown
-  }
-}
-
+  };
+};
 
 // calculateTotalInterest removed — computed directly in calculateLoanResults
