@@ -37,7 +37,8 @@ const baseRoutes = [
   '/poradniki/jak-obliczyc-rate/',
   '/poradniki/zdolnosc-kredytowa/',
   '/poradniki/wibor-a-rata/',
-  '/mity-kredytowe/'
+  '/mity-kredytowe/',
+  '/kalkulator-prowizji/'
 ]
 
 // Extract topic routes — match slug as an object property (not inside comments or strings)

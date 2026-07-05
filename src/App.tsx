@@ -28,6 +28,7 @@ import HiddenCostsPage from './pages/HiddenCostsPage'
 import BIKSimulatorPage from './pages/BIKSimulatorPage'
 import ChecklistPage from './pages/ChecklistPage'
 import TrueCostPage from './pages/TrueCostPage'
+import CommissionPage from './pages/CommissionPage'
 import MityPage from './pages/MityPage'
 import Footer from './components/layout/Footer'
 import NavBar from './components/layout/NavBar'
@@ -111,6 +112,7 @@ function App() {
                   <Route path="/poradniki/zdolnosc-kredytowa/" element={<CreditCapacityCompendiumPage />} />
                   <Route path="/poradniki/wibor-a-rata/" element={<WiborARataPage />} />
 
+                  <Route path="/kalkulator-prowizji/" element={<CommissionPage />} />
                   <Route path="/mity-kredytowe/" element={<MityPage />} />
                   <Route path="/:topicSlug/" element={<TopicPage />} />
                   <Route path="/404/" element={<NotFoundPage />} />
