@@ -27,6 +27,8 @@ const sidebarItems: SidebarItemData[] = [
   { type: 'link', label: 'Ukryte koszty', path: '/ukryte-koszty-kredytu/' },
   { type: 'link', label: 'Scoring BIK', path: '/co-wplywa-na-zdolnosc/' },
   { type: 'link', label: 'Nadpłaty', path: '/symulator-nadplat/' },
+  { type: 'link', label: 'Koszt utrzymania', path: '/koszt-utrzymania-nieruchomosci/' },
+  { type: 'link', label: 'Przygotowanie', path: '/przygotowanie-do-kredytu/' },
   { type: 'divider' },
   { type: 'link', label: 'Poradniki', path: '/poradniki/' },
   { type: 'link', label: 'FAQ', path: '/faq-kredyt-hipoteczny/' },

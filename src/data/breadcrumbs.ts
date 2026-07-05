@@ -100,6 +100,22 @@ export const breadcrumbHierarchy: Record<string, BreadcrumbItem[]> = {
     { path: '/', label: 'Start' },
     { path: '/faq-kredyt-hipoteczny/', label: 'FAQ' },
   ],
+  '/przygotowanie-do-kredytu/': [
+    { path: '/', label: 'Start' },
+    { path: '/', label: 'Narzędzia' },
+    { path: '/', label: 'Analiza' },
+    { path: '/przygotowanie-do-kredytu/', label: 'Przygotowanie' },
+  ],
+  '/koszt-utrzymania-nieruchomosci/': [
+    { path: '/', label: 'Start' },
+    { path: '/', label: 'Narzędzia' },
+    { path: '/', label: 'Analiza' },
+    { path: '/koszt-utrzymania-nieruchomosci/', label: 'Koszt utrzymania' },
+  ],
+  '/mity-kredytowe/': [
+    { path: '/', label: 'Start' },
+    { path: '/mity-kredytowe/', label: 'Mity kredytowe' },
+  ],
   '/o-projekcie/': [
     { path: '/', label: 'Start' },
     { path: '/o-projekcie/', label: 'O projekcie' },

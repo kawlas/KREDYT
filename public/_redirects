@@ -13,5 +13,9 @@
 # Prerendered poradniki pages
 /poradniki/*  /poradniki/index.html  200
 
+# Prerendered analysis pages
+/przygotowanie-do-kredytu/*  /przygotowanie-do-kredytu/index.html  200
+/koszt-utrzymania-nieruchomosci/*  /koszt-utrzymania-nieruchomosci/index.html  200
+
 # SPA/History Fallback
 /* /index.html 200

@@ -25,6 +25,8 @@ const baseRoutes = [
   '/porownanie-ofert-bankow/',
   '/faq-kredyt-hipoteczny/',
   '/co-wplywa-na-zdolnosc/',
+  '/przygotowanie-do-kredytu/',
+  '/koszt-utrzymania-nieruchomosci/',
   '/o-projekcie/',
   '/metodologia/',
   '/kontakt/',
