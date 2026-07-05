@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { NavLink, useLocation, Link } from 'react-router-dom'
+import ThemeToggle from '../shared/ThemeToggle'
 
 interface SidebarItemData {
   type: 'link' | 'category' | 'divider'
@@ -90,7 +91,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
       <aside
         className={`
           fixed lg:sticky top-0 left-0 z-50 h-screen
-          w-60 bg-white border-r border-gray-200
+          w-60 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700
           flex flex-col overflow-y-auto
           transition-transform duration-300
           ${isOpen ? 'translate-x-0' : '-translate-x-full'}
@@ -98,21 +99,24 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
         `}
       >
         {/* Logo + mobile toggle */}
-        <div className="px-4 py-4 border-b border-gray-100 flex items-center justify-between">
-          <Link to="/" className="text-base font-bold tracking-tight text-gray-900">
-            Kalkulator<span className="text-blue-600">Kredytowy</span>
+        <div className="px-4 py-4 border-b border-gray-100 dark:border-gray-700 flex items-center justify-between">
+          <Link to="/" className="text-base font-bold tracking-tight text-gray-900 dark:text-white">
+            Kalkulator<span className="text-blue-600 dark:text-blue-400">Kredytowy</span>
           </Link>
-          <button
-            onClick={handleClose}
-            className="lg:hidden p-1 text-gray-500 hover:text-gray-700 transition-colors"
-            aria-label="Otwórz menu"
-          >
+          <div className="flex items-center gap-1">
+            <ThemeToggle />
+            <button
+              onClick={handleClose}
+              className="lg:hidden p-1 text-gray-500 dark:text-gray-300 hover:text-gray-700 dark:hover:text-white transition-colors"
+              aria-label="Zamknij menu"
+            >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
               <line x1="3" y1="6" x2="21" y2="6" />
               <line x1="3" y1="12" x2="21" y2="12" />
               <line x1="3" y1="18" x2="21" y2="18" />
             </svg>
           </button>
+          </div>
         </div>
 
         {/* Navigation */}

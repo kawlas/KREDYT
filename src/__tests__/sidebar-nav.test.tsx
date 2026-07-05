@@ -266,6 +266,8 @@ describe('D — Desktop vs Mobile', () => {
     expect(
       sidebarHtml.includes('aria-label="menu"') ||
       sidebarHtml.includes('aria-label="otwórz menu"') ||
+      sidebarHtml.includes('aria-label="otwórz menu"') ||
+      sidebarHtml.includes('aria-label="zamknij menu"') ||
       sidebarHtml.includes('aria-label="open menu"')
     ).toBe(true)
   })

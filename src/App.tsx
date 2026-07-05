@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
 import { useLoanCalculator } from './context/LoanCalculatorContext'
+import { ThemeProvider } from './hooks/useTheme'
 import AffordabilityPage from './pages/AffordabilityPage'
 import CalculatorPage from './pages/CalculatorPage'
 import PaymentComparisonPage from './pages/PaymentComparisonPage'
@@ -45,7 +46,8 @@ function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
   return (
-    <div className="min-h-screen bg-white">
+    <ThemeProvider>
+    <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors">
       <ScrollToTop />
       <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-blue-600 focus:text-white focus:rounded-lg focus:outline-none">
         Przejdź do treści
@@ -131,6 +133,7 @@ function App() {
       <ToastContainer />
       <CookieConsent />
     </div>
+    </ThemeProvider>
   )
 }
 
