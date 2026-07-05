@@ -26,6 +26,8 @@ import BankComparisonPage from './pages/BankComparisonPage'
 import LTVPage from './pages/LTVPage'
 import HiddenCostsPage from './pages/HiddenCostsPage'
 import BIKSimulatorPage from './pages/BIKSimulatorPage'
+import ChecklistPage from './pages/ChecklistPage'
+import TrueCostPage from './pages/TrueCostPage'
 import Footer from './components/layout/Footer'
 import NavBar from './components/layout/NavBar'
 import Sidebar from './components/layout/Sidebar'
@@ -95,6 +97,8 @@ function App() {
                   <Route path="/ltv-kalkulator/" element={<LTVPage />} />
                   <Route path="/ukryte-koszty-kredytu/" element={<HiddenCostsPage />} />
                   <Route path="/co-wplywa-na-zdolnosc/" element={<BIKSimulatorPage />} />
+                  <Route path="/przygotowanie-do-kredytu/" element={<ChecklistPage />} />
+                  <Route path="/koszt-utrzymania-nieruchomosci/" element={<TrueCostPage />} />
                   <Route path="/faq-kredyt-hipoteczny/" element={<FAQPage />} />
                   <Route path="/o-projekcie/" element={<AboutPage />} />
                   <Route path="/metodologia/" element={<MethodologyPage />} />
