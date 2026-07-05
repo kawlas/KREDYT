@@ -6,6 +6,8 @@ import Card from '../shared/Card'
 import Alert from '../shared/Alert'
 import TabContainer from '../layout/TabContainer'
 import { useWIBOR } from '../../hooks/useWIBOR'
+import BankComparisonChart from './BankComparisonChart'
+import { prepareChartData, sortOffers, type SortKey, type SortDirection } from '../../utils/bankComparisonEnhanced'
 
 interface OffersMeta {
   updated: string
@@ -34,19 +36,24 @@ export default function BankComparisonCalc() {
   const [wibor, setWibor] = useState(5.85)
   const [installmentType, setInstallmentType] = useState<'equal' | 'declining'>('equal')
   const [propertyValue, setPropertyValue] = useState(500000)
+  const [sortKey, setSortKey] = useState<SortKey>('totalCost')
+  const [sortDir, setSortDir] = useState<SortDirection>('asc')
 
   const effectiveWibor = liveWibor ?? wibor
 
   const results = useMemo(() => {
     if (principal <= 0 || years <= 0) return []
-    return compareBanks(BANK_PROFILES, {
+    const offers = compareBanks(BANK_PROFILES, {
       principal,
       years,
       wibor: effectiveWibor,
       installmentType,
       propertyValue,
     })
-  }, [principal, years, effectiveWibor, installmentType, propertyValue])
+    return sortOffers(offers, sortKey, sortDir)
+  }, [principal, years, effectiveWibor, installmentType, propertyValue, sortKey, sortDir])
+
+  const chartData = useMemo(() => prepareChartData(results.slice(0, 8)), [results])
 
   const cheapest = results.length > 0 ? results[0] : null
 
@@ -123,6 +130,10 @@ export default function BankComparisonCalc() {
                 (RRSO {formatPercent(cheapest.results.rrso)})
               </span>
             </div>
+          )}
+
+          {results.length > 0 && (
+            <BankComparisonChart data={chartData} />
           )}
 
           <div className="overflow-x-auto">
