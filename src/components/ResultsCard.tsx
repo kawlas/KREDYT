@@ -10,6 +10,7 @@ import Collapsible from './shared/Collapsible'
 import { prepareChartData, getAmortizationInsights } from '../utils/amortizationChart'
 import AmortizationChart from './calculators/AmortizationChart'
 import ExportPdfButton from './shared/ExportPdfButton'
+import CsvExportButton from './shared/CsvExportButton'
 import type { PdfExportData } from '../utils/exportPdf'
 
 interface ResultsCardProps extends LoanResults {
@@ -454,8 +455,8 @@ const ResultsCard: React.FC<ResultsCardProps> = (props) => {
         )}
       </div>
 
-      {/* Export PDF Button */}
-      <div className="mt-3">
+      {/* Export buttons */}
+      <div className="mt-4 flex flex-col sm:flex-row gap-2">
         <ExportPdfButton
           variant="outline"
           label="Pobierz wyniki (PDF)"
@@ -476,6 +477,13 @@ const ResultsCard: React.FC<ResultsCardProps> = (props) => {
               { label: 'RRSO', value: formatPercent(rrso / 100), color: 'blue' as const },
             ],
           }}
+        />
+        <CsvExportButton
+          principal={props.loanAmount}
+          annualRate={props.wibor + props.margin}
+          months={props.loanTermYears * 12}
+          installmentType={props.installmentType || 'equal'}
+          variant="outline"
         />
       </div>
     </div>

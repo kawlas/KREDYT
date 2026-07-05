@@ -39,7 +39,7 @@ export const calculateMonthlyPayment = (
   }
 }
 
-interface AmortizationRow {
+export interface AmortizationRow {
   month: number
   principalPart: number
   interestPart: number
