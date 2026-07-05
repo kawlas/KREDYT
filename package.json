@@ -13,7 +13,9 @@
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "update-margins": "node scripts/update-margins.cjs",
+    "check-margins": "node scripts/update-margins.cjs --check"
   },
   "dependencies": {
     "html2canvas": "^1.4.1",

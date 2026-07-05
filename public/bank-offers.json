@@ -5,8 +5,8 @@
   "wiborRef": 3.85,
   "source": "Bankier.pl (ranking kredytów hipotecznych) + NBP (stopy referencyjne)",
   "sourceUrl": "https://www.bankier.pl/smart/kredyty-hipoteczne",
-  "wiborSourceUrl": "https://nbp.pl/statystyka-i-wskazniki/wibor/",
-  "wiborSource": "NBP (stopy referencyjne)",
+  "wiborSourceUrl": "https://stooq.pl/q/?s=wibor3m",
+  "wiborSource": "stooq.pl (WIBOR 3M live)",
   "disclaimer": "Marże banków to wartości szacunkowe według rankingu Bankier.pl z lipca 2026. Rzeczywista oferta zależy od indywidualnej oceny zdolności kredytowej, LTV, wkładu własnego oraz negocjacji z bankiem. Przed podjęciem decyzji zweryfikuj aktualne stawki bezpośrednio w banku lub u doradcy finansowego. Dane nie stanowią oferty w rozumieniu Kodeksu cywilnego.",
   "dataType": "manual/monthly",
   "banks": [

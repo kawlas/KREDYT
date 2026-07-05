@@ -152,9 +152,9 @@ export default function BankComparisonCalc() {
                   📊 Marże banków: <a href={offersMeta.sourceUrl} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">{offersMeta.source}</a>
                 </p>
                 <p className="text-xs text-gray-500">
-                  💹 WIBOR: <a href={offersMeta.wiborSourceUrl} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">NBP (stopy referencyjne)</a>
+                  💹 WIBOR: <a href={offersMeta.wiborSourceUrl} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">stooq.pl (WIBOR 3M live)</a>
                   {offersMeta.liveWibor !== null && (
-                    <span className="text-green-600"> — na żywo: {offersMeta.liveWibor.toFixed(2)}% {offersMeta.wiborSource && `(via ${offersMeta.wiborSource})`}</span>
+                    <span className="text-green-600"> — {offersMeta.liveWibor.toFixed(2)}%</span>
                   )}
                   {offersMeta.liveWibor === null && (
                     <span className="text-gray-400"> — ostatnia znana: {offersMeta.wiborRef}%</span>
