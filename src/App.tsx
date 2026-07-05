@@ -31,6 +31,7 @@ import ChecklistPage from './pages/ChecklistPage'
 import TrueCostPage from './pages/TrueCostPage'
 import CommissionPage from './pages/CommissionPage'
 import InsurancePage from './pages/InsurancePage'
+import RentVsBuyPage from './pages/RentVsBuyPage'
 import MityPage from './pages/MityPage'
 import Footer from './components/layout/Footer'
 import NavBar from './components/layout/NavBar'
@@ -117,6 +118,7 @@ function App() {
 
                   <Route path="/kalkulator-prowizji/" element={<CommissionPage />} />
                   <Route path="/kalkulator-ubezpieczen/" element={<InsurancePage />} />
+                  <Route path="/kredyt-vs-wynajem/" element={<RentVsBuyPage />} />
                   <Route path="/mity-kredytowe/" element={<MityPage />} />
                   <Route path="/:topicSlug/" element={<TopicPage />} />
                   <Route path="/404/" element={<NotFoundPage />} />

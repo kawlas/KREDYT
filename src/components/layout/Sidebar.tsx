@@ -23,6 +23,7 @@ const sidebarItems: SidebarItemData[] = [
   { type: 'link', label: 'Porównanie banków', path: '/porownanie-ofert-bankow/' },
   { type: 'link', label: 'Refinansowanie', path: '/refinansowanie-kredytu/' },
   { type: 'link', label: 'Stałe/Zmienne', path: '/stale-vs-zmienne-oprocentowanie/' },
+  { type: 'link', label: 'Kredyt vs Wynajem', path: '/kredyt-vs-wynajem/' },
   { type: 'divider' },
   { type: 'category', label: 'Analiza' },
   { type: 'link', label: 'Ukryte koszty', path: '/ukryte-koszty-kredytu/' },
