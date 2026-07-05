@@ -10,6 +10,8 @@ export interface BankProfile {
   fixedRateAvailable: boolean
   typicalFixedMargin: number
   earlyRepaymentPolicy: string
+  sourceUrl: string // link do oficjalnej tabeli oprocentowania banku
+  sourceLabel: string // np. "Tabela oprocentowania PKO BP"
 }
 
 export const BANK_PROFILES: BankProfile[] = [
@@ -25,6 +27,8 @@ export const BANK_PROFILES: BankProfile[] = [
     fixedRateAvailable: true,
     typicalFixedMargin: 1.50,
     earlyRepaymentPolicy: '0% po 1. roku (zmienne), 2% (stałe, pierwsze 3 lata)',
+    sourceUrl: 'https://www.pkobp.pl/kredyty-hipoteczne/',
+    sourceLabel: 'Oferta PKO BP – kredyty hipoteczne',
   },
   {
     id: 'ing',
@@ -38,6 +42,8 @@ export const BANK_PROFILES: BankProfile[] = [
     fixedRateAvailable: true,
     typicalFixedMargin: 1.60,
     earlyRepaymentPolicy: '0% w każdym momencie (nadpłata bezpłatna)',
+    sourceUrl: 'https://www.ing.pl/kredyty-hipoteczne',
+    sourceLabel: 'Oferta ING – kredyty hipoteczne',
   },
   {
     id: 'santander',
@@ -51,6 +57,8 @@ export const BANK_PROFILES: BankProfile[] = [
     fixedRateAvailable: true,
     typicalFixedMargin: 2.90,
     earlyRepaymentPolicy: '0% po 1. roku (zmienne), do 2% (stałe, pierwsze 3 lata)',
+    sourceUrl: 'https://www.santander.pl/klient-indywidualny/kredyty/kredyt-hipoteczny',
+    sourceLabel: 'Oferta Santander – kredyty hipoteczne',
   },
   {
     id: 'mbank',
@@ -64,6 +72,8 @@ export const BANK_PROFILES: BankProfile[] = [
     fixedRateAvailable: true,
     typicalFixedMargin: 2.00,
     earlyRepaymentPolicy: '2% w pierwszych 3 latach (wg umowy)',
+    sourceUrl: 'https://www.mbank.pl/indywidualny/kredyty/hipoteczny/',
+    sourceLabel: 'Oferta mBank – kredyt hipoteczny',
   },
   {
     id: 'millennium',
@@ -77,6 +87,8 @@ export const BANK_PROFILES: BankProfile[] = [
     fixedRateAvailable: true,
     typicalFixedMargin: 6.23,
     earlyRepaymentPolicy: '0% po 1. roku (zmienne)',
+    sourceUrl: 'https://www.bankmillennium.pl/kredyty/kredyt-hipoteczny',
+    sourceLabel: 'Oferta Millennium – kredyt hipoteczny',
   },
   {
     id: 'pekao',
@@ -90,6 +102,8 @@ export const BANK_PROFILES: BankProfile[] = [
     fixedRateAvailable: true,
     typicalFixedMargin: 2.27,
     earlyRepaymentPolicy: '0% po 1. roku (zmienne), do 2% (stałe)',
+    sourceUrl: 'https://www.pekao.com.pl/indywidualny/kredyty/kredyt-hipoteczny.html',
+    sourceLabel: 'Oferta Pekao – kredyt hipoteczny',
   },
   {
     id: 'alior',
@@ -103,6 +117,8 @@ export const BANK_PROFILES: BankProfile[] = [
     fixedRateAvailable: true,
     typicalFixedMargin: 2.50,
     earlyRepaymentPolicy: '0% po 1. roku (zmienne)',
+    sourceUrl: 'https://www.aliorbank.pl/kredyty/kredyt-hipoteczny/',
+    sourceLabel: 'Oferta Alior – kredyt hipoteczny',
   },
 ]
 

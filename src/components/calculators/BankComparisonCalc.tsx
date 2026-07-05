@@ -14,6 +14,7 @@ interface OffersMeta {
   source: string
   sourceUrl: string
   disclaimer: string
+  liveWibor: number | null
 }
 
 export default function BankComparisonCalc() {
@@ -22,15 +23,31 @@ export default function BankComparisonCalc() {
   const [offersMeta, setOffersMeta] = useState<OffersMeta | null>(null)
 
   useEffect(() => {
-    fetch('/bank-offers.json')
+    // Try the serverless function first (live data), fallback to static JSON
+    fetch('/.netlify/functions/bank-offers')
       .then(r => r.json())
-      .then(data => setOffersMeta({
-        updated: data.updated,
-        source: data.source,
-        sourceUrl: data.sourceUrl,
-        disclaimer: data.disclaimer,
-      }))
-      .catch(() => {}) // Silently use static data
+      .then(data => {
+        setOffersMeta({
+          updated: data.updated,
+          source: data.source,
+          sourceUrl: data.sourceUrl,
+          disclaimer: data.disclaimer,
+          liveWibor: data.liveWibor,
+        })
+      })
+      .catch(() => {
+        // Fallback to static bank-offers.json (works in dev too)
+        fetch('/bank-offers.json')
+          .then(r => r.json())
+          .then(data => setOffersMeta({
+            updated: data.updated,
+            source: data.source,
+            sourceUrl: data.sourceUrl,
+            disclaimer: data.disclaimer,
+            liveWibor: null,
+          }))
+          .catch(() => {})
+      })
   }, [])
   const [years, setYears] = useState(25)
   const [wibor, setWibor] = useState(5.85)
@@ -146,6 +163,7 @@ export default function BankComparisonCalc() {
                   <th className="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase">Rata</th>
                   <th className="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase">Pełny koszt</th>
                   <th className="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase">KNF +2.5pp</th>
+                  <th className="px-4 py-3 text-center text-xs font-medium text-gray-500 uppercase">Źródło</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
@@ -167,6 +185,17 @@ export default function BankComparisonCalc() {
                     </td>
                     <td className="px-4 py-3 text-sm text-right text-gray-500">
                       {formatCurrency(offer.knfBufferMonthlyPayment)}
+                    </td>
+                    <td className="px-4 py-3 text-sm text-center">
+                      <a
+                        href={offer.bank.sourceUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-600 hover:text-blue-800 hover:underline text-xs font-medium"
+                        title={offer.bank.sourceLabel}
+                      >
+                        Sprawdź ↗
+                      </a>
                     </td>
                   </tr>
                 ))}

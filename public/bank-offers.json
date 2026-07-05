@@ -1,16 +1,16 @@
 {
   "updated": "2026-07-04T10:00:00.000Z",
   "wiborRef": 3.85,
-  "source": "NBP (wibor.nbp.pl) oraz dane rynkowe banków",
+  "source": "NBP (wibor.nbp.pl) + Bankier.pl – ranking kredytów hipotecznych",
   "sourceUrl": "https://wibor.nbp.pl/",
   "banks": [
-    { "id": "pko-bp", "name": "PKO BP", "margin": 2.00, "totalRate": 5.85 },
-    { "id": "ing", "name": "ING Bank Śląski", "margin": 1.95, "totalRate": 5.80 },
-    { "id": "santander", "name": "Santander Bank Polska", "margin": 2.80, "totalRate": 6.65 },
-    { "id": "mbank", "name": "mBank", "margin": 2.10, "totalRate": 5.95 },
-    { "id": "millennium", "name": "Bank Millennium", "margin": 2.50, "totalRate": 6.35 },
-    { "id": "pekao", "name": "Bank Pekao SA", "margin": 3.10, "totalRate": 6.95 },
-    { "id": "alior", "name": "Alior Bank", "margin": 2.60, "totalRate": 6.45 }
+    { "id": "pko-bp", "name": "PKO BP", "margin": 2.00, "totalRate": 5.85, "sourceUrl": "https://www.pkobp.pl/kredyty-hipoteczne/" },
+    { "id": "ing", "name": "ING Bank Śląski", "margin": 1.95, "totalRate": 5.80, "sourceUrl": "https://www.ing.pl/kredyty-hipoteczne" },
+    { "id": "santander", "name": "Santander Bank Polska", "margin": 2.80, "totalRate": 6.65, "sourceUrl": "https://www.santander.pl/klient-indywidualny/kredyty/kredyt-hipoteczny" },
+    { "id": "mbank", "name": "mBank", "margin": 2.10, "totalRate": 5.95, "sourceUrl": "https://www.mbank.pl/indywidualny/kredyty/hipoteczny/" },
+    { "id": "millennium", "name": "Bank Millennium", "margin": 2.50, "totalRate": 6.35, "sourceUrl": "https://www.bankmillennium.pl/kredyty/kredyt-hipoteczny" },
+    { "id": "pekao", "name": "Bank Pekao SA", "margin": 3.10, "totalRate": 6.95, "sourceUrl": "https://www.pekao.com.pl/indywidualny/kredyty/kredyt-hipoteczny.html" },
+    { "id": "alior", "name": "Alior Bank", "margin": 2.60, "totalRate": 6.45, "sourceUrl": "https://www.aliorbank.pl/kredyty/kredyt-hipoteczny/" }
   ],
-  "disclaimer": "Prezentowane marże są wartościami szacunkowymi opartymi na analizie ofert dostępnych w publicznych źródłach i rankingach. Rzeczywista oferta zależy od indywidualnej oceny zdolności kredytowej, LTV oraz negocjacji z bankiem. Dane nie stanowią oferty w rozumieniu Kodeksu cywilnego."
+  "disclaimer": "Prezentowane marże są wartościami szacunkowymi opartymi na analizie ofert dostępnych w publicznych źródłach i rankingach (m.in. Bankier.pl). Rzeczywista oferta zależy od indywidualnej oceny zdolności kredytowej, LTV oraz negocjacji z bankiem. Dane nie stanowią oferty w rozumieniu Kodeksu cywilnego."
 }
