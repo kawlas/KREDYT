@@ -19,7 +19,7 @@ export default function HiddenCostsPage() {
           { question: 'Co to jest ubezpieczenie niskiego wkładu i kto musi je płacić?', answer: 'Ubezpieczenie niskiego wkładu własnego jest wymagane, gdy wkład własny jest niższy niż 20% wartości nieruchomości.' },
         ]}
       />
-      <div className="max-w-4xl mx-auto px-4 py-8">
+      <div className="max-w-4xl mx-auto">
         <h1 className="text-3xl font-bold text-gray-900 mb-4">Ukryte koszty kredytu hipotecznego — lista kontrolna</h1>
         <p className="text-lg text-gray-600 mb-8">Zaznacz które opłaty dotyczą Twojego kredytu i sprawdź ile naprawdę zapłacisz. Im więcej wiesz, tym lepiej negocjujesz z bankiem.</p>
 

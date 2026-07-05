@@ -37,8 +37,7 @@ export default function InsuranceCalc() {
   const hasValues = p > 0 && pv > 0
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-8">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
         {/* LEFT - inputs */}
         <div className="space-y-6">
           <Card>
@@ -333,6 +332,5 @@ export default function InsuranceCalc() {
           )}
         </div>
       </div>
-    </div>
   )
 }

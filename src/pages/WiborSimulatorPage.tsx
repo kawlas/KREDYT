@@ -44,7 +44,7 @@ export default function WiborSimulatorPage({
         schemaType="WebApplication"
         faqItems={FAQ_DATA.filter(i => [6, 7, 8].includes(i.id)).map(i => ({ question: i.question, answer: i.answer }))}
       />
-      <div className="max-w-6xl mx-auto px-4 mb-4 flex justify-end gap-2">
+      <div className="flex justify-end gap-2">
         <ExportPdfButton
           variant="outline"
           label="Pobierz PDF"

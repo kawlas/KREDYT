@@ -46,7 +46,7 @@ export default function BIKSimulatorPage() {
         faqItems={bikFaq.map(i => ({ question: i.question, answer: i.answer }))}
       />
 
-      <div className="max-w-6xl mx-auto px-4 py-8">
+      <div className="space-y-8">
         <h1 className="text-3xl font-bold text-gray-900 mb-2">
           Co wpływa na scoring BIK?
         </h1>
@@ -57,11 +57,11 @@ export default function BIKSimulatorPage() {
 
         <BIKSimulator />
 
-        <div className="mt-8">
+        <div>
           <AdSlot slot="5567225861" />
         </div>
 
-        <div className="mt-8">
+        <div>
           <FaqBlock items={bikFaq} title="Najczęstsze pytania o scoring BIK" />
         </div>
       </div>
