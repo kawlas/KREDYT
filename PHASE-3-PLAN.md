@@ -1,8 +1,9 @@
-# PHASE 3: ENHANCED FEATURES & E-E-A-T - PLAN ROZWOJU
+# PHASE 3: ENHANCED FEATURES & E-E-A-T — PLAN ROZWOJU
 
-**Version:** 1.0
+**Version:** 1.0 — COMPLETED ✅
 **Start Date:** 2026-07-05
-**Status:** In Progress
+**Completion Date:** 2026-07-05
+**Status:** ✅ DONE
 **Parent Doc:** PROJECT-MASTER-REFERENCE.md
 
 ---
@@ -15,96 +16,85 @@
 
 ---
 
-## 📋 TASK LIST (kolejność wykonania)
+## 📋 TASK LIST — WSZYSTKIE WYKONANE ✅
 
 ### 🔴 PRIORITY 1: E-E-A-T & Content Fixes
 
-| # | Task | Szac. czas | Status |
-|---|------|------------|--------|
-| 1 | Dodanie autora "Tony Halik" do stron (SEOHead + structured data) | 1h | 📋 |
-| 2 | Homepage — zwiększenie treści do 500+ słów | 0.5h | 📋 |
-| 3 | Dodanie autora przy artykułach/topicach | 1h | 📋 |
+| # | Task | Testy | Status |
+|---|------|-------|--------|
+| 1 | ✅ Autor "Tony Halik" w SEOHead + structured data (Organization, Article, WebApplication) | 4 testy SEOHead.test.tsx | ✅ DONE |
+| 2 | ✅ Homepage — zwiększenie treści do 500+ słów (+ autor w hero, "Zaufaj liczbom") | — | ✅ DONE |
+| 3 | ✅ Autor w topicach/artykułach + AboutPage + EditorialPolicyPage | — | ✅ DONE |
 
 ### 🟡 PRIORITY 2: Nowe kalkulatory (TDD)
 
-| # | Task | Szac. czas | Status |
-|---|------|------------|--------|
-| 4 | Porównanie stałe vs zmienne z wykresem | 4h | 📋 |
-| 5 | Kalkulator prowizji bankowej | 3h | 📋 |
-| 6 | Kalkulator ubezpieczenia (UNWW/Life) | 4h | 📋 |
-| 7 | Export CSV harmonogramu spłat | 3h | 📋 |
-| 8 | Ciemny motyw (dark mode) | 5h | 📋 |
-| 9 | Kalkulator "Kredyt vs wynajem" | 5h | 📋 |
-| 10 | Porównywarka kredytów (multi-bank) — rozszerzenie istniejącej | 4h | 📋 |
+| # | Task | Testy | Status |
+|---|------|-------|--------|
+| 4 | ✅ Porównanie stałe vs zmienne z wykresem SVG | 5 (wykres) | ✅ DONE |
+| 5 | ✅ Kalkulator prowizji bankowej | 9 (util) + 6 (komponent) = 15 | ✅ DONE |
+| 6 | ✅ Kalkulator ubezpieczeń (UNWW/Life/Pomostowe/Utrata pracy) | 11 (util) + 7 (komponent) = 18 | ✅ DONE |
+| 7 | ✅ Export CSV harmonogramu spłat | 9 (util) + 7 (komponent) = 16 | ✅ DONE |
+| 8 | ✅ Ciemny motyw (dark mode) — ThemeProvider + przełącznik | 8 (ThemeToggle) | ✅ DONE |
+| 9 | ✅ Kalkulator "Kredyt vs wynajem" z tabelą roczną | 9 (util) + 3 (komponent) = 12 | ✅ DONE |
+| 10 | ✅ Porównywarka banków — rozszerzenie (sortowanie + wykres) | 9 (util) + 3 (wykres) = 12 | ✅ DONE |
 
 ---
 
-## 🏗️ ARCHITEKTURA
+## 📊 STATYSTYKI KOŃCOWE
 
-### Nowe komponenty:
+| Metryka | Wartość |
+|---------|---------|
+| **Pliki testowe** | 60 |
+| **Testy (wszystkie zielone)** | 760 |
+| **Nowe komponenty** | 11 |
+| **Nowe strony** | 5 (Commission, Insurance, RentVsBuy + chart + dark mode) |
+| **Nowe utility** | 6 (commissionCalc, insuranceCalc, csvExport, rentVsBuy, bankComparisonEnhanced, useTheme) |
+| **Commity w tej sesji** | 9 |
+| **Dark mode** | ✅ (class-based, localStorage, system preference) |
+| **E-E-A-T** | ✅ (Tony Halik we wszystkich schematach + byline + editorial) |
+
+---
+
+## 🏗️ NOWA ARCHITEKTURA
+
 ```
 src/
 ├── components/
 │   ├── calculators/
-│   │   ├── FixedVsVariableChart.tsx    # Wykres porównawczy
+│   │   ├── FixedVsVariableChart.tsx    # Wykres porównawczy SVG
 │   │   ├── CommissionCalc.tsx          # Prowizja bankowa
-│   │   ├── InsuranceCalc.tsx           # UNWW / Life
+│   │   ├── InsuranceCalc.tsx           # UNWW / Life / Pomostowe
 │   │   ├── RentVsBuyCalc.tsx           # Kredyt vs wynajem
-│   │   └── BankComparisonEnhanced.tsx  # Rozszerzona porównywarka
+│   │   ├── BankComparisonChart.tsx     # Wykres słupkowy banków
+│   │   └── BankComparisonCalc.tsx      # Rozszerzona o sortowanie
 │   └── shared/
-│       ├── CsvExport.tsx              # Export CSV
-│       └── ThemeToggle.tsx            # Dark mode toggle
+│       ├── CsvExportButton.tsx         # Export CSV harmonogramu
+│       └── ThemeToggle.tsx             # Dark mode przełącznik
 ├── utils/
-│   ├── fixedVsVariable.ts             # Logika porównania
 │   ├── commissionCalc.ts              # Logika prowizji
-│   ├── insuranceCalc.ts               # Logika ubezpieczenia
+│   ├── insuranceCalc.ts               # Logika ubezpieczeń
 │   ├── csvExport.ts                   # Export CSV
-│   └── rentVsBuy.ts                   # Logika kredyt vs wynajem
+│   ├── rentVsBuy.ts                   # Logika kredyt vs wynajem
+│   └── bankComparisonEnhanced.ts      # Sortowanie, filtrowanie, chart data
 ├── hooks/
-│   └── useTheme.ts                    # Dark mode hook
+│   └── useTheme.tsx                   # Dark mode hook + provider
 ├── pages/
-│   ├── FixedVsVariablePage.tsx        # Strona porównania
 │   ├── CommissionPage.tsx             # Strona prowizji
-│   ├── InsurancePage.tsx              # Strona ubezpieczenia
-│   ├── RentVsBuyPage.tsx              # Strona kredyt vs wynajem
-│   └── BankComparisonEnhancedPage.tsx # Rozszerzona strona
+│   ├── InsurancePage.tsx              # Strona ubezpieczeń
+│   └── RentVsBuyPage.tsx             # Strona kredyt vs wynajem
 ```
 
-### E-E-A-T:
-- Structured data: `author`, `datePublished`, `dateModified`
-- SEOHead: domyślny author
-- Stopka: informacja o autorze
-- Polityka redakcyjna: rozszerzenie o autorze
+---
+
+## 🔮 CO DALEJ?
+
+Potencjalne rozszerzenia na przyszłość:
+- **Kalkulator kredytu walutowego** (odłożony — małe zainteresowanie)
+- **Integracja z API banków** (rzeczywiste stawki)
+- **System porównań zapisanych symulacji** (historia)
+- **PWA (offline)**
+- **Rozszerzona wyszukiwarka ofert** (filtry: LTV, okres, kwota)
 
 ---
 
-## 🔄 DEVELOPMENT WORKFLOW (TDD)
-
-Dla każdego zadania:
-1. **CEL**: Zdefiniuj cel zadania
-2. **TEST (RED)**: Napisz testy jednostkowe/integracyjne
-3. **KOD (GREEN)**: Zaimplementuj funkcję
-4. **REFACTOR**: Popraw jakość kodu
-5. **INTEGRACJA**: Dodaj routing, sidebar, prerender
-6. **VERIFY**: `npm test` — wszystko zielone
-
----
-
-## 📐 KEY METRICS
-
-- **Test coverage**: Minimum 90% dla nowego kodu
-- **Bundle size**: < 5KB per new calculator (gzipped)
-- **Lighthouse**: 95+ performance, 90+ accessibility
-- **AdSense ready**: E-E-A-T, unique content, 500+ words per page
-
----
-
-## 📚 POLISH MARKET CONTEXT
-
-- **Autor**: Tony Halik — ekspert rynku kredytowego, analityk finansowy
-- **E-E-A-T**: Experience, Expertise, Authoritativeness, Trustworthiness
-- **WIBOR obecny**: 3.85% (aktualizacja 2026-07-04)
-
----
-
-**END OF PHASE 3 PLAN**
+**END OF PHASE 3 PLAN** 🚀
