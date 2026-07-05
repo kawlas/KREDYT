@@ -1,254 +1,164 @@
-import { useMemo, useState, useEffect } from 'react'
-import { compareBanks } from '../../utils/bankComparison'
-import { BANK_PROFILES } from '../../data/bankProfiles'
-import { formatCurrency, formatCurrencyShort, formatPercent } from '../../utils/formatters'
+import { useState, useMemo } from 'react'
+import { useWIBOR } from '../../hooks/useWIBOR'
+import { calculateMonthlyPayment, calculateTotalCost } from '../../utils/loanCalculations'
+import { formatCurrency } from '../../utils/formatters'
 import Card from '../shared/Card'
 import Alert from '../shared/Alert'
 import TabContainer from '../layout/TabContainer'
-import { useWIBOR } from '../../hooks/useWIBOR'
-import BankComparisonChart from './BankComparisonChart'
-import { prepareChartData, sortOffers, type SortKey, type SortDirection } from '../../utils/bankComparisonEnhanced'
-
-interface OffersMeta {
-  version: string
-  updatedAt: string
-  lastVerifiedAt: string
-  wiborRef: number | null
-  source: string
-  sourceUrl: string
-  wiborSourceUrl: string
-  disclaimer: string
-  liveWibor: number | null
-  wiborSource: string | null
-  dataType: string
-}
 
 export default function BankComparisonCalc() {
-  const { wibor: liveWibor } = useWIBOR(true)
+  const { wibor: liveWibor, lastUpdate, source } = useWIBOR(true)
   const [principal, setPrincipal] = useState(400000)
-  const [offersMeta, setOffersMeta] = useState<OffersMeta | null>(null)
-
-  useEffect(() => {
-    // Try the serverless function first (live data), fallback to static JSON
-    fetch('/.netlify/functions/bank-offers')
-      .then(r => r.json())
-      .then(data => {
-        setOffersMeta({
-          version: data.version,
-          updatedAt: data.updatedAt,
-          lastVerifiedAt: data.lastVerifiedAt,
-          wiborRef: data.wiborRef,
-          source: data.source,
-          sourceUrl: data.sourceUrl,
-          wiborSourceUrl: data.wiborSourceUrl,
-          disclaimer: data.disclaimer,
-          liveWibor: data.liveWibor,
-          wiborSource: data.wiborSource,
-          dataType: data.dataType,
-        })
-      })
-      .catch(() => {
-        // Fallback to static bank-offers.json (works in dev too)
-        fetch('/bank-offers.json')
-          .then(r => r.json())
-          .then(data => setOffersMeta({
-            version: data.version,
-            updatedAt: data.updatedAt,
-            lastVerifiedAt: data.lastVerifiedAt,
-            wiborRef: data.wiborRef,
-            source: data.source,
-            sourceUrl: data.sourceUrl,
-            wiborSourceUrl: data.wiborSourceUrl,
-            disclaimer: data.disclaimer,
-            liveWibor: null,
-            wiborSource: null,
-            dataType: data.dataType,
-          }))
-          .catch(() => {})
-      })
-  }, [])
   const [years, setYears] = useState(25)
-  const [wibor, setWibor] = useState(5.85)
+  const [margin, setMargin] = useState(2.0)
   const [installmentType, setInstallmentType] = useState<'equal' | 'declining'>('equal')
-  const [propertyValue, setPropertyValue] = useState(500000)
-  const [sortKey] = useState<SortKey>('totalCost')
-  const [sortDir] = useState<SortDirection>('asc')
 
-  const effectiveWibor = liveWibor ?? wibor
+  const effectiveInterest = (liveWibor ?? 3.85) + margin
 
-  const results = useMemo(() => {
-    if (principal <= 0 || years <= 0) return []
-    const offers = compareBanks(BANK_PROFILES, {
-      principal,
-      years,
-      wibor: effectiveWibor,
-      installmentType,
-      propertyValue,
-    })
-    return sortOffers(offers, sortKey, sortDir)
-  }, [principal, years, effectiveWibor, installmentType, propertyValue, sortKey, sortDir])
+  const monthlyPayment = useMemo(() => {
+    if (principal <= 0 || years <= 0 || effectiveInterest <= 0) return 0
+    return calculateMonthlyPayment(principal, effectiveInterest, years * 12, installmentType)
+  }, [principal, years, effectiveInterest, installmentType])
 
-  const chartData = useMemo(() => prepareChartData(results.slice(0, 8)), [results])
+  const totalCost = useMemo(() => {
+    if (principal <= 0 || years <= 0 || effectiveInterest <= 0) return 0
+    return calculateTotalCost(principal, effectiveInterest, years * 12, installmentType, 0)
+  }, [principal, effectiveInterest, years, monthlyPayment, installmentType])
 
-  const cheapest = results.length > 0 ? results[0] : null
+  // KNF stress test (+2.5pp)
+  const stressInterest = effectiveInterest + 2.5
+  const stressPayment = useMemo(() => {
+    if (principal <= 0 || years <= 0) return 0
+    return calculateMonthlyPayment(principal, stressInterest, years * 12, installmentType)
+  }, [principal, years, stressInterest, installmentType])
 
   return (
     <TabContainer
-      title="Porównanie ofert banków"
-      subtitle="Który bank oferuje najtańszy kredyt hipoteczny?"
+      title="Kalkulator kredytu hipotecznego"
+      subtitle="Oblicz ratę i koszt kredytu dla swoich parametrów"
     >
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-        {/* Filters sidebar */}
+        {/* Left sidebar — parametry */}
         <div className="lg:col-span-1 space-y-6">
           <Card>
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">Parametry</h2>
+            <h2 className="text-lg font-semibold text-gray-900 mb-4">Parametry kredytu</h2>
             <div className="space-y-3">
               <div>
-                <label className="block text-xs font-medium text-gray-600 mb-0.5">Kwota</label>
+                <label className="block text-xs font-medium text-gray-600 mb-0.5">Kwota kredytu (zł)</label>
                 <input type="number" value={principal} onChange={e => setPrincipal(Number(e.target.value))}
                   className="w-full px-2 py-1.5 border rounded text-sm focus:ring-2 focus:ring-blue-500 outline-none" />
               </div>
               <div>
-                <label className="block text-xs font-medium text-gray-600 mb-0.5">Okres (lat)</label>
+                <label className="block text-xs font-medium text-gray-600 mb-0.5">Okres spłaty (lat)</label>
                 <input type="number" value={years} onChange={e => setYears(Number(e.target.value))}
                   className="w-full px-2 py-1.5 border rounded text-sm focus:ring-2 focus:ring-blue-500 outline-none" />
               </div>
               <div>
-                <label className="block text-xs font-medium text-gray-600 mb-0.5">WIBOR (%)</label>
-                <input type="number" step="0.01" value={effectiveWibor} onChange={e => setWibor(Number(e.target.value))}
+                <label className="block text-xs font-medium text-gray-600 mb-0.5">Marża banku (%)</label>
+                <input type="number" step="0.01" value={margin} onChange={e => setMargin(Number(e.target.value))}
                   className="w-full px-2 py-1.5 border rounded text-sm focus:ring-2 focus:ring-blue-500 outline-none" />
-              </div>
-              <div>
-                <label className="block text-xs font-medium text-gray-600 mb-0.5">Wartość nieruchomości</label>
-                <input type="number" value={propertyValue} onChange={e => setPropertyValue(Number(e.target.value))}
-                  className="w-full px-2 py-1.5 border rounded text-sm focus:ring-2 focus:ring-blue-500 outline-none" />
+                <p className="text-[10px] text-gray-400 mt-0.5">Wpisz marżę którą proponuje bank. Typowo 1.5–3.5%.</p>
               </div>
               <div>
                 <label className="block text-xs font-medium text-gray-600 mb-0.5">Rodzaj rat</label>
                 <select value={installmentType} onChange={e => setInstallmentType(e.target.value as 'equal' | 'declining')}
                   className="w-full px-2 py-1.5 border rounded text-sm focus:ring-2 focus:ring-blue-500 outline-none">
-                  <option value="equal">Równe</option>
+                  <option value="equal">Równe (annuitetowe)</option>
                   <option value="declining">Malejące</option>
                 </select>
               </div>
             </div>
           </Card>
 
-          {offersMeta && (
-            <div className="bg-white rounded-xl border border-gray-200 p-4 space-y-3">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <div className={`w-2 h-2 rounded-full ${Date.now() - new Date(offersMeta.lastVerifiedAt).getTime() < 45 * 86400000 ? 'bg-green-500' : 'bg-yellow-500'}`} />
-                  <span className="text-xs text-gray-600">
-                    Dane z <strong>{offersMeta.version}</strong>
-                  </span>
-                </div>
-                <span className="text-[11px] text-gray-400">
-                  zweryfikowano {new Date(offersMeta.lastVerifiedAt).toLocaleDateString('pl-PL')}
-                </span>
-              </div>
-              <div className="border-t border-gray-100 pt-2 space-y-1.5">
-                <p className="text-xs text-gray-500">
-                  📊 Marże banków: <a href={offersMeta.sourceUrl} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">{offersMeta.source}</a>
-                </p>
-                <p className="text-xs text-gray-500">
-                  💹 WIBOR: <a href={offersMeta.wiborSourceUrl} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">stooq.pl (WIBOR 3M live)</a>
-                  {offersMeta.liveWibor !== null && (
-                    <span className="text-green-600"> — {offersMeta.liveWibor.toFixed(2)}%</span>
-                  )}
-                  {offersMeta.liveWibor === null && (
-                    <span className="text-gray-400"> — ostatnia znana: {offersMeta.wiborRef}%</span>
-                  )}
-                </p>
-              </div>
-              <div className="border-t border-gray-100 pt-2 space-y-1">
-                <p className="text-[11px] text-gray-400 leading-relaxed">{offersMeta.disclaimer}</p>
-                <p className="text-[11px]">
-                  <a href="https://github.com/kawlas/KREDYT/issues/new" target="_blank" rel="noopener noreferrer" className="text-orange-500 hover:underline">
-                    Zgłoś nieaktualne dane →
-                  </a>
-                </p>
-              </div>
-            </div>
-          )}
-
-          <Alert type="warning">
-            <p className="text-xs">
-              Marże są wartościami orientacyjnymi. Rzeczywista oferta zależy od indywidualnej oceny zdolności kredytowej, LTV i negocjacji z bankiem. Przed podjęciem decyzji zweryfikuj aktualne stawki bezpośrednio w banku lub u doradcy finansowego.
-            </p>
-          </Alert>
-        </div>
-
-        {/* Results table */}
-        <div className="lg:col-span-3 space-y-4">
-          {cheapest && (
-            <div className="bg-green-50 border border-green-200 rounded-xl p-4">
-              <span className="text-sm font-semibold text-green-700">
-                Najtańsza oferta: {cheapest.bank.name} — rata {formatCurrency(cheapest.results.monthlyPayment)}/mies.
-                (RRSO {formatPercent(cheapest.results.rrso)})
+          {/* WIBOR info */}
+          <div className="bg-white rounded-xl border border-gray-200 p-4 space-y-2">
+            <div className="flex items-center gap-2">
+              <div className="w-2 h-2 rounded-full bg-green-500" />
+              <span className="text-xs text-gray-600">
+                <strong>WIBOR 3M:</strong> {liveWibor !== null ? `${liveWibor.toFixed(2)}%` : '—'}
+                <span className="text-gray-400"> ({source || 'Bankier.pl'})</span>
               </span>
             </div>
-          )}
-
-          {results.length > 0 && (
-            <BankComparisonChart data={chartData} />
-          )}
-
-          <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200 bg-white rounded-xl shadow-sm">
-              <thead className="bg-gray-50">
-                <tr>
-                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Bank</th>
-                  <th className="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase">Marża</th>
-                  <th className="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase">RRSO</th>
-                  <th className="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase">Rata</th>
-                  <th className="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase">Pełny koszt</th>
-                  <th className="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase">KNF +2.5pp</th>
-                  <th className="px-4 py-3 text-center text-xs font-medium text-gray-500 uppercase">Źródło</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-100">
-                {results.map((offer, i) => (
-                  <tr key={offer.bank.id} className={`${i === 0 ? 'bg-green-50/50' : ''} hover:bg-gray-50 transition-colors`}>
-                    <td className="px-4 py-3 text-sm font-medium text-gray-900">
-                      {i === 0 && <span className="text-green-600 mr-1">★</span>}
-                      {offer.bank.name}
-                    </td>
-                    <td className="px-4 py-3 text-sm text-right">{formatPercent(offer.margin)}</td>
-                    <td className="px-4 py-3 text-sm text-right font-medium text-blue-600">
-                      {formatPercent(offer.results.rrso)}
-                    </td>
-                    <td className="px-4 py-3 text-sm text-right font-semibold">
-                      {formatCurrency(offer.results.monthlyPayment)}
-                    </td>
-                    <td className="px-4 py-3 text-sm text-right font-bold text-red-600">
-                      {formatCurrencyShort(offer.results.allInCost!)}
-                    </td>
-                    <td className="px-4 py-3 text-sm text-right text-gray-500">
-                      {formatCurrency(offer.knfBufferMonthlyPayment)}
-                    </td>
-                    <td className="px-4 py-3 text-sm text-center">
-                      <a
-                        href="https://www.bankier.pl/smart/kredyty-hipoteczne"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-blue-600 hover:text-blue-800 hover:underline text-xs font-medium"
-                        title="Sprawdź aktualne oferty na Bankier.pl"
-                      >
-                        Ranking ↗
-                      </a>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            <p className="text-[11px] text-gray-400">
+              Twoje oprocentowanie: marża {margin}% + WIBOR {liveWibor !== null ? liveWibor.toFixed(2) : '?'}% ={' '}
+              <strong className="text-gray-700">{effectiveInterest.toFixed(2)}%</strong>
+            </p>
+            <p className="text-[11px] text-gray-400">{lastUpdate && `Ostatnia aktualizacja WIBOR: ${lastUpdate}`}</p>
           </div>
 
           <Alert type="info">
+            <p className="text-xs">
+              <strong>Szukasz najlepszej oferty?</strong> Sprawdź aktualne porównanie ofert na:
+            </p>
+            <ul className="text-xs mt-1 space-y-0.5">
+              <li>• <a href="https://www.bankier.pl/smart/kredyty-hipoteczne" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">Bankier.pl — ranking kredytów hipotecznych</a></li>
+              <li>• <a href="https://totalmoney.pl/kredyty-hipoteczne" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">TotalMoney.pl — porównywarka</a></li>
+            </ul>
+          </Alert>
+        </div>
+
+        {/* Right side — wyniki */}
+        <div className="lg:col-span-3 space-y-4">
+          <Card>
+            <h2 className="text-lg font-semibold text-gray-900 mb-3">Podsumowanie</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div className="bg-blue-50 rounded-lg p-4 text-center">
+                <p className="text-xs text-blue-600 font-medium">Miesięczna rata</p>
+                <p className="text-2xl font-bold text-blue-700">{formatCurrency(monthlyPayment)}</p>
+                <p className="text-[11px] text-blue-500">
+                  {installmentType === 'equal' ? 'rata równa' : 'pierwsza rata (malejąca)'}
+                </p>
+              </div>
+              <div className="bg-red-50 rounded-lg p-4 text-center">
+                <p className="text-xs text-red-600 font-medium">Całkowity koszt</p>
+                <p className="text-2xl font-bold text-red-700">{formatCurrency(totalCost)}</p>
+                <p className="text-[11px] text-red-500">odsetki + prowizje</p>
+              </div>
+              <div className="bg-amber-50 rounded-lg p-4 text-center">
+                <p className="text-xs text-amber-600 font-medium">Oprocentowanie</p>
+                <p className="text-2xl font-bold text-amber-700">{effectiveInterest.toFixed(2)}%</p>
+                <p className="text-[11px] text-amber-500">
+                  WIBOR {liveWibor !== null ? liveWibor.toFixed(2) : '?'}% + marża {margin}%
+                </p>
+              </div>
+            </div>
+          </Card>
+
+          {/* KNF stress test */}
+          <Alert type="warning">
             <p className="text-sm">
-              <strong>KNF +2.5pp:</strong> Zgodnie z Rekomendacją S KNF, banki muszą doliczyć 2.5 p.p. do oprocentowania
-              przy ocenie zdolności kredytowej. Kolumna pokazuje ratę przy takim stres teście — jeśli jest wyższa niż
-              Twoja maksymalna zdolność, bank może odmówić kredytu.
+              <strong>Test warunków skrajnych (KNF +2.5pp):</strong> Banki zgodnie z Rekomendacją S KNF
+              sprawdzają zdolność kredytową przy oprocentowaniu wyższym o 2.5 p.p.
+              Dla Twoich parametrów rata przy teście wynosi{' '}
+              <strong>{formatCurrency(stressPayment)}/mies.</strong>
+              {' '}(przy {stressInterest.toFixed(2)}%).
+            </p>
+          </Alert>
+
+          {/* Educational info */}
+          <Card>
+            <h3 className="text-sm font-semibold text-gray-900 mb-2">Jak liczyć koszt kredytu?</h3>
+            <div className="text-xs text-gray-600 space-y-1">
+              <p>
+                <strong>Oprocentowanie</strong> = WIBOR 3M + marża banku. WIBOR zmienia się w czasie —
+                rata może rosnąć lub maleć.
+              </p>
+              <p>
+                <strong>Marża</strong> to stały składnik — negocjuj ją z bankiem.
+                Im niższa marża, tym tańszy kredyt.
+              </p>
+              <p>
+                <strong>RRSO</strong> uwzględnia wszystkie koszty (marżę, prowizję, ubezpieczenia).
+                To najlepszy wskaźnik do porównania ofert.
+              </p>
+            </div>
+          </Card>
+
+          <Alert type="warning">
+            <p className="text-xs">
+              Ten kalkulator pokazuje szacunkowe wyliczenia. Rzeczywista oferta zależy od indywidualnej oceny
+              zdolności kredytowej, LTV, wkładu własnego i negocjacji z bankiem. Przed podjęciem decyzji
+              skonsultuj się z doradcą finansowym.
             </p>
           </Alert>
         </div>

@@ -31,11 +31,11 @@ describe('BankComparisonPage - H1', () => {
     expect(h1.textContent!.trim().length).toBeGreaterThan(0)
   })
 
-  it('h1 zawiera "porównanie" lub "bank"', () => {
+  it('h1 opisuje kalkulator kredytu hipotecznego', () => {
     renderPage()
     const h1 = screen.getByRole('heading', { level: 1 })
     const text = h1.textContent!.toLowerCase()
-    const hasExpected = text.includes('porównanie') || text.includes('bank')
+    const hasExpected = text.includes('kalkulator') || text.includes('kredytu') || text.includes('hipotecznego')
     expect(hasExpected).toBe(true)
   })
 
