@@ -1,6 +1,6 @@
 # KALKULATOR KREDYTU HIPOTECZNEGO — MASTER REFERENCE
 
-**Version:** 3.0
+**Version:** 3.1
 **Status:** Phase 1 ✅ | Phase 2 ✅ | Phase 3 ✅
 **Live URL:** https://kredytkalkulator.netlify.app/
 **Last Updated:** 2026-07-05
@@ -24,7 +24,7 @@ Stwórz **najlepszy kalkulator kredytowy w Polsce**, który:
 
 ### Phase 1 — MVP ✅
 - Kalkulator raty kredytu (równe/malejące) + RRSO + całkowity koszt
-- Porównywarka banków (tabela z marżami, RRSO, ratą)
+- Porównanie stałe vs zmienne
 - Responsywny design + animacje
 
 ### Phase 2 — Enhanced Features ✅
@@ -41,18 +41,37 @@ Stwórz **najlepszy kalkulator kredytowy w Polsce**, który:
 - Refinansowanie, stałe vs zmienne, odsetki dzienne
 
 ### Phase 3 — Enhanced Features ✅
-| # | Feature | Testy |
-|---|---------|-------|
-| 1 | **E-E-A-T**: Autor Tony Halik (SEOHead + structured data + byline) | 4 |
-| 2 | Homepage: +15 słów treści | — |
-| 3 | Autor w topicach + AboutPage + Editorial | — |
-| 4 | **Wykres porównania stałe vs zmienne** (SVG) | 5 |
-| 5 | **Kalkulator prowizji bankowej** (optymalna prowizja, break-even) | 15 |
-| 6 | **Kalkulator ubezpieczeń** (UNWW, życie, pomostowe, utrata pracy) | 18 |
-| 7 | **Export CSV harmonogramu spłat** (Excel-compatible) | 16 |
-| 8 | **Ciemny motyw** (class-based, localStorage, system preference) | 8 |
-| 9 | **Kredyt vs Wynajem** (roczna tabela, break-even, net worth) | 12 |
-| 10 | **Porównywarka banków — rozszerzenie** (sortowanie + wykres słupkowy) | 12 |
+
+| # | Feature | Status | Uwagi |
+|---|---------|--------|-------|
+| 1 | **E-E-A-T**: Autor Tony Halik (SEOHead + structured data + byline) | ✅ DONE | 4 testy |
+| 2 | Homepage: rozszerzona treść (500+ słów) | ✅ DONE | |
+| 3 | Autor w topicach + AboutPage + Editorial | ✅ DONE | |
+| 4 | **Wykres porównania stałe vs zmienne** (SVG) | ✅ DONE | 5 testów |
+| 5 | **Kalkulator prowizji bankowej** | ✅ DONE | 15 testów |
+| 6 | **Kalkulator ubezpieczeń** (UNWW, życie, pomostowe, utrata pracy) | ✅ DONE | 18 testów |
+| 7 | **Export CSV harmonogramu spłat** (Excel-compatible) | ✅ DONE | 16 testów |
+| 8 | **Ciemny motyw** (class-based, localStorage, system preference) | ✅ DONE | 8 testów |
+| 9 | **Kredyt vs Wynajem** (roczna tabela, break-even, net worth) | ✅ DONE | 12 testów |
+| 10 | **Honestny kalkulator kredytu** (bez fałszywej tabeli) | ✅ DONE | 12 testów |
+
+> **Task 10 — historia:** Pierwotnie zaimplementowano jako tabelę porównawczą banków z automatycznie pobieranymi marżami. Po odkryciu, że:
+> - marże są zmyślone
+> - nazwy banków nieaktualne (ING Bank Śląski, Santander)
+> - linki weryfikacyjne nie działają
+> - nie istnieje API do marż banków w Polsce
+> 
+> **Usunięto całą tabelę i zastąpiono uczciwym kalkulatorem:** użytkownik wpisuje własną marżę, kalkulator liczy ratę + całkowity koszt + KNF stress test. WIBOR pobierany live ze stooq.pl. Linki do realnych porównywarek (Bankier.pl, TotalMoney.pl).
+
+### Narzędzia utrzymaniowe (Phase 3 — dodatkowe)
+
+| # | Feature | Status |
+|---|---------|--------|
+| 11 | **Skrypt `scripts/fetch-wibor.js`** — scrapuje WIBOR z Bankier.pl (static HTML) | ✅ DONE |
+| 12 | **Skrypt `scripts/update-margins.cjs`** — interaktywna aktualizacja marż | ✅ DONE |
+| 13 | **Netlify function `wibor.ts`** — live WIBOR ze stooq.pl | ✅ DONE |
+| 14 | **npm scripts**: `update-margins`, `check-margins` | ✅ DONE |
+| 15 | **Unifikacja CSS** — jeden globalny styl `space-y-8` na wszystkich stronach | ✅ DONE |
 
 ---
 
@@ -60,7 +79,7 @@ Stwórz **najlepszy kalkulator kredytowy w Polsce**, który:
 
 ### Filozofia: TDD-first, E2E-gap, Monitoring-live
 
-Opieramy się na wywiadzie z Kentem Beckiem (twórcą TDD) oraz własnym doświadczeniu:
+Opieramy się na wywiadzie z Kentem Beckiem (twórcą TDD) oraz własnym doświadczeniu.
 
 ### 🥇 Primary: Test-Driven Development (TDD)
 
@@ -86,22 +105,9 @@ Obecnie brak E2E. Planujemy 3 krytyczne ścieżki z Playwright:
 3. **404** → zła ścieżka → strona błędu
 
 ### 🥉 Live: Monitoring + Observability
-
 - Konsola przeglądarki (errors, warnings)
-- Google Analytics / Netlify Analytics
+- Netlify Analytics (planowane)
 - Automatyczny rollback w przypadku błędów
-
-### Alternatywy (świadomie odrzucone na ten moment)
-| Metoda | Kiedy by działała | Dlaczego nie teraz |
-|--------|------------------|-------------------|
-| Testy manualne | UX, accessibility | Nie skaluje się |
-| Code Review jako jedyna kontrola | Mały zespół, szybkie zmiany | Nie wyłapuje błędów matematycznych |
-| Testy UI (Cypress) | Flow użytkownika | Za ciężkie na obecnym etapie; dodamy później |
-
-### Kluczowa zasada
-> *„TDD is not about testing. TDD is about designing."* — Kent Beck
-
-Test w TDD to **narzędzie do projektowania interfejsów**, nie cel sam w sobie. Dopasowujemy metodę do fazy projektu i dostępnych zasobów.
 
 ---
 
@@ -114,11 +120,11 @@ Test w TDD to **narzędzie do projektowania interfejsów**, nie cel sam w sobie.
 | **Pokrycie utility** | ~95% |
 | **Pokrycie komponentów** | ~85% |
 | **Czas wykonania** | ~8s |
-| **Ostatni test: 0 failed** | ✅ |
+| **Ostatni test** | 760 passed, 0 failed ✅ |
 
 ---
 
-## 🏗️ ARCHITECTURE (v3.0)
+## 🏗️ ARCHITEKTURA (v3.1)
 
 ```
 kredyt-kalkulator/
@@ -127,7 +133,7 @@ kredyt-kalkulator/
 │   │
 │   ├── hooks/
 │   │   ├── useLoanCalculator.ts
-│   │   ├── useWIBOR.ts
+│   │   ├── useWIBOR.ts            # WIBOR live + fallback
 │   │   └── useTheme.tsx           # Dark mode (localStorage + system pref)
 │   │
 │   ├── components/
@@ -137,19 +143,20 @@ kredyt-kalkulator/
 │   │   │   ├── WiborSimulator.tsx
 │   │   │   ├── OverpaymentCalc.tsx
 │   │   │   ├── LTVCalculator.tsx
-│   │   │   ├── FixedVsVariableCalc.tsx + FixedVsVariableChart.tsx 🆕
-│   │   │   ├── CommissionCalc.tsx 🆕
-│   │   │   ├── InsuranceCalc.tsx 🆕
-│   │   │   ├── RentVsBuyCalc.tsx 🆕
-│   │   │   ├── BankComparisonCalc.tsx + BankComparisonChart.tsx 🆕
+│   │   │   ├── FixedVsVariableCalc.tsx + FixedVsVariableChart.tsx
+│   │   │   ├── CommissionCalc.tsx
+│   │   │   ├── InsuranceCalc.tsx
+│   │   │   ├── RentVsBuyCalc.tsx
+│   │   │   ├── BankComparisonCalc.tsx  # Honestny kalkulator
+│   │   │   ├── BankComparisonChart.tsx # 🗑️ Dead code
 │   │   │   └── BIKSimulator.tsx
 │   │   │
 │   │   ├── shared/
 │   │   │   ├── Card.tsx, Alert.tsx, Tooltip.tsx, Slider.tsx
 │   │   │   ├── SEOHead.tsx           # E-E-A-T: Tony Halik
 │   │   │   ├── ExportPdfButton.tsx
-│   │   │   ├── CsvExportButton.tsx 🆕
-│   │   │   └── ThemeToggle.tsx 🆕
+│   │   │   ├── CsvExportButton.tsx
+│   │   │   └── ThemeToggle.tsx
 │   │   │
 │   │   └── layout/
 │   │       ├── Sidebar.tsx
@@ -162,28 +169,45 @@ kredyt-kalkulator/
 │   │   ├── costBreakdown.ts
 │   │   ├── formatters.ts
 │   │   ├── fixedVsVariable.ts
-│   │   ├── commissionCalc.ts 🆕
-│   │   ├── insuranceCalc.ts 🆕
-│   │   ├── csvExport.ts 🆕
-│   │   ├── rentVsBuy.ts 🆕
-│   │   ├── bankComparisonEnhanced.ts 🆕
+│   │   ├── commissionCalc.ts
+│   │   ├── insuranceCalc.ts
+│   │   ├── csvExport.ts
+│   │   ├── rentVsBuy.ts
+│   │   ├── bankComparisonEnhanced.ts  # 🗑️ Dead code
 │   │   └── exportPdf.ts
 │   │
-│   └── pages/
-│       ├── HubPage.tsx, CalculatorPage.tsx
-│       ├── CommissionPage.tsx 🆕
-│       ├── InsurancePage.tsx 🆕
-│       ├── RentVsBuyPage.tsx 🆕
-│       ├── MityPage.tsx
-│       └── TopicPage.tsx (autor byline + E-E-A-T)
+│   ├── pages/
+│   │   ├── HubPage.tsx, CalculatorPage.tsx
+│   │   ├── CommissionPage.tsx
+│   │   ├── InsurancePage.tsx
+│   │   ├── RentVsBuyPage.tsx
+│   │   ├── BankComparisonPage.tsx     # Strona z honestnym kalkulatorem
+│   │   ├── MityPage.tsx
+│   │   └── TopicPage.tsx (autor byline + E-E-A-T)
+│   │
+│   └── data/
+│       ├── bankProfiles.ts           # Tylko referencyjne dane banków
+│       └── ...
+│
+├── scripts/
+│   ├── fetch-wibor.js             # Scraper WIBOR z Bankier.pl
+│   ├── update-margins.cjs         # Interaktywna aktualizacja marż
+│   └── fetch-bank-offers.js       # 🗑️ Próba scrapowania (SPA — nie działa)
+│
+├── netlify/functions/
+│   ├── wibor.ts                   # Live WIBOR ze stooq.pl (używany)
+│   └── bank-offers.ts             # 🗑️ Nieużywana
+│
+├── public/
+│   └── bank-offers.json           # 🗑️ Nieużywany (były marże referencyjne)
 │
 ├── tailwind.config.js             # darkMode: 'class'
-└── prerender.js                   # +3 nowe ścieżki
+└── prerender.js                   # Wszystkie strony prerenderowane
 ```
 
 ---
 
-## 🔧 TECH STACK (Updated)
+## 🔧 TECH STACK
 
 | Technologia | Wersja | Użycie |
 |-------------|--------|--------|
@@ -205,13 +229,23 @@ kredyt-kalkulator/
 2. **Implementation**: TDD (RED → GREEN → REFACTOR)
 3. **Verification**: `npm test` (760 testów musi być zielone)
 4. **Git**: `git add -A && git commit -m "opis"` po każdym zadaniu
-5. **Deploy**: `npm run build && netlify deploy --prod`
+5. **Deploy**: `npm run build` → commit → push (Netlify auto-deploy)
+
+---
+
+## 🌐 ŹRÓDŁA DANYCH
+
+| Dane | Źródło | Automatyzacja |
+|------|--------|---------------|
+| **WIBOR 3M** | `stooq.pl` (Netlify function) + `bankier.pl` (fallback) | ✅ Live (on page load) |
+| **Marże banków** | — | ❌ **Brak API.** Wszystkie porównywarki (Bankier.pl, TotalMoney.pl, Comperia.pl) aktualizują ręcznie co miesiąc |
+| **Rankingi ofert** | Bankier.pl, TotalMoney.pl | Linki zewnętrzne |
 
 ---
 
 ## 📚 POLISH MARKET CONTEXT
 
-- **WIBOR** = Warsaw Interbank Offered Rate (aktualny: 3.85%, 2026-07-04)
+- **WIBOR** = Warsaw Interbank Offered Rate (aktualny: ~3.85%, 2026-07)
 - **LTV** = Loan-to-Value (wskaźnik wartości kredytu)
 - **RRSO** = Rzeczywista Roczna Stopa Oprocentowania
 - **UNWW** = Ubezpieczenie Niskiego Wkładu Własnego
@@ -220,14 +254,39 @@ kredyt-kalkulator/
 
 ---
 
-## 🔮 NEXT STEPS
+## 🔮 DEVELOPMENT PLAN — CO DALEJ?
 
-| Co | Kiedy |
-|----|-------|
-| E2E Playwright (3 ścieżki) | Następna sesja |
-| PWA (offline) | Phase 4 |
-| Integracja z API banków | Długi termin |
-| Historia symulacji | Średni termin |
+### Phase 4 — Następna sesja
+
+| Priority | Feature | Status |
+|----------|---------|--------|
+| 🔴 P1 | **E2E Playwright** — 3 ścieżki krytyczne | Planowane |
+| 🔴 P1 | **PWA (offline)** — Service Worker + manifest | Planowane |
+| 🟡 P2 | **GA4 + Netlify Analytics** | Planowane |
+| 🟡 P2 | **Konsolidacja dead code** — usunąć nieużywane pliki | Planowane |
+| 🟢 P3 | **Automatyczna aktualizacja WIBOR** (Netlify cron) | Do przemyślenia |
+
+### Pomysły (średni termin)
+- System porównań zapisanych symulacji (localStorage + export)
+- User-contributed data ("Zgłoś aktualną marżę" → form → PR)
+- Rozszerzona treść na stronie głównej (poradniki, artykuły)
+
+### Odrzucone / wstrzymane
+| Pomysł | Powód |
+|--------|-------|
+| Integracja z API banków | ❌ **Nie istnieje publiczne API do marż banków w Polsce** |
+| Tabela porównawcza banków | ❌ Wymaga danych, które nie są dostępne automatycznie |
+| Kalkulator walutowy | ❌ Małe zainteresowanie, wysokie ryzyko |
+
+---
+
+## 🔑 KLUCZOWE LEKCJE
+
+1. **Never fabricate data for financial tools.** Jeśli nie masz prawdziwych danych — nie udawaj.
+2. **Sprawdź dostępność źródła danych przed implementacją.** Nie zakładaj, że API istnieje.
+3. **Honestny kalkulator > fałszywa tabela.** Użytkownik woli "nie wiem" niż "wiem źle".
+4. **Unifikacja CSS to podstawa.** Jeden globalny wzorzec (`space-y-8` + h1 + p) na wszystkich stronach.
+5. **760 testów to siła.** Refactor bez strachu.
 
 ---
 
