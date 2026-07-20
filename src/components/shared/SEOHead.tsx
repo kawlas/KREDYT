@@ -142,7 +142,7 @@ export default function SEOHead({
   const location = useLocation()
 
   const canonicalUrl = `${siteUrl}${location.pathname}`.replace(/\/$/, '') + '/'
-  const ogImage = image || `${siteUrl}/og-image.svg`
+  const ogImage = image || `${siteUrl}/og-image.png`
   const fullAppUrl = appUrl || canonicalUrl
 
   return (
