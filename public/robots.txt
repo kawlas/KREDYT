@@ -23,3 +23,7 @@ User-agent: CCBot
 Allow: /
 
 Sitemap: https://kredytkalkulator.netlify.app/sitemap.xml
+
+# LLM/AI crawlers — structured content directory
+# See https://llmstxt.org/
+# llms.txt: https://kredytkalkulator.netlify.app/llms.txt

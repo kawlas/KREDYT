@@ -38,6 +38,9 @@ function organizationJsonLd() {
     name: 'KredytKalkulator',
     url: siteUrl,
     description: 'Darmowe kalkulatory kredytu hipotecznego i narzędzia finansowe',
+    sameAs: [
+      'https://github.com/kawlas/KREDYT',
+    ],
     founder: {
       '@type': 'Person',
       name: AUTHOR_NAME,
@@ -159,6 +162,7 @@ export default function SEOHead({
       <meta name="author" content={AUTHOR_NAME} />
 
       {/* Open Graph */}
+      <meta property="og:locale" content="pl_PL" />
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
       <meta property="og:type" content={type} />
