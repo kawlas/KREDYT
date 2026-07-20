@@ -19,6 +19,7 @@ export default function OverpaymentPage() {
         schemaType="WebApplication"
       />
       <div className="space-y-8">
+        <h1 className="text-3xl font-bold text-gray-900">Symulator nadpłat kredytu hipotecznego</h1>
         <OverpaymentCalc />
         <section>
           <h2 className="text-2xl font-bold text-gray-900 mb-4">Jak nadpłacać kredyt hipoteczny?</h2>
