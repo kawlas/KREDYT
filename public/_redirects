@@ -17,5 +17,4 @@
 /przygotowanie-do-kredytu/*  /przygotowanie-do-kredytu/index.html  200
 /koszt-utrzymania-nieruchomosci/*  /koszt-utrzymania-nieruchomosci/index.html  200
 
-# SPA/History Fallback
-/* /index.html 200
+# SPA/History Fallback — removed catch-all to allow proper HTTP 404
