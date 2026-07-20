@@ -10,7 +10,7 @@ export default function OverpaymentPage() {
   return (
     <>
       <SEOHead
-        title="Symulator Nadpłat Kredytu Hipotecznego — Sprawdź ile zaoszczędzisz"
+        title="Symulator nadpłat kredytu – ile zaoszczędzisz?"
         description="Ile możesz zaoszczędzić nadpłacając kredyt? Symulacja nadpłat: skrócenie okresu lub zmniejszenie raty. Sprawdź efekt jednorazowej i comiesięcznej nadpłaty."
         breadcrumbs={[
           { name: 'Strona główna', href: '/' },

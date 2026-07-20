@@ -28,7 +28,7 @@ const CompendiumsListPage: React.FC = () => {
   return (
     <TabContainer title="Poradniki kredytowe" subtitle="Kompendium wiedzy o kredytach hipotecznych">
       <SEOHead 
-        title="Poradniki Kredytowe — Kompendium Wiedzy | Kalkulator Kredytowy"
+        title="Poradniki kredytowe – kompendium wiedzy"
         description="Dowiedz się wszystkiego o kredytach hipotecznych: obliczanie rat, zdolność kredytowa, WIBOR, RRSO. Profesjonalne kompendium wiedzy."
         breadcrumbs={[
           { name: 'Strona główna', href: '/' },

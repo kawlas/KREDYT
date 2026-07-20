@@ -11,7 +11,7 @@ export default function TrueCostPage() {
   return (
     <>
       <SEOHead 
-        title="Koszt utrzymania nieruchomości — ile naprawdę kosztuje dom lub mieszkanie?"
+        title="Koszt utrzymania nieruchomości – ile zapłacisz?"
         description="Oblicz całkowity koszt posiadania nieruchomości. Uwzględnij ratę kredytu, media, podatki i fundusz remontowy."
       />
       <div className="space-y-8">
