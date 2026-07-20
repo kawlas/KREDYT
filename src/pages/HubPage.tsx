@@ -77,10 +77,10 @@ export default function HubPage() {
           Sprawdź ratę, zdolność i całkowity koszt w 30 sekund. Bez rejestracji, bez ukrytych opłat.
         </p>
         <div className="flex flex-col sm:flex-row gap-4">
-          <Link to="/kalkulator-raty-kredytu/" className="inline-flex items-center justify-center px-8 py-4 bg-primary text-white font-semibold rounded-xl hover:bg-primary/90 transition-colors shadow-sm text-lg">
+          <Link to="/kalkulator-raty-kredytu/" className="inline-flex items-center justify-center px-8 py-4 bg-primary text-white font-semibold rounded-lg hover:bg-primary/90 transition-all active:scale-98 shadow-sm text-lg">
             Oblicz ratę
           </Link>
-          <Link to="/zdolnosc-kredytowa/" className="inline-flex items-center justify-center px-8 py-4 bg-card text-foreground font-semibold rounded-xl border border-border hover:border-border hover:bg-muted transition-colors text-lg">
+          <Link to="/zdolnosc-kredytowa/" className="inline-flex items-center justify-center px-8 py-4 bg-card text-foreground font-semibold rounded-lg border border-outline-variant hover:border-outline-variant hover:bg-muted transition-all active:scale-98 text-lg">
             Sprawdź zdolność
           </Link>
         </div>
@@ -122,8 +122,8 @@ export default function HubPage() {
                 <p className="text-muted-foreground text-lg hidden sm:block">{phase.subtitle}</p>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-                {phase.tools.map((tool) => (
-                  <Link key={tool.to} to={tool.to} className={`group block bg-card rounded-lg border border-border p-4 border-l-4 ${borderClass} ${hoverBorderClass} hover:shadow-md transition-all`}>
+                {phase.tools.map((tool, toolIdx) => (
+                  <Link key={tool.to} to={tool.to} className={`group block bg-card rounded-2xl border border-outline-variant p-6 border-l-4 ${borderClass} ${hoverBorderClass} hover:shadow-md transition-all animate-card`} style={{ animationDelay: `${toolIdx * 50}ms` }}>
                     <span className={`inline-block text-[10px] font-semibold px-2 py-0.5 rounded-full ${badgeClass} mb-2`}>{phase.title}</span>
                     <h3 className={`font-semibold text-sm text-foreground mb-1 ${hoverTextClass} transition-colors`}>{tool.title}</h3>
                     <p className="text-xs text-muted-foreground leading-relaxed">{tool.desc}</p>

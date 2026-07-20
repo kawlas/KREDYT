@@ -130,19 +130,13 @@ describe('A — HubPage: left-aligned', () => {
 // ###############################################################
 
 describe('B — HubPage: compact cards', () => {
-  it('[B1] karty w tool grid mają padding p-4 (nie p-6)', () => {
+  it('[B1] karty w tool grid mają padding p-6 (Google Modern)', () => {
     const { container } = renderPage(<HubPage />)
     const html = getHtml(container)
-    // Find card elements in the "Co możesz zrobić" section
     const startIdx = html.indexOf('co możesz zrobić')
     if (startIdx >= 0) {
       const cardsSection = html.substring(startIdx)
-      // Cards should use p-4 not p-6
-      const hasP6 = cardsSection.match(/p-[\d]/g)
-      if (hasP6) {
-        expect(hasP6.includes('p-6')).toBe(false)
-      }
-      expect(cardsSection.includes('p-4')).toBe(true)
+      expect(cardsSection.includes('p-6')).toBe(true)
     }
   })
 
@@ -246,14 +240,14 @@ describe('D — Sidebar: bez emoji', () => {
 // ###############################################################
 
 describe('E — Sidebar: kolory kategorii', () => {
-  it('[E1] aktywny link kategorii "Kalkulatory" ma bg-blue-50 i text-blue-600', () => {
+  it('[E1] aktywny link kategorii "Kalkulatory" ma bg-primary-container i text-primary', () => {
     const { container } = renderSidebar('/kalkulator-raty-kredytu/')
     const links = Array.from(container.querySelectorAll('a'))
     const calcLink = links.find(l => l.getAttribute('href') === '/kalkulator-raty-kredytu/')
     expect(calcLink).toBeTruthy()
     if (calcLink) {
       const cls = calcLink.className
-      expect(cls.includes('bg-primary/10') && cls.includes('text-primary')).toBe(true)
+      expect(cls.includes('bg-primary-container') && cls.includes('text-primary')).toBe(true)
     }
   })
 

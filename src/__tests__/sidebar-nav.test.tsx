@@ -200,10 +200,8 @@ describe('C — Stylowanie sidebaru', () => {
     }
   })
 
-  it('[C1] ma szerokość w-60 lub w-56 (Tailwind)', () => {
-    const hasWidth = sidebarHtml.includes('w-60') || sidebarHtml.includes('w-56') ||
-                     sidebarHtml.includes('w-64') || sidebarHtml.includes('w-72')
-    expect(hasWidth).toBe(true)
+  it('[C1] ma szerokość w-[280px] (Google Modern)', () => {
+    expect(sidebarHtml.includes('w-[280px]')).toBe(true)
   })
 
   it('[C2] ma overflow-y-auto', () => {

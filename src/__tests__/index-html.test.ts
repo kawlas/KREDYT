@@ -40,9 +40,9 @@ describe('index.html - brak hardcoded tagów SEO', () => {
     expect(indexHtml).toContain('charset="UTF-8"')
   })
 
-  it('NIE odwołuje się do Google Fonts (self-host Inter)', () => {
-    expect(indexHtml).not.toContain('fonts.googleapis.com')
-    expect(indexHtml).not.toContain('fonts.gstatic.com')
+  it('odwołuje się do Google Fonts dla Manrope', () => {
+    expect(indexHtml).toContain('fonts.googleapis.com/css2?family=Manrope')
+    expect(indexHtml).toContain('fonts.gstatic.com')
   })
 
   it('zawiera <div id="root">', () => {

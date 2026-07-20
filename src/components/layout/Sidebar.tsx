@@ -56,12 +56,12 @@ const categoryColors: Record<string, string> = {
 }
 
 function getActiveClass(path: string | undefined, isActive: boolean): string {
-  const base = 'flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors'
+  const base = 'flex items-center gap-3 px-3 py-2.5 rounded-r-full text-sm font-medium transition-colors'
   if (!isActive) return `${base} text-muted-foreground hover:text-foreground hover:bg-muted`
   const color = path ? categoryColors[path] : undefined
   if (color === 'violet') return `${base} text-violet-600 bg-violet-50`
   if (color === 'emerald') return `${base} text-emerald-600 bg-emerald-50`
-  return `${base} text-primary bg-primary/10`
+  return `${base} text-primary bg-primary-container`
 }
 
 interface SidebarProps {
@@ -92,7 +92,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
       <aside
         className={`
           fixed lg:sticky top-0 left-0 z-50 h-screen
-          w-60 bg-card bg-card border-r border-border border-border
+          w-[280px] bg-surface-container border-r border-outline-variant
           flex flex-col overflow-y-auto
           transition-transform duration-300
           ${isOpen ? 'translate-x-0' : '-translate-x-full'}
@@ -124,11 +124,11 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
         <nav aria-label="Nawigacja główna" className="flex-1 py-3 px-2 space-y-0.5">
           {sidebarItems.map((item, i) => {
             if (item.type === 'divider') {
-              return <hr key={`div-${i}`} className="border-border my-3" />
+              return <hr key={`div-${i}`} className="border-outline-variant my-3" />
             }
             if (item.type === 'category') {
               return (
-                <p key={item.label} className="px-3 py-2 text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                <p key={item.label} className="px-3 py-2 text-xs font-bold uppercase tracking-wider text-text-secondary">
                   {item.label}
                 </p>
               )
