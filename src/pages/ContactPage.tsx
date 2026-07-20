@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { Helmet } from 'react-helmet-async'
 import TabContainer from '../components/layout/TabContainer'
 import SEOHead from '../components/shared/SEOHead'
 import Alert from '../components/shared/Alert'
@@ -32,15 +31,13 @@ const ContactPage: React.FC = () => {
     <TabContainer title="Kontakt" subtitle="Masz propozycje ulepszenia strony lub współpracy?">
       <SEOHead
         title="Kontakt | Kalkulator Kredytowy"
-        description="Skontaktuj się z nami w sprawie kalkulatora kredytowego. Wyślij wiadomość przez formularz kontaktowy."
+        description="Masz pytanie o kalkulator kredytowy, współpracę lub sugestię ulepszenia? Skontaktuj się przez formularz."
+        noIndex
         breadcrumbs={[
           { name: 'Strona główna', href: '/' },
           { name: 'Kontakt', href: '/kontakt/' },
         ]}
       />
-      <Helmet>
-        <meta name="robots" content="noindex, follow" />
-      </Helmet>
       <div>
         {submitted ? (
           <div className="py-12">

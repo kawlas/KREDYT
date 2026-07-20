@@ -38,6 +38,10 @@ function organizationJsonLd() {
     name: 'KredytKalkulator',
     url: siteUrl,
     description: 'Darmowe kalkulatory kredytu hipotecznego i narzędzia finansowe',
+    logo: {
+      '@type': 'ImageObject',
+      url: `${siteUrl}/favicon.svg`,
+    },
     sameAs: [
       'https://github.com/kawlas/KREDYT',
     ],
@@ -100,12 +104,13 @@ function webApplicationJsonLd(title: string, description: string, appUrl: string
   })
 }
 
-function articleJsonLd(title: string, description: string) {
+function articleJsonLd(title: string, description: string, image?: string) {
   return JSON.stringify({
     '@context': 'https://schema.org',
     '@type': 'Article',
     headline: title,
     description,
+    image: image || `${siteUrl}/og-image.png`,
     datePublished: '2026-01-15',
     dateModified: '2026-07-04',
     author: {
@@ -113,6 +118,14 @@ function articleJsonLd(title: string, description: string) {
       name: AUTHOR_NAME,
       jobTitle: AUTHOR_JOB_TITLE,
       url: AUTHOR_URL,
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'KredytKalkulator',
+      logo: {
+        '@type': 'ImageObject',
+        url: `${siteUrl}/favicon.svg`,
+      },
     },
   })
 }
