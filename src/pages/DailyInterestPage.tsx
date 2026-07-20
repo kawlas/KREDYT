@@ -19,7 +19,6 @@ export default function DailyInterestPage() {
         schemaType="WebApplication"
       />
       <div className="space-y-8">
-        <h1 className="text-3xl font-bold text-gray-900">Kalkulator odsetek dziennych kredytu</h1>
         <DailyInterestCalc />
         <section>
           <h2 className="text-2xl font-bold text-gray-900 mb-4">Czym różni się act/365 od act/360?</h2>

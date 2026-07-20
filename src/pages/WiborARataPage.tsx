@@ -7,7 +7,7 @@ import ArticleMeta from '../components/shared/ArticleMeta'
 
 const WiborARataPage: React.FC = () => {
   return (
-    <TabContainer title="Kompendium" subtitle="Wiedza o kredytach hipotecznych">
+    <TabContainer title="WIBOR a rata kredytu — jak się zmienia?" subtitle="Kompendium wiedzy o kredytach hipotecznych">
       <SEOHead 
         title="WIBOR a rata kredytu — jak się zmienia? — Kompendium wiedzy"
         description="Symulacje wzrostu i spadku WIBOR, wpływ na ratę przy różnych kwotach. Przygotuj się na zmiany stóp procentowych."
@@ -21,7 +21,6 @@ const WiborARataPage: React.FC = () => {
       
       <BreadcrumbNav pathname="/poradniki/wibor-a-rata/" />
       <article>
-        <h1 className="text-3xl font-bold text-gray-900 mb-4">WIBOR a rata kredytu — jak się zmienia? — Kompendium wiedzy</h1>
         <ArticleMeta date="lipiec 2026" expert="Piotr Radwański" />
         <div>
         

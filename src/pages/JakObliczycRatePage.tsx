@@ -7,7 +7,7 @@ import ArticleMeta from '../components/shared/ArticleMeta'
 
 const JakObliczycRatePage: React.FC = () => {
   return (
-    <TabContainer title="Kompendium" subtitle="Wiedza o kredytach hipotecznych">
+    <TabContainer title="Jak obliczyć ratę kredytu hipotecznego?" subtitle="Kompendium wiedzy o kredytach hipotecznych">
       <SEOHead 
         title="Jak obliczyć ratę kredytu hipotecznego? — Kompendium wiedzy"
         description="Poznaj wzory matematyczne, wpływ WIBOR i oprocentowania na ratę kredytu hipotecznego. Kompleksowe kompendium z przykładami liczbowymi."
@@ -21,7 +21,6 @@ const JakObliczycRatePage: React.FC = () => {
       
       <BreadcrumbNav pathname="/poradniki/jak-obliczyc-rate/" />
       <article>
-        <h1 className="text-3xl font-bold text-gray-900 mb-4">Jak obliczyć ratę kredytu hipotecznego? — Kompendium wiedzy</h1>
         <ArticleMeta date="lipiec 2026" expert="Piotr Radwański" />
         <div>
         
