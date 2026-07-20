@@ -7,7 +7,7 @@ export default function HiddenCostsPage() {
   return (
     <>
       <SEOHead 
-        title="Ukryte koszty kredytu hipotecznego - lista kontrolna | Kalkulator Kredytowy"
+        title="Ukryte koszty kredytu hipotecznego – checklista"
         description="Poznaj 20+ ukrytych kosztów kredytu hipotecznego: prowizje, ubezpieczenia, opłaty notarialne. Sprawdź ile naprawdę zapłacisz za kredyt."
         breadcrumbs={[
           { name: 'Strona główna', href: '/' },

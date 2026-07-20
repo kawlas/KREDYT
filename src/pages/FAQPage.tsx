@@ -11,7 +11,7 @@ export default function FAQPage() {
       subtitle="Odpowiedzi na 20 kluczowych pytań o kredyt hipoteczny"
     >
       <SEOHead 
-        title="FAQ Kredyt Hipoteczny - 20 Najważniejszych Pytań i Odpowiedzi"
+        title="FAQ – kredyt hipoteczny, 20 pytań i odpowiedzi"
         description="Masz pytania o kredyt hipoteczny? Zobacz 20 najczęściej zadawanych pytań: rata, zdolność, wkład własny, nadpłata. Sprawdź odpowiedzi ekspertów."
         breadcrumbs={[
           { name: 'Strona główna', href: '/' },

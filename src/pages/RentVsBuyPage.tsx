@@ -9,7 +9,7 @@ export default function RentVsBuyPage() {
   return (
     <>
       <SEOHead 
-        title="Kredyt Hipoteczny czy Wynajem? Kalkulator | Kalkulator Kredytowy"
+        title="Kredyt czy wynajem? Kalkulator porównawczy"
         description="Porównaj koszty kredytu hipotecznego i wynajmu. Sprawdź, co bardziej się opłaca w Twojej sytuacji — kupno mieszkania na kredyt czy wynajem."
         breadcrumbs={[
           { name: 'Strona główna', href: '/' },

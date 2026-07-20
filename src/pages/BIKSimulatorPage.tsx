@@ -36,7 +36,7 @@ export default function BIKSimulatorPage() {
   return (
     <>
       <SEOHead
-        title="Symulator BIK — co wpływa na scoring kredytowy? | Kalkulator Kredytowy"
+        title="Symulator BIK – co wpływa na scoring?"
         description="Sprawdź, jakie czynniki wpływają na Twój scoring BIK. Symulator pokaże Ci, jak terminowe spłaty, opóźnienia i inne czynniki zmieniają Twój wynik punktowy."
         breadcrumbs={[
           { name: 'Strona główna', href: '/' },

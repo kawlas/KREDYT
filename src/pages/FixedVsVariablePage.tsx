@@ -9,7 +9,7 @@ export default function FixedVsVariablePage() {
   return (
     <>
       <SEOHead 
-        title="Stałe czy zmienne oprocentowanie? Porównanie | Kalkulator Kredytowy"
+        title="Stałe czy zmienne oprocentowanie? Porównanie"
         description="Porównaj oprocentowanie stałe i zmienne kredytu hipotecznego. Sprawdź, która opcja jest tańsza i bezpieczniejsza dla Ciebie."
         breadcrumbs={[
           { name: 'Strona główna', href: '/' },

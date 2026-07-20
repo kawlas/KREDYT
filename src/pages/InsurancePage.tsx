@@ -9,7 +9,7 @@ export default function InsurancePage() {
   return (
     <>
       <SEOHead 
-        title="Kalkulator Ubezpieczenia Kredytu Hipotecznego — UNWW, Życie, Pomostowe"
+        title="Ubezpieczenie kredytu hipotecznego – kalkulator"
         description="Sprawdź, ile kosztują ubezpieczenia kredytu hipotecznego: UNWW (niskiego wkładu), na życie z cesją, pomostowe i od utraty pracy. Kalkulator online."
         breadcrumbs={[
           { name: 'Strona główna', href: '/' },

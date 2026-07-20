@@ -9,7 +9,7 @@ const CreditCapacityCompendiumPage: React.FC = () => {
   return (
     <TabContainer title="Kompendium" subtitle="Wiedza o kredytach hipotecznych">
       <SEOHead 
-        title="Zdolność kredytowa — ile możesz pożyczyć? — Kompendium wiedzy"
+        title="Zdolność kredytowa – ile możesz pożyczyć?"
         description="Jak bank liczy zdolność? Wpływ formy zatrudnienia, zobowiązań i kosztów utrzymania. Porady eksperta."
         breadcrumbs={[
           { name: 'Strona główna', href: '/' },

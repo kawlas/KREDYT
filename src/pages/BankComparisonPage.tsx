@@ -10,7 +10,7 @@ export default function BankComparisonPage() {
   return (
     <>
       <SEOHead
-        title="Kalkulator Kredytu Hipotecznego — Oblicz Ratę i Koszt Kredytu 2026"
+        title="Porównanie banków – kalkulator kredytu"
         description="Oblicz miesięczną ratę, całkowity koszt i RRSO kredytu hipotecznego. Kalkulator uwzględnia WIBOR na żywo, marżę banku i test warunków skrajnych KNF."
         type="article"
         breadcrumbs={[

@@ -10,7 +10,7 @@ export default function RefinancingPage() {
   return (
     <>
       <SEOHead
-        title="Kalkulator Refinansowania Kredytu Hipotecznego — Czy warto zmienić bank?"
+        title="Refinansowanie kredytu – kalkulator i porównanie"
         description="Ile zaoszczędzisz na refinansowaniu kredytu? Porównaj obecną ratę z nową ofertą. Sprawdź całkowite koszty i okres zwrotu refinansowania."
         breadcrumbs={[
           { name: 'Strona główna', href: '/' },

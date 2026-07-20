@@ -3,7 +3,7 @@ import type { Topic } from '../types';
 export const TOPICS: Topic[] = [
   {
     slug: 'wklad-wlasny-10-czy-20',
-    metaTitle: 'Wkład własny 10% czy 20%? Zalety i wady | Kalkulator Kredytowy',
+    metaTitle: 'Wkład własny 10% czy 20%? Porównanie wad i zalet',
     metaDescription: 'Zastanawiasz się, czy uzbierać 20% wkładu własnego, czy wystarczy 10%? Poznaj różnice w kosztach, ubezpieczenie niskiego wkładu i sprawdź, co się bardziej opłaca.',
     h1: 'Wkład własny 10% czy 20%? Co wybrać w 2024 roku?',
     intro: 'Wybór między 10% a 20% wkładem własnym to jedna z najważniejszych decyzji przy planowaniu kredytu hipotecznego. Wpływa ona nie tylko na dostępność ofert, ale również na całkowity koszt zobowiązania.',
@@ -39,7 +39,7 @@ export const TOPICS: Topic[] = [
   },
   {
     slug: 'ltv-co-to-jest',
-    metaTitle: 'LTV (Loan to Value) - co to jest? Definicja i znaczenie | Kalkulator',
+    metaTitle: 'LTV (Loan to Value) – co to jest? Wyjaśnienie',
     metaDescription: 'Dowiedz się, czym jest wskaźnik LTV i dlaczego jest kluczowy przy staraniu się o kredyt hipoteczny. Zrozum, jak LTV wpływa na marżę i decyzję banku.',
     h1: 'LTV (Loan to Value) - Kluczowy wskaźnik Twojego kredytu',
     intro: 'LTV to skrót od Loan to Value, co w tłumaczeniu oznacza relację kwoty kredytu do wartości nieruchomości. Jest to jeden z najważniejszych parametrów, na jakie patrzy bank.',
@@ -109,7 +109,7 @@ export const TOPICS: Topic[] = [
   },
   {
     slug: 'wibor-jak-wplywa-na-rate',
-    metaTitle: 'Jak WIBOR wpływa na Twoją ratę kredytu? Wyjaśnienie | Kalkulator',
+    metaTitle: 'Wpływ WIBOR na ratę kredytu – wyjaśnienie',
     metaDescription: 'Zrozum mechanizm działania WIBOR i dowiedz się, jak jego zmiany przekładają się na Twój portfel. Wszystko o zmiennym oprocentowaniu kredytu.',
     h1: 'Jak WIBOR wpływa na wysokość Twojej raty?',
     intro: 'WIBOR (Warsaw Interbank Offered Rate) to wskaźnik, który bezpośrednio decyduje o wysokości oprocentowania większości kredytów hipotecznych w Polsce.',
@@ -144,7 +144,7 @@ export const TOPICS: Topic[] = [
   },
   {
     slug: 'wibor-plus-1pp',
-    metaTitle: 'Wzrost WIBOR o 1 punkt procentowy - Symulacja raty | Kalkulator',
+    metaTitle: 'Wzrost WIBOR o 1 pp – symulacja raty',
     metaDescription: 'Sprawdź, jak wzrost WIBOR o 1p.p. wpłynie na Twój domowy budżet. Zobacz konkretne wyliczenia dla różnych kwot kredytu.',
     h1: 'Co oznacza wzrost WIBOR o 1 punkt procentowy?',
     intro: 'Nawet niewielka zmiana wskaźnika WIBOR może mieć zauważalny wpływ na Twoje miesięczne wydatki. Zobaczmy, jak wzrost o 1% przekłada się na ratę kredytu.',
@@ -179,7 +179,7 @@ export const TOPICS: Topic[] = [
   },
   {
     slug: 'wibor-plus-2pp',
-    metaTitle: 'Wzrost WIBOR o 2 punkty procentowe - Czarny scenariusz? | Kalkulator',
+    metaTitle: 'Wzrost WIBOR o 2 pp – czarny scenariusz?',
     metaDescription: 'Jak bardzo może wzrosnąć Twoja rata? Symulacja drastycznego wzrostu WIBOR o 2 p.p. Przygotuj się na najgorsze i chroń swoje finanse.',
     h1: 'Symulacja: Wzrost WIBOR o 2 punkty procentowe',
     intro: 'Choć skokowy wzrost o 2% rzadko zdarza się w krótkim czasie, w perspektywie roku lub dwóch jest to scenariusz, który warto brać pod uwagę podczas stres-testu domowego budżetu.',
@@ -214,7 +214,7 @@ export const TOPICS: Topic[] = [
   },
   {
     slug: 'raty-rowne-czy-malejace',
-    metaTitle: 'Raty Równe czy Malejące? Wielkie Porównanie | Kalkulator Kredytowy',
+    metaTitle: 'Raty równe czy malejące? Porównanie',
     metaDescription: 'Nie wiesz, który system spłat wybrać? Porównujemy raty równe (annuitetowe) i malejące. Zobacz, gdzie zapłacisz mniej odsetek i dlaczego.',
     h1: 'Raty Równe czy Malejące? Które wybrać?',
     intro: 'To jedno z najczęstszych pytań przy podpisywaniu umowy. Wybór systemu spłat ma kluczowy wpływ na to, ile w sumie oddasz pieniędzy do banku.',
@@ -249,7 +249,7 @@ export const TOPICS: Topic[] = [
   },
   {
     slug: 'raty-malejace-kiedy-sie-oplacaja',
-    metaTitle: 'Kiedy Raty Malejące się opłacają? Analiza Opłacalności | Kalkulator',
+    metaTitle: 'Kiedy raty malejące się opłacają? Analiza',
     metaDescription: 'Odkryj sytuacje, w których system rat malejących jest strzałem w dziesiątkę. Dowiedz się, jak zaoszczędzić dziesiątki tysięcy złotych na odsetkach.',
     h1: 'Kiedy warto wybrać raty malejące?',
     intro: 'Raty malejące to potężne narzędzie do obniżania kosztów kredytu, ale nie każdy powinien się na nie decydować. Sprawdźmy, kiedy ten wybór ma najwięcej sensu.',
@@ -284,7 +284,7 @@ export const TOPICS: Topic[] = [
   },
   {
     slug: 'zdolnosc-kredytowa-co-obniza',
-    metaTitle: 'Co obniża zdolność kredytową? 7 Najczęstszych Błędów | Kalkulator',
+    metaTitle: 'Co obniża zdolność kredytową? 7 błędów',
     metaDescription: 'Twoja zdolność kredytowa jest niższa niż myślałeś? Sprawdź, co ją zabija: od kart kredytowych po limity w koncie. Dowiedz się, jak ją poprawić.',
     h1: 'Co obniża Twoją zdolność kredytową?',
     intro: 'Zdolność kredytowa to nie tylko Twoje zarobki. To skomplikowane równanie, w którym bank odejmuje od Twoich przychodów wszystko, co uzna za ryzykowne.',
@@ -319,7 +319,7 @@ export const TOPICS: Topic[] = [
   },
   {
     slug: 'jak-bank-liczy-zdolnosc',
-    metaTitle: 'Jak bank oblicza zdolność kredytową? Kulisy Analizy | Kalkulator',
+    metaTitle: 'Jak bank oblicza zdolność kredytową?',
     metaDescription: 'Poznaj wzory i zasady, którymi kierują się analitycy bankowi. Dowiedz się, jak przygotować się do badania zdolności kredytowej.',
     h1: 'Jak bank liczy Twoją zdolność kredytową?',
     intro: 'Proces badania zdolności kredytowej to nie tylko sucha matematyka, to ocena ryzyka, że przestaniesz spłacać kredyt w ciągu najbliższych 20-30 lat.',
@@ -354,7 +354,7 @@ export const TOPICS: Topic[] = [
   },
   {
     slug: 'koszty-kredytu-hipotecznego-jakie',
-    metaTitle: 'Jakie są rzeczywiste koszty kredytu hipotecznego? | Kalkulator',
+    metaTitle: 'Rzeczywiste koszty kredytu hipotecznego',
     metaDescription: 'Kredyt to nie tylko rata. Poznaj wszystkie ukryte koszty: od prowizji po ubezpieczenia nieruchomości. Nie daj się zaskoczyć dodatkowym wydatkom.',
     h1: 'Jakie są koszty kredytu hipotecznego?',
     intro: 'Wiele osób skupia się wyłącznie na marży i RRSO, zapominając o szeregu opłat okołokredytowych, które mogą wynieść nawet kilka procent wartości nieruchomości na samym starcie.',
@@ -389,7 +389,7 @@ export const TOPICS: Topic[] = [
   },
   {
     slug: 'prowizja-ubezpieczenie-notariusz',
-    metaTitle: 'Prowizja, Ubezpieczenie, Notariusz - Przewodnik po Opłatach | Kalkulator',
+    metaTitle: 'Prowizja, ubezpieczenie, notariusz – przewodnik',
     metaDescription: 'Szczegółowe zestawienie dodatkowych opłat przy kredycie hipotecznym. Dowiedz się, ile kosztuje notariusz i jak negocjować prowizję z bankiem.',
     h1: 'Prowizja, ubezpieczenie i notariusz - dodatkowe wydatki',
     intro: 'Przygotowanie do kredytu to nie tylko zbieranie na wkład własny, to także zabezpieczenie gotówki na tzw. koszty transakcyjne.',
@@ -424,7 +424,7 @@ export const TOPICS: Topic[] = [
   },
   {
     slug: 'jak-dziala-wibor',
-    metaTitle: 'Jak działa WIBOR? Wpływ na ratę kredytu | Kalkulator Kredytowy',
+    metaTitle: 'Jak działa WIBOR? Wpływ na ratę kredytu',
     metaDescription: 'Dowiedz się, czym jest WIBOR i jak wpływa na Twoją ratę kredytu hipotecznego. Symulacje wzrostu stóp procentowych i porady ekspertów.',
     h1: 'Jak działa WIBOR i wpływa na ratę kredytu?',
     intro: 'WIBOR (Warsaw Interbank Offered Rate) to kluczowy wskaźnik, który determinuje oprocentowanie Twojego kredytu hipotecznego. Zrozumienie jego mechanizmu pomoże Ci lepiej planować budżet.',
@@ -493,7 +493,7 @@ export const TOPICS: Topic[] = [
   },
   {
     slug: 'kredyt-na-b2b',
-    metaTitle: 'Kredyt na B2B – jak dostać kredyt hipoteczny jako przedsiębiorca?',
+    metaTitle: 'Kredyt hipoteczny na B2B – jak dostać?',
     metaDescription: 'Dowiedz się, jak banki oceniają zdolność kredytową na B2B. Sprawdź, jakie dokumenty są potrzebne i jak zwiększyć szanse na kredyt jako przedsiębiorca.',
     h1: 'Kredyt hipoteczny na B2B – poradnik dla przedsiębiorców',
     intro: 'Prowadzisz działalność gospodarczą i zastanawiasz się, czy dostaniesz kredyt hipoteczny? Dobra wiadomość: tak, jest to możliwe. Banki jednak podchodzą do przedsiębiorców bardziej ostrożnie niż do pracowników etatowych. W tym poradniku wyjaśniamy, jakie warunki musisz spełnić i jak przygotować się do wniosku kredytowego na B2B.',

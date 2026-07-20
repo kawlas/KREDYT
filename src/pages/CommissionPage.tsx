@@ -9,7 +9,7 @@ export default function CommissionPage() {
   return (
     <>
       <SEOHead 
-        title="Kalkulator Prowizji Bankowej — Porównaj koszty | Kalkulator Kredytowy"
+        title="Prowizja bankowa – kalkulator i porównanie"
         description="Sprawdź, czy bardziej opłaca się kredyt z prowizją i niższą marżą, czy bez prowizji z wyższą marżą. Kalkulator prowizji bankowej online."
         breadcrumbs={[
           { name: 'Strona główna', href: '/' },
