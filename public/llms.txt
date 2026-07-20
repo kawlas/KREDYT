@@ -1,0 +1,36 @@
+# Kalkulator Kredytowy
+> Darmowe kalkulatory kredytu hipotecznego i narzędzia finansowe. Oblicz ratę, RRSO, zdolność kredytową, porównaj oferty banków.
+
+## Narzędzia kalkulatorów
+- [Kalkulator raty kredytu](https://kredytkalkulator.netlify.app/kalkulator-raty-kredytu/): Oblicz miesięczną ratę, RRSO i harmonogram spłat
+- [Symulator WIBOR](https://kredytkalkulator.netlify.app/symulacja-wibor/): Sprawdź jak wzrost WIBOR wpłynie na ratę
+- [Kalkulator zdolności kredytowej](https://kredytkalkulator.netlify.app/zdolnosc-kredytowa/): Ile możesz pożyczyć od banku?
+- [Kalkulator LTV](https://kredytkalkulator.netlify.app/ltv-kalkulator/): Sprawdź wskaźnik LTV i wymagany wkład własny
+- [Symulator nadpłat](https://kredytkalkulator.netlify.app/symulator-nadplat/): Ile zaoszczędzisz nadpłacając kredyt?
+- [Kalkulator refinansowania](https://kredytkalkulator.netlify.app/refinansowanie-kredytu/): Czy opłaca się zmienić bank?
+- [Porównanie ofert banków](https://kredytkalkulator.netlify.app/porownanie-ofert-bankow/): Porównaj oferty kredytów hipotecznych
+- [Kalkulator odsetek dziennych](https://kredytkalkulator.netlify.app/odsetki-dzienne/): Konwencja act/365 vs act/360
+- [Raty równe czy malejące?](https://kredytkalkulator.netlify.app/raty-rowne-czy-malejace/): Porównanie rodzajów rat
+- [Koszt utrzymania nieruchomości](https://kredytkalkulator.netlify.app/koszt-utrzymania-nieruchomosci/): Kalkulator całkowitego kosztu posiadania
+- [Kredyt vs wynajem](https://kredytkalkulator.netlify.app/kredyt-vs-wynajem/): Kalkulator porównawczy
+- [Kalkulator prowizji](https://kredytkalkulator.netlify.app/kalkulator-prowizji/): Sprawdź koszty prowizji bankowej
+- [Kalkulator ubezpieczeń](https://kredytkalkulator.netlify.app/kalkulator-ubezpieczen/): UNWW, życie, pomostowe
+- [Symulator BIK](https://kredytkalkulator.netlify.app/bik-simulator/): Co wpływa na scoring kredytowy?
+- [Ukryte koszty kredytu](https://kredytkalkulator.netlify.app/ukryte-koszty-kredytu/): Lista kontrolna kosztów
+- [Stałe vs zmienne oprocentowanie](https://kredytkalkulator.netlify.app/stale-vs-zmienne-oprocentowanie/): Porównanie
+
+## Poradniki i kompendia
+- [Poradniki kredytowe](https://kredytkalkulator.netlify.app/poradniki/): Kompendium wiedzy o kredytach hipotecznych
+- [Jak obliczyć ratę kredytu?](https://kredytkalkulator.netlify.app/poradniki/jak-obliczyc-rate/): Wzory i przykłady
+- [WIBOR a rata kredytu](https://kredytkalkulator.netlify.app/poradniki/wibor-a-rata/): Symulacje wpływu WIBOR
+- [Zdolność kredytowa - kompendium](https://kredytkalkulator.netlify.app/poradniki/zdolnosc-kredytowa/): Jak bank liczy zdolność?
+- [FAQ kredyt hipoteczny](https://kredytkalkulator.netlify.app/faq-kredyt-hipoteczny/): 20 najważniejszych pytań i odpowiedzi
+- [Mity o kredytach](https://kredytkalkulator.netlify.app/mity-kredytowe/): Popularne mity i fakty
+- [Co wpływa na zdolność?](https://kredytkalkulator.netlify.app/co-wplywa-na-zdolnosc/): 7 najczęstszych błędów
+
+## Inne strony
+- [O projekcie](https://kredytkalkulator.netlify.app/o-projekcie/): O autorze i metodologii
+- [Metodologia obliczeń](https://kredytkalkulator.netlify.app/metodologia/): Jak liczymy parametry kredytu?
+- [Kontakt](https://kredytkalkulator.netlify.app/kontakt/): Formularz kontaktowy
+- [Polityka prywatności](https://kredytkalkulator.netlify.app/polityka-prywatnosci/): Zasady przetwarzania danych
+- [Polityka redakcyjna](https://kredytkalkulator.netlify.app/polityka-redakcyjna/): Zasady tworzenia treści

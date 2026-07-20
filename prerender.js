@@ -101,6 +101,37 @@ const routesToPrerender = Array.from(new Set([...baseRoutes, ...topicRoutes]))
   }
 
   // Generate sitemap.xml
+  const priorityMap = {
+    '/': '1.0',
+    '/kalkulator-raty-kredytu/': '0.9',
+    '/zdolnosc-kredytowa/': '0.9',
+    '/symulacja-wibor/': '0.9',
+    '/ltv-kalkulator/': '0.9',
+    '/symulator-nadplat/': '0.9',
+    '/refinansowanie-kredytu/': '0.9',
+    '/porownanie-ofert-bankow/': '0.9',
+    '/raty-rowne-czy-malejace/': '0.8',
+    '/stale-vs-zmienne-oprocentowanie/': '0.8',
+    '/odsetki-dzienne/': '0.8',
+    '/kredyt-vs-wynajem/': '0.8',
+    '/ukryte-koszty-kredytu/': '0.8',
+    '/koszt-utrzymania-nieruchomosci/': '0.8',
+    '/kalkulator-prowizji/': '0.8',
+    '/kalkulator-ubezpieczen/': '0.8',
+    '/faq-kredyt-hipoteczny/': '0.7',
+    '/poradniki/': '0.7',
+    '/poradniki/jak-obliczyc-rate/': '0.7',
+    '/poradniki/zdolnosc-kredytowa/': '0.7',
+    '/poradniki/wibor-a-rata/': '0.7',
+    '/mity-kredytowe/': '0.7',
+    '/co-wplywa-na-zdolnosc/': '0.7',
+    '/przygotowanie-do-kredytu/': '0.7',
+    '/o-projekcie/': '0.5',
+    '/metodologia/': '0.5',
+    '/kontakt/': '0.5',
+    '/polityka-prywatnosci/': '0.3',
+    '/polityka-redakcyjna/': '0.3',
+  }
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   ${routesToPrerender
@@ -110,7 +141,7 @@ const routesToPrerender = Array.from(new Set([...baseRoutes, ...topicRoutes]))
     <loc>https://kredytkalkulator.netlify.app${route}</loc>
     <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>${route === '/' ? '1.0' : '0.8'}</priority>
+    <priority>${priorityMap[route] || '0.8'}</priority>
   </url>
   `).join('').trim()}
 </urlset>`
@@ -142,7 +173,11 @@ Allow: /
 User-agent: CCBot
 Allow: /
 
-Sitemap: https://kredytkalkulator.netlify.app/sitemap.xml`
+Sitemap: https://kredytkalkulator.netlify.app/sitemap.xml
+
+# LLM/AI crawlers — structured content directory
+# See https://llmstxt.org/ for the specification
+# llms.txt: https://kredytkalkulator.netlify.app/llms.txt`
 
   fs.writeFileSync(toAbsolute('dist/static/robots.txt'), robots)
   console.log('Generated robots.txt')
