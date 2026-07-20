@@ -122,8 +122,6 @@ const routesToPrerender = Array.from(new Set([...baseRoutes, ...topicRoutes]))
   const robots = `User-agent: *
 Allow: /
 Disallow: /404/
-Disallow: /kontakt/
-Disallow: /polityka-prywatnosci/
 
 # AI crawlers — content jest publiczny
 User-agent: GPTBot
