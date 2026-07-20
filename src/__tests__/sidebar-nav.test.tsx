@@ -327,9 +327,9 @@ describe('E — Zachowanie sidebaru', () => {
     if (activeLink) {
       const cls = activeLink.className || ''
       expect(
-        cls.includes('text-blue-600') ||
-        cls.includes('bg-blue-50') ||
-        cls.includes('text-blue-500')
+        cls.includes('text-primary') ||
+        cls.includes('bg-primary/10') ||
+        cls.includes('bg-primary')
       ).toBe(true)
     }
   })

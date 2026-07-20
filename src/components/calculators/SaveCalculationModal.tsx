@@ -68,15 +68,15 @@ export default function SaveCalculationModal({
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[100] p-4 animate-in fade-in duration-200">
-      <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 animate-in zoom-in-95 duration-200">
+      <div className="bg-card rounded-2xl shadow-2xl max-w-md w-full p-8 animate-in zoom-in-95 duration-200">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
-          <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
+          <h2 className="text-2xl font-bold text-foreground flex items-center gap-2">
             Zapisz obliczenia
           </h2>
           <button 
             onClick={handleClose} 
-            className="text-gray-400 hover:text-gray-600 transition-colors p-2 hover:bg-gray-100 rounded-full"
+            className="text-muted-foreground hover:text-foreground transition-colors p-2 hover:bg-muted rounded-full"
             aria-label="Zamknij"
           >
             <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -86,22 +86,22 @@ export default function SaveCalculationModal({
         </div>
 
         {/* Summary Card */}
-        <div className="bg-blue-50/50 rounded-xl p-6 mb-8 border border-blue-100">
-          <div className="text-xs font-bold text-blue-600 uppercase tracking-wider mb-4">Podsumowanie scenariusza</div>
+        <div className="bg-primary/10 rounded-xl p-6 mb-8 border border-primary/30">
+          <div className="text-xs font-bold text-primary uppercase tracking-wider mb-4">Podsumowanie scenariusza</div>
           <div className="space-y-3">
             <div className="flex justify-between items-center">
-              <span className="text-gray-600 text-sm">Kwota kredytu:</span>
-              <span className="font-bold text-gray-900">
+              <span className="text-muted-foreground text-sm">Kwota kredytu:</span>
+              <span className="font-bold text-foreground">
                 {formData.principal.toLocaleString('pl-PL')} zł
               </span>
             </div>
             <div className="flex justify-between items-center">
-              <span className="text-gray-600 text-sm">Okres spłaty:</span>
-              <span className="font-bold text-gray-900">{formData.years} lat</span>
+              <span className="text-muted-foreground text-sm">Okres spłaty:</span>
+              <span className="font-bold text-foreground">{formData.years} lat</span>
             </div>
-            <div className="flex justify-between items-center pt-2 border-t border-blue-100">
-              <span className="text-gray-600 text-sm">Rata miesięczna:</span>
-              <span className="text-lg font-black text-blue-600">
+            <div className="flex justify-between items-center pt-2 border-t border-primary/30">
+              <span className="text-muted-foreground text-sm">Rata miesięczna:</span>
+              <span className="text-lg font-black text-primary">
                 {results.monthlyPayment.toLocaleString('pl-PL', {
                   minimumFractionDigits: 2,
                   maximumFractionDigits: 2
@@ -113,7 +113,7 @@ export default function SaveCalculationModal({
 
         {/* Name input */}
         <div className="mb-8">
-          <label className="block text-sm font-bold text-gray-700 mb-3">
+          <label className="block text-sm font-bold text-foreground mb-3">
             Nazwa kalkulacji
           </label>
           <div className="relative">
@@ -123,13 +123,13 @@ export default function SaveCalculationModal({
               onChange={(e) => setName(e.target.value)}
               placeholder="np. Moja oferta kredytu"
               className={`
-                w-full px-5 py-4 bg-gray-50 border rounded-xl transition-all outline-none
-                ${error ? 'border-red-300 focus:border-red-500' : 'border-gray-200 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-50/50'}
+                w-full px-5 py-4 bg-secondary border rounded-xl transition-all outline-none
+                ${error ? 'border-red-300 focus:border-red-500' : 'border-border focus:border-primary focus:bg-card focus:ring-4 focus:ring-ring/50'}
               `}
               maxLength={50}
               autoFocus
             />
-            <div className="absolute right-4 top-1/2 -translate-y-1/2 text-xs text-gray-400 font-medium">
+            <div className="absolute right-4 top-1/2 -translate-y-1/2 text-xs text-muted-foreground font-medium">
               {name.length}/50
             </div>
           </div>
@@ -144,14 +144,14 @@ export default function SaveCalculationModal({
         <div className="flex gap-4">
           <button
             onClick={handleClose}
-            className="flex-1 px-6 py-4 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-200 transition-all font-bold text-sm"
+            className="flex-1 px-6 py-4 bg-secondary text-foreground rounded-xl hover:bg-muted transition-all font-bold text-sm"
           >
             Anuluj
           </button>
           <button
             onClick={handleSave}
             disabled={saving || !name.trim()}
-            className="flex-2 px-6 py-4 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-all font-bold text-sm shadow-lg shadow-blue-200 disabled:opacity-50 disabled:shadow-none disabled:cursor-not-allowed flex items-center justify-center gap-2"
+            className="flex-2 px-6 py-4 bg-primary text-white rounded-xl hover:bg-primary/90 transition-all font-bold text-sm shadow-lg shadow-blue-200 disabled:opacity-50 disabled:shadow-none disabled:cursor-not-allowed flex items-center justify-center gap-2"
           >
             {saving ? 'Zapisuję...' : (
               <>

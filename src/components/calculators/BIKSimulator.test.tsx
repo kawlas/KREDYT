@@ -41,7 +41,7 @@ describe('BIKSimulator', () => {
 
   it('displays progress bar', () => {
     render(<BIKSimulator />)
-    const progressBar = document.querySelector('.bg-gray-100.rounded-full')
+    const progressBar = document.querySelector('.bg-secondary.rounded-full')
     expect(progressBar).toBeTruthy()
     const progressFill = progressBar?.querySelector('div')
     expect(progressFill).toBeTruthy()

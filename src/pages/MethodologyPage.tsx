@@ -14,14 +14,14 @@ const MethodologyPage: React.FC = () => {
         ]}
         schemaType="Article"
       />
-      <div className="text-gray-600">
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">Raty równe (Annuity)</h2>
+      <div className="text-muted-foreground">
+        <h2 className="text-2xl font-bold text-foreground mb-4">Raty równe (Annuity)</h2>
         <p className="mb-6">
           Stosujemy standardowy wzór na ratę równą: M = P * (i * (1 + i)^n) / ((1 + i)^n - 1), 
           gdzie M to rata, P to kwota kredytu, i to oprocentowanie miesięczne, a n to liczba miesięcy.
         </p>
         
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">WIBOR i Oprocentowanie</h2>
+        <h2 className="text-2xl font-bold text-foreground mb-4">WIBOR i Oprocentowanie</h2>
         <p className="mb-6">
           Oprocentowanie nominalne to suma wskaźnika WIBOR (3M lub 6M) oraz marży banku. 
           W symulacjach przyjmujemy stałe oprocentowanie w skali roku, chyba że używasz symulatora WIBOR.

@@ -37,10 +37,10 @@ export default function FixedVsVariableCalc() {
         {/* FORM SECTION - LEFT */}
         <div className="space-y-6">
           <Card>
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">Parametry kredytu</h3>
+            <h3 className="text-lg font-semibold text-foreground mb-4">Parametry kredytu</h3>
             <div className="space-y-4">
               <div>
-                <label htmlFor="fv-principal" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="fv-principal" className="block text-sm font-medium text-foreground mb-1">
                   Kwota kredytu
                 </label>
                 <div className="relative">
@@ -50,14 +50,14 @@ export default function FixedVsVariableCalc() {
                     value={principal}
                     onChange={(e) => setPrincipal(e.target.value)}
                     placeholder="np. 400000"
-                    className="w-full pl-3 pr-10 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+                    className="w-full pl-3 pr-10 py-2 border rounded-lg focus:ring-2 focus:ring-ring outline-none"
                   />
-                  <span className="absolute right-3 top-2 text-gray-400">PLN</span>
+                  <span className="absolute right-3 top-2 text-muted-foreground">PLN</span>
                 </div>
               </div>
 
               <div>
-                <label htmlFor="fv-variable-rate" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="fv-variable-rate" className="block text-sm font-medium text-foreground mb-1">
                   Oprocentowanie zmienne (WIBOR + marża)
                 </label>
                 <div className="relative">
@@ -68,14 +68,14 @@ export default function FixedVsVariableCalc() {
                     value={variableRate}
                     onChange={(e) => setVariableRate(e.target.value)}
                     placeholder="np. 7.0"
-                    className="w-full pl-3 pr-10 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+                    className="w-full pl-3 pr-10 py-2 border rounded-lg focus:ring-2 focus:ring-ring outline-none"
                   />
-                  <span className="absolute right-3 top-2 text-gray-400">%</span>
+                  <span className="absolute right-3 top-2 text-muted-foreground">%</span>
                 </div>
               </div>
 
               <div>
-                <label htmlFor="fv-fixed-rate" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="fv-fixed-rate" className="block text-sm font-medium text-foreground mb-1">
                   Oprocentowanie stałe (na okres stały)
                 </label>
                 <div className="relative">
@@ -86,9 +86,9 @@ export default function FixedVsVariableCalc() {
                     value={fixedRate}
                     onChange={(e) => setFixedRate(e.target.value)}
                     placeholder="np. 7.5"
-                    className="w-full pl-3 pr-10 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+                    className="w-full pl-3 pr-10 py-2 border rounded-lg focus:ring-2 focus:ring-ring outline-none"
                   />
-                  <span className="absolute right-3 top-2 text-gray-400">%</span>
+                  <span className="absolute right-3 top-2 text-muted-foreground">%</span>
                 </div>
               </div>
 
@@ -135,14 +135,14 @@ export default function FixedVsVariableCalc() {
 
               {/* Key Difference */}
               <Card>
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">Kluczowa różnica</h3>
+                <h3 className="text-lg font-semibold text-foreground mb-4">Kluczowa różnica</h3>
                 <div className="space-y-4">
-                  <div className="p-3 bg-gray-50 rounded-lg">
-                    <div className="font-medium text-gray-900 mb-1">Różnica w racie miesięcznej</div>
+                  <div className="p-3 bg-secondary rounded-lg">
+                    <div className="font-medium text-foreground mb-1">Różnica w racie miesięcznej</div>
                     <div className={`text-2xl font-bold ${result.difference.monthly > 0 ? 'text-red-600' : 'text-green-600'}`}>
                       {result.difference.monthly > 0 ? '+' : ''}{formatCurrencyShort(result.difference.monthly)}
                     </div>
-                    <div className="text-sm text-gray-600 mt-1">
+                    <div className="text-sm text-muted-foreground mt-1">
                       {result.difference.monthly > 0
                         ? 'Stałe droższe o tyle miesięcznie'
                         : 'Stałe tańsze o tyle miesięcznie'
@@ -150,12 +150,12 @@ export default function FixedVsVariableCalc() {
                     </div>
                   </div>
 
-                  <div className="p-3 bg-gray-50 rounded-lg">
-                    <div className="font-medium text-gray-900 mb-1">Różnica w sumie odsetek</div>
+                  <div className="p-3 bg-secondary rounded-lg">
+                    <div className="font-medium text-foreground mb-1">Różnica w sumie odsetek</div>
                     <div className={`text-2xl font-bold ${result.difference.totalInterest > 0 ? 'text-red-600' : 'text-green-600'}`}>
                       {result.difference.totalInterest > 0 ? '+' : ''}{formatCurrencyShort(result.difference.totalInterest)}
                     </div>
-                    <div className="text-sm text-gray-600 mt-1">
+                    <div className="text-sm text-muted-foreground mt-1">
                       {result.difference.totalInterest > 0
                         ? 'Stałe generuje więcej odsetek'
                         : 'Stałe oszczędza na odsetkach'
@@ -163,12 +163,12 @@ export default function FixedVsVariableCalc() {
                     </div>
                   </div>
 
-                  <div className="bg-blue-50 border border-blue-200 rounded-xl p-6">
-                    <div className="font-medium text-gray-900 mb-1">Próg opłacalności</div>
-                    <div className="text-2xl font-bold text-blue-600">
+                  <div className="bg-primary/10 border border-primary/30 rounded-xl p-6">
+                    <div className="font-medium text-foreground mb-1">Próg opłacalności</div>
+                    <div className="text-2xl font-bold text-primary">
                       {formatPercent(result.breakevenRate, 2)}
                     </div>
-                    <div className="text-sm text-gray-600 mt-1">
+                    <div className="text-sm text-muted-foreground mt-1">
                       Jeśli oprocentowanie zmienne przekroczy tę wartość — stałe staje się tańsze
                     </div>
                   </div>
@@ -183,20 +183,20 @@ export default function FixedVsVariableCalc() {
 
               {/* When to choose what */}
               <Card>
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">Kiedy wybrać stałe? Kiedy zmienne?</h3>
+                <h3 className="text-lg font-semibold text-foreground mb-4">Kiedy wybrać stałe? Kiedy zmienne?</h3>
                 <div className="space-y-3">
                   <div className="bg-green-50 border border-green-200 rounded-xl p-6">
                     <div className="font-semibold text-green-900 mb-2">Oprocentowanie stałe gdy:</div>
-                    <ul className="text-sm text-gray-700 space-y-1 list-disc list-inside">
+                    <ul className="text-sm text-foreground space-y-1 list-disc list-inside">
                       <li>Potrzebujesz pewności raty przez pierwsze lata</li>
                       <li>Masz napięty budżet i nie możesz ryzykować wzrostu</li>
                       <li>Prognozy stóp procentowych są niepewne</li>
                       <li>Stałe jest niewiele droższe od zmiennego (&lt;1 p.p.)</li>
                     </ul>
                   </div>
-                  <div className="bg-blue-50 border border-blue-200 rounded-xl p-6">
-                    <div className="font-semibold text-blue-900 mb-2">Oprocentowanie zmienne gdy:</div>
-                    <ul className="text-sm text-gray-700 space-y-1 list-disc list-inside">
+                  <div className="bg-primary/10 border border-primary/30 rounded-xl p-6">
+                    <div className="font-semibold text-primary mb-2">Oprocentowanie zmienne gdy:</div>
+                    <ul className="text-sm text-foreground space-y-1 list-disc list-inside">
                       <li>Stałe jest znacznie droższe (różnica &gt;1 p.p.)</li>
                       <li>Masz bufor finansowy na wypadek wzrostu stóp</li>
                       <li>Planujesz szybką nadpłatę lub wcześniejszą spłatę</li>
@@ -210,15 +210,15 @@ export default function FixedVsVariableCalc() {
               <div className="text-center">
                 <Link
                   to={`/symulacja-wibor/?principal=${Math.round(p)}&loanTermYears=${totalYears}&margin=${Math.max(0, (vr - 5.85)).toFixed(2)}&baseWibor=5.85&installmentType=equal`}
-                  className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium text-sm"
+                  className="inline-flex items-center gap-2 text-primary hover:text-primary font-medium text-sm"
                 >
                   Sprawdź, jak zmiana stóp wpłynie na ratę &rarr;
                 </Link>
               </div>
             </>
           ) : (
-            <div className="bg-white p-12 rounded-2xl shadow-sm border border-dashed border-gray-300 text-center">
-              <p className="text-gray-500 font-medium">Wprowadź dane, aby porównać oprocentowanie stałe i zmienne</p>
+            <div className="bg-card p-12 rounded-2xl shadow-sm border border-dashed border-border text-center">
+              <p className="text-muted-foreground font-medium">Wprowadź dane, aby porównać oprocentowanie stałe i zmienne</p>
             </div>
           )}
         </div>
@@ -231,27 +231,27 @@ function ComparisonCard({ result, type }: { result: FixedVsVariableComparison; t
   const data = type === 'fixed' ? result.fixed : result.variable
 
   return (
-    <Card className={`relative border-2 ${type === 'fixed' ? 'border-amber-200 bg-gradient-to-br from-amber-50 to-white' : 'border-blue-200 bg-gradient-to-br from-blue-50 to-white'}`}>
+    <Card className={`relative border-2 ${type === 'fixed' ? 'border-amber-200 bg-gradient-to-br from-amber-50 to-white' : 'border-primary/30 bg-gradient-to-br from-blue-50 to-white'}`}>
       <h3 className="text-xl font-semibold mb-2">{data.label}</h3>
-      <p className="text-sm text-gray-500 mb-4">
+      <p className="text-sm text-muted-foreground mb-4">
         {type === 'fixed' ? `Stałe przez ${result.fixed.fixedPeriodYears} lat` : 'Zmienne przez cały okres'}
       </p>
 
       <div className="space-y-3">
         <div>
-          <div className="text-sm text-gray-600">Rata miesięczna</div>
-          <div className="text-2xl font-bold text-gray-900">
+          <div className="text-sm text-muted-foreground">Rata miesięczna</div>
+          <div className="text-2xl font-bold text-foreground">
             {formatCurrency(data.monthlyPayment)}
           </div>
         </div>
 
         <div className="border-t pt-3 mt-3">
           <div className="flex justify-between text-sm mb-2">
-            <span className="text-gray-600">Suma odsetek</span>
+            <span className="text-muted-foreground">Suma odsetek</span>
             <span className="font-semibold">{formatCurrencyShort(data.totalInterest)}</span>
           </div>
           <div className="flex justify-between">
-            <span className="text-gray-700 font-medium">Całkowity koszt</span>
+            <span className="text-foreground font-medium">Całkowity koszt</span>
             <span className="text-lg font-bold">{formatCurrencyShort(data.totalPaid)}</span>
           </div>
         </div>
@@ -263,7 +263,7 @@ function ComparisonCard({ result, type }: { result: FixedVsVariableComparison; t
         )}
 
         {type === 'variable' && (
-          <div className="bg-blue-100 text-blue-800 p-2 rounded text-sm text-center font-medium">
+          <div className="bg-primary/10 text-primary p-2 rounded text-sm text-center font-medium">
             Ryzyko: rata może wzrosnąć
           </div>
         )}

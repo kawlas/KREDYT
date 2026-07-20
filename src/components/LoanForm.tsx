@@ -63,7 +63,7 @@ const LoanForm: React.FC<LoanFormProps> = ({ onSubmit, isLoading, register, trig
       
       {/* Kwota kredytu */}
       <div>
-        <label htmlFor="principal" className="block text-sm font-medium text-gray-700">Kwota kredytu (PLN)</label>
+        <label htmlFor="principal" className="block text-sm font-medium text-foreground">Kwota kredytu (PLN)</label>
         <input
           id="principal"
           type="number"
@@ -74,14 +74,14 @@ const LoanForm: React.FC<LoanFormProps> = ({ onSubmit, isLoading, register, trig
             max: { value: 2000000, message: 'Kwota kredytu musi być między 50 000 a 2 000 000 PLN' },
             valueAsNumber: true
           })}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm border p-2 origin-left"
+          className="mt-1 block w-full rounded-md border-border shadow-sm focus:border-primary focus:ring-ring sm:text-sm border p-2 origin-left"
         />
         {errors.principal && <p className="mt-1 text-sm text-red-600">{errors.principal.message}</p>}
       </div>
 
       {/* Wartość nieruchomości */}
       <div>
-        <label htmlFor="propertyValue" className="block text-sm font-medium text-gray-700">Wartość nieruchomości (PLN)</label>
+        <label htmlFor="propertyValue" className="block text-sm font-medium text-foreground">Wartość nieruchomości (PLN)</label>
         <input
           id="propertyValue"
           type="number"
@@ -90,14 +90,14 @@ const LoanForm: React.FC<LoanFormProps> = ({ onSubmit, isLoading, register, trig
             min: { value: 50000, message: 'Wartość nieruchomości musi być co najmniej 50 000 PLN' },
             valueAsNumber: true
           })}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm border p-2 origin-left"
+          className="mt-1 block w-full rounded-md border-border shadow-sm focus:border-primary focus:ring-ring sm:text-sm border p-2 origin-left"
         />
         {errors.propertyValue && <p className="mt-1 text-sm text-red-600">{errors.propertyValue.message}</p>}
       </div>
 
       {/* Okres kredytowania */}
       <div>
-        <label htmlFor="years" className="block text-sm font-medium text-gray-700">Okres kredytowania (lata)</label>
+        <label htmlFor="years" className="block text-sm font-medium text-foreground">Okres kredytowania (lata)</label>
         <input
           id="years"
           type="number"
@@ -107,14 +107,14 @@ const LoanForm: React.FC<LoanFormProps> = ({ onSubmit, isLoading, register, trig
             max: { value: 35, message: 'Okres kredytowania: 1-35 lat' },
             valueAsNumber: true
           })}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm border p-2 origin-left"
+          className="mt-1 block w-full rounded-md border-border shadow-sm focus:border-primary focus:ring-ring sm:text-sm border p-2 origin-left"
         />
         {errors.years && <p className="mt-1 text-sm text-red-600">{errors.years.message}</p>}
       </div>
 
       {/* WIBOR 3M */}
       <div>
-        <label htmlFor="wibor" className="block text-sm font-medium text-gray-700">WIBOR 3M (%)</label>
+        <label htmlFor="wibor" className="block text-sm font-medium text-foreground">WIBOR 3M (%)</label>
         <input
           id="wibor"
           type="number"
@@ -125,14 +125,14 @@ const LoanForm: React.FC<LoanFormProps> = ({ onSubmit, isLoading, register, trig
             max: { value: 20, message: 'Maksimum 20%' },
             valueAsNumber: true
           })}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm border p-2 origin-left"
+          className="mt-1 block w-full rounded-md border-border shadow-sm focus:border-primary focus:ring-ring sm:text-sm border p-2 origin-left"
         />
         {errors.wibor && <p className="mt-1 text-sm text-red-600">{errors.wibor.message}</p>}
       </div>
 
       {/* Marża banku */}
       <div>
-        <label htmlFor="margin" className="block text-sm font-medium text-gray-700">Marża banku (%)</label>
+        <label htmlFor="margin" className="block text-sm font-medium text-foreground">Marża banku (%)</label>
         <input
           id="margin"
           type="number"
@@ -143,14 +143,14 @@ const LoanForm: React.FC<LoanFormProps> = ({ onSubmit, isLoading, register, trig
             max: { value: 5, message: 'Maksimum 5%' },
             valueAsNumber: true
           })}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm border p-2 origin-left"
+          className="mt-1 block w-full rounded-md border-border shadow-sm focus:border-primary focus:ring-ring sm:text-sm border p-2 origin-left"
         />
         {errors.margin && <p className="mt-1 text-sm text-red-600">{errors.margin.message}</p>}
       </div>
 
       {/* Rodzaj rat */}
       <div>
-        <label htmlFor="installmentType" className="block text-sm font-medium text-gray-700">Rodzaj rat</label>
+        <label htmlFor="installmentType" className="block text-sm font-medium text-foreground">Rodzaj rat</label>
         <select
           id="installmentType"
           {...selectRegistration}
@@ -159,7 +159,7 @@ const LoanForm: React.FC<LoanFormProps> = ({ onSubmit, isLoading, register, trig
             selectRegistration.onBlur(e)
             handleBlur(e)
           }}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm border p-2 bg-white origin-left"
+          className="mt-1 block w-full rounded-md border-border shadow-sm focus:border-primary focus:ring-ring sm:text-sm border p-2 bg-card origin-left"
         >
           <option value="equal">Równe</option>
           <option value="declining">Malejące</option>
@@ -172,7 +172,7 @@ const LoanForm: React.FC<LoanFormProps> = ({ onSubmit, isLoading, register, trig
       <button
         type="submit"
         disabled={isLoading}
-        className="w-full flex justify-center py-3 px-6 border border-transparent rounded-lg shadow-sm text-base font-semibold text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:bg-gray-400 transition-all duration-150 hover:scale-105 active:scale-95"
+        className="w-full flex justify-center py-3 px-6 border border-transparent rounded-lg shadow-sm text-base font-semibold text-white bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-ring disabled:bg-muted transition-all duration-150 hover:scale-105 active:scale-95"
       >
         {isLoading ? (
           <span className="flex items-center gap-2">
@@ -201,7 +201,7 @@ function AdvancedSection({ registerWithDebounce, errors }: {
       <button
         type="button"
         onClick={() => setOpen(!open)}
-        className="flex items-center gap-2 text-sm text-gray-500 hover:text-gray-700 transition-colors w-full"
+        className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors w-full"
       >
         <svg className={`w-4 h-4 transition-transform ${open ? 'rotate-90' : ''}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="9 18 15 12 9 6"/></svg>
         {open ? 'Ukryj zaawansowane' : 'Pokaż zaawansowane'}
@@ -209,17 +209,17 @@ function AdvancedSection({ registerWithDebounce, errors }: {
       {open && (
         <div className="mt-4 space-y-4">
           <div>
-            <label htmlFor="commission" className="block text-sm font-medium text-gray-700">Prowizja bankowa (PLN)</label>
+            <label htmlFor="commission" className="block text-sm font-medium text-foreground">Prowizja bankowa (PLN)</label>
             <input id="commission" type="number"
               {...registerWithDebounce('commission', { min: { value: 0, message: 'Minimum 0 PLN' }, valueAsNumber: true })}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm border p-2" />
+              className="mt-1 block w-full rounded-md border-border shadow-sm focus:border-primary focus:ring-ring sm:text-sm border p-2" />
             {errors.commission && <p className="mt-1 text-sm text-red-600">{errors.commission.message}</p>}
           </div>
           <div>
-            <label htmlFor="propertyValueAdvanced" className="block text-sm font-medium text-gray-700">Wartość nieruchomości (PLN)</label>
+            <label htmlFor="propertyValueAdvanced" className="block text-sm font-medium text-foreground">Wartość nieruchomości (PLN)</label>
             <input id="propertyValueAdvanced" type="number" placeholder="Do obliczenia LTV"
               {...registerWithDebounce('propertyValue', { min: { value: 0, message: 'Minimum 0 PLN' }, valueAsNumber: true })}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm border p-2" />
+              className="mt-1 block w-full rounded-md border-border shadow-sm focus:border-primary focus:ring-ring sm:text-sm border p-2" />
             {errors.propertyValue && <p className="mt-1 text-sm text-red-600">{errors.propertyValue.message}</p>}
           </div>
         </div>

@@ -112,15 +112,11 @@ export function compareRentVsBuy(input: RentVsBuyInput): RentVsBuyResult {
     const yearEndMonth = Math.min(year * 12, totalMonths)
 
     let yearBuyMonthlyTotal = 0
-    let yearEquityIncrease = 0
-    let yearInterestPaid = 0
 
     for (let m = yearStartMonth; m < yearEndMonth; m++) {
       if (m < schedule.length) {
         const row = schedule[m]
         yearBuyMonthlyTotal += row.totalPayment
-        yearEquityIncrease += row.principalPart
-        yearInterestPaid += row.interestPart
       }
     }
 

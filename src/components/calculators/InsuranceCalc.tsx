@@ -41,40 +41,40 @@ export default function InsuranceCalc() {
         {/* LEFT - inputs */}
         <div className="space-y-6">
           <Card>
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">Dane kredytu</h3>
+            <h3 className="text-lg font-semibold text-foreground mb-4">Dane kredytu</h3>
             <div className="space-y-4">
               <div>
-                <label htmlFor="ins-principal" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="ins-principal" className="block text-sm font-medium text-foreground mb-1">
                   Kwota kredytu
                 </label>
                 <div className="relative">
                   <input
                     id="ins-principal" type="number" value={principal}
                     onChange={(e) => setPrincipal(e.target.value)}
-                    className="w-full pl-3 pr-10 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+                    className="w-full pl-3 pr-10 py-2 border rounded-lg focus:ring-2 focus:ring-ring outline-none"
                   />
-                  <span className="absolute right-3 top-2 text-gray-400">PLN</span>
+                  <span className="absolute right-3 top-2 text-muted-foreground">PLN</span>
                 </div>
               </div>
 
               <div>
-                <label htmlFor="ins-property" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="ins-property" className="block text-sm font-medium text-foreground mb-1">
                   Wartość nieruchomości
                 </label>
                 <div className="relative">
                   <input
                     id="ins-property" type="number" value={propertyValue}
                     onChange={(e) => setPropertyValue(e.target.value)}
-                    className="w-full pl-3 pr-10 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+                    className="w-full pl-3 pr-10 py-2 border rounded-lg focus:ring-2 focus:ring-ring outline-none"
                   />
-                  <span className="absolute right-3 top-2 text-gray-400">PLN</span>
+                  <span className="absolute right-3 top-2 text-muted-foreground">PLN</span>
                 </div>
               </div>
 
               {pv > 0 && (
-                <div className="p-3 bg-gray-50 rounded-lg">
+                <div className="p-3 bg-secondary rounded-lg">
                   <div className="flex justify-between text-sm">
-                    <span className="text-gray-600">LTV (wskaźnik wartości kredytu)</span>
+                    <span className="text-muted-foreground">LTV (wskaźnik wartości kredytu)</span>
                     <span className={`font-bold ${ltv > 80 ? 'text-red-600' : 'text-green-600'}`}>
                       {ltv.toFixed(1)}%
                     </span>
@@ -102,17 +102,17 @@ export default function InsuranceCalc() {
           </Card>
 
           <Card>
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">Ubezpieczenia</h3>
+            <h3 className="text-lg font-semibold text-foreground mb-4">Ubezpieczenia</h3>
             <div className="space-y-5">
               {/* Życie */}
               <div className="flex items-start gap-3">
                 <input
                   id="ins-life-toggle" type="checkbox" checked={hasLife}
                   onChange={(e) => setHasLife(e.target.checked)}
-                  className="mt-1 h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                  className="mt-1 h-4 w-4 rounded border-border text-primary focus:ring-ring"
                 />
                 <div className="flex-1">
-                  <label htmlFor="ins-life-toggle" className="font-medium text-sm text-gray-900 cursor-pointer">
+                  <label htmlFor="ins-life-toggle" className="font-medium text-sm text-foreground cursor-pointer">
                     Ubezpieczenie na życie (cesja)
                   </label>
                   {hasLife && (
@@ -121,22 +121,22 @@ export default function InsuranceCalc() {
                         <input
                           id="ins-life-cost" type="number" value={lifeCost}
                           onChange={(e) => setLifeCost(e.target.value)}
-                          className="w-full pl-3 pr-10 py-1.5 border rounded-lg text-sm focus:ring-2 focus:ring-blue-500 outline-none"
+                          className="w-full pl-3 pr-10 py-1.5 border rounded-lg text-sm focus:ring-2 focus:ring-ring outline-none"
                         />
-                        <span className="absolute right-3 top-1.5 text-gray-400 text-sm">zł/mies</span>
+                        <span className="absolute right-3 top-1.5 text-muted-foreground text-sm">zł/mies</span>
                       </div>
                       <div className="flex items-center gap-2">
                         <input
                           id="ins-life-own" type="range" min="0" max="50" step="5"
                           value={ownLifeDiscount}
                           onChange={(e) => setOwnLifeDiscount(e.target.value)}
-                          className="flex-1 h-1.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
+                          className="flex-1 h-1.5 bg-muted rounded-lg appearance-none cursor-pointer accent-primary"
                         />
-                        <span className="text-xs text-gray-600 w-16 text-right">
+                        <span className="text-xs text-muted-foreground w-16 text-right">
                           -{ownLifeDiscount}% własna
                         </span>
                       </div>
-                      <p className="text-xs text-gray-400">
+                      <p className="text-xs text-muted-foreground">
                         Własna polisa poza bankiem jest tańsza o {ownLifeDiscount}%
                       </p>
                     </div>
@@ -149,10 +149,10 @@ export default function InsuranceCalc() {
                 <input
                   id="ins-bridge-toggle" type="checkbox" checked={hasBridge}
                   onChange={(e) => setHasBridge(e.target.checked)}
-                  className="mt-1 h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                  className="mt-1 h-4 w-4 rounded border-border text-primary focus:ring-ring"
                 />
                 <div className="flex-1">
-                  <label htmlFor="ins-bridge-toggle" className="font-medium text-sm text-gray-900 cursor-pointer">
+                  <label htmlFor="ins-bridge-toggle" className="font-medium text-sm text-foreground cursor-pointer">
                     Ubezpieczenie pomostowe
                   </label>
                   {hasBridge && (
@@ -160,9 +160,9 @@ export default function InsuranceCalc() {
                       <input
                         id="ins-bridge-cost" type="number" value={bridgeCost}
                         onChange={(e) => setBridgeCost(e.target.value)}
-                        className="w-full pl-3 pr-10 py-1.5 border rounded-lg text-sm focus:ring-2 focus:ring-blue-500 outline-none"
+                        className="w-full pl-3 pr-10 py-1.5 border rounded-lg text-sm focus:ring-2 focus:ring-ring outline-none"
                       />
-                      <span className="absolute right-3 top-1.5 text-gray-400 text-sm">zł (jednorazowo)</span>
+                      <span className="absolute right-3 top-1.5 text-muted-foreground text-sm">zł (jednorazowo)</span>
                     </div>
                   )}
                 </div>
@@ -173,10 +173,10 @@ export default function InsuranceCalc() {
                 <input
                   id="ins-unemp-toggle" type="checkbox" checked={hasUnemployment}
                   onChange={(e) => setHasUnemployment(e.target.checked)}
-                  className="mt-1 h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                  className="mt-1 h-4 w-4 rounded border-border text-primary focus:ring-ring"
                 />
                 <div className="flex-1">
-                  <label htmlFor="ins-unemp-toggle" className="font-medium text-sm text-gray-900 cursor-pointer">
+                  <label htmlFor="ins-unemp-toggle" className="font-medium text-sm text-foreground cursor-pointer">
                     Ubezpieczenie od utraty pracy
                   </label>
                   {hasUnemployment && (
@@ -184,9 +184,9 @@ export default function InsuranceCalc() {
                       <input
                         id="ins-unemp-cost" type="number" value={unemploymentCost}
                         onChange={(e) => setUnemploymentCost(e.target.value)}
-                        className="w-full pl-3 pr-10 py-1.5 border rounded-lg text-sm focus:ring-2 focus:ring-blue-500 outline-none"
+                        className="w-full pl-3 pr-10 py-1.5 border rounded-lg text-sm focus:ring-2 focus:ring-ring outline-none"
                       />
-                      <span className="absolute right-3 top-1.5 text-gray-400 text-sm">zł/mies</span>
+                      <span className="absolute right-3 top-1.5 text-muted-foreground text-sm">zł/mies</span>
                     </div>
                   )}
                 </div>
@@ -200,26 +200,26 @@ export default function InsuranceCalc() {
           {hasValues ? (
             <>
               {/* Main summary card */}
-              <Card className="bg-gradient-to-br from-blue-50 to-white border-blue-100">
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">Całkowity koszt ubezpieczeń</h3>
-                <div className="text-3xl font-bold text-blue-600 mb-2">
+              <Card className="bg-gradient-to-br from-blue-50 to-white border-primary/30">
+                <h3 className="text-lg font-semibold text-foreground mb-3">Całkowity koszt ubezpieczeń</h3>
+                <div className="text-3xl font-bold text-primary mb-2">
                   {formatCurrencyShort(result.totalOverall)}
                 </div>
-                <p className="text-sm text-gray-500">
+                <p className="text-sm text-muted-foreground">
                   przez {years} lat kredytu
                 </p>
 
                 <div className="mt-4 space-y-2">
                   <div className="flex justify-between text-sm">
-                    <span className="text-gray-600">Koszty początkowe (upfront)</span>
+                    <span className="text-muted-foreground">Koszty początkowe (upfront)</span>
                     <span className="font-semibold">{formatCurrency(result.totalUpfront)}</span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span className="text-gray-600">Miesięczny wpływ na budżet</span>
+                    <span className="text-muted-foreground">Miesięczny wpływ na budżet</span>
                     <span className="font-semibold">{formatCurrency(result.monthlyImpact)}</span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span className="text-gray-600">Miesięczna rata + ubezpieczenia</span>
+                    <span className="text-muted-foreground">Miesięczna rata + ubezpieczenia</span>
                     <span className="font-semibold text-red-600">
                       +{formatCurrency(result.monthlyImpact)}/mc
                     </span>
@@ -229,7 +229,7 @@ export default function InsuranceCalc() {
 
               {/* Breakdown */}
               <Card>
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">Szczegółowy podział</h3>
+                <h3 className="text-lg font-semibold text-foreground mb-4">Szczegółowy podział</h3>
                 <div className="space-y-3">
                   {/* UNWW */}
                   {result.unwwRequired && (
@@ -254,18 +254,18 @@ export default function InsuranceCalc() {
 
                   {/* Życie */}
                   {result.lifeMonthly > 0 && (
-                    <div className="p-3 bg-blue-50 rounded-lg border border-blue-100">
-                      <div className="font-medium text-sm text-blue-900 mb-1">Ubezpieczenie na życie</div>
+                    <div className="p-3 bg-primary/10 rounded-lg border border-primary/30">
+                      <div className="font-medium text-sm text-primary mb-1">Ubezpieczenie na życie</div>
                       <div className="flex justify-between text-sm mb-0.5">
-                        <span className="text-blue-700">Składka miesięczna</span>
-                        <span className="font-semibold text-blue-900">{formatCurrency(result.lifeMonthly)}</span>
+                        <span className="text-primary">Składka miesięczna</span>
+                        <span className="font-semibold text-primary">{formatCurrency(result.lifeMonthly)}</span>
                       </div>
                       <div className="flex justify-between text-sm mb-0.5">
-                        <span className="text-blue-700">Koszt w całym okresie</span>
-                        <span className="font-semibold text-blue-900">{formatCurrencyShort(result.lifeTotal)}</span>
+                        <span className="text-primary">Koszt w całym okresie</span>
+                        <span className="font-semibold text-primary">{formatCurrencyShort(result.lifeTotal)}</span>
                       </div>
                       {result.lifeSavingsOwn > 0 && (
-                        <div className="mt-1 pt-1 border-t border-blue-200">
+                        <div className="mt-1 pt-1 border-t border-primary/30">
                           <div className="flex justify-between text-xs">
                             <span className="text-green-700">Oszczędność przy własnej polisie</span>
                             <span className="font-semibold text-green-700">-{formatCurrencyShort(result.lifeSavingsOwn)}</span>
@@ -326,8 +326,8 @@ export default function InsuranceCalc() {
               )}
             </>
           ) : (
-            <div className="bg-white p-12 rounded-2xl shadow-sm border border-dashed border-gray-300 text-center">
-              <p className="text-gray-500 font-medium">Wprowadź dane, aby obliczyć koszty ubezpieczeń</p>
+            <div className="bg-card p-12 rounded-2xl shadow-sm border border-dashed border-border text-center">
+              <p className="text-muted-foreground font-medium">Wprowadź dane, aby obliczyć koszty ubezpieczeń</p>
             </div>
           )}
         </div>

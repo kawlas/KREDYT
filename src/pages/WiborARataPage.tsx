@@ -24,7 +24,7 @@ const WiborARataPage: React.FC = () => {
         <ArticleMeta date="lipiec 2026" expert="Piotr Radwański" />
         <div>
         
-        <p className="text-lg text-gray-600 mb-8">
+        <p className="text-lg text-muted-foreground mb-8">
           WIBOR to kluczowy składnik oprocentowania kredytów hipotecznych w Polsce. Zrozumienie, 
           jak wpływa na Twoją ratę, pozwala lepiej planować budżet i przygotować się na zmiany 
           stóp procentowych. W tym kompendium wyjaśniamy mechanizmy WIBOR i pokazujemy symulacje 
@@ -130,24 +130,24 @@ const WiborARataPage: React.FC = () => {
           rata może wzrosnąć, gdy stopy procentowe pójdą w górę.
         </p>
 
-        <section className="mt-8 border-t border-gray-100 pt-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">Podstawa prawna i źródła danych</h2>
-          <ul className="list-disc pl-6 space-y-2 text-sm text-gray-600">
-            <li>Obliczenia oparte na wzorach z <a href="https://isap.sejm.gov.pl/isap.nsf/DocDetails.xsp?id=WDU20170000819" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">Ustawy o kredycie hipotecznym</a> (Dz.U. 2017 poz. 819)</li>
-            <li>Rekomendacje <a href="https://www.knf.gov.pl/dla-rynku/regulacje-i-standaryzacja/rekomendacje-i-zalecenia" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">KNF</a> dot. wyznaczania zdolności kredytowej</li>
-            <li>Dane WIBOR z <a href="https://www.nbp.pl/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">NBP</a></li>
+        <section className="mt-8 border-t border-border pt-8">
+          <h2 className="text-2xl font-bold text-foreground mb-4">Podstawa prawna i źródła danych</h2>
+          <ul className="list-disc pl-6 space-y-2 text-sm text-muted-foreground">
+            <li>Obliczenia oparte na wzorach z <a href="https://isap.sejm.gov.pl/isap.nsf/DocDetails.xsp?id=WDU20170000819" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">Ustawy o kredycie hipotecznym</a> (Dz.U. 2017 poz. 819)</li>
+            <li>Rekomendacje <a href="https://www.knf.gov.pl/dla-rynku/regulacje-i-standaryzacja/rekomendacje-i-zalecenia" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">KNF</a> dot. wyznaczania zdolności kredytowej</li>
+            <li>Dane WIBOR z <a href="https://www.nbp.pl/" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">NBP</a></li>
           </ul>
         </section>
 
-        <section className="mt-8 bg-blue-50 p-6 rounded-xl">
-          <h3 className="text-lg font-bold text-gray-900 mb-3">💡 Ekspert radzi</h3>
-          <p className="text-gray-700 text-sm italic">
+        <section className="mt-8 bg-primary/10 p-6 rounded-xl">
+          <h3 className="text-lg font-bold text-foreground mb-3">💡 Ekspert radzi</h3>
+          <p className="text-foreground text-sm italic">
             „Przy kredycie ze zmiennym oprocentowaniem zawsze rób symulację przy wyższym WIBOR. 
             Jeśli Twój budżet nie wytrzyma wzrostu o 2–3 pp, rozważ oprocentowanie stałe lub 
             niższą kwotę kredytu. Wzrost stóp z 0% do 7% w ciągu 2 lat to nie scenariusz 
             pesymistyczny — to rzeczywistość, która wydarzyła się w latach 2021–2023."
           </p>
-          <p className="text-gray-500 text-xs mt-2">
+          <p className="text-muted-foreground text-xs mt-2">
             — Piotr Radwański, analityk finansowy z 14-letnim doświadczeniem
           </p>
         </section>
@@ -155,14 +155,14 @@ const WiborARataPage: React.FC = () => {
         <div className="mt-8">
           <Link 
             to="/symulacja-wibor/" 
-            className="inline-block bg-blue-600 text-white px-8 py-4 rounded-xl font-bold hover:bg-blue-700 transition-colors"
+            className="inline-block bg-primary text-white px-8 py-4 rounded-xl font-bold hover:bg-primary/90 transition-colors"
           >
             Symuluj wpływ WIBOR na ratę
           </Link>
         </div>
 
         </div>
-        <p className="text-sm text-gray-400 mt-8">
+        <p className="text-sm text-muted-foreground mt-8">
           Data publikacji: <time dateTime="2026-01-15">15 stycznia 2026</time> | 
           Ostatnia aktualizacja: <time dateTime="2026-07-04">4 lipca 2026</time>
         </p>

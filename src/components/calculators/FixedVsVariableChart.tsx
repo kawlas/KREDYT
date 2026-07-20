@@ -16,8 +16,8 @@ export default function FixedVsVariableChart({ result }: FixedVsVariableChartPro
   // No data — render empty placeholder
   if (fixed.monthlyPayment === 0 && variable.monthlyPayment === 0) {
     return (
-      <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">Prognoza oprocentowania w czasie</h3>
+      <div className="bg-card p-6 rounded-2xl shadow-sm border border-border">
+        <h3 className="text-lg font-semibold text-foreground mb-4">Prognoza oprocentowania w czasie</h3>
         <svg width={SVG_WIDTH} height={SVG_HEIGHT} className="w-full h-auto max-w-full" role="img" aria-label="Wykres porównania stałe vs zmienne">
           <text x={SVG_WIDTH / 2} y={SVG_HEIGHT / 2} textAnchor="middle" fill="#9CA3AF" fontSize={14}>
             Wprowadź dane, aby zobaczyć wykres
@@ -70,8 +70,8 @@ export default function FixedVsVariableChart({ result }: FixedVsVariableChartPro
   const variablePathD = variableLinePoints.map((p, i) => `${i === 0 ? 'M' : 'L'} ${p.x} ${p.y}`).join(' ')
 
   return (
-    <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-      <h3 className="text-lg font-semibold text-gray-900 mb-4">Prognoza oprocentowania w czasie</h3>
+    <div className="bg-card p-6 rounded-2xl shadow-sm border border-border">
+      <h3 className="text-lg font-semibold text-foreground mb-4">Prognoza oprocentowania w czasie</h3>
       <svg
         viewBox={`0 0 ${SVG_WIDTH} ${SVG_HEIGHT}`}
         className="w-full h-auto max-w-full"

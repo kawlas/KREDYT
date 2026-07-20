@@ -98,7 +98,7 @@ describe('A — CompendiumsListPage: bez emoji', () => {
 // ###############################################################
 
 describe('B — PaymentComparison: kolory niebieskie', () => {
-  it('[B1] "Raty równe gdy:" karta ma bg-blue-50', () => {
+  it('[B1] "Raty równe gdy:" karta ma bg-primary/10', () => {
     const { container } = renderPage(
       <PaymentComparisonPage loanAmount={400000} annualRate={7} loanTermYears={25} />
     )
@@ -106,13 +106,13 @@ describe('B — PaymentComparison: kolory niebieskie', () => {
     // Find the "Raty równe gdy" section
     const equalIdx = html.indexOf('raty równe gdy')
     expect(equalIdx).toBeGreaterThanOrEqual(0)
-    // The surrounding div should have bg-blue-50
+    // The surrounding div should have bg-primary/10
     const context = html.substring(Math.max(0, equalIdx - 200), equalIdx + 200)
-    expect(context.includes('bg-blue-50')).toBe(true)
+    expect(context.includes('bg-primary/10')).toBe(true)
     expect(context.includes('bg-green-50')).toBe(false)
   })
 
-  it('[B2] "Raty malejące gdy:" karta ma bg-blue-50', () => {
+  it('[B2] "Raty malejące gdy:" karta ma bg-primary/10', () => {
     const { container } = renderPage(
       <PaymentComparisonPage loanAmount={400000} annualRate={7} loanTermYears={25} />
     )
@@ -120,10 +120,10 @@ describe('B — PaymentComparison: kolory niebieskie', () => {
     const decreasingIdx = html.indexOf('raty malejące gdy')
     expect(decreasingIdx).toBeGreaterThanOrEqual(0)
     const context = html.substring(Math.max(0, decreasingIdx - 200), decreasingIdx + 200)
-    expect(context.includes('bg-blue-50')).toBe(true)
+    expect(context.includes('bg-primary/10')).toBe(true)
   })
 
-  it('[B3] "Oszczędność" karta ma bg-blue-50 i text-blue-600', () => {
+  it('[B3] "Oszczędność" karta ma bg-primary/10 i text-primary', () => {
     const { container } = renderPage(
       <PaymentComparisonPage loanAmount={400000} annualRate={7} loanTermYears={25} />
     )
@@ -131,11 +131,11 @@ describe('B — PaymentComparison: kolory niebieskie', () => {
     const savingsIdx = html.indexOf('oszczędność')
     expect(savingsIdx).toBeGreaterThanOrEqual(0)
     const context = html.substring(Math.max(0, savingsIdx - 300), savingsIdx + 300)
-    expect(context.includes('bg-blue-50')).toBe(true)
-    expect(context.includes('text-blue-600')).toBe(true)
+    expect(context.includes('bg-primary/10')).toBe(true)
+    expect(context.includes('text-primary')).toBe(true)
   })
 
-  it('[B4] "Jak zmieniają się raty?" sekcja ma bg-blue-50', () => {
+  it('[B4] "Jak zmieniają się raty?" sekcja ma bg-primary/10', () => {
     const { container } = renderPage(
       <PaymentComparisonPage loanAmount={400000} annualRate={7} loanTermYears={25} />
     )
@@ -143,10 +143,10 @@ describe('B — PaymentComparison: kolory niebieskie', () => {
     const ratesIdx = html.indexOf('jak zmieniają się raty')
     expect(ratesIdx).toBeGreaterThanOrEqual(0)
     const context = html.substring(Math.max(0, ratesIdx - 100), ratesIdx + 100)
-    expect(context.includes('bg-blue-50')).toBe(true)
+    expect(context.includes('bg-primary/10')).toBe(true)
   })
 
-  it('[B5] "LEPSZY WYBÓR" badge ma bg-blue-500', () => {
+  it('[B5] "LEPSZY WYBÓR" badge ma bg-primary', () => {
     const { container } = renderPage(
       <PaymentComparisonPage loanAmount={400000} annualRate={7} loanTermYears={25} />
     )
@@ -154,11 +154,11 @@ describe('B — PaymentComparison: kolory niebieskie', () => {
     const badgeIdx = html.indexOf('lepszy wybór')
     expect(badgeIdx).toBeGreaterThanOrEqual(0)
     const context = html.substring(Math.max(0, badgeIdx - 100), badgeIdx + 100)
-    expect(context.includes('bg-blue-500')).toBe(true)
+    expect(context.includes('bg-primary')).toBe(true)
     expect(context.includes('bg-green-500')).toBe(false)
   })
 
-  it('[B6] Savings indicator ma bg-blue-100 text-blue-800', () => {
+  it('[B6] Savings indicator ma bg-primary/10 text-primary', () => {
     const { container } = renderPage(
       <PaymentComparisonPage loanAmount={400000} annualRate={7} loanTermYears={25} />
     )
@@ -167,8 +167,8 @@ describe('B — PaymentComparison: kolory niebieskie', () => {
     const saveIdx = html.indexOf('oszczędzasz')
     if (saveIdx >= 0) {
       const context = html.substring(Math.max(0, saveIdx - 200), saveIdx + 200)
-      expect(context.includes('bg-blue-100')).toBe(true)
-      expect(context.includes('text-blue-800')).toBe(true)
+      expect(context.includes('bg-primary/10')).toBe(true)
+      expect(context.includes('text-primary')).toBe(true)
       expect(context.includes('bg-green-100')).toBe(false)
     }
   })

@@ -15,39 +15,39 @@ function CostComparisonChart({ principal, originalInterest, newInterest }: { pri
   return (
     <div className="space-y-6">
       <div className="space-y-2">
-        <div className="flex justify-between text-xs font-semibold text-gray-600">
+        <div className="flex justify-between text-xs font-semibold text-muted-foreground">
           <span>Bez nadpłat (łącznie: {formatCurrencyShort(originalTotal)})</span>
-          <span className="text-gray-400">{Math.round((originalInterest / originalTotal) * 100)}% odsetek</span>
+          <span className="text-muted-foreground">{Math.round((originalInterest / originalTotal) * 100)}% odsetek</span>
         </div>
-        <div className="h-8 w-full bg-gray-100 rounded-lg overflow-hidden flex shadow-sm">
-          <div className="h-full bg-blue-500 transition-all duration-1000" style={{ width: `${scale(principal)}%` }} />
+        <div className="h-8 w-full bg-secondary rounded-lg overflow-hidden flex shadow-sm">
+          <div className="h-full bg-primary transition-all duration-1000" style={{ width: `${scale(principal)}%` }} />
           <div className="h-full bg-red-400 transition-all duration-1000" style={{ width: `${scale(originalInterest)}%` }} />
         </div>
       </div>
 
       <div className="space-y-2">
-        <div className="flex justify-between text-xs font-semibold text-gray-600">
+        <div className="flex justify-between text-xs font-semibold text-muted-foreground">
           <span>Z nadpłatami (łącznie: {formatCurrencyShort(newTotal)})</span>
           <span className="text-green-600">Zysk: {formatCurrencyShort(originalTotal - newTotal)}</span>
         </div>
-        <div className="h-8 w-full bg-gray-100 rounded-lg overflow-hidden flex shadow-sm">
-          <div className="h-full bg-blue-500 transition-all duration-1000" style={{ width: `${scale(principal)}%` }} />
+        <div className="h-8 w-full bg-secondary rounded-lg overflow-hidden flex shadow-sm">
+          <div className="h-full bg-primary transition-all duration-1000" style={{ width: `${scale(principal)}%` }} />
           <div className="h-full bg-green-500 transition-all duration-1000" style={{ width: `${scale(newInterest)}%` }} />
         </div>
       </div>
 
-      <div className="flex flex-wrap gap-x-6 gap-y-2 pt-2 border-t border-gray-100">
+      <div className="flex flex-wrap gap-x-6 gap-y-2 pt-2 border-t border-border">
         <div className="flex items-center gap-2">
-          <div className="w-4 h-4 bg-blue-500 rounded shadow-sm" />
-          <span className="text-xs text-gray-500 font-medium">Kapitał</span>
+          <div className="w-4 h-4 bg-primary rounded shadow-sm" />
+          <span className="text-xs text-muted-foreground font-medium">Kapitał</span>
         </div>
         <div className="flex items-center gap-2">
           <div className="w-4 h-4 bg-red-400 rounded shadow-sm" />
-          <span className="text-xs text-gray-500 font-medium">Odsetki bazowe</span>
+          <span className="text-xs text-muted-foreground font-medium">Odsetki bazowe</span>
         </div>
         <div className="flex items-center gap-2">
           <div className="w-4 h-4 bg-green-500 rounded shadow-sm" />
-          <span className="text-xs text-gray-500 font-medium">Odsetki po nadpłatach</span>
+          <span className="text-xs text-muted-foreground font-medium">Odsetki po nadpłatach</span>
         </div>
       </div>
     </div>
@@ -89,28 +89,28 @@ export default function OverpaymentCalc() {
         {/* Inputs */}
         <div className="space-y-6">
           <Card>
-            <h2 className="text-xl font-semibold text-gray-900 mb-6 border-b pb-4">Parametry kredytu</h2>
+            <h2 className="text-xl font-semibold text-foreground mb-6 border-b pb-4">Parametry kredytu</h2>
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Kwota kredytu (PLN)</label>
+                <label className="block text-sm font-medium text-foreground mb-1">Kwota kredytu (PLN)</label>
                 <input type="number" value={principal} onChange={e => setPrincipal(Number(e.target.value))} min={0}
-                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none" />
+                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-ring outline-none" />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Oprocentowanie roczne (%)</label>
+                <label className="block text-sm font-medium text-foreground mb-1">Oprocentowanie roczne (%)</label>
                 <input type="number" step="0.01" value={annualRate} onChange={e => setAnnualRate(Number(e.target.value))} min={0}
-                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none" />
+                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-ring outline-none" />
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Okres (lat)</label>
+                  <label className="block text-sm font-medium text-foreground mb-1">Okres (lat)</label>
                   <input type="number" value={years} onChange={e => setYears(Number(e.target.value))} min={1} max={35}
-                    className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none" />
+                    className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-ring outline-none" />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Rodzaj rat</label>
+                  <label className="block text-sm font-medium text-foreground mb-1">Rodzaj rat</label>
                   <select value={installmentType} onChange={e => setInstallmentType(e.target.value as 'equal' | 'declining')}
-                    className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+                    className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-ring outline-none">
                     <option value="equal">Równe</option>
                     <option value="declining">Malejące</option>
                   </select>
@@ -120,44 +120,44 @@ export default function OverpaymentCalc() {
           </Card>
 
           <Card>
-            <h2 className="text-xl font-semibold text-gray-900 mb-6 border-b pb-4">Parametry nadpłaty</h2>
+            <h2 className="text-xl font-semibold text-foreground mb-6 border-b pb-4">Parametry nadpłaty</h2>
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Kwota nadpłaty (PLN)</label>
+                <label className="block text-sm font-medium text-foreground mb-1">Kwota nadpłaty (PLN)</label>
                 <input type="number" value={overpaymentAmount} onChange={e => setOverpaymentAmount(Number(e.target.value))} min={0}
-                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none" />
+                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-ring outline-none" />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Typ nadpłaty</label>
+                <label className="block text-sm font-medium text-foreground mb-1">Typ nadpłaty</label>
                 <select value={overpaymentType} onChange={e => setOverpaymentType(e.target.value as 'one-time' | 'recurring')}
-                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-ring outline-none">
                   <option value="one-time">Jednorazowa</option>
                   <option value="recurring">Cykliczna (co miesiąc)</option>
                 </select>
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Rozpocznij od miesiąca</label>
+                  <label className="block text-sm font-medium text-foreground mb-1">Rozpocznij od miesiąca</label>
                   <input type="number" value={overpaymentStartMonth} onChange={e => setOverpaymentStartMonth(Number(e.target.value))} min={1}
-                    className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none" />
+                    className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-ring outline-none" />
                 </div>
                 {overpaymentType === 'recurring' && (
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Co ile miesięcy</label>
+                    <label className="block text-sm font-medium text-foreground mb-1">Co ile miesięcy</label>
                     <input type="number" value={overpaymentFrequency} onChange={e => setOverpaymentFrequency(Number(e.target.value))} min={1}
-                      className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none" />
+                      className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-ring outline-none" />
                   </div>
                 )}
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Efekt nadpłaty</label>
+                <label className="block text-sm font-medium text-foreground mb-1">Efekt nadpłaty</label>
                 <div className="flex gap-2">
                   <button onClick={() => setMode('shorten-term')}
-                    className={`flex-1 py-2 px-3 rounded-lg text-sm font-medium transition-all ${mode === 'shorten-term' ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-700'}`}>
+                    className={`flex-1 py-2 px-3 rounded-lg text-sm font-medium transition-all ${mode === 'shorten-term' ? 'bg-primary text-white' : 'bg-secondary text-foreground'}`}>
                     Skrócenie okresu
                   </button>
                   <button onClick={() => setMode('reduce-installment')}
-                    className={`flex-1 py-2 px-3 rounded-lg text-sm font-medium transition-all ${mode === 'reduce-installment' ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-700'}`}>
+                    className={`flex-1 py-2 px-3 rounded-lg text-sm font-medium transition-all ${mode === 'reduce-installment' ? 'bg-primary text-white' : 'bg-secondary text-foreground'}`}>
                     Zmniejszenie raty
                   </button>
                 </div>
@@ -184,29 +184,29 @@ export default function OverpaymentCalc() {
                       <div className="text-xs text-green-700 font-semibold mb-1 uppercase tracking-wider">Oszczędność</div>
                       <div className="text-2xl font-bold text-green-800">{formatCurrencyShort(result.interestSaved)}</div>
                     </div>
-                    <div className="bg-blue-50 p-4 rounded-xl border border-blue-100 shadow-sm">
-                      <div className="text-xs text-blue-700 font-semibold mb-1 uppercase tracking-wider">Krócej o</div>
-                      <div className="text-2xl font-bold text-blue-800">{formatMonths(result.monthsSaved)}</div>
+                    <div className="bg-primary/10 p-4 rounded-xl border border-primary/30 shadow-sm">
+                      <div className="text-xs text-primary font-semibold mb-1 uppercase tracking-wider">Krócej o</div>
+                      <div className="text-2xl font-bold text-primary">{formatMonths(result.monthsSaved)}</div>
                     </div>
                   </div>
 
                   <div className="border-t pt-4 space-y-2">
                     <div className="flex justify-between text-sm">
-                      <span className="text-gray-600">Pierwotny okres:</span>
+                      <span className="text-muted-foreground">Pierwotny okres:</span>
                       <span className="font-medium">{formatMonths(result.originalPayoffMonths)}</span>
                     </div>
                     <div className="flex justify-between text-sm">
-                      <span className="text-gray-600">Nowy okres:</span>
+                      <span className="text-muted-foreground">Nowy okres:</span>
                       <span className="font-bold text-green-600">{formatMonths(result.newPayoffMonths)}</span>
                     </div>
                     {mode === 'reduce-installment' && (
                       <div className="flex justify-between text-sm border-t pt-2">
-                        <span className="text-gray-600">Nowa rata:</span>
-                        <span className="font-bold text-blue-600">{formatCurrency(result.newMonthlyPayment)}</span>
+                        <span className="text-muted-foreground">Nowa rata:</span>
+                        <span className="font-bold text-primary">{formatCurrency(result.newMonthlyPayment)}</span>
                       </div>
                     )}
                     <div className="flex justify-between text-sm">
-                      <span className="text-gray-600">Łączna kwota nadpłat:</span>
+                      <span className="text-muted-foreground">Łączna kwota nadpłat:</span>
                       <span className="font-medium">{formatCurrencyShort(result.totalOverpaid)}</span>
                     </div>
                   </div>
@@ -224,15 +224,15 @@ export default function OverpaymentCalc() {
               <Card title="Porównanie odsetek">
                 <div className="space-y-3">
                   <div className="flex justify-between text-sm">
-                    <span className="text-gray-600">Odsetki bez nadpłat:</span>
+                    <span className="text-muted-foreground">Odsetki bez nadpłat:</span>
                     <span className="font-bold text-red-600">{formatCurrencyShort(result.originalTotalInterest)}</span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span className="text-gray-600">Odsetki z nadpłatami:</span>
+                    <span className="text-muted-foreground">Odsetki z nadpłatami:</span>
                     <span className="font-bold text-green-600">{formatCurrencyShort(result.newTotalInterest)}</span>
                   </div>
                   <div className="border-t pt-3 flex justify-between">
-                    <span className="text-gray-700 font-semibold">Różnica:</span>
+                    <span className="text-foreground font-semibold">Różnica:</span>
                     <span className="text-lg font-bold text-green-700">-{formatCurrencyShort(result.interestSaved)}</span>
                   </div>
                 </div>
@@ -241,8 +241,8 @@ export default function OverpaymentCalc() {
               <Card title="Podsumowanie harmonogramu">
                 <div className="space-y-2 max-h-64 overflow-y-auto">
                   {result.scheduleSummary.map(row => (
-                    <div key={row.month} className="flex justify-between text-sm border-b border-gray-100 py-1">
-                      <span className="text-gray-500">Mies. {row.month}</span>
+                    <div key={row.month} className="flex justify-between text-sm border-b border-border py-1">
+                      <span className="text-muted-foreground">Mies. {row.month}</span>
                       <span className="font-medium">{formatCurrencyShort(row.remainingBalance)}</span>
                       {row.overpayment > 0 && (
                         <span className="text-green-600 text-xs">+{formatCurrencyShort(row.overpayment)}</span>

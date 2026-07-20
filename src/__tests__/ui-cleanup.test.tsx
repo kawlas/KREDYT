@@ -253,7 +253,7 @@ describe('E — Sidebar: kolory kategorii', () => {
     expect(calcLink).toBeTruthy()
     if (calcLink) {
       const cls = calcLink.className
-      expect(cls.includes('bg-blue-50') && cls.includes('text-blue-600')).toBe(true)
+      expect(cls.includes('bg-primary/10') && cls.includes('text-primary')).toBe(true)
     }
   })
 

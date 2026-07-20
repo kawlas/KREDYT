@@ -23,18 +23,18 @@ export default function WIBORDisplay({
   if (compact) {
     return (
       <div className="flex items-center gap-2 text-sm">
-        <span className="text-gray-600">WIBOR 3M:</span>
+        <span className="text-muted-foreground">WIBOR 3M:</span>
         {loading ? (
-          <span className="text-gray-400">Ładowanie...</span>
+          <span className="text-muted-foreground">Ładowanie...</span>
         ) : (
           <>
-            <span className="font-bold text-blue-600">
+            <span className="font-bold text-primary">
               {wibor ? formatPercent(wibor) : '---'}
             </span>
             <button
               onClick={onRefresh}
               disabled={loading}
-              className="text-blue-600 hover:text-blue-800 disabled:opacity-50"
+              className="text-primary hover:text-primary disabled:opacity-50"
               title="Odśwież WIBOR"
             >
               ↻
@@ -46,18 +46,18 @@ export default function WIBORDisplay({
   }
 
   return (
-    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+    <div className="bg-primary/10 border border-primary/30 rounded-lg p-4">
       <div className="flex items-center justify-between mb-2">
         <div>
-          <div className="text-sm text-gray-600 mb-1">
+          <div className="text-sm text-muted-foreground mb-1">
             Aktualny WIBOR 3M
           </div>
           {loading ? (
-            <div className="text-2xl font-bold text-gray-400">
+            <div className="text-2xl font-bold text-muted-foreground">
               Ładowanie...
             </div>
           ) : (
-            <div className="text-3xl font-bold text-blue-600">
+            <div className="text-3xl font-bold text-primary">
               {wibor ? formatPercent(wibor) : '---'}
             </div>
           )}
@@ -66,14 +66,14 @@ export default function WIBORDisplay({
         <button
           onClick={onRefresh}
           disabled={loading}
-          className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+          className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
         >
           <span>↻</span>
           <span>Odśwież</span>
         </button>
       </div>
       
-      <div className="flex items-center gap-4 text-xs text-gray-600">
+      <div className="flex items-center gap-4 text-xs text-muted-foreground">
         <div>
           Zaktualizowano: {lastUpdate}
         </div>

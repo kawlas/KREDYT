@@ -43,24 +43,24 @@ export default function DailyInterestCalc() {
         {/* Inputs */}
         <div className="space-y-6">
           <Card>
-            <h2 className="text-xl font-semibold text-gray-900 mb-6 border-b pb-4">
+            <h2 className="text-xl font-semibold text-foreground mb-6 border-b pb-4">
               Parametry kredytu
             </h2>
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-foreground mb-1">
                   Saldo kredytu (PLN)
                 </label>
                 <input
                   type="number"
                   value={principal}
                   onChange={e => setPrincipal(Number(e.target.value))}
-                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-ring outline-none"
                   min={0}
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-foreground mb-1">
                   Oprocentowanie roczne (%)
                 </label>
                 <input
@@ -68,18 +68,18 @@ export default function DailyInterestCalc() {
                   step="0.01"
                   value={annualRate}
                   onChange={e => setAnnualRate(Number(e.target.value))}
-                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-ring outline-none"
                   min={0}
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-foreground mb-1">
                   Liczba dni w analizowanym okresie
                 </label>
                 <select
                   value={daysInMonth}
                   onChange={e => setDaysInMonth(Number(e.target.value))}
-                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-ring outline-none"
                 >
                   <option value={28}>28 (luty)</option>
                   <option value={30}>30 dni</option>
@@ -87,14 +87,14 @@ export default function DailyInterestCalc() {
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-foreground mb-1">
                   Dni od ostatniej raty
                 </label>
                 <input
                   type="number"
                   value={lastPaymentDay}
                   onChange={e => setLastPaymentDay(Number(e.target.value))}
-                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-ring outline-none"
                   min={0}
                   max={31}
                 />
@@ -115,30 +115,30 @@ export default function DailyInterestCalc() {
           <Card title="Odsetki dzienne i miesięczne">
             <div className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
-                <div className="bg-blue-50 p-4 rounded-lg">
-                  <div className="text-sm text-gray-600 mb-1">Odsetki dzienne</div>
-                  <div className="text-xl font-bold text-gray-900">
+                <div className="bg-primary/10 p-4 rounded-lg">
+                  <div className="text-sm text-muted-foreground mb-1">Odsetki dzienne</div>
+                  <div className="text-xl font-bold text-foreground">
                     {formatCurrency(act365.dailyInterest)}
                   </div>
-                  <div className="text-xs text-blue-600 mt-1">act/365</div>
+                  <div className="text-xs text-primary mt-1">act/365</div>
                 </div>
-                <div className="bg-blue-50 p-4 rounded-lg">
-                  <div className="text-sm text-gray-600 mb-1">Za {daysInMonth} dni</div>
-                  <div className="text-xl font-bold text-gray-900">
+                <div className="bg-primary/10 p-4 rounded-lg">
+                  <div className="text-sm text-muted-foreground mb-1">Za {daysInMonth} dni</div>
+                  <div className="text-xl font-bold text-foreground">
                     {formatCurrency(act365.dailyInterest * daysInMonth)}
                   </div>
-                  <div className="text-xs text-blue-600 mt-1">{formatCurrency(act365.dailyInterest)} dziennie</div>
+                  <div className="text-xs text-primary mt-1">{formatCurrency(act365.dailyInterest)} dziennie</div>
                 </div>
               </div>
 
               <div className="bg-green-50 p-4 rounded-lg border border-green-200">
-                <div className="text-sm text-gray-600 mb-1">Średnie odsetki miesięczne (30.42 dni)</div>
+                <div className="text-sm text-muted-foreground mb-1">Średnie odsetki miesięczne (30.42 dni)</div>
                 <div className="text-2xl font-bold text-green-700">
                   {formatCurrency(act365.monthlyInterest)}
                 </div>
               </div>
 
-              <div className="text-xs text-gray-500">
+              <div className="text-xs text-muted-foreground">
                 Stopa dzienna: {formatPercent(annualRate / 365, 5)} dziennie
               </div>
             </div>
@@ -147,15 +147,15 @@ export default function DailyInterestCalc() {
           <Card title="act/365 vs act/360">
             <div className="space-y-3">
               <div className="flex justify-between text-sm border-b pb-2">
-                <span className="text-gray-600">act/365 (standard):</span>
+                <span className="text-muted-foreground">act/365 (standard):</span>
                 <span className="font-bold">{formatCurrency(comparison.act365.dailyInterest)}</span>
               </div>
               <div className="flex justify-between text-sm border-b pb-2">
-                <span className="text-gray-600">act/360 (niektóre banki):</span>
+                <span className="text-muted-foreground">act/360 (niektóre banki):</span>
                 <span className="font-bold text-red-600">{formatCurrency(comparison.act360.dailyInterest)}</span>
               </div>
               <div className="flex justify-between text-sm pt-1">
-                <span className="text-gray-700 font-semibold">Różnica ({daysInMonth} dni):</span>
+                <span className="text-foreground font-semibold">Różnica ({daysInMonth} dni):</span>
                 <span className="font-bold text-red-600">
                   +{formatCurrency(comparison.difference)} ({comparison.differencePercent.toFixed(2)}%)
                 </span>
@@ -175,20 +175,20 @@ export default function DailyInterestCalc() {
           <Card title="Narosłe odsetki od ostatniej raty">
             <div className="space-y-3">
               <div className="flex justify-between text-sm">
-                <span className="text-gray-600">Ostatnia rata:</span>
+                <span className="text-muted-foreground">Ostatnia rata:</span>
                 <span className="font-medium">{lastPaymentDate.toLocaleDateString('pl-PL')}</span>
               </div>
               <div className="flex justify-between text-sm">
-                <span className="text-gray-600">Dni od ostatniej raty:</span>
+                <span className="text-muted-foreground">Dni od ostatniej raty:</span>
                 <span className="font-bold">{accumulated.daysSinceLastPayment}</span>
               </div>
               <div className="flex justify-between text-sm border-t pt-3">
-                <span className="text-gray-700 font-semibold">Narosłe odsetki:</span>
+                <span className="text-foreground font-semibold">Narosłe odsetki:</span>
                 <span className="text-xl font-bold text-orange-600">
                   {formatCurrency(accumulated.accruedInterest)}
                 </span>
               </div>
-              <div className="text-xs text-gray-500">
+              <div className="text-xs text-muted-foreground">
                 Następna rata orientacyjnie: {accumulated.nextPaymentDate.toLocaleDateString('pl-PL')}
               </div>
             </div>

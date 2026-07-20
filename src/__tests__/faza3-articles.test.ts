@@ -40,7 +40,7 @@ describe('Faza 3 — nowe artykuły (PayPo, B2B, Wakacje)', () => {
       expect(t, `topic ${slug} should exist`).toBeDefined()
       if (t) {
         for (const field of requiredFields) {
-          expect((t as any)[field], `topic ${slug} missing field ${field}`).toBeDefined()
+          expect((t as unknown as Record<string, unknown>)[field], `topic ${slug} missing field ${field}`).toBeDefined()
         }
       }
     }

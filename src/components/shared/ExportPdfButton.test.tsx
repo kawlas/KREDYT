@@ -44,19 +44,19 @@ describe('ExportPdfButton', () => {
   it('renders with primary variant by default', () => {
     render(<ExportPdfButton data={mockData} />);
     const button = screen.getByRole('button');
-    expect(button.className).toContain('bg-blue-600');
+    expect(button.className).toContain('bg-primary');
   });
 
   it('renders with secondary variant', () => {
     render(<ExportPdfButton data={mockData} variant="secondary" />);
     const button = screen.getByRole('button');
-    expect(button.className).toContain('bg-gray-100');
+    expect(button.className).toContain('bg-secondary');
   });
 
   it('renders with outline variant', () => {
     render(<ExportPdfButton data={mockData} variant="outline" />);
     const button = screen.getByRole('button');
-    expect(button.className).toContain('border-blue-600');
+    expect(button.className).toContain('border-primary');
   });
 
   it('is disabled when disabled prop is true', () => {

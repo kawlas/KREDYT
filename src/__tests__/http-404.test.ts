@@ -7,11 +7,6 @@ const redirectsContent = fs.readFileSync(
   'utf-8'
 )
 
-const netlifyToml = fs.readFileSync(
-  path.resolve(__dirname, '../../netlify.toml'),
-  'utf-8'
-)
-
 describe('HTTP 404 dla nieznanych ścieżek', () => {
   it('_redirects NIE ma catch-all SPA fallback /* -> /index.html 200', () => {
     const lines = redirectsContent.split('\n').filter(l => l.trim() && !l.startsWith('#'))

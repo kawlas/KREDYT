@@ -38,13 +38,13 @@ const RelatedTools: React.FC = () => {
 
   return (
     <section className="mt-12">
-      <h3 className="text-xl font-bold text-gray-900 mb-6 px-4">Powiązane narzędzia</h3>
+      <h3 className="text-xl font-bold text-foreground mb-6 px-4">Powiązane narzędzia</h3>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 px-4">
         {filteredTools.map((tool) => (
           <Link key={tool.path} to={tool.path}>
-            <Card className="h-full hover:shadow-md transition-shadow cursor-pointer bg-white border-blue-50">
-              <h4 className="font-bold text-blue-600 mb-1">{tool.title}</h4>
-              <p className="text-xs text-gray-500">{tool.desc}</p>
+            <Card className="h-full hover:shadow-md transition-shadow cursor-pointer bg-card border-primary/30">
+              <h4 className="font-bold text-primary mb-1">{tool.title}</h4>
+              <p className="text-xs text-muted-foreground">{tool.desc}</p>
             </Card>
           </Link>
         ))}

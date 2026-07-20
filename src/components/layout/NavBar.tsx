@@ -9,16 +9,16 @@ export default function NavBar({ onMenuClick }: TopBarProps) {
   const handleMenuClick = onMenuClick || (() => {})
 
   return (
-    <header className="border-b border-gray-100 dark:border-gray-700 bg-white dark:bg-gray-800 sticky top-0 z-30 lg:hidden transition-colors">
+    <header className="border-b border-border bg-card sticky top-0 z-30 lg:hidden transition-colors">
       <div className="flex items-center justify-between px-4 h-14">
-        <NavLink to="/" className="text-base font-bold tracking-tight text-gray-900 dark:text-white">
-          Kalkulator<span className="text-blue-600 dark:text-blue-400">Kredytowy</span>
+        <NavLink to="/" className="text-base font-bold tracking-tight text-foreground dark:text-white">
+          Kalkulator<span className="text-primary">Kredytowy</span>
         </NavLink>
         <div className="flex items-center gap-1">
           <ThemeToggle />
           <button
             onClick={handleMenuClick}
-            className="p-2 -mr-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
+            className="p-2 -mr-2 text-muted-foreground hover:text-foreground dark:hover:text-white transition-colors"
             aria-label="Otwórz menu"
           >
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">

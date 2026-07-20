@@ -11,11 +11,11 @@ interface ExportPdfButtonProps {
 
 const variantStyles = {
   primary:
-    'bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500',
+    'bg-primary text-white hover:bg-primary/90 focus:ring-ring',
   secondary:
-    'bg-gray-100 text-gray-700 hover:bg-gray-200 focus:ring-gray-400',
+    'bg-secondary text-foreground hover:bg-muted focus:ring-ring',
   outline:
-    'border border-blue-600 text-blue-600 hover:bg-blue-50 focus:ring-blue-500',
+    'border border-primary text-primary hover:bg-primary/10 focus:ring-ring',
 };
 
 const ExportPdfButton: React.FC<ExportPdfButtonProps> = ({

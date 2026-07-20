@@ -42,11 +42,11 @@ const ContactPage: React.FC = () => {
         {submitted ? (
           <div className="py-12">
             <div className="text-6xl mb-6"><svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#16a34a" strokeWidth="1.5" className="mx-auto"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">Wiadomość wysłana!</h2>
-            <p className="text-gray-600 mb-8">Dziękujemy za kontakt. Odpowiemy tak szybko, jak to możliwe.</p>
+            <h2 className="text-2xl font-bold text-foreground mb-2">Wiadomość wysłana!</h2>
+            <p className="text-muted-foreground mb-8">Dziękujemy za kontakt. Odpowiemy tak szybko, jak to możliwe.</p>
             <button 
               onClick={() => setSubmitted(false)}
-              className="text-blue-600 font-semibold hover:underline"
+              className="text-primary font-semibold hover:underline"
             >
               Wyślij kolejną wiadomość
             </button>
@@ -67,7 +67,7 @@ const ContactPage: React.FC = () => {
               </p>
 
               <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="name" className="block text-sm font-medium text-foreground mb-1">
                   Imię / Nazwa
                 </label>
                 <input
@@ -76,12 +76,12 @@ const ContactPage: React.FC = () => {
                   name="name"
                   required
                   placeholder="Twoje imię..."
-                  className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-4 focus:ring-blue-50 focus:border-blue-500 outline-none transition-all"
+                  className="w-full px-4 py-3 bg-secondary border border-border rounded-xl focus:ring-4 focus:ring-ring focus:border-primary outline-none transition-all"
                 />
               </div>
 
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="email" className="block text-sm font-medium text-foreground mb-1">
                   Adres e-mail
                 </label>
                 <input
@@ -90,12 +90,12 @@ const ContactPage: React.FC = () => {
                   name="email"
                   required
                   placeholder="twoj@email.pl"
-                  className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-4 focus:ring-blue-50 focus:border-blue-500 outline-none transition-all"
+                  className="w-full px-4 py-3 bg-secondary border border-border rounded-xl focus:ring-4 focus:ring-ring focus:border-primary outline-none transition-all"
                 />
               </div>
 
               <div>
-                <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="message" className="block text-sm font-medium text-foreground mb-1">
                    Treść wiadomości
                 </label>
                 <textarea
@@ -104,18 +104,18 @@ const ContactPage: React.FC = () => {
                   required
                   rows={5}
                   placeholder="W czym możemy pomóc?"
-                  className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-4 focus:ring-blue-50 focus:border-blue-500 outline-none transition-all"
+                  className="w-full px-4 py-3 bg-secondary border border-border rounded-xl focus:ring-4 focus:ring-ring focus:border-primary outline-none transition-all"
                 ></textarea>
               </div>
 
               <button
                 type="submit"
-                className="w-full py-4 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 transition-all shadow-lg shadow-blue-500/20"
+                className="w-full py-4 bg-primary text-white font-bold rounded-xl hover:bg-primary/90 transition-all shadow-lg shadow-blue-500/20"
               >
                 Wyślij wiadomość
               </button>
               
-              <p className="text-xs text-gray-400 mt-4">
+              <p className="text-xs text-muted-foreground mt-4">
                 Twoje dane są bezpieczne i służą wyłącznie do udzielenia odpowiedzi na zapytanie.
               </p>
             </form>

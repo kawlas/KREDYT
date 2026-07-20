@@ -61,7 +61,7 @@ const WiborSimulator: React.FC<WiborSimulatorProps> = ({
       case 'safe': return 'text-green-600';
       case 'warning': return 'text-yellow-600';
       case 'danger': return 'text-red-600';
-      default: return 'text-gray-600';
+      default: return 'text-muted-foreground';
     }
   };
 
@@ -70,7 +70,7 @@ const WiborSimulator: React.FC<WiborSimulatorProps> = ({
       case 'safe': return 'bg-green-50 border-green-200';
       case 'warning': return 'bg-yellow-50 border-yellow-200';
       case 'danger': return 'bg-red-50 border-red-200';
-      default: return 'bg-gray-50 border-gray-200';
+      default: return 'bg-secondary border-border';
     }
   };
 
@@ -87,27 +87,27 @@ const WiborSimulator: React.FC<WiborSimulatorProps> = ({
       {/* Lewa kolumna — parametry */}
       <Card title="Przetestuj scenariusze">
         <div className="space-y-4">
-          <div className="grid grid-cols-2 gap-4 p-4 bg-gray-50 rounded-lg">
+          <div className="grid grid-cols-2 gap-4 p-4 bg-secondary rounded-lg">
             <div>
-              <p className="text-xs text-gray-500">Kwota kredytu</p>
+              <p className="text-xs text-muted-foreground">Kwota kredytu</p>
               <p className="text-sm font-semibold">{loanAmount.toLocaleString()} PLN</p>
             </div>
             <div>
-              <p className="text-xs text-gray-500">Okres kredytu</p>
+              <p className="text-xs text-muted-foreground">Okres kredytu</p>
               <p className="text-sm font-semibold">{loanTermYears} lat</p>
             </div>
             <div>
-              <p className="text-xs text-gray-500">Oprocentowanie</p>
+              <p className="text-xs text-muted-foreground">Oprocentowanie</p>
               <p className="text-sm font-semibold">{baseWibor}% + {margin}% = {currentRate}%</p>
             </div>
             <div>
-              <p className="text-xs text-gray-500">Typ rat</p>
+              <p className="text-xs text-muted-foreground">Typ rat</p>
               <p className="text-sm font-semibold">{installmentType === 'equal' ? 'Równe' : 'Malejące'}</p>
             </div>
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-foreground mb-2">
               Zmiana WIBOR: <span className="font-bold">{state.wiborChange >= 0 ? '+' : ''}{state.wiborChange} p.p.</span>
             </label>
             <input
@@ -117,9 +117,9 @@ const WiborSimulator: React.FC<WiborSimulatorProps> = ({
               step="0.001"
               value={(state.wiborChange || 0) / 100}
               onChange={handleSliderChange}
-              className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
+              className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer accent-primary"
             />
-            <div className="flex justify-between text-xs text-gray-500 mt-1">
+            <div className="flex justify-between text-xs text-muted-foreground mt-1">
               <span>-2 p.p.</span>
               <span className="font-medium">0</span>
               <span>+5 p.p.</span>
@@ -143,10 +143,10 @@ const WiborSimulator: React.FC<WiborSimulatorProps> = ({
       {/* Prawa kolumna — wyniki */}
       <Card title="Wynik symulacji">
         <div className="space-y-4">
-          <div className="p-4 bg-gray-50 rounded-lg">
+          <div className="p-4 bg-secondary rounded-lg">
             <div className="flex justify-between items-center">
-              <span className="text-sm text-gray-600">Aktualna rata:</span>
-              <span className="text-lg font-semibold text-gray-900">
+              <span className="text-sm text-muted-foreground">Aktualna rata:</span>
+              <span className="text-lg font-semibold text-foreground">
                 {currentMonthlyPayment.toFixed(2)} PLN
               </span>
             </div>
@@ -154,20 +154,20 @@ const WiborSimulator: React.FC<WiborSimulatorProps> = ({
 
           <div className={`p-4 rounded-lg border ${getRiskZoneBg()} transition-colors duration-300`}>
             <div className="flex justify-between items-center">
-              <span className="text-sm text-gray-600">Nowa rata:</span>
-              <span className="text-lg font-bold text-gray-900">
+              <span className="text-sm text-muted-foreground">Nowa rata:</span>
+              <span className="text-lg font-bold text-foreground">
                 {state.newMonthlyPayment.toFixed(2)} PLN
               </span>
             </div>
             <div className="flex justify-between items-center mt-2">
-              <span className="text-sm text-gray-600">Różnica:</span>
+              <span className="text-sm text-muted-foreground">Różnica:</span>
               <span className={`text-base font-semibold ${getRiskZoneColor()}`}>
                 {(state.newMonthlyPayment - currentMonthlyPayment) >= 0 ? '+' : ''}
                 {(state.newMonthlyPayment - currentMonthlyPayment).toFixed(2)} PLN
               </span>
             </div>
             <div className="flex justify-between items-center mt-1">
-              <span className="text-sm text-gray-600">Strefa ryzyka:</span>
+              <span className="text-sm text-muted-foreground">Strefa ryzyka:</span>
               <span className={`text-base font-bold ${getRiskZoneColor()}`}>
                 {getRiskZoneLabel()}
               </span>

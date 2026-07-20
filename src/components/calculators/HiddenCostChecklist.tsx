@@ -40,12 +40,12 @@ export default function HiddenCostChecklist({ loanAmount = 400000 }: HiddenCostC
     <div className="space-y-6">
       <div className="flex flex-wrap gap-2">
         <button onClick={() => setActiveCategory('all')} data-category="all"
-          className={`px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${activeCategory === 'all' ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}>
+          className={`px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${activeCategory === 'all' ? 'bg-primary text-white' : 'bg-secondary text-muted-foreground hover:bg-muted'}`}>
           Wszystkie ({hiddenCosts.length})
         </button>
         {categories.map(cat => (
           <button key={cat.key} onClick={() => setActiveCategory(cat.key)} data-category={cat.key}
-            className={`px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${activeCategory === cat.key ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}>
+            className={`px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${activeCategory === cat.key ? 'bg-primary text-white' : 'bg-secondary text-muted-foreground hover:bg-muted'}`}>
             {cat.label} ({hiddenCosts.filter(c => c.category === cat.key).length})
           </button>
         ))}
@@ -54,16 +54,16 @@ export default function HiddenCostChecklist({ loanAmount = 400000 }: HiddenCostC
       <div className="space-y-2">
         {filtered.map(item => (
           <label key={item.id}
-            className={`flex items-start gap-3 p-3 rounded-lg border cursor-pointer transition-colors ${selectedIds.has(item.id) ? 'border-blue-300 bg-blue-50' : 'border-gray-200 hover:border-gray-300 bg-white'}`}>
+            className={`flex items-start gap-3 p-3 rounded-lg border cursor-pointer transition-colors ${selectedIds.has(item.id) ? 'border-primary/30 bg-primary/10' : 'border-border hover:border-border bg-card'}`}>
             <input type="checkbox" checked={selectedIds.has(item.id)} onChange={() => toggleItem(item.id)}
-              className="mt-1 h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
+              className="mt-1 h-4 w-4 rounded border-border text-primary focus:ring-ring" />
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2">
-                <span className="font-medium text-gray-900">{item.name}</span>
-                <span className="text-xs px-1.5 py-0.5 rounded-full font-medium bg-gray-100 text-gray-600">{impactLabels[item.impact]}</span>
+                <span className="font-medium text-foreground">{item.name}</span>
+                <span className="text-xs px-1.5 py-0.5 rounded-full font-medium bg-secondary text-muted-foreground">{impactLabels[item.impact]}</span>
               </div>
-              <p className="text-sm text-gray-500 mt-0.5">{item.description}</p>
-              <span className="text-xs text-gray-400">
+              <p className="text-sm text-muted-foreground mt-0.5">{item.description}</p>
+              <span className="text-xs text-muted-foreground">
                 {item.typicalRange.unit === 'pln' ? `${item.typicalRange.min}-${item.typicalRange.max} zł` :
                  item.typicalRange.unit === 'percent' ? `~${item.typicalRange.min}-${item.typicalRange.max}% kwoty kredytu` :
                  `~${item.typicalRange.min}-${item.typicalRange.max}% wartości nieruchomości`}
@@ -75,15 +75,15 @@ export default function HiddenCostChecklist({ loanAmount = 400000 }: HiddenCostC
 
       {totalCount > 0 && (
         <Card>
-          <h4 className="font-semibold text-gray-900">Szacowany koszt ukrytych opłat</h4>
-          <p className="text-2xl font-bold text-blue-600 mt-2">{formatCurrency(totalSimulated)}</p>
-          <p className="text-sm text-gray-500">Dla kredytu {formatCurrency(loanAmount)} &bull; {totalCount} pozycji zaznaczonych</p>
+          <h4 className="font-semibold text-foreground">Szacowany koszt ukrytych opłat</h4>
+          <p className="text-2xl font-bold text-primary mt-2">{formatCurrency(totalSimulated)}</p>
+          <p className="text-sm text-muted-foreground">Dla kredytu {formatCurrency(loanAmount)} &bull; {totalCount} pozycji zaznaczonych</p>
         </Card>
       )}
 
       {totalCount === 0 && (
         <Card>
-          <p className="text-gray-500 text-center py-4">Wybierz pozycje z listy, aby oszacować ukryte koszty swojego kredytu.</p>
+          <p className="text-muted-foreground text-center py-4">Wybierz pozycje z listy, aby oszacować ukryte koszty swojego kredytu.</p>
         </Card>
       )}
     </div>

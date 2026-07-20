@@ -35,7 +35,7 @@ export default function BIKSimulator() {
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 items-start">
         {/* Factors list - 3/5 width */}
         <div className="lg:col-span-3 space-y-3">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">
+          <h2 className="text-lg font-semibold text-foreground mb-4">
             Zaznacz czynniki, które Cię dotyczą:
           </h2>
           {scoringFactors.map(factor => (
@@ -46,7 +46,7 @@ export default function BIKSimulator() {
                   ? factor.impact > 0
                     ? 'border-green-300 bg-green-50/50'
                     : 'border-red-300 bg-red-50/50'
-                  : 'border-gray-200 bg-white hover:border-gray-300'
+                  : 'border-border bg-card hover:border-border'
               }`}
             >
               <button
@@ -55,18 +55,18 @@ export default function BIKSimulator() {
                 aria-label={factor.name}
                 onClick={() => toggleFactor(factor.id)}
                 className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors flex-shrink-0 mt-0.5 ${
-                  selectedIds.has(factor.id) ? 'bg-blue-600' : 'bg-gray-200'
+                  selectedIds.has(factor.id) ? 'bg-primary' : 'bg-muted'
                 }`}
               >
                 <span
-                  className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                  className={`inline-block h-4 w-4 transform rounded-full bg-card transition-transform ${
                     selectedIds.has(factor.id) ? 'translate-x-6' : 'translate-x-1'
                   }`}
                 />
               </button>
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 flex-wrap">
-                  <span className="font-medium text-gray-900 text-sm">{factor.name}</span>
+                  <span className="font-medium text-foreground text-sm">{factor.name}</span>
                   <span
                     className={`text-xs px-1.5 py-0.5 rounded-full font-medium ${
                       factor.impact > 0
@@ -77,9 +77,9 @@ export default function BIKSimulator() {
                     {factor.impact > 0 ? `+${factor.impact}` : factor.impact} pkt
                   </span>
                 </div>
-                <p className="text-sm text-gray-500 mt-0.5">{factor.description}</p>
+                <p className="text-sm text-muted-foreground mt-0.5">{factor.description}</p>
                 {factor.tip && selectedIds.has(factor.id) && factor.impact < 0 && (
-                  <p className="text-xs text-blue-600 mt-1">
+                  <p className="text-xs text-primary mt-1">
                     {factor.tip}
                   </p>
                 )}
@@ -92,13 +92,13 @@ export default function BIKSimulator() {
         <div className="lg:col-span-2 lg:sticky lg:top-24 space-y-4">
           <Card>
             <div className="text-center">
-              <p className="text-sm text-gray-500 mb-1">
+              <p className="text-sm text-muted-foreground mb-1">
                 {positiveCount + negativeCount > 0
                   ? `Twój wynik BIK:`
                   : 'Wynik bazowy BIK:'}
               </p>
               <p
-                className="text-5xl font-bold text-gray-900 tabular-nums transition-all duration-300"
+                className="text-5xl font-bold text-foreground tabular-nums transition-all duration-300"
                 data-testid="score-display"
               >
                 {score}
@@ -106,13 +106,13 @@ export default function BIKSimulator() {
 
               {/* Progress bar */}
               <div className="mt-4">
-                <div className="h-2.5 bg-gray-100 rounded-full overflow-hidden">
+                <div className="h-2.5 bg-secondary rounded-full overflow-hidden">
                   <div
                     className={`h-full rounded-full transition-all duration-500 ${progressColor}`}
                     style={{ width: `${progressPercent}%` }}
                   />
                 </div>
-                <div className="flex justify-between text-xs text-gray-400 mt-1">
+                <div className="flex justify-between text-xs text-muted-foreground mt-1">
                   <span>200</span>
                   <span>800</span>
                 </div>
@@ -125,7 +125,7 @@ export default function BIKSimulator() {
                 {label}
               </span>
 
-              <p className="mt-3 text-sm text-gray-500">
+              <p className="mt-3 text-sm text-muted-foreground">
                 Twój wynik jest wyższy niż <strong>{percentile}%</strong> wnioskodawców.
               </p>
             </div>
@@ -134,13 +134,13 @@ export default function BIKSimulator() {
           {/* Tips section */}
           {selectedNegativeFactors.length > 0 && (
             <Card>
-              <h3 className="font-semibold text-gray-900 mb-2 text-sm">
+              <h3 className="font-semibold text-foreground mb-2 text-sm">
                 Wskazówki jak poprawić swój scoring:
               </h3>
               <ul className="space-y-2">
                 {selectedNegativeFactors.map(f => (
-                  <li key={f.id} className="text-sm text-gray-600 flex gap-2">
-                    <span className="text-blue-500 flex-shrink-0 mt-0.5">•</span>
+                  <li key={f.id} className="text-sm text-muted-foreground flex gap-2">
+                    <span className="text-primary flex-shrink-0 mt-0.5">•</span>
                     <span>{f.tip}</span>
                   </li>
                 ))}

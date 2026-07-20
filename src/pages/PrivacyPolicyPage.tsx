@@ -15,19 +15,19 @@ const PrivacyPolicyPage: React.FC = () => {
         ]}
         schemaType="Article"
       />
-      <div className="text-gray-600 space-y-6">
+      <div className="text-muted-foreground space-y-6">
         <p>
           Cenimy Twoją prywatność. Większość obliczeń w naszym serwisie odbywa się lokalnie w Twojej przeglądarce. 
           Nie przechowujemy Twoich danych finansowych na naszych serwerach.
         </p>
 
-        <h3 className="text-xl font-bold text-gray-900 mt-8 mb-4">LocalStorage</h3>
+        <h3 className="text-xl font-bold text-foreground mt-8 mb-4">LocalStorage</h3>
         <p>
           Funkcja "Zapisz" korzysta z technologii LocalStorage w Twojej przeglądarce. 
           Dane te nigdy nie opuszczają Twojego urządzenia. Możesz je w każdej chwili usunąć w ustawieniach przeglądarki.
         </p>
 
-        <h3 className="text-xl font-bold text-gray-900 mt-8 mb-4">Google AdSense i pliki cookie</h3>
+        <h3 className="text-xl font-bold text-foreground mt-8 mb-4">Google AdSense i pliki cookie</h3>
         <p>
           Nasza strona korzysta z usługi Google AdSense do wyświetlania reklam. Google AdSense wykorzystuje pliki cookie
           (w tym pliki cookie DoubleClick) do personalizacji reklam na podstawie Twojej aktywności w internecie.
@@ -46,16 +46,16 @@ const PrivacyPolicyPage: React.FC = () => {
         </p>
         <p>
           Więcej informacji znajdziesz w polityce prywatności Google:{' '}
-          <a href="https://policies.google.com/privacy" className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">
+          <a href="https://policies.google.com/privacy" className="text-primary hover:underline" target="_blank" rel="noopener noreferrer">
             policies.google.com/privacy
           </a>
         </p>
 
-        <h3 className="text-xl font-bold text-gray-900 mt-8 mb-4">Twoje prawa</h3>
+        <h3 className="text-xl font-bold text-foreground mt-8 mb-4">Twoje prawa</h3>
         <p>
           Zgodnie z RODO masz prawo do dostępu do swoich danych, ich sprostowania, usunięcia, ograniczenia przetwarzania,
           wniesienia sprzeciwu oraz przenoszenia danych. W sprawach związanych z danymi skontaktuj się z nami przez
-          formularz na stronie <a href="/kontakt/" className="text-blue-600 hover:underline">Kontakt</a>.
+          formularz na stronie <a href="/kontakt/" className="text-primary hover:underline">Kontakt</a>.
         </p>
       </div>
     </TabContainer>

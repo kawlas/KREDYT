@@ -13,7 +13,7 @@ export default function AmortizationChart({ data, insights, loanAmount }: Amorti
   if (data.length === 0) {
     return (
       <Card>
-        <p className="text-gray-500 italic">Brak danych do wyświetlenia wykresu</p>
+        <p className="text-muted-foreground italic">Brak danych do wyświetlenia wykresu</p>
       </Card>
     )
   }
@@ -23,7 +23,7 @@ export default function AmortizationChart({ data, insights, loanAmount }: Amorti
   return (
     <Card>
       <figure role="figure" aria-label="Wykres amortyzacji kredytu">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">
+        <h3 className="text-lg font-semibold text-foreground mb-4">
           Gdzie idzie Twoja rata? — Jak zmienia się rata w czasie
         </h3>
 
@@ -31,11 +31,11 @@ export default function AmortizationChart({ data, insights, loanAmount }: Amorti
           <div className="flex items-center gap-6 mb-3 text-sm">
             <div className="flex items-center gap-2">
               <span className="w-3 h-3 rounded-sm bg-rose-500" />
-              <span className="text-gray-600">Odsetki</span>
+              <span className="text-muted-foreground">Odsetki</span>
             </div>
             <div className="flex items-center gap-2">
               <span className="w-3 h-3 rounded-sm bg-emerald-500" />
-              <span className="text-gray-600">Kapitał</span>
+              <span className="text-muted-foreground">Kapitał</span>
             </div>
           </div>
 
@@ -47,10 +47,10 @@ export default function AmortizationChart({ data, insights, loanAmount }: Amorti
 
               return (
                 <div key={d.year} className="flex items-center gap-2">
-                  <span className={`w-8 text-xs text-right shrink-0 ${isLabelYear ? 'text-gray-500' : 'text-transparent'}`}>
+                  <span className={`w-8 text-xs text-right shrink-0 ${isLabelYear ? 'text-muted-foreground' : 'text-transparent'}`}>
                     {isLabelYear ? d.year : '-'}
                   </span>
-                  <div className="flex-1 h-5 rounded-sm overflow-hidden flex bg-gray-100">
+                  <div className="flex-1 h-5 rounded-sm overflow-hidden flex bg-secondary">
                     <div
                       className="h-full bg-rose-500 transition-all duration-300"
                       style={{ width: `${interestPercent}%` }}

@@ -57,11 +57,11 @@ const categoryColors: Record<string, string> = {
 
 function getActiveClass(path: string | undefined, isActive: boolean): string {
   const base = 'flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors'
-  if (!isActive) return `${base} text-gray-600 hover:text-gray-900 hover:bg-gray-50`
+  if (!isActive) return `${base} text-muted-foreground hover:text-foreground hover:bg-muted`
   const color = path ? categoryColors[path] : undefined
   if (color === 'violet') return `${base} text-violet-600 bg-violet-50`
   if (color === 'emerald') return `${base} text-emerald-600 bg-emerald-50`
-  return `${base} text-blue-600 bg-blue-50`
+  return `${base} text-primary bg-primary/10`
 }
 
 interface SidebarProps {
@@ -92,7 +92,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
       <aside
         className={`
           fixed lg:sticky top-0 left-0 z-50 h-screen
-          w-60 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700
+          w-60 bg-card bg-card border-r border-border border-border
           flex flex-col overflow-y-auto
           transition-transform duration-300
           ${isOpen ? 'translate-x-0' : '-translate-x-full'}
@@ -100,15 +100,15 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
         `}
       >
         {/* Logo + mobile toggle */}
-        <div className="px-4 py-4 border-b border-gray-100 dark:border-gray-700 flex items-center justify-between">
-          <Link to="/" className="text-base font-bold tracking-tight text-gray-900 dark:text-white">
-            Kalkulator<span className="text-blue-600 dark:text-blue-400">Kredytowy</span>
+        <div className="px-4 py-4 border-b border-border flex items-center justify-between">
+          <Link to="/" className="text-base font-bold tracking-tight text-foreground dark:text-white">
+            Kalkulator<span className="text-primary">Kredytowy</span>
           </Link>
           <div className="flex items-center gap-1">
             <ThemeToggle />
             <button
               onClick={handleClose}
-              className="lg:hidden p-1 text-gray-500 dark:text-gray-300 hover:text-gray-700 dark:hover:text-white transition-colors"
+              className="lg:hidden p-1 text-muted-foreground hover:text-foreground dark:hover:text-white transition-colors"
               aria-label="Zamknij menu"
             >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
@@ -124,11 +124,11 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
         <nav aria-label="Nawigacja główna" className="flex-1 py-3 px-2 space-y-0.5">
           {sidebarItems.map((item, i) => {
             if (item.type === 'divider') {
-              return <hr key={`div-${i}`} className="border-gray-100 my-3" />
+              return <hr key={`div-${i}`} className="border-border my-3" />
             }
             if (item.type === 'category') {
               return (
-                <p key={item.label} className="px-3 py-2 text-xs font-bold uppercase tracking-wider text-gray-400">
+                <p key={item.label} className="px-3 py-2 text-xs font-bold uppercase tracking-wider text-muted-foreground">
                   {item.label}
                 </p>
               )
@@ -153,7 +153,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
         {/* Close button on mobile */}
         <button
           onClick={handleClose}
-          className="lg:hidden p-4 border-t border-gray-100 text-gray-500 hover:text-gray-700 text-sm"
+          className="lg:hidden p-4 border-t border-border text-muted-foreground hover:text-foreground text-sm"
         >
           ✕ Zamknij
         </button>

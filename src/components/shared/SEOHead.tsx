@@ -110,7 +110,7 @@ function articleJsonLd(title: string, description: string, image?: string) {
     '@type': 'Article',
     headline: title,
     description,
-    image: image || `${siteUrl}/og-image.png`,
+    image: image || `${siteUrl}/og-image.webp`,
     datePublished: '2026-01-15',
     dateModified: '2026-07-04',
     author: {
@@ -160,7 +160,7 @@ export default function SEOHead({
   const location = useLocation()
 
   const canonicalUrl = `${siteUrl}${location.pathname}`.replace(/\/$/, '') + '/'
-  const ogImage = image || `${siteUrl}/og-image.png`
+  const ogImage = image || `${siteUrl}/og-image.webp`
   const fullAppUrl = appUrl || canonicalUrl
 
   return (

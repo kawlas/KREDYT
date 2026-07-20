@@ -38,7 +38,7 @@ const CompendiumsListPage: React.FC = () => {
       />
       
       <div>
-        <p className="text-lg text-gray-600 mb-8">
+        <p className="text-lg text-muted-foreground mb-8">
           Profesjonalne kompendia wiedzy o kredytach hipotecznych. Przygotowane przez analityków 
           finansowych z wieloletnim doświadczeniem. Każde kompendium zawiera przykłady liczbowe, 
           wzory matematyczne i praktyczne porady.
@@ -49,13 +49,13 @@ const CompendiumsListPage: React.FC = () => {
             <Link
               key={comp.slug}
               to={`/poradniki/${comp.slug}/`}
-              className="block bg-white rounded-xl border border-gray-100 p-6 hover:shadow-md hover:border-blue-200 transition-all"
+              className="block bg-card rounded-xl border border-border p-6 hover:shadow-md hover:border-primary/40 transition-all"
             >
               <div className="flex items-start gap-4">
                 <div className="flex-1">
-                  <h2 className="text-2xl font-bold text-gray-900 mb-2">{comp.title}</h2>
-                  <p className="text-gray-600 mb-3">{comp.description}</p>
-                  <span className="text-blue-600 font-medium text-sm">
+                  <h2 className="text-2xl font-bold text-foreground mb-2">{comp.title}</h2>
+                  <p className="text-muted-foreground mb-3">{comp.description}</p>
+                  <span className="text-primary font-medium text-sm">
                     Czytaj więcej →
                   </span>
                 </div>
@@ -64,9 +64,9 @@ const CompendiumsListPage: React.FC = () => {
           ))}
         </div>
 
-        <section className="mt-12 bg-gray-50 rounded-xl p-6">
-          <h2 className="text-2xl font-bold text-gray-900 mb-3">O autorze</h2>
-          <p className="text-gray-600 text-sm">
+        <section className="mt-12 bg-secondary rounded-xl p-6">
+          <h2 className="text-2xl font-bold text-foreground mb-3">O autorze</h2>
+          <p className="text-muted-foreground text-sm">
             Kompendia przygotowane przez <strong>Piotra Radwańskiego</strong>, analityka finansowego 
             z 14-letnim doświadczeniem w analizie produktów bankowych i rynku kredytów hipotecznych. 
             Były ekspert Związku Banków Polskich, autor publikacji w „Rzeczpospolitej" i „Dzienniku 
@@ -74,7 +74,7 @@ const CompendiumsListPage: React.FC = () => {
           </p>
         </section>
 
-        <p className="text-sm text-gray-400 mt-8">
+        <p className="text-sm text-muted-foreground mt-8">
           Ostatnia aktualizacja: <time dateTime="2026-07-04">4 lipca 2026</time>
         </p>
       </div>

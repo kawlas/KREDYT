@@ -75,19 +75,19 @@ export default function PaymentComparison({
           <div className="space-y-6">
             {/* Którą ratę wybrać - MOVED TO TOP */}
             <Card>
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Którą ratę wybrać?</h3>
+              <h3 className="text-lg font-semibold text-foreground mb-4">Którą ratę wybrać?</h3>
               <div className="space-y-3">
-                <div className="bg-blue-50 border border-blue-200 rounded-xl p-6">
-                  <div className="font-semibold text-blue-900 mb-2">Raty równe gdy:</div>
-                  <ul className="text-sm text-gray-700 space-y-1 list-disc list-inside">
+                <div className="bg-primary/10 border border-primary/30 rounded-xl p-6">
+                  <div className="font-semibold text-primary mb-2">Raty równe gdy:</div>
+                  <ul className="text-sm text-foreground space-y-1 list-disc list-inside">
                     <li>Chcesz stabilnej raty</li>
                     <li>Budżet napięty na początku</li>
                     <li>Planujesz wcześniejszą spłatę</li>
                   </ul>
                 </div>
-                <div className="bg-blue-50 border border-blue-200 rounded-xl p-6">
-                  <div className="font-semibold text-blue-900 mb-2">Raty malejące gdy:</div>
-                  <ul className="text-sm text-gray-700 space-y-1 list-disc list-inside">
+                <div className="bg-primary/10 border border-primary/30 rounded-xl p-6">
+                  <div className="font-semibold text-primary mb-2">Raty malejące gdy:</div>
+                  <ul className="text-sm text-foreground space-y-1 list-disc list-inside">
                     <li>Stać Cię na wyższą ratę początkowo</li>
                     <li>Chcesz maksymalnych oszczędności</li>
                     <li>Dochody rosną w czasie</li>
@@ -111,22 +111,22 @@ export default function PaymentComparison({
           {/* RIGHT COLUMN */}
           <div className="space-y-6">
             {/* Jak zmieniają się raty - KEPT FIRST */}
-            <div className="bg-blue-50 border border-blue-200 rounded-xl p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4 bg-blue-50">Jak zmieniają się raty?</h3>
+            <div className="bg-primary/10 border border-primary/30 rounded-xl p-6">
+              <h3 className="text-lg font-semibold text-foreground mb-4 bg-primary/10">Jak zmieniają się raty?</h3>
               <div className="space-y-4">
                 <div>
-                  <div className="font-medium text-gray-900 mb-1">Raty równe</div>
+                  <div className="font-medium text-foreground mb-1">Raty równe</div>
                   <div className="text-lg font-semibold">
                     {formatCurrencyShort(equal.firstPayment)} → {formatCurrencyShort(equal.lastPayment)}
                   </div>
-                  <div className="text-sm text-gray-600">Stała przez cały okres</div>
+                  <div className="text-sm text-muted-foreground">Stała przez cały okres</div>
                 </div>
                 <div>
-                  <div className="font-medium text-gray-900 mb-1">Raty malejące</div>
+                  <div className="font-medium text-foreground mb-1">Raty malejące</div>
                   <div className="text-lg font-semibold">
                     {formatCurrencyShort(decreasing.firstPayment)} → {formatCurrencyShort(decreasing.lastPayment)}
                   </div>
-                  <div className="text-sm text-gray-600">
+                  <div className="text-sm text-muted-foreground">
                     Maleje o ~{formatCurrencyShort((decreasing.firstPayment - decreasing.lastPayment) / effectiveLoanTermYears)}/rok
                   </div>
                 </div>
@@ -135,21 +135,21 @@ export default function PaymentComparison({
 
             {/* Kluczowe różnice - MOVED HERE */}
             <Card>
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Kluczowe różnice</h3>
+              <h3 className="text-lg font-semibold text-foreground mb-4">Kluczowe różnice</h3>
               <div className="space-y-4">
                 {/* First payment difference */}
-                <div className="p-3 bg-gray-50 rounded-lg">
-                  <div className="font-medium text-gray-900 mb-1">Pierwsza rata</div>
-                  <div className="text-sm text-gray-600 mb-2">
+                <div className="p-3 bg-secondary rounded-lg">
+                  <div className="font-medium text-foreground mb-1">Pierwsza rata</div>
+                  <div className="text-sm text-muted-foreground mb-2">
                     Malejące wyższe o {formatCurrency(Math.abs(decreasing.monthlyDifference))}
                   </div>
                   <div className="flex justify-between text-sm">
                     <div>
-                      <div className="text-gray-600">Równe</div>
+                      <div className="text-muted-foreground">Równe</div>
                       <div className="font-semibold">{formatCurrencyShort(equal.firstPayment)}</div>
                     </div>
                     <div className="text-right">
-                      <div className="text-gray-600">Malejące</div>
+                      <div className="text-muted-foreground">Malejące</div>
                       <div className="font-semibold text-orange-600">
                         {formatCurrencyShort(decreasing.firstPayment)}
                       </div>
@@ -158,12 +158,12 @@ export default function PaymentComparison({
                 </div>
 
                 {/* Total savings */}
-                <div className="bg-blue-50 border border-blue-200 rounded-xl p-6">
-                  <div className="font-medium text-gray-900 mb-1">Oszczędność</div>
-                  <div className="text-2xl font-bold text-blue-600">
+                <div className="bg-primary/10 border border-primary/30 rounded-xl p-6">
+                  <div className="font-medium text-foreground mb-1">Oszczędność</div>
+                  <div className="text-2xl font-bold text-primary">
                     {formatCurrencyShort(decreasing.totalSavings)}
                   </div>
-                  <div className="text-sm text-gray-600 mt-1">
+                  <div className="text-sm text-muted-foreground mt-1">
                     Malejące płacą mniej odsetek ({((decreasing.totalSavings / equal.totalCost) * 100).toFixed(1)}% taniej)
                   </div>
                 </div>
@@ -187,11 +187,11 @@ function ComparisonCard({
   return (
     <Card 
       className={`relative border-2 ${
-        isRecommended ? 'border-blue-500 bg-gradient-to-br from-blue-50 to-white' : 'border-gray-200'
+        isRecommended ? 'border-primary bg-gradient-to-br from-blue-50 to-white' : 'border-border'
       }`}
     >
       {isRecommended && (
-        <div className="absolute top-0 right-0 bg-blue-500 text-white text-xs font-bold px-3 py-1 rounded-bl-lg rounded-tr-lg">
+        <div className="absolute top-0 right-0 bg-primary text-white text-xs font-bold px-3 py-1 rounded-bl-lg rounded-tr-lg">
           LEPSZY WYBÓR
         </div>
       )}
@@ -201,8 +201,8 @@ function ComparisonCard({
       <div className="space-y-3">
         {/* First payment */}
         <div>
-          <div className="text-sm text-gray-600">Pierwsza rata</div>
-          <div className="text-2xl font-bold text-gray-900">
+          <div className="text-sm text-muted-foreground">Pierwsza rata</div>
+          <div className="text-2xl font-bold text-foreground">
             {formatCurrency(data.firstPayment)}
           </div>
         </div>
@@ -210,8 +210,8 @@ function ComparisonCard({
         {/* Last payment (if different) */}
         {data.firstPayment !== data.lastPayment && (
           <div>
-            <div className="text-sm text-gray-600">Ostatnia rata</div>
-            <div className="text-lg font-semibold text-gray-700">
+            <div className="text-sm text-muted-foreground">Ostatnia rata</div>
+            <div className="text-lg font-semibold text-foreground">
               {formatCurrency(data.lastPayment)}
             </div>
           </div>
@@ -221,13 +221,13 @@ function ComparisonCard({
         <div className="border-t pt-3 mt-3">
           {/* Total interest */}
           <div className="flex justify-between text-sm mb-2">
-            <span className="text-gray-600">Suma odsetek</span>
+            <span className="text-muted-foreground">Suma odsetek</span>
             <span className="font-semibold">{formatCurrencyShort(data.totalInterest)}</span>
           </div>
 
           {/* Total cost */}
           <div className="flex justify-between">
-            <span className="text-gray-700 font-medium">Całkowity koszt</span>
+            <span className="text-foreground font-medium">Całkowity koszt</span>
             <span className="text-lg font-bold">
               {formatCurrencyShort(data.totalCost)}
             </span>
@@ -236,7 +236,7 @@ function ComparisonCard({
 
         {/* Savings indicator (for decreasing) */}
         {data.type === 'declining' && data.totalSavings > 0 && (
-          <div className="bg-blue-100 text-blue-800 p-2 rounded text-sm text-center font-medium">
+          <div className="bg-primary/10 text-primary p-2 rounded text-sm text-center font-medium">
             Oszczędzasz {formatCurrencyShort(data.totalSavings)}
           </div>
         )}

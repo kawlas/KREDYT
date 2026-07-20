@@ -18,8 +18,8 @@ export default function RentVsBuyPage() {
         schemaType="WebApplication"
       />
       <div className="space-y-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Kredyt hipoteczny czy wynajem? — Kalkulator</h1>
-        <p className="text-lg text-gray-600 mb-4">
+        <h1 className="text-3xl font-bold text-foreground mb-2">Kredyt hipoteczny czy wynajem? — Kalkulator</h1>
+        <p className="text-lg text-muted-foreground mb-4">
           Porównaj koszty kredytu hipotecznego i wynajmu. Sprawdź, co bardziej się opłaca w Twojej sytuacji.
         </p>
         <RentVsBuyCalc />

@@ -14,18 +14,18 @@ export default function BreadcrumbNav({ pathname: _pathname }: BreadcrumbNavProp
 
   return (
     <nav aria-label="Breadcrumb" className="mb-4">
-      <ol className="flex items-center gap-1.5 text-xs text-gray-400">
+      <ol className="flex items-center gap-1.5 text-xs text-muted-foreground">
         {items.map((item, i) => (
           <li key={item.path + i} className="flex items-center gap-1.5">
             {i > 0 && (
-              <span className="text-gray-300">›</span>
+              <span className="text-muted-foreground">›</span>
             )}
             {i === items.length - 1 || (item.path === '/' && i > 0) ? (
-              <span className={i === items.length - 1 ? 'text-gray-600' : 'text-gray-400'} aria-current={i === items.length - 1 ? 'page' : undefined}>
+              <span className={i === items.length - 1 ? 'text-muted-foreground' : 'text-muted-foreground'} aria-current={i === items.length - 1 ? 'page' : undefined}>
                 {item.label}
               </span>
             ) : (
-              <Link to={item.path} className="text-gray-400 hover:text-blue-500 transition-colors">
+              <Link to={item.path} className="text-muted-foreground hover:text-primary transition-colors">
                 {item.label}
               </Link>
             )}

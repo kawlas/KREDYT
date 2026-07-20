@@ -1,11 +1,11 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, waitFor } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import { HelmetProvider } from 'react-helmet-async'
 import { LoanCalculatorProvider } from './context/LoanCalculatorContext'
 import App from './App'
 
 describe('App', () => {
-  it('renders the title', () => {
+  it('renders the title', async () => {
     render(
       <HelmetProvider>
         <MemoryRouter>
@@ -15,6 +15,8 @@ describe('App', () => {
         </MemoryRouter>
       </HelmetProvider>
     )
-    expect(screen.getAllByText(/Kalkulator Kredytu/i).length).toBeGreaterThan(0)
+    await waitFor(() => {
+      expect(screen.getAllByText(/Kalkulator Kredytu/i).length).toBeGreaterThan(0)
+    })
   })
 })

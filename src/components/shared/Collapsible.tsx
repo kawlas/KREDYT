@@ -16,15 +16,15 @@ export default function Collapsible({
   return (
     <details 
       open={defaultOpen} 
-      className="bg-white rounded-xl shadow-lg transition-all group/collapsible"
+      className="bg-card rounded-xl shadow-lg transition-all group/collapsible"
     >
-      <summary className="cursor-pointer list-none p-4 rounded-t-xl bg-gradient-to-r from-gray-50 to-white hover:from-gray-100 hover:to-gray-100 transition-colors flex items-center justify-between font-semibold text-gray-900 border-b border-gray-200 select-none">
+      <summary className="cursor-pointer list-none p-4 rounded-t-xl bg-gradient-to-r from-gray-50 to-white hover:from-gray-100 hover:to-gray-100 transition-colors flex items-center justify-between font-semibold text-foreground border-b border-border select-none">
         <span className="flex items-center gap-2">
           {icon && <span className="text-xl">{icon}</span>}
           <span>{title}</span>
         </span>
         <svg 
-          className="w-5 h-5 text-gray-500 transition-transform group-open/collapsible:rotate-180" 
+          className="w-5 h-5 text-muted-foreground transition-transform group-open/collapsible:rotate-180" 
           fill="none" 
           strokeWidth="2" 
           stroke="currentColor" 

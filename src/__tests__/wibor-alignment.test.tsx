@@ -159,7 +159,7 @@ describe('B — PaymentComparison: wyrównanie + kolory', () => {
     const savingsIdx = html.indexOf('oszczędność')
     expect(savingsIdx).toBeGreaterThanOrEqual(0)
     const context = html.substring(Math.max(0, savingsIdx - 300), savingsIdx + 300)
-    expect(context.includes('bg-blue-50')).toBe(true)
+    expect(context.includes('bg-primary/10')).toBe(true)
     expect(context.includes('bg-green-50')).toBe(false)
   })
 })

@@ -17,16 +17,16 @@ export default function TabContainer({
     <div className="tab-container">
       {/* Header Section - Unified */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">
+        <h1 className="text-3xl font-bold text-foreground mb-2">
           {title}
         </h1>
         {subtitle && (
-          <p className="text-gray-600 text-lg mb-2">
+          <p className="text-muted-foreground text-lg mb-2">
             {subtitle}
           </p>
         )}
         {contextInfo && (
-          <div className="inline-block bg-blue-50 text-blue-700 px-6 py-3 rounded-lg text-lg font-bold mt-3">
+          <div className="inline-block bg-primary/10 text-primary px-6 py-3 rounded-lg text-lg font-bold mt-3">
             {contextInfo}
           </div>
         )}

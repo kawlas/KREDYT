@@ -178,7 +178,7 @@ describe('Sprint 1.3 — Unikalność stron', () => {
       for (const page of pageContents) {
         const jsonlds = extractJsonLd(page.html)
         // At minimum, SEOHead generates WebSite schema
-        const hasWebSite = jsonlds.some((j: any) => j['@type'] === 'WebSite')
+        const hasWebSite = jsonlds.some((j) => j['@type'] === 'WebSite')
         expect(hasWebSite).toBe(true)
       }
     })
@@ -188,9 +188,8 @@ describe('Sprint 1.3 — Unikalność stron', () => {
       for (const page of pageContents) {
         const jsonlds = extractJsonLd(page.html)
         for (const j of jsonlds) {
-          const jAny = j as any
-          if (jAny['@type'] === 'WebApplication' && jAny.url) {
-            webAppUrls.push(jAny.url)
+          if (j['@type'] === 'WebApplication' && j.url) {
+            webAppUrls.push(j.url as string)
           }
         }
       }
@@ -206,10 +205,9 @@ describe('Sprint 1.3 — Unikalność stron', () => {
       for (const page of pageContents) {
         const jsonlds = extractJsonLd(page.html)
         for (const j of jsonlds) {
-          const jAny = j as any
-          if (jAny['@type'] === 'BreadcrumbList' && jAny.itemListElement) {
+          if (j['@type'] === 'BreadcrumbList' && j.itemListElement) {
             foundAny = true
-            for (const item of jAny.itemListElement) {
+            for (const item of j.itemListElement as Array<{ item?: string }>) {
               if (item.item) {
                 breadcrumbUrls.add(item.item)
               }

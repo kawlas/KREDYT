@@ -52,9 +52,9 @@ export default function DataSourceBanner({
   }
 
   return (
-    <div className={`rounded-xl border p-4 sm:p-6 ${isCalculator ? 'bg-indigo-50 border-indigo-200' : 'bg-gray-50 border-gray-200'}`}>
+    <div className={`rounded-xl border p-4 sm:p-6 ${isCalculator ? 'bg-indigo-50 border-indigo-200' : 'bg-secondary border-border'}`}>
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
-        <p className={`font-semibold ${isCalculator ? 'text-indigo-800' : 'text-gray-800'}`}>
+        <p className={`font-semibold ${isCalculator ? 'text-indigo-800' : 'text-foreground'}`}>
           {isCalculator ? 'Wartości pobrane z kalkulatora głównego' : 'Wprowadź dane ręcznie lub skorzystaj z kalkulatora głównego'}
         </p>
         <div className="flex items-center gap-2 shrink-0">
@@ -75,7 +75,7 @@ export default function DataSourceBanner({
             className={`px-4 py-2 rounded-lg text-sm font-medium border transition-colors ${
               isCalculator
                 ? 'border-indigo-300 text-indigo-700 hover:bg-indigo-100'
-                : 'border-gray-300 text-gray-700 hover:bg-gray-100'
+                : 'border-border text-foreground hover:bg-muted'
             }`}
           >
             ← Kalkulator główny
@@ -84,63 +84,63 @@ export default function DataSourceBanner({
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-        <div className={`rounded-lg p-3 ${isCalculator ? 'bg-indigo-100/50' : 'bg-white'}`}>
-          <div className="text-sm text-gray-600">Kwota kredytu</div>
-          <div className="text-lg font-bold text-gray-900">{formatCurrencyShort(values.loanAmount)}</div>
+        <div className={`rounded-lg p-3 ${isCalculator ? 'bg-indigo-100/50' : 'bg-card'}`}>
+          <div className="text-sm text-muted-foreground">Kwota kredytu</div>
+          <div className="text-lg font-bold text-foreground">{formatCurrencyShort(values.loanAmount)}</div>
         </div>
-        <div className={`rounded-lg p-3 ${isCalculator ? 'bg-indigo-100/50' : 'bg-white'}`}>
-          <div className="text-sm text-gray-600">Oprocentowanie</div>
-          <div className="text-lg font-bold text-gray-900">
+        <div className={`rounded-lg p-3 ${isCalculator ? 'bg-indigo-100/50' : 'bg-card'}`}>
+          <div className="text-sm text-muted-foreground">Oprocentowanie</div>
+          <div className="text-lg font-bold text-foreground">
             {formatPercent(values.annualRate)}
             {values.wibor !== undefined && values.margin !== undefined && (
-              <span className="text-sm font-normal text-gray-500 ml-1">
+              <span className="text-sm font-normal text-muted-foreground ml-1">
                 (WIBOR: {formatPercent(values.wibor)} + marża: {formatPercent(values.margin)})
               </span>
             )}
           </div>
         </div>
-        <div className={`rounded-lg p-3 ${isCalculator ? 'bg-indigo-100/50' : 'bg-white'}`}>
-          <div className="text-sm text-gray-600">Okres kredytowania</div>
-          <div className="text-lg font-bold text-gray-900">{values.loanTermYears} lat</div>
+        <div className={`rounded-lg p-3 ${isCalculator ? 'bg-indigo-100/50' : 'bg-card'}`}>
+          <div className="text-sm text-muted-foreground">Okres kredytowania</div>
+          <div className="text-lg font-bold text-foreground">{values.loanTermYears} lat</div>
         </div>
       </div>
 
       {editing && (
-        <div className={`mt-4 p-4 rounded-lg border ${isCalculator ? 'bg-indigo-100/30 border-indigo-200' : 'bg-white border-gray-200'}`}>
+        <div className={`mt-4 p-4 rounded-lg border ${isCalculator ? 'bg-indigo-100/30 border-indigo-200' : 'bg-card border-border'}`}>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Kwota kredytu (PLN)</label>
+              <label className="block text-sm font-medium text-foreground mb-1">Kwota kredytu (PLN)</label>
               <input
                 type="number"
                 value={editLoanAmount}
                 onChange={e => setEditLoanAmount(Number(e.target.value))}
-                className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none"
+                className="w-full px-3 py-2 border border-border rounded-lg focus:ring-2 focus:ring-ring/20 focus:border-primary outline-none"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Oprocentowanie (%)</label>
+              <label className="block text-sm font-medium text-foreground mb-1">Oprocentowanie (%)</label>
               <input
                 type="number"
                 step="0.01"
                 value={editAnnualRate}
                 onChange={e => setEditAnnualRate(Number(e.target.value))}
-                className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none"
+                className="w-full px-3 py-2 border border-border rounded-lg focus:ring-2 focus:ring-ring/20 focus:border-primary outline-none"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Okres (lata)</label>
+              <label className="block text-sm font-medium text-foreground mb-1">Okres (lata)</label>
               <input
                 type="number"
                 value={editLoanTermYears}
                 onChange={e => setEditLoanTermYears(Number(e.target.value))}
-                className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none"
+                className="w-full px-3 py-2 border border-border rounded-lg focus:ring-2 focus:ring-ring/20 focus:border-primary outline-none"
               />
             </div>
           </div>
           <div className="flex justify-end gap-2 mt-4">
             <button
               onClick={handleCancel}
-              className="px-4 py-2 text-sm font-medium text-gray-700 border border-gray-200 rounded-lg hover:bg-gray-50"
+              className="px-4 py-2 text-sm font-medium text-foreground border border-border rounded-lg hover:bg-muted"
             >
               Anuluj
             </button>

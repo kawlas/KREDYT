@@ -30,10 +30,10 @@ export default function Slider({
   return (
     <div className={`space-y-3 ${className}`}>
       <div className="flex justify-between items-center">
-        <label className="text-sm font-medium text-gray-700">
+        <label className="text-sm font-medium text-foreground">
           {label}
         </label>
-        <span className="text-sm font-bold text-blue-600 bg-blue-50 px-2 py-1 rounded">
+        <span className="text-sm font-bold text-primary bg-primary/10 px-2 py-1 rounded">
           {value}{unit}
         </span>
       </div>
@@ -45,16 +45,16 @@ export default function Slider({
         step={step}
         value={value}
         onChange={(e) => onChange(parseFloat(e.target.value))}
-        className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+        className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer accent-primary focus:outline-none focus:ring-2 focus:ring-ring/20"
       />
 
-      <div className="flex justify-between text-xs text-gray-400">
+      <div className="flex justify-between text-xs text-muted-foreground">
         <span>{minLabel || `${min}${unit}`}</span>
         <span>{maxLabel || `${max}${unit}`}</span>
       </div>
 
       {helperText && (
-        <p className="text-xs text-gray-500 mt-1">
+        <p className="text-xs text-muted-foreground mt-1">
           {helperText}
         </p>
       )}

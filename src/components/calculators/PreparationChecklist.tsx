@@ -44,13 +44,13 @@ export default function PreparationChecklist() {
   return (
     <div className="space-y-8 pb-12">
       <div>
-        <h2 className="text-3xl font-bold text-gray-900 mb-4">Twoja lista przygotowań</h2>
-        <p className="text-gray-600">Zaznacz wykonane kroki, aby mieć pewność, że jesteś gotowy na wizytę w banku.</p>
+        <h2 className="text-3xl font-bold text-foreground mb-4">Twoja lista przygotowań</h2>
+        <p className="text-muted-foreground">Zaznacz wykonane kroki, aby mieć pewność, że jesteś gotowy na wizytę w banku.</p>
       </div>
 
       {timeframes.map(tf => (
         <div key={tf} className="space-y-4">
-          <h3 className="text-xl font-bold text-blue-600 border-b pb-2">{tf}</h3>
+          <h3 className="text-xl font-bold text-primary border-b pb-2">{tf}</h3>
           <div className="space-y-2">
             {CHECKLIST_ITEMS.filter(item => item.timeframe === tf).map(item => (
               <label 
@@ -58,20 +58,20 @@ export default function PreparationChecklist() {
                 className={`flex items-center gap-3 p-4 rounded-xl border transition-all cursor-pointer ${
                   checkedItems.has(item.id) 
                     ? 'bg-green-50 border-green-200 opacity-75' 
-                    : 'bg-white border-gray-200 hover:border-blue-300 hover:shadow-sm'
+                    : 'bg-card border-border hover:border-primary/40 hover:shadow-sm'
                 }`}
               >
                 <input
                   type="checkbox"
                   checked={checkedItems.has(item.id)}
                   onChange={() => toggleItem(item.id)}
-                  className="w-5 h-5 text-blue-600 rounded border-gray-300 focus:ring-blue-500"
+                  className="w-5 h-5 text-primary rounded border-border focus:ring-ring"
                 />
                 <div className="flex-1">
-                  <p className={`font-medium ${checkedItems.has(item.id) ? 'text-green-800 line-through' : 'text-gray-900'}`}>
+                  <p className={`font-medium ${checkedItems.has(item.id) ? 'text-green-800 line-through' : 'text-foreground'}`}>
                     {item.text}
                   </p>
-                  <p className="text-xs text-gray-500 uppercase tracking-wider">{item.category}</p>
+                  <p className="text-xs text-muted-foreground uppercase tracking-wider">{item.category}</p>
                 </div>
               </label>
             ))}
@@ -86,7 +86,7 @@ export default function PreparationChecklist() {
               setCheckedItems(new Set())
             }
           }}
-          className="text-sm text-gray-500 hover:text-red-600 transition-colors"
+          className="text-sm text-muted-foreground hover:text-red-600 transition-colors"
         >
           Wyczyść całą listę
         </button>

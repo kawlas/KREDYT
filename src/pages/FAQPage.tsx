@@ -19,33 +19,33 @@ export default function FAQPage() {
         ]}
         faqItems={FAQ_DATA.slice(0, 5).map(i => ({ question: i.question, answer: i.answer }))}
       />
-      <div className="text-gray-600 space-y-8">
+      <div className="text-muted-foreground space-y-8">
         <p>
           Zbraliśmy najważniejsze pytania zadawane przez przyszłych kredytobiorców. 
           Poniżej znajdziesz krótkie i konkretne odpowiedzi, które pomogą Ci zrozumieć mechanizmy kredytowe.
         </p>
         <FaqBlock items={FAQ_DATA} />
 
-        <div className="p-8 bg-blue-50 rounded-2xl border border-blue-100">
-          <h3 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+        <div className="p-8 bg-primary/10 rounded-2xl border border-primary/30">
+          <h3 className="text-xl font-bold text-foreground mb-6 flex items-center gap-2">
             Pogłębiona wiedza (Poradniki)
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <Link to="/jak-bank-liczy-zdolnosc/" className="flex items-center gap-3 p-3 bg-white rounded-xl shadow-sm hover:shadow-md transition-all">
+            <Link to="/jak-bank-liczy-zdolnosc/" className="flex items-center gap-3 p-3 bg-card rounded-xl shadow-sm hover:shadow-md transition-all">
               
-              <span className="font-medium text-gray-700">Jak bank liczy zdolność?</span>
+              <span className="font-medium text-foreground">Jak bank liczy zdolność?</span>
             </Link>
-            <Link to="/ltv-80-procent/" className="flex items-center gap-3 p-3 bg-white rounded-xl shadow-sm hover:shadow-md transition-all">
+            <Link to="/ltv-80-procent/" className="flex items-center gap-3 p-3 bg-card rounded-xl shadow-sm hover:shadow-md transition-all">
               
-              <span className="font-medium text-gray-700">Zalety LTV 80%</span>
+              <span className="font-medium text-foreground">Zalety LTV 80%</span>
             </Link>
-            <Link to="/prowizja-ubezpieczenie-notariusz/" className="flex items-center gap-3 p-3 bg-white rounded-xl shadow-sm hover:shadow-md transition-all">
+            <Link to="/prowizja-ubezpieczenie-notariusz/" className="flex items-center gap-3 p-3 bg-card rounded-xl shadow-sm hover:shadow-md transition-all">
               <span className="text-2xl">📄</span>
-              <span className="font-medium text-gray-700">Dodatkowe opłaty</span>
+              <span className="font-medium text-foreground">Dodatkowe opłaty</span>
             </Link>
-            <Link to="/raty-malejace-kiedy-sie-oplacaja/" className="flex items-center gap-3 p-3 bg-white rounded-xl shadow-sm hover:shadow-md transition-all">
+            <Link to="/raty-malejace-kiedy-sie-oplacaja/" className="flex items-center gap-3 p-3 bg-card rounded-xl shadow-sm hover:shadow-md transition-all">
               <span className="text-2xl">📉</span>
-              <span className="font-medium text-gray-700">Kiedy raty malejące?</span>
+              <span className="font-medium text-foreground">Kiedy raty malejące?</span>
             </Link>
           </div>
         </div>

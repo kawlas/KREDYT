@@ -34,28 +34,28 @@ export default function FaqBlock({ items, title = "Częste pytania", className =
       </Helmet>
       
       <div>
-        {title && <h2 className="text-2xl font-bold text-gray-900 mb-6">{title}</h2>}
+        {title && <h2 className="text-2xl font-bold text-foreground mb-6">{title}</h2>}
         
         <div className="space-y-4">
           {items.map((item) => (
             <details 
               key={item.id} 
-              className="group bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden transition-all duration-200 hover:shadow-md"
+              className="group bg-card rounded-xl shadow-sm border border-border overflow-hidden transition-all duration-200 hover:shadow-md"
             >
-              <summary className="flex items-center justify-between p-5 cursor-pointer list-none bg-white">
-                <span className="font-semibold text-gray-800 pr-4">{item.question}</span>
-                <span className="transition-transform duration-200 group-open:rotate-180 text-blue-500 font-bold text-xl">
+              <summary className="flex items-center justify-between p-5 cursor-pointer list-none bg-card">
+                <span className="font-semibold text-foreground pr-4">{item.question}</span>
+                <span className="transition-transform duration-200 group-open:rotate-180 text-primary font-bold text-xl">
                   ▼
                 </span>
               </summary>
-              <div className="px-5 pb-5 pt-0 text-gray-600 leading-relaxed border-t border-gray-100 mt-2">
+              <div className="px-5 pb-5 pt-0 text-muted-foreground leading-relaxed border-t border-border mt-2">
                 <div className="pt-3">
                   <p>{item.answer}</p>
                   {item.ctaLink && (
                     <div className="mt-4">
                       <Link 
                         to={item.ctaLink} 
-                        className="inline-flex items-center gap-2 text-blue-600 font-bold hover:text-blue-700 hover:underline transition-all"
+                        className="inline-flex items-center gap-2 text-primary font-bold hover:text-primary hover:underline transition-all"
                       >
                         <span>{item.ctaText || "Dowiedz się więcej"}</span>
                         <span className="text-lg">➔</span>

@@ -2,6 +2,14 @@ import { useState } from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
 import { useLoanCalculator } from './context/LoanCalculatorContext'
 import { ThemeProvider } from './hooks/useTheme'
+import Footer from './components/layout/Footer'
+import NavBar from './components/layout/NavBar'
+import Sidebar from './components/layout/Sidebar'
+import ScrollToTop from './components/shared/ScrollToTop'
+import BreadcrumbNav from './components/shared/BreadcrumbNav'
+import ErrorBoundary from './components/shared/ErrorBoundary'
+import ToastContainer from './components/shared/ToastContainer'
+import CookieConsent from './components/shared/CookieConsent'
 import AffordabilityPage from './pages/AffordabilityPage'
 import CalculatorPage from './pages/CalculatorPage'
 import PaymentComparisonPage from './pages/PaymentComparisonPage'
@@ -33,14 +41,6 @@ import CommissionPage from './pages/CommissionPage'
 import InsurancePage from './pages/InsurancePage'
 import RentVsBuyPage from './pages/RentVsBuyPage'
 import MityPage from './pages/MityPage'
-import Footer from './components/layout/Footer'
-import NavBar from './components/layout/NavBar'
-import Sidebar from './components/layout/Sidebar'
-import ScrollToTop from './components/shared/ScrollToTop'
-import BreadcrumbNav from './components/shared/BreadcrumbNav'
-import ErrorBoundary from './components/shared/ErrorBoundary'
-import ToastContainer from './components/shared/ToastContainer'
-import CookieConsent from './components/shared/CookieConsent'
 
 function App() {
   const { getValues } = useLoanCalculator()
@@ -48,9 +48,9 @@ function App() {
 
   return (
     <ThemeProvider>
-    <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors">
+    <div className="min-h-screen bg-background text-foreground transition-colors">
       <ScrollToTop />
-      <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-blue-600 focus:text-white focus:rounded-lg focus:outline-none">
+      <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-primary focus:text-white focus:rounded-lg focus:outline-none">
         Przejdź do treści
       </a>
 

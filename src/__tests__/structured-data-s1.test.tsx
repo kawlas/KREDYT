@@ -67,7 +67,7 @@ afterAll(() => {
 // --- Helpers ---
 
 /** Extract all <script type="application/ld+json"> blocks from rendered HTML */
-function extractJsonLd(_container: HTMLElement): string[] {
+function extractJsonLd(): string[] {
   // Helmet renders JSON-LD in document.head
   const scripts = document.querySelectorAll('script[type="application/ld+json"]')
   return Array.from(scripts)
@@ -138,9 +138,9 @@ describe('BreadcrumbList JSON-LD', () => {
   it.each(allPages)('$name ma BreadcrumbList schema', async ({ component }) => {
     renderPage(component)
     await waitFor(() => {
-      const scripts = extractJsonLd(document.body)
+      const scripts = extractJsonLd()
       const parsed = parseJsonLd(scripts)
-      const breadcrumbs = parsed.filter((s: any) => s['@type'] === 'BreadcrumbList')
+      const breadcrumbs = parsed.filter((s) => s['@type'] === 'BreadcrumbList')
       expect(breadcrumbs.length).toBeGreaterThanOrEqual(1)
     })
   })
@@ -154,9 +154,9 @@ describe('Organization JSON-LD', () => {
   it.each(allPages)('$name ma Organization schema', async ({ component }) => {
     renderPage(component)
     await waitFor(() => {
-      const scripts = extractJsonLd(document.body)
+      const scripts = extractJsonLd()
       const parsed = parseJsonLd(scripts)
-      const orgs = parsed.filter((s: any) => s['@type'] === 'Organization')
+      const orgs = parsed.filter((s) => s['@type'] === 'Organization')
       expect(orgs.length).toBeGreaterThanOrEqual(1)
     })
   })
@@ -172,9 +172,9 @@ describe('WebApplication JSON-LD (strony kalkulatorów)', () => {
   it.each(calcPages)('$name ma WebApplication schema', async ({ component }) => {
     renderPage(component)
     await waitFor(() => {
-      const scripts = extractJsonLd(document.body)
+      const scripts = extractJsonLd()
       const parsed = parseJsonLd(scripts)
-      const apps = parsed.filter((s: any) => s['@type'] === 'WebApplication')
+      const apps = parsed.filter((s) => s['@type'] === 'WebApplication')
       expect(apps.length).toBeGreaterThanOrEqual(1)
     })
   })
@@ -182,11 +182,11 @@ describe('WebApplication JSON-LD (strony kalkulatorów)', () => {
   it.each(calcPages)('$name WebApplication ma applicationCategory FinanceApplication', async ({ component }) => {
     renderPage(component)
     await waitFor(() => {
-      const scripts = extractJsonLd(document.body)
+      const scripts = extractJsonLd()
       const parsed = parseJsonLd(scripts)
-      const app = parsed.find((s: any) => s['@type'] === 'WebApplication') as any
+      const app = parsed.find((s) => s['@type'] === 'WebApplication')
       expect(app).toBeDefined()
-      expect(app.applicationCategory).toBe('FinanceApplication')
+      expect(app!.applicationCategory).toBe('FinanceApplication')
     })
   })
 })
@@ -201,9 +201,9 @@ describe('FAQPage JSON-LD (strony z FAQ)', () => {
   it.each(faqPages)('$name ma FAQPage schema', async ({ component }) => {
     renderPage(component)
     await waitFor(() => {
-      const scripts = extractJsonLd(document.body)
+      const scripts = extractJsonLd()
       const parsed = parseJsonLd(scripts)
-      const faqs = parsed.filter((s: any) => s['@type'] === 'FAQPage')
+      const faqs = parsed.filter((s) => s['@type'] === 'FAQPage')
       expect(faqs.length).toBeGreaterThanOrEqual(1)
     })
   })
@@ -211,11 +211,11 @@ describe('FAQPage JSON-LD (strony z FAQ)', () => {
   it.each(faqPages)('$name FAQPage ma co najmniej 1 Question', async ({ component }) => {
     renderPage(component)
     await waitFor(() => {
-      const scripts = extractJsonLd(document.body)
+      const scripts = extractJsonLd()
       const parsed = parseJsonLd(scripts)
-      const faq = parsed.find((s: any) => s['@type'] === 'FAQPage') as any
+      const faq = parsed.find((s) => s['@type'] === 'FAQPage')
       expect(faq).toBeDefined()
-      const questions = faq.mainEntity?.filter((e: any) => e['@type'] === 'Question') || []
+      const questions = (faq!.mainEntity as Array<{ '@type'?: string }> | undefined)?.filter((e) => e['@type'] === 'Question') || []
       expect(questions.length).toBeGreaterThanOrEqual(1)
     })
   })
@@ -231,9 +231,9 @@ describe('Article JSON-LD (strony treściowe)', () => {
   it.each(contentPages)('$name ma Article schema', async ({ component }) => {
     renderPage(component)
     await waitFor(() => {
-      const scripts = extractJsonLd(document.body)
+      const scripts = extractJsonLd()
       const parsed = parseJsonLd(scripts)
-      const articles = parsed.filter((s: any) => s['@type'] === 'Article')
+      const articles = parsed.filter((s) => s['@type'] === 'Article')
       expect(articles.length).toBeGreaterThanOrEqual(1)
     })
   })
@@ -241,13 +241,13 @@ describe('Article JSON-LD (strony treściowe)', () => {
   it.each(contentPages)('$name Article ma headline', async ({ component }) => {
     renderPage(component)
     await waitFor(() => {
-      const scripts = extractJsonLd(document.body)
+      const scripts = extractJsonLd()
       const parsed = parseJsonLd(scripts)
-      const article = parsed.find((s: any) => s['@type'] === 'Article') as any
+      const article = parsed.find((s) => s['@type'] === 'Article')
       expect(article).toBeDefined()
-      expect(article.headline).toBeTruthy()
-      expect(typeof article.headline).toBe('string')
-      expect(article.headline.length).toBeGreaterThan(0)
+      expect(article!.headline).toBeTruthy()
+      expect(typeof article!.headline).toBe('string')
+      expect((article!.headline as string).length).toBeGreaterThan(0)
     })
   })
 })
@@ -261,7 +261,7 @@ describe('Globalne - walidacja JSON', () => {
     renderPage(component)
     
     await waitFor(() => {
-      const scripts = extractJsonLd(document.body)
+      const scripts = extractJsonLd()
       expect(scripts.length).toBeGreaterThan(0) // co najmniej jeden JSON-LD istnieje
 
       for (const script of scripts) {
@@ -276,14 +276,14 @@ describe('Globalne - Breadcrumb spójność', () => {
     renderPage(component)
     
     await waitFor(() => {
-      const scripts = extractJsonLd(document.body)
+      const scripts = extractJsonLd()
       const parsed = parseJsonLd(scripts)
-      const breadcrumb = parsed.find((s: any) => s['@type'] === 'BreadcrumbList') as any
+      const breadcrumb = parsed.find((s) => s['@type'] === 'BreadcrumbList')
 
       if (!breadcrumb) return // skip if no breadcrumb (RED phase)
 
-      for (const item of breadcrumb.itemListElement || []) {
-        expect(item.item).toMatch(/^https:\/\/kredytkalkulator\.netlify\.app/)
+      for (const item of (breadcrumb.itemListElement as Array<{ item?: string }> | undefined) || []) {
+        expect(item.item ?? '').toMatch(/^https:\/\/kredytkalkulator\.netlify\.app/)
       }
     })
   })
@@ -292,13 +292,13 @@ describe('Globalne - Breadcrumb spójność', () => {
     renderPage(component)
     
     await waitFor(() => {
-      const scripts = extractJsonLd(document.body)
+      const scripts = extractJsonLd()
       const parsed = parseJsonLd(scripts)
-      const breadcrumb = parsed.find((s: any) => s['@type'] === 'BreadcrumbList') as any
+      const breadcrumb = parsed.find((s) => s['@type'] === 'BreadcrumbList')
 
       if (!breadcrumb) return // skip if no breadcrumb (RED phase)
 
-      const positions = (breadcrumb.itemListElement || []).map((e: any) => e.position)
+      const positions = ((breadcrumb.itemListElement as Array<{ position?: number }> | undefined) || []).map((e) => e.position)
       const uniquePositions = new Set(positions)
       expect(uniquePositions.size).toBe(positions.length)
     })

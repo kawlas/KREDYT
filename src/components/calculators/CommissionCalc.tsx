@@ -34,10 +34,10 @@ export default function CommissionCalc() {
         {/* LEFT - inputs */}
         <div className="space-y-6">
           <Card>
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">Parametry kredytu</h3>
+            <h3 className="text-lg font-semibold text-foreground mb-4">Parametry kredytu</h3>
             <div className="space-y-4">
               <div>
-                <label htmlFor="cm-principal" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="cm-principal" className="block text-sm font-medium text-foreground mb-1">
                   Kwota kredytu
                 </label>
                 <div className="relative">
@@ -46,14 +46,14 @@ export default function CommissionCalc() {
                     type="number"
                     value={principal}
                     onChange={(e) => setPrincipal(e.target.value)}
-                    className="w-full pl-3 pr-10 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+                    className="w-full pl-3 pr-10 py-2 border rounded-lg focus:ring-2 focus:ring-ring outline-none"
                   />
-                  <span className="absolute right-3 top-2 text-gray-400">PLN</span>
+                  <span className="absolute right-3 top-2 text-muted-foreground">PLN</span>
                 </div>
               </div>
 
               <div>
-                <label htmlFor="cm-base-rate" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="cm-base-rate" className="block text-sm font-medium text-foreground mb-1">
                   Oprocentowanie bazowe (WIBOR + marża przy prowizji)
                 </label>
                 <div className="relative">
@@ -63,17 +63,17 @@ export default function CommissionCalc() {
                     step="0.01"
                     value={baseRate}
                     onChange={(e) => setBaseRate(e.target.value)}
-                    className="w-full pl-3 pr-10 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+                    className="w-full pl-3 pr-10 py-2 border rounded-lg focus:ring-2 focus:ring-ring outline-none"
                   />
-                  <span className="absolute right-3 top-2 text-gray-400">%</span>
+                  <span className="absolute right-3 top-2 text-muted-foreground">%</span>
                 </div>
-                <p className="text-xs text-gray-400 mt-1">
+                <p className="text-xs text-muted-foreground mt-1">
                   Niższa marża, ale płacisz prowizję
                 </p>
               </div>
 
               <div>
-                <label htmlFor="cm-commission" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="cm-commission" className="block text-sm font-medium text-foreground mb-1">
                   Prowizja banku
                 </label>
                 <div className="relative">
@@ -85,14 +85,14 @@ export default function CommissionCalc() {
                     max="10"
                     value={commission}
                     onChange={(e) => setCommission(e.target.value)}
-                    className="w-full pl-3 pr-10 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+                    className="w-full pl-3 pr-10 py-2 border rounded-lg focus:ring-2 focus:ring-ring outline-none"
                   />
-                  <span className="absolute right-3 top-2 text-gray-400">%</span>
+                  <span className="absolute right-3 top-2 text-muted-foreground">%</span>
                 </div>
               </div>
 
               <div>
-                <label htmlFor="cm-alt-rate" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="cm-alt-rate" className="block text-sm font-medium text-foreground mb-1">
                   Oprocentowanie alternatywne (bez prowizji)
                 </label>
                 <div className="relative">
@@ -102,11 +102,11 @@ export default function CommissionCalc() {
                     step="0.01"
                     value={altRateUp}
                     onChange={(e) => setAltRateUp(e.target.value)}
-                    className="w-full pl-3 pr-10 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+                    className="w-full pl-3 pr-10 py-2 border rounded-lg focus:ring-2 focus:ring-ring outline-none"
                   />
-                  <span className="absolute right-3 top-2 text-gray-400">%</span>
+                  <span className="absolute right-3 top-2 text-muted-foreground">%</span>
                 </div>
-                <p className="text-xs text-gray-400 mt-1">
+                <p className="text-xs text-muted-foreground mt-1">
                   Wyższa marża, ale bez prowizji
                 </p>
               </div>
@@ -148,24 +148,24 @@ export default function CommissionCalc() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {/* With commission card */}
                 <Card className="border-2 border-amber-200 bg-gradient-to-br from-amber-50 to-white">
-                  <h3 className="font-semibold text-gray-900 mb-1 text-sm">Z prowizją</h3>
-                  <p className="text-xs text-gray-500 mb-3">
+                  <h3 className="font-semibold text-foreground mb-1 text-sm">Z prowizją</h3>
+                  <p className="text-xs text-muted-foreground mb-3">
                     {result.withCommission.commissionPercent}% = {formatCurrency(result.withCommission.commissionAmount)}
                   </p>
                   <div className="space-y-2">
                     <div>
-                      <div className="text-xs text-gray-500">Rata miesięczna</div>
-                      <div className="text-lg font-bold text-gray-900">
+                      <div className="text-xs text-muted-foreground">Rata miesięczna</div>
+                      <div className="text-lg font-bold text-foreground">
                         {formatCurrency(result.withCommission.monthlyPayment)}
                       </div>
                     </div>
                     <div className="border-t pt-2">
                       <div className="flex justify-between text-xs mb-1">
-                        <span className="text-gray-500">Suma odsetek</span>
+                        <span className="text-muted-foreground">Suma odsetek</span>
                         <span className="font-semibold">{formatCurrencyShort(result.withCommission.totalInterest)}</span>
                       </div>
                       <div className="flex justify-between text-xs">
-                        <span className="text-gray-500">Efektywne oprocentowanie</span>
+                        <span className="text-muted-foreground">Efektywne oprocentowanie</span>
                         <span className="font-semibold">{formatPercent(result.withCommission.effectiveRate)}</span>
                       </div>
                     </div>
@@ -174,22 +174,22 @@ export default function CommissionCalc() {
 
                 {/* Without commission card */}
                 <Card className="border-2 border-green-200 bg-gradient-to-br from-green-50 to-white">
-                  <h3 className="font-semibold text-gray-900 mb-1 text-sm">Bez prowizji</h3>
-                  <p className="text-xs text-gray-500 mb-3">0% prowizji</p>
+                  <h3 className="font-semibold text-foreground mb-1 text-sm">Bez prowizji</h3>
+                  <p className="text-xs text-muted-foreground mb-3">0% prowizji</p>
                   <div className="space-y-2">
                     <div>
-                      <div className="text-xs text-gray-500">Rata miesięczna</div>
-                      <div className="text-lg font-bold text-gray-900">
+                      <div className="text-xs text-muted-foreground">Rata miesięczna</div>
+                      <div className="text-lg font-bold text-foreground">
                         {formatCurrency(result.withoutCommission.monthlyPayment)}
                       </div>
                     </div>
                     <div className="border-t pt-2">
                       <div className="flex justify-between text-xs mb-1">
-                        <span className="text-gray-500">Suma odsetek</span>
+                        <span className="text-muted-foreground">Suma odsetek</span>
                         <span className="font-semibold">{formatCurrencyShort(result.withoutCommission.totalInterest)}</span>
                       </div>
                       <div className="flex justify-between text-xs">
-                        <span className="text-gray-500">Efektywne oprocentowanie</span>
+                        <span className="text-muted-foreground">Efektywne oprocentowanie</span>
                         <span className="font-semibold">{formatPercent(result.withoutCommission.effectiveRate)}</span>
                       </div>
                     </div>
@@ -199,14 +199,14 @@ export default function CommissionCalc() {
 
               {/* Key metrics */}
               <Card>
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">Kluczowe różnice</h3>
+                <h3 className="text-lg font-semibold text-foreground mb-4">Kluczowe różnice</h3>
                 <div className="space-y-3">
-                  <div className="p-3 bg-gray-50 rounded-lg">
-                    <div className="font-medium text-gray-900 text-sm mb-1">Różnica w racie miesięcznej</div>
+                  <div className="p-3 bg-secondary rounded-lg">
+                    <div className="font-medium text-foreground text-sm mb-1">Różnica w racie miesięcznej</div>
                     <div className={`text-xl font-bold ${result.difference.monthly > 0 ? 'text-red-600' : 'text-green-600'}`}>
                       {result.difference.monthly > 0 ? '+' : ''}{formatCurrencyShort(result.difference.monthly)}
                     </div>
-                    <div className="text-xs text-gray-500 mt-1">
+                    <div className="text-xs text-muted-foreground mt-1">
                       {result.difference.monthly > 0
                         ? 'Wariant z prowizją droższy miesięcznie'
                         : 'Wariant z prowizją tańszy miesięcznie'
@@ -214,8 +214,8 @@ export default function CommissionCalc() {
                     </div>
                   </div>
 
-                  <div className="p-3 bg-gray-50 rounded-lg">
-                    <div className="font-medium text-gray-900 text-sm mb-1">Różnica w sumie odsetek</div>
+                  <div className="p-3 bg-secondary rounded-lg">
+                    <div className="font-medium text-foreground text-sm mb-1">Różnica w sumie odsetek</div>
                     <div className={`text-xl font-bold ${result.difference.totalInterest > 0 ? 'text-red-600' : 'text-green-600'}`}>
                       {result.difference.totalInterest > 0 ? '+' : ''}{formatCurrencyShort(result.difference.totalInterest)}
                     </div>
@@ -223,9 +223,9 @@ export default function CommissionCalc() {
                 </div>
 
                 {result.monthlyBreakEvenAtYears > 0 && (
-                  <div className="mt-4 p-3 bg-blue-50 border border-blue-100 rounded-lg">
-                    <div className="font-medium text-blue-900 text-sm mb-1">Próg opłacalności</div>
-                    <div className="text-sm text-blue-700">
+                  <div className="mt-4 p-3 bg-primary/10 border border-primary/30 rounded-lg">
+                    <div className="font-medium text-primary text-sm mb-1">Próg opłacalności</div>
+                    <div className="text-sm text-primary">
                       Wariant bez prowizji zwraca się po <strong>{result.monthlyBreakEvenAtYears} latach</strong>.
                       {result.monthlyBreakEvenAtYears <= years
                         ? ' Planujesz spłacać dłużej? Wybierz opcję bez prowizji.'
@@ -236,15 +236,15 @@ export default function CommissionCalc() {
               </Card>
 
               {/* Recommendation */}
-              <div className={`p-4 rounded-xl border ${result.difference.monthly > 0 ? 'bg-blue-50 border-blue-200' : 'bg-green-50 border-green-200'}`}>
+              <div className={`p-4 rounded-xl border ${result.difference.monthly > 0 ? 'bg-primary/10 border-primary/30' : 'bg-green-50 border-green-200'}`}>
                 <div className="font-semibold mb-1 text-sm">Rekomendacja:</div>
                 <p className="text-sm">{result.recommendation}</p>
               </div>
 
               {/* Calculator hint */}
               <Card>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">Jak negocjować prowizję?</h3>
-                <ul className="text-sm text-gray-600 space-y-2 list-disc list-inside">
+                <h3 className="text-lg font-semibold text-foreground mb-2">Jak negocjować prowizję?</h3>
+                <ul className="text-sm text-muted-foreground space-y-2 list-disc list-inside">
                   <li>Banki często oferują wybór: prowizja + niższa marża lub brak prowizji + wyższa marża</li>
                   <li>Przy kredycie na 25 lat, różnica 0.5 p.p. w marży to tysiące złotych odsetek</li>
                   <li>Jeśli masz gotówkę na pokrycie prowizji — opcja z prowizją i niższą marżą może być tańsza</li>
@@ -253,8 +253,8 @@ export default function CommissionCalc() {
               </Card>
             </>
           ) : (
-            <div className="bg-white p-12 rounded-2xl shadow-sm border border-dashed border-gray-300 text-center">
-              <p className="text-gray-500 font-medium">Wprowadź dane kredytu, aby porównać koszty prowizji</p>
+            <div className="bg-card p-12 rounded-2xl shadow-sm border border-dashed border-border text-center">
+              <p className="text-muted-foreground font-medium">Wprowadź dane kredytu, aby porównać koszty prowizji</p>
             </div>
           )}
         </div>

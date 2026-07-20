@@ -30,8 +30,8 @@ export default function LTVCalc() {
   const tabClass = (tab: TabMode) =>
     `px-6 py-3 text-sm font-medium rounded-lg transition-colors ${
       mode === tab
-        ? 'bg-blue-600 text-white shadow-sm'
-        : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+        ? 'bg-primary text-white shadow-sm'
+        : 'bg-secondary text-muted-foreground hover:bg-muted'
     }`
 
   return (
@@ -62,7 +62,7 @@ export default function LTVCalc() {
 
             <div className="space-y-4">
               <div>
-                <label htmlFor="ltv-property-value" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="ltv-property-value" className="block text-sm font-medium text-foreground mb-1">
                   Wartość nieruchomości
                 </label>
                 <div className="relative">
@@ -72,15 +72,15 @@ export default function LTVCalc() {
                     value={propertyValue}
                     onChange={(e) => setPropertyValue(e.target.value)}
                     placeholder="np. 500000"
-                    className="w-full pl-3 pr-10 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+                    className="w-full pl-3 pr-10 py-2 border rounded-lg focus:ring-2 focus:ring-ring outline-none"
                   />
-                  <span className="absolute right-3 top-2 text-gray-400">PLN</span>
+                  <span className="absolute right-3 top-2 text-muted-foreground">PLN</span>
                 </div>
               </div>
 
               {mode === 'ltv' ? (
                 <div>
-                  <label htmlFor="ltv-loan-amount" className="block text-sm font-medium text-gray-700 mb-1">
+                  <label htmlFor="ltv-loan-amount" className="block text-sm font-medium text-foreground mb-1">
                     Kwota kredytu
                   </label>
                   <div className="relative">
@@ -90,9 +90,9 @@ export default function LTVCalc() {
                       value={loanAmount}
                       onChange={(e) => setLoanAmount(e.target.value)}
                       placeholder="np. 400000"
-                      className="w-full pl-3 pr-10 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+                      className="w-full pl-3 pr-10 py-2 border rounded-lg focus:ring-2 focus:ring-ring outline-none"
                     />
-                    <span className="absolute right-3 top-2 text-gray-400">PLN</span>
+                    <span className="absolute right-3 top-2 text-muted-foreground">PLN</span>
                   </div>
                 </div>
               ) : (
@@ -120,8 +120,8 @@ export default function LTVCalc() {
             <>
               <Card>
                 <div className="text-center mb-6">
-                  <p className="text-sm text-gray-500 mb-1">LTV (Loan to Value)</p>
-                  <p className="text-5xl font-bold text-gray-900">
+                  <p className="text-sm text-muted-foreground mb-1">LTV (Loan to Value)</p>
+                  <p className="text-5xl font-bold text-foreground">
                     {formatPercent(currentLTV, 2)}
                   </p>
                   <span className={`inline-block mt-3 px-4 py-1.5 rounded-full text-sm font-bold ${riskBand.color} ${riskBand.bgColor} border border-current/20`}>
@@ -131,12 +131,12 @@ export default function LTVCalc() {
 
                 <div className="space-y-3 pt-4 border-t">
                   <div className="flex justify-between text-sm">
-                    <span className="text-gray-500">Wkład własny</span>
-                    <span className="font-bold text-gray-900">{formatCurrency(currentEquity)}</span>
+                    <span className="text-muted-foreground">Wkład własny</span>
+                    <span className="font-bold text-foreground">{formatCurrency(currentEquity)}</span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span className="text-gray-500">Udział wkładu</span>
-                    <span className="font-bold text-gray-900">{formatPercent(equityPercentDisplay, 1)}</span>
+                    <span className="text-muted-foreground">Udział wkładu</span>
+                    <span className="font-bold text-foreground">{formatPercent(equityPercentDisplay, 1)}</span>
                   </div>
                 </div>
               </Card>
@@ -148,15 +148,15 @@ export default function LTVCalc() {
               <div className="text-center">
                 <Link
                   to={`/kalkulator-raty-kredytu/?principal=${Math.round(la || scenario.loanAmount)}&propertyValue=${Math.round(pv)}`}
-                  className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium text-sm"
+                  className="inline-flex items-center gap-2 text-primary hover:text-primary font-medium text-sm"
                 >
                   Oblicz ratę dla tego LTV &rarr;
                 </Link>
               </div>
             </>
           ) : (
-            <div className="bg-white p-12 rounded-2xl shadow-sm border border-dashed border-gray-300 text-center">
-              <p className="text-gray-500 font-medium">Wprowadź dane, aby zobaczyć wskaźnik LTV i ryzyko</p>
+            <div className="bg-card p-12 rounded-2xl shadow-sm border border-dashed border-border text-center">
+              <p className="text-muted-foreground font-medium">Wprowadź dane, aby zobaczyć wskaźnik LTV i ryzyko</p>
             </div>
           )}
         </div>

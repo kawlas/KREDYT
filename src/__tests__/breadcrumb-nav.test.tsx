@@ -318,7 +318,7 @@ describe('Spójność layoutu — strony kompendiów', () => {
           const jsonlds = Array.from(scripts).map(s => {
             try { return JSON.parse(s.textContent || '') } catch { return null }
           }).filter(Boolean)
-          const hasArticle = jsonlds.some((j: any) => j['@type'] === 'Article')
+          const hasArticle = jsonlds.some((j: Record<string, unknown>) => j['@type'] === 'Article')
           expect(hasArticle).toBe(true)
         })
       })
@@ -330,7 +330,7 @@ describe('Spójność layoutu — strony kompendiów', () => {
           const jsonlds = Array.from(scripts).map(s => {
             try { return JSON.parse(s.textContent || '') } catch { return null }
           }).filter(Boolean)
-          const hasBreadcrumb = jsonlds.some((j: any) => j['@type'] === 'BreadcrumbList')
+          const hasBreadcrumb = jsonlds.some((j: Record<string, unknown>) => j['@type'] === 'BreadcrumbList')
           expect(hasBreadcrumb).toBe(true)
         })
       })

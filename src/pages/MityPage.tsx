@@ -32,52 +32,52 @@ export default function MityPage() {
         ]}
       />
       <div className="space-y-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Mity o kredytach hipotecznych – obalamy popularne stereotypy</h1>
-        <p className="text-lg text-gray-600 mb-4">
+        <h1 className="text-3xl font-bold text-foreground mb-2">Mity o kredytach hipotecznych – obalamy popularne stereotypy</h1>
+        <p className="text-lg text-muted-foreground mb-4">
           Wokół kredytów hipotecznych narosło wiele mitów i nieporozumień. W tym artykule 
           rozwiewamy najczęstsze wątpliwości i pokazujemy, jak naprawdę działa rynek kredytowy w Polsce.
         </p>
 
         <div className="space-y-6">
           {myths.map((item, index) => (
-            <div key={index} className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
+            <div key={index} className="bg-card rounded-xl border border-border p-6 shadow-sm">
               <div className="mb-3">
                 <span className="inline-block bg-red-100 text-red-700 text-xs font-bold px-2 py-1 rounded uppercase tracking-wider">Mit</span>
-                <h2 className="text-2xl font-semibold text-gray-900 mt-2">{item.myth}</h2>
+                <h2 className="text-2xl font-semibold text-foreground mt-2">{item.myth}</h2>
               </div>
               <div className="pl-4 border-l-4 border-green-500">
                 <span className="inline-block bg-green-100 text-green-700 text-xs font-bold px-2 py-1 rounded uppercase tracking-wider mb-2">Prawda</span>
-                <p className="text-gray-700 leading-relaxed">{item.truth}</p>
+                <p className="text-foreground leading-relaxed">{item.truth}</p>
               </div>
             </div>
           ))}
         </div>
 
-        <section className="p-6 bg-blue-50 rounded-xl border border-blue-100">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">Sprawdź sam!</h2>
-          <p className="text-gray-700 mb-4">
+        <section className="p-6 bg-primary/10 rounded-xl border border-primary/30">
+          <h2 className="text-2xl font-bold text-foreground mb-4">Sprawdź sam!</h2>
+          <p className="text-foreground mb-4">
             Najlepszym sposobem na obalenie mitów jest samodzielne sprawdzenie faktów. 
             Skorzystaj z naszych kalkulatorów i narzędzi:
           </p>
           <div className="flex flex-wrap gap-3">
-            <Link to="/zdolnosc-kredytowa/" className="inline-block bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium">
+            <Link to="/zdolnosc-kredytowa/" className="inline-block bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary/90 transition-colors text-sm font-medium">
               Sprawdź zdolność kredytową
             </Link>
-            <Link to="/kalkulator-raty-kredytu/" className="inline-block bg-white text-blue-600 border border-blue-600 px-4 py-2 rounded-lg hover:bg-blue-50 transition-colors text-sm font-medium">
+            <Link to="/kalkulator-raty-kredytu/" className="inline-block bg-card text-primary border border-primary px-4 py-2 rounded-lg hover:bg-primary/10 transition-colors text-sm font-medium">
               Oblicz ratę
             </Link>
-            <Link to="/symulacja-wibor/" className="inline-block bg-white text-blue-600 border border-blue-600 px-4 py-2 rounded-lg hover:bg-blue-50 transition-colors text-sm font-medium">
+            <Link to="/symulacja-wibor/" className="inline-block bg-card text-primary border border-primary px-4 py-2 rounded-lg hover:bg-primary/10 transition-colors text-sm font-medium">
               Symuluj WIBOR
             </Link>
           </div>
         </section>
 
-        <section className="border-t border-gray-100 pt-6">
-          <h3 className="text-sm font-bold text-gray-700 mb-3">Zobacz także:</h3>
+        <section className="border-t border-border pt-6">
+          <h3 className="text-sm font-bold text-foreground mb-3">Zobacz także:</h3>
           <ul className="space-y-1">
-            <li><Link to="/poradniki/jak-obliczyc-rate/" className="text-blue-600 hover:underline text-sm">Jak obliczyć ratę kredytu? — Kompendium wiedzy</Link></li>
-            <li><Link to="/poradniki/zdolnosc-kredytowa/" className="text-blue-600 hover:underline text-sm">Zdolność kredytowa — Kompendium wiedzy</Link></li>
-            <li><Link to="/wakacje-kredytowe/" className="text-blue-600 hover:underline text-sm">Wakacje kredytowe 2026</Link></li>
+            <li><Link to="/poradniki/jak-obliczyc-rate/" className="text-primary hover:underline text-sm">Jak obliczyć ratę kredytu? — Kompendium wiedzy</Link></li>
+            <li><Link to="/poradniki/zdolnosc-kredytowa/" className="text-primary hover:underline text-sm">Zdolność kredytowa — Kompendium wiedzy</Link></li>
+            <li><Link to="/wakacje-kredytowe/" className="text-primary hover:underline text-sm">Wakacje kredytowe 2026</Link></li>
           </ul>
         </section>
       </div>

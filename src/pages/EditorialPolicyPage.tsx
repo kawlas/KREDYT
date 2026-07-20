@@ -15,9 +15,9 @@ const EditorialPolicyPage: React.FC = () => {
         schemaType="Article"
       />
       
-      <div className="text-gray-600 space-y-6">
+      <div className="text-muted-foreground space-y-6">
         <section>
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">Misja edukacyjna</h2>
+          <h2 className="text-2xl font-bold text-foreground mb-4">Misja edukacyjna</h2>
           <p>
             Kalkulator Kredytowy to niezależne, darmowe narzędzie edukacyjne, którego celem jest 
             zwiększenie przejrzystości w procesie ubiegania się o kredyt hipoteczny w Polsce. 
@@ -30,7 +30,7 @@ const EditorialPolicyPage: React.FC = () => {
         </section>
 
         <section>
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">Zasady tworzenia treści</h2>
+          <h2 className="text-2xl font-bold text-foreground mb-4">Zasady tworzenia treści</h2>
           <ul className="list-disc list-inside space-y-2">
             <li><strong>Rzetelność:</strong> Wszystkie informacje są oparte na danych z oficjalnych źródeł (NBP, KNF, UOKiK)</li>
             <li><strong>Aktualność:</strong> Dane rynkowe (WIBOR, stopy procentowe) pobierane są automatycznie z API NBP</li>
@@ -40,30 +40,30 @@ const EditorialPolicyPage: React.FC = () => {
         </section>
 
         <section>
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">Źródła danych</h2>
+          <h2 className="text-2xl font-bold text-foreground mb-4">Źródła danych</h2>
           <p>Nasz kalkulator wykorzystuje następujące źródła danych:</p>
           <ul className="list-disc list-inside space-y-2">
             <li>
               <strong>NBP (Narodowy Bank Polski)</strong> — aktualne stopy procentowe i notowania WIBOR
-              <a href="https://www.nbp.pl/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline ml-1">
+              <a href="https://www.nbp.pl/" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline ml-1">
                 nbp.pl
               </a>
             </li>
             <li>
               <strong>KNF (Komisja Nadzoru Finansowego)</strong> — rekomendacje dotyczące kredytów hipotecznych
-              <a href="https://www.knf.gov.pl/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline ml-1">
+              <a href="https://www.knf.gov.pl/" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline ml-1">
                 knf.gov.pl
               </a>
             </li>
             <li>
               <strong>UOKiK</strong> — prawa konsumentów wobec banków
-              <a href="https://www.uokik.gov.pl/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline ml-1">
+              <a href="https://www.uokik.gov.pl/" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline ml-1">
                 uokik.gov.pl
               </a>
             </li>
             <li>
               <strong>ISAP</strong> — akty prawne (Ustawa o kredycie hipotecznym)
-              <a href="https://isap.sejm.gov.pl/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline ml-1">
+              <a href="https://isap.sejm.gov.pl/" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline ml-1">
                 isap.sejm.gov.pl
               </a>
             </li>
@@ -71,7 +71,7 @@ const EditorialPolicyPage: React.FC = () => {
         </section>
 
         <section>
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">Podstawy prawne</h2>
+          <h2 className="text-2xl font-bold text-foreground mb-4">Podstawy prawne</h2>
           <p>Obliczenia w naszym kalkulatorze opierają się na:</p>
           <ul className="list-disc list-inside space-y-2">
             <li>Ustawa z dnia 23 marca 2017 r. o kredycie hipotecznym (Dz.U. 2017 poz. 819)</li>
@@ -81,14 +81,14 @@ const EditorialPolicyPage: React.FC = () => {
           <p className="mt-4">
             Pełna treść ustawy dostępna jest w 
             <a href="https://isap.sejm.gov.pl/isap.nsf/DocDetails.xsp?id=WDU20170000819" 
-               target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline ml-1">
+               target="_blank" rel="noopener noreferrer" className="text-primary hover:underline ml-1">
               Internetowym Systemie Aktów Prawnych (ISAP)
             </a>
           </p>
         </section>
 
         <section>
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">Charakter narzędzia</h2>
+          <h2 className="text-2xl font-bold text-foreground mb-4">Charakter narzędzia</h2>
           <p>
             Niniejszy kalkulator jest narzędziem edukacyjnym i nie stanowi oferty kredytowej ani 
             doradztwa finansowego. Wyniki obliczeń mają charakter orientacyjny i mogą różnić się 
@@ -101,14 +101,14 @@ const EditorialPolicyPage: React.FC = () => {
         </section>
 
         <section>
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">Kontakt</h2>
+          <h2 className="text-2xl font-bold text-foreground mb-4">Kontakt</h2>
           <p>
             W razie pytań lub uwag dotyczących treści na naszym portalu, prosimy o kontakt 
-            przez formularz na stronie <a href="/kontakt/" className="text-blue-600 hover:underline">Kontakt</a>.
+            przez formularz na stronie <a href="/kontakt/" className="text-primary hover:underline">Kontakt</a>.
           </p>
         </section>
 
-        <p className="text-sm text-gray-400 mt-8">
+        <p className="text-sm text-muted-foreground mt-8">
           Ostatnia aktualizacja: <time dateTime="2026-07-04">4 lipca 2026</time>
         </p>
       </div>

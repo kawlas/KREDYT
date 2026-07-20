@@ -201,16 +201,16 @@ export default function CalculatorPage() {
               </div>
             </>
           ) : (
-            <div className="bg-white p-12 rounded-2xl shadow-sm border border-dashed border-gray-300 text-center">
-              <div className="text-4xl mb-4"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="mx-auto text-gray-300"><rect x="3" y="12" width="3" height="9" rx="1"/><rect x="10" y="7" width="3" height="14" rx="1"/><rect x="17" y="3" width="3" height="18" rx="1"/></svg></div>
-              <p className="text-gray-500 font-medium">Wprowadź dane kredytu, aby zobaczyć szczegółowe wyliczenia</p>
+            <div className="bg-card p-12 rounded-2xl shadow-sm border border-dashed border-border text-center">
+              <div className="text-4xl mb-4"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="mx-auto text-muted-foreground"><rect x="3" y="12" width="3" height="9" rx="1"/><rect x="10" y="7" width="3" height="14" rx="1"/><rect x="17" y="3" width="3" height="18" rx="1"/></svg></div>
+              <p className="text-muted-foreground font-medium">Wprowadź dane kredytu, aby zobaczyć szczegółowe wyliczenia</p>
             </div>
           )}
 
           <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             <button
               onClick={() => setShowLoadModal(true)}
-              className="flex items-center justify-center gap-3 px-4 py-4 bg-white border-2 border-blue-600 text-blue-600 rounded-xl hover:bg-blue-50 font-bold transition-all shadow-lg shadow-blue-500/5 group"
+              className="flex items-center justify-center gap-3 px-4 py-4 bg-card border-2 border-primary text-primary rounded-xl hover:bg-primary/10 font-bold transition-all shadow-lg shadow-blue-500/5 group"
             >
               <span className="text-2xl group-hover:scale-110 transition-transform"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/></svg></span>
               <div className="text-left">
@@ -257,21 +257,21 @@ export default function CalculatorPage() {
         onLoad={handleLoadScenario}
       />
       
-      <section className="mt-12 border-t border-gray-100 pt-8">
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">Podstawa prawna i źródła danych</h2>
-        <ul className="list-disc pl-6 space-y-2 text-sm text-gray-600">
-          <li>Obliczenia oparte na wzorach z <a href="https://isap.sejm.gov.pl/isap.nsf/DocDetails.xsp?id=WDU20170000819" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">Ustawy o kredycie hipotecznym</a> (Dz.U. 2017 poz. 819)</li>
-          <li>Rekomendacje <a href="https://www.knf.gov.pl/dla-rynku/regulacje-i-standaryzacja/rekomendacje-i-zalecenia" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">KNF</a> dot. wyznaczania zdolności kredytowej</li>
-          <li>Dane WIBOR z <a href="https://www.nbp.pl/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">NBP</a></li>
+      <section className="mt-12 border-t border-border pt-8">
+        <h2 className="text-2xl font-bold text-foreground mb-4">Podstawa prawna i źródła danych</h2>
+        <ul className="list-disc pl-6 space-y-2 text-sm text-muted-foreground">
+          <li>Obliczenia oparte na wzorach z <a href="https://isap.sejm.gov.pl/isap.nsf/DocDetails.xsp?id=WDU20170000819" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">Ustawy o kredycie hipotecznym</a> (Dz.U. 2017 poz. 819)</li>
+          <li>Rekomendacje <a href="https://www.knf.gov.pl/dla-rynku/regulacje-i-standaryzacja/rekomendacje-i-zalecenia" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">KNF</a> dot. wyznaczania zdolności kredytowej</li>
+          <li>Dane WIBOR z <a href="https://www.nbp.pl/" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">NBP</a></li>
           <li><time dateTime="2026-07-04">Ostatnia aktualizacja: 4 lipca 2026</time></li>
         </ul>
       </section>
 
-      <section className="mt-12 border-t border-gray-100 pt-6">
-        <h3 className="text-sm font-bold text-gray-700 mb-3">Zobacz także:</h3>
+      <section className="mt-12 border-t border-border pt-6">
+        <h3 className="text-sm font-bold text-foreground mb-3">Zobacz także:</h3>
         <ul className="space-y-1">
-          <li><Link to="/poradniki/jak-obliczyc-rate/" className="text-blue-600 hover:underline text-sm">Jak obliczyć ratę kredytu? — Kompendium wiedzy</Link></li>
-          <li><Link to="/poradniki/zdolnosc-kredytowa/" className="text-blue-600 hover:underline text-sm">Zdolność kredytowa — Kompendium wiedzy</Link></li>
+          <li><Link to="/poradniki/jak-obliczyc-rate/" className="text-primary hover:underline text-sm">Jak obliczyć ratę kredytu? — Kompendium wiedzy</Link></li>
+          <li><Link to="/poradniki/zdolnosc-kredytowa/" className="text-primary hover:underline text-sm">Zdolność kredytowa — Kompendium wiedzy</Link></li>
         </ul>
       </section>
 

@@ -31,9 +31,9 @@ const icons: Record<string, React.ReactNode> = {
 
 export default function Alert({ type, children, className = '' }: AlertProps) {
   const styles = {
-    info: 'bg-blue-50 border-blue-200 text-blue-800',
+    info: 'bg-primary/10 border-primary/30 text-primary',
     warning: 'bg-yellow-50 border-yellow-200 text-yellow-800',
-    success: 'bg-blue-50 border-blue-200 text-blue-800',
+    success: 'bg-primary/10 border-primary/30 text-primary',
     error: 'bg-red-50 border-red-200 text-red-800',
   }
 

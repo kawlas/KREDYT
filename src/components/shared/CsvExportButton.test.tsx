@@ -42,7 +42,7 @@ describe('CsvExportButton', () => {
       <CsvExportButton {...baseProps} variant="primary" />
     )
     const button = getByRole('button')
-    expect(button.className).toContain('bg-blue-600')
+    expect(button.className).toContain('bg-primary')
   })
 
   it('ma atrybut aria-label', () => {

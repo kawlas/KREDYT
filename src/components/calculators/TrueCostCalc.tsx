@@ -42,30 +42,30 @@ export default function TrueCostCalc({ monthlyInstallment }: TrueCostCalcProps) 
 
   return (
     <div className="space-y-8">
-      <h1 className="text-3xl font-bold text-gray-900">Kalkulator kosztów utrzymania nieruchomości</h1>
+      <h1 className="text-3xl font-bold text-foreground">Kalkulator kosztów utrzymania nieruchomości</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
         {/* Inputs Section */}
         <Card>
-          <h3 className="text-lg font-semibold text-gray-900 mb-6">Parametry nieruchomości</h3>
+          <h3 className="text-lg font-semibold text-foreground mb-6">Parametry nieruchomości</h3>
           
           <div className="space-y-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Wartość nieruchomości (PLN)</label>
+              <label className="block text-sm font-medium text-foreground mb-2">Wartość nieruchomości (PLN)</label>
               <input
                 type="number"
                 value={propertyValue}
                 onChange={(e) => setPropertyValue(Number(e.target.value))}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+                className="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-ring outline-none"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Typ nieruchomości</label>
+              <label className="block text-sm font-medium text-foreground mb-2">Typ nieruchomości</label>
               <div className="grid grid-cols-2 gap-2">
                 <button
                   onClick={() => setPropertyType('apartment')}
                   className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                    propertyType === 'apartment' ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-600'
+                    propertyType === 'apartment' ? 'bg-primary text-white' : 'bg-secondary text-muted-foreground'
                   }`}
                 >
                   Mieszkanie
@@ -73,7 +73,7 @@ export default function TrueCostCalc({ monthlyInstallment }: TrueCostCalcProps) 
                 <button
                   onClick={() => setPropertyType('house')}
                   className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                    propertyType === 'house' ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-600'
+                    propertyType === 'house' ? 'bg-primary text-white' : 'bg-secondary text-muted-foreground'
                   }`}
                 >
                   Dom
@@ -82,12 +82,12 @@ export default function TrueCostCalc({ monthlyInstallment }: TrueCostCalcProps) 
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Stan nieruchomości</label>
+              <label className="block text-sm font-medium text-foreground mb-2">Stan nieruchomości</label>
               <div className="grid grid-cols-2 gap-2">
                 <button
                   onClick={() => setPropertyAge('new')}
                   className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                    propertyAge === 'new' ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-600'
+                    propertyAge === 'new' ? 'bg-primary text-white' : 'bg-secondary text-muted-foreground'
                   }`}
                 >
                   Nowe
@@ -95,7 +95,7 @@ export default function TrueCostCalc({ monthlyInstallment }: TrueCostCalcProps) 
                 <button
                   onClick={() => setPropertyAge('old')}
                   className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                    propertyAge === 'old' ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-600'
+                    propertyAge === 'old' ? 'bg-primary text-white' : 'bg-secondary text-muted-foreground'
                   }`}
                 >
                   Starsze
@@ -104,12 +104,12 @@ export default function TrueCostCalc({ monthlyInstallment }: TrueCostCalcProps) 
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Lokalizacja</label>
+              <label className="block text-sm font-medium text-foreground mb-2">Lokalizacja</label>
               <div className="grid grid-cols-3 gap-2">
                 <button
                   onClick={() => setLocationType('metro')}
                   className={`px-2 py-2 rounded-lg text-xs font-medium transition-colors ${
-                    locationType === 'metro' ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-600'
+                    locationType === 'metro' ? 'bg-primary text-white' : 'bg-secondary text-muted-foreground'
                   }`}
                 >
                   Metropolia
@@ -117,7 +117,7 @@ export default function TrueCostCalc({ monthlyInstallment }: TrueCostCalcProps) 
                 <button
                   onClick={() => setLocationType('city')}
                   className={`px-2 py-2 rounded-lg text-xs font-medium transition-colors ${
-                    locationType === 'city' ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-600'
+                    locationType === 'city' ? 'bg-primary text-white' : 'bg-secondary text-muted-foreground'
                   }`}
                 >
                   Miasto
@@ -125,7 +125,7 @@ export default function TrueCostCalc({ monthlyInstallment }: TrueCostCalcProps) 
                 <button
                   onClick={() => setLocationType('small_town')}
                   className={`px-2 py-2 rounded-lg text-xs font-medium transition-colors ${
-                    locationType === 'small_town' ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-600'
+                    locationType === 'small_town' ? 'bg-primary text-white' : 'bg-secondary text-muted-foreground'
                   }`}
                 >
                   Małe miasto
@@ -137,37 +137,37 @@ export default function TrueCostCalc({ monthlyInstallment }: TrueCostCalcProps) 
 
         {/* Results Section */}
         <div className="space-y-6 md:sticky md:top-8">
-          <Card className="bg-blue-50 border-blue-200">
-            <h3 className="text-lg font-semibold text-blue-900 mb-4">Miesięczny koszt utrzymania</h3>
+          <Card className="bg-primary/10 border-primary/30">
+            <h3 className="text-lg font-semibold text-primary mb-4">Miesięczny koszt utrzymania</h3>
             <div className="space-y-4">
               <div className="flex justify-between items-center">
-                <span className="text-blue-700">Media, remonty, podatki</span>
-                <span className="text-2xl font-bold text-blue-900">{formatCurrency(monthlyMaintenance)}</span>
+                <span className="text-primary">Media, remonty, podatki</span>
+                <span className="text-2xl font-bold text-primary">{formatCurrency(monthlyMaintenance)}</span>
               </div>
-              <div className="flex justify-between items-center pt-4 border-t border-blue-200">
-                <span className="text-blue-800 font-medium">Rata kredytu</span>
-                <span className="text-xl font-semibold text-blue-900">{formatCurrency(monthlyInstallment)}</span>
+              <div className="flex justify-between items-center pt-4 border-t border-primary/30">
+                <span className="text-primary font-medium">Rata kredytu</span>
+                <span className="text-xl font-semibold text-primary">{formatCurrency(monthlyInstallment)}</span>
               </div>
-              <div className="flex justify-between items-center pt-4 border-t border-blue-200">
-                <span className="text-blue-900 font-bold">RAZEM CO MIESIĄC:</span>
-                <span className="text-2xl font-black text-blue-900">{formatCurrency(totalMonthlyCost)}</span>
+              <div className="flex justify-between items-center pt-4 border-t border-primary/30">
+                <span className="text-primary font-bold">RAZEM CO MIESIĄC:</span>
+                <span className="text-2xl font-black text-primary">{formatCurrency(totalMonthlyCost)}</span>
               </div>
             </div>
           </Card>
 
           <Card>
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">Kupno vs Wynajem</h3>
+            <h3 className="text-lg font-semibold text-foreground mb-4">Kupno vs Wynajem</h3>
             <div className="space-y-4">
-              <div className="p-4 bg-gray-50 rounded-lg">
+              <div className="p-4 bg-secondary rounded-lg">
                 <div className="flex justify-between items-center mb-1">
-                  <span className="text-sm text-gray-600">Szacowany czynsz najmu</span>
+                  <span className="text-sm text-muted-foreground">Szacowany czynsz najmu</span>
                   <span className="font-semibold">{formatCurrency(estimatedMonthlyRent)}</span>
                 </div>
-                <p className="text-xs text-gray-500 italic">Przy założeniu 4% rocznego kosztu najmu</p>
+                <p className="text-xs text-muted-foreground italic">Przy założeniu 4% rocznego kosztu najmu</p>
               </div>
 
               <div className="text-center py-4">
-                <p className="text-sm text-gray-600 mb-2">
+                <p className="text-sm text-muted-foreground mb-2">
                   {totalMonthlyCost < estimatedMonthlyRent
                     ? 'W Twoim przypadku posiadanie nieruchomości może być tańsze niż wynajem.'
                     : 'W Twoim przypadku wynajem może być tańszy niż posiadanie na kredyt.'}

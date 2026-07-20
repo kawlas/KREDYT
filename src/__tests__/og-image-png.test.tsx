@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeAll, afterAll } from 'vitest'
 import { render } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
-import { HelmetProvider, Helmet } from 'react-helmet-async'
+import { HelmetProvider } from 'react-helmet-async'
 import { LoanCalculatorProvider } from '../context/LoanCalculatorContext'
 import SEOHead from '../components/shared/SEOHead'
 
@@ -65,7 +65,7 @@ describe('og:image musi być PNG, nie SVG', () => {
     expect(metas.length).toBeGreaterThanOrEqual(1)
 
     const content = metas[0]?.getAttribute('content') || ''
-    expect(content).toMatch(/\.(png|jpg|jpeg)(\?.*)?$/i)
+    expect(content).toMatch(/\.(png|jpg|jpeg|webp)(\?.*)?$/i)
     expect(content).not.toMatch(/\.svg/i)
   })
 

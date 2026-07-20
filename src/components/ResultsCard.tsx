@@ -86,7 +86,7 @@ const ResultsCard: React.FC<ResultsCardProps> = (props) => {
     return (
       <div ref={cardRef}>
         <Card>
-          <p className="text-gray-500 italic">Brak danych do wyświetlenia podsumowania</p>
+          <p className="text-muted-foreground italic">Brak danych do wyświetlenia podsumowania</p>
         </Card>
       </div>
     )
@@ -99,24 +99,24 @@ const ResultsCard: React.FC<ResultsCardProps> = (props) => {
     <div ref={cardRef} className="space-y-4">
       <Card>
         <div className="flex justify-between items-center border-b pb-4 mb-6">
-          <h2 className="text-xl font-semibold text-gray-900">Podsumowanie kosztów</h2>
+          <h2 className="text-xl font-semibold text-foreground">Podsumowanie kosztów</h2>
         </div>
 
         {/* Section 1: Monthly Payment */}
-        <div className="bg-blue-50 rounded-xl p-6 border border-blue-100 mb-6" data-animate-item aria-live="polite">
+        <div className="bg-primary/10 rounded-xl p-6 border border-primary/30 mb-6" data-animate-item aria-live="polite">
           <div className="flex items-center gap-2 mb-1">
-            <p className="text-sm font-medium text-blue-800">Miesięczna rata bazowa</p>
+            <p className="text-sm font-medium text-primary">Miesięczna rata bazowa</p>
             <Tooltip text="Sama rata kapitałowo-odsetkowa, bez ubezpieczeń.">
-              <span className="text-blue-400 cursor-help text-xs">ⓘ</span>
+              <span className="text-primary cursor-help text-xs">ⓘ</span>
             </Tooltip>
           </div>
-          <p className="text-3xl font-bold text-gray-900">
+          <p className="text-3xl font-bold text-foreground">
             {formatCurrency(monthlyPayment)}
           </p>
-          <div className="mt-4 pt-4 border-t border-blue-200">
+          <div className="mt-4 pt-4 border-t border-primary/30">
             <div className="flex justify-between text-sm">
-              <span className="text-blue-700">Łącznie z kosztami rocznymi (uśrednione):</span>
-              <span className="font-bold text-gray-900">
+              <span className="text-primary">Łącznie z kosztami rocznymi (uśrednione):</span>
+              <span className="font-bold text-foreground">
                 {formatCurrency(monthlyPayment + (yearlyCosts.total / 12))}
               </span>
             </div>
@@ -125,30 +125,30 @@ const ResultsCard: React.FC<ResultsCardProps> = (props) => {
 
         {/* Section: Down Payment & LTV */}
         {props.propertyValue > 0 && props.loanAmount > 0 && (
-          <div className="bg-white rounded-xl p-6 border border-gray-100 mb-6 shadow-sm" data-animate-item>
-            <h3 className="text-sm font-bold text-gray-900 uppercase tracking-widest mb-4 border-b pb-2">
+          <div className="bg-card rounded-xl p-6 border border-border mb-6 shadow-sm" data-animate-item>
+            <h3 className="text-sm font-bold text-foreground uppercase tracking-widest mb-4 border-b pb-2">
               Wkład własny i LTV
             </h3>
             <div className="grid grid-cols-2 gap-6">
               <div>
-                <p className="text-xs text-gray-500 uppercase font-semibold">Wkład własny</p>
-                <p className="text-xl font-bold text-gray-900">
+                <p className="text-xs text-muted-foreground uppercase font-semibold">Wkład własny</p>
+                <p className="text-xl font-bold text-foreground">
                   {formatCurrency(props.propertyValue - props.loanAmount)}
                 </p>
-                <p className="text-sm text-blue-600 font-medium">
+                <p className="text-sm text-primary font-medium">
                   {formatPercent(((props.propertyValue - props.loanAmount) / props.propertyValue) * 100)} wartości
                 </p>
               </div>
               <div>
-                <p className="text-xs text-gray-500 uppercase font-semibold">Wskaźnik LTV</p>
-                <p className={`text-xl font-bold ${ltv > 100 ? 'text-red-600' : 'text-gray-900'}`}>
+                <p className="text-xs text-muted-foreground uppercase font-semibold">Wskaźnik LTV</p>
+                <p className={`text-xl font-bold ${ltv > 100 ? 'text-red-600' : 'text-foreground'}`}>
                   {formatPercent(ltv)}
                 </p>
-                <p className="text-xs text-gray-400 mt-1">Loan to Value</p>
+                <p className="text-xs text-muted-foreground mt-1">Loan to Value</p>
               </div>
             </div>
 
-            <div className="mt-4 space-y-2 text-sm text-gray-600 leading-relaxed border-t pt-4">
+            <div className="mt-4 space-y-2 text-sm text-muted-foreground leading-relaxed border-t pt-4">
               <p>
                 <strong>LTV</strong> to relacja kwoty kredytu do wartości nieruchomości. 
                 Określa ona poziom ryzyka dla banku.
@@ -173,14 +173,14 @@ const ResultsCard: React.FC<ResultsCardProps> = (props) => {
         <div className="space-y-4">
           <div className="grid grid-cols-2 gap-4 text-sm">
             <div>
-              <div className="text-gray-600">Suma wszystkich rat ({props.loanTermYears} lat)</div>
+              <div className="text-muted-foreground">Suma wszystkich rat ({props.loanTermYears} lat)</div>
               <div className="text-lg font-semibold">
                 {formatCurrencyShort(totalCost.allPayments)}
               </div>
             </div>
             <div>
-              <div className="text-gray-600">Kapitał (pożyczona kwota)</div>
-              <div className="text-lg font-semibold text-gray-500">
+              <div className="text-muted-foreground">Kapitał (pożyczona kwota)</div>
+              <div className="text-lg font-semibold text-muted-foreground">
                 -{formatCurrencyShort(props.loanAmount)}
               </div>
             </div>
@@ -188,12 +188,12 @@ const ResultsCard: React.FC<ResultsCardProps> = (props) => {
 
           <div className="border-t pt-3">
             <div className="flex justify-between items-center mb-2">
-              <span className="text-gray-700 font-medium">ODSETKI (to przepłacasz):</span>
+              <span className="text-foreground font-medium">ODSETKI (to przepłacasz):</span>
               <span className="text-2xl font-bold text-red-600">
                 {formatCurrencyShort(totalInterest)}
               </span>
             </div>
-            <div className="text-sm text-gray-500">
+            <div className="text-sm text-muted-foreground">
               To jest {((totalInterest / props.loanAmount) * 100).toFixed(0)}% kwoty kredytu
             </div>
           </div>
@@ -217,36 +217,36 @@ const ResultsCard: React.FC<ResultsCardProps> = (props) => {
         >
           <div className="space-y-2">
             <div className="flex justify-between text-sm">
-              <span className="text-gray-700">Prowizja banku (dwukierunkowa)</span>
+              <span className="text-foreground">Prowizja banku (dwukierunkowa)</span>
               <span className="font-semibold">{formatCurrencyShort(upfrontCosts.provision)}</span>
             </div>
             <div className="flex justify-between text-sm">
               <div className="flex items-center gap-1">
-                <span className="text-gray-700">Notariusz</span>
+                <span className="text-foreground">Notariusz</span>
                 <Tooltip text="Akt notarialny, umowa kredytowa, hipoteka" align="left">
-                  <span className="text-blue-400 cursor-help text-xs">ⓘ</span>
+                  <span className="text-primary cursor-help text-xs">ⓘ</span>
                 </Tooltip>
               </div>
               <span className="font-semibold">{formatCurrencyShort(upfrontCosts.notary)}</span>
             </div>
             <div className="flex justify-between text-sm">
               <div className="flex items-center gap-1">
-                <span className="text-gray-700">Wycena nieruchomości</span>
+                <span className="text-foreground">Wycena nieruchomości</span>
                 <Tooltip text="Rzeczoznawca majątkowy - wycena nieruchomości" align="left">
-                  <span className="text-blue-400 cursor-help text-xs">ⓘ</span>
+                  <span className="text-primary cursor-help text-xs">ⓘ</span>
                 </Tooltip>
               </div>
               <span className="font-semibold">{formatCurrencyShort(upfrontCosts.valuation)}</span>
             </div>
             <div className="flex justify-between text-sm">
-              <span className="text-gray-700">Wpis do księgi wieczystej</span>
+              <span className="text-foreground">Wpis do księgi wieczystej</span>
               <span className="font-semibold">{formatCurrencyShort(upfrontCosts.landRegistry)}</span>
             </div>
             <div className="flex justify-between text-sm">
               <div className="flex items-center gap-1">
-                <span className="text-gray-700">Ubezp. pomostowe (3mc)</span>
+                <span className="text-foreground">Ubezp. pomostowe (3mc)</span>
                 <Tooltip text="Ubezpieczenie do czasu uruchomienia kredytu (zazwyczaj 3 miesiące)" align="left">
-                  <span className="text-blue-400 cursor-help text-xs">ⓘ</span>
+                  <span className="text-primary cursor-help text-xs">ⓘ</span>
                 </Tooltip>
               </div>
               <span className="font-semibold">{formatCurrencyShort(upfrontCosts.bridgingInsurance)}</span>
@@ -286,9 +286,9 @@ const ResultsCard: React.FC<ResultsCardProps> = (props) => {
           <div className="space-y-2 text-sm">
             <div className="flex justify-between text-sm">
               <div className="flex items-center gap-1">
-                <span className="text-gray-700">Ubezpieczenie nieruchomości</span>
+                <span className="text-foreground">Ubezpieczenie nieruchomości</span>
                 <Tooltip text="Obowiązkowe ubezpieczenie od ognia i zdarzeń losowych" align="left">
-                  <span className="text-blue-400 cursor-help text-xs">ⓘ</span>
+                  <span className="text-primary cursor-help text-xs">ⓘ</span>
                 </Tooltip>
               </div>
               <span className="font-semibold">{formatCurrencyShort(yearlyCosts.homeInsurance)}/rok</span>
@@ -297,9 +297,9 @@ const ResultsCard: React.FC<ResultsCardProps> = (props) => {
             {yearlyCosts.creditInsurance > 0 && (
               <div className="flex justify-between text-sm">
                 <div className="flex items-center gap-1">
-                  <span className="text-gray-700">Ubezpieczenie kredytu</span>
+                  <span className="text-foreground">Ubezpieczenie kredytu</span>
                   <Tooltip text={`Wymagane gdy LTV > 80%. Twoje LTV: ${ltv.toFixed(1)}%`} align="left">
-                    <span className="text-blue-400 cursor-help text-xs">ⓘ</span>
+                    <span className="text-primary cursor-help text-xs">ⓘ</span>
                   </Tooltip>
                 </div>
                 <span className="font-semibold text-orange-600">
@@ -309,7 +309,7 @@ const ResultsCard: React.FC<ResultsCardProps> = (props) => {
             )}
 
             <div className="flex justify-between">
-              <span className="text-gray-700">Prowadzenie rachunku</span>
+              <span className="text-foreground">Prowadzenie rachunku</span>
               <span className="font-semibold text-green-600">0 zł</span>
             </div>
 
@@ -318,7 +318,7 @@ const ResultsCard: React.FC<ResultsCardProps> = (props) => {
                 <span>Razem rocznie:</span>
                 <span>{formatCurrencyShort(yearlyCosts.total)}/rok</span>
               </div>
-              <div className="text-xs text-gray-500 mt-1">
+              <div className="text-xs text-muted-foreground mt-1">
                 W {props.loanTermYears} lat: {formatCurrencyShort(yearlyCosts.total * props.loanTermYears)}
               </div>
             </div>
@@ -329,17 +329,17 @@ const ResultsCard: React.FC<ResultsCardProps> = (props) => {
       {/* SECTION 5: RRSO vs Nominal */}
       <Card title="Oprocentowanie: Nominalne vs RRSO" data-animate-item>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
-          <div className="bg-gray-50 p-4 rounded-lg">
-            <div className="text-sm text-gray-600 mb-1">Oprocentowanie nominalne</div>
+          <div className="bg-secondary p-4 rounded-lg">
+            <div className="text-sm text-muted-foreground mb-1">Oprocentowanie nominalne</div>
             <div className="text-2xl font-bold">{formatPercent(nominalRate)}</div>
-            <div className="text-xs text-gray-500 mt-1">
+            <div className="text-xs text-muted-foreground mt-1">
               WIBOR {formatPercent(props.wibor)} + marża {formatPercent(props.margin)}
             </div>
           </div>
-          <div className="bg-blue-50 p-4 rounded-lg">
-            <div className="text-sm text-gray-600 mb-1">RRSO (rzeczywiste)</div>
-            <div className="text-2xl font-bold text-blue-600">{formatPercent(rrso)}</div>
-            <div className="text-xs text-gray-500 mt-1">
+          <div className="bg-primary/10 p-4 rounded-lg">
+            <div className="text-sm text-muted-foreground mb-1">RRSO (rzeczywiste)</div>
+            <div className="text-2xl font-bold text-primary">{formatPercent(rrso)}</div>
+            <div className="text-xs text-muted-foreground mt-1">
               +{formatPercent(rrso - nominalRate)} od nominalnego
             </div>
           </div>
@@ -366,13 +366,13 @@ const ResultsCard: React.FC<ResultsCardProps> = (props) => {
       <Card data-animate-item>
         <div className="bg-gradient-to-br from-red-50 to-orange-50 p-6 rounded-lg border-2 border-red-200">
           <div className="text-center">
-            <div className="text-sm text-gray-700 mb-2 uppercase tracking-wide font-semibold">
+            <div className="text-sm text-foreground mb-2 uppercase tracking-wide font-semibold">
               Całkowity koszt kredytu ({props.loanTermYears} lat)
             </div>
             <div className="text-3xl font-bold text-red-600 mb-3">
               {formatCurrencyShort(totalCost.grandTotal)}
             </div>
-            <div className="text-sm text-gray-700 space-y-1">
+            <div className="text-sm text-foreground space-y-1">
               <div>Wszystkie raty: {formatCurrencyShort(totalCost.allPayments)}</div>
               <div>+ Koszty start: {formatCurrencyShort(upfrontCosts.total)}</div>
               <div>+ Koszty roczne: {formatCurrencyShort(totalCost.yearlyCostsOverTerm)}</div>
@@ -391,21 +391,21 @@ const ResultsCard: React.FC<ResultsCardProps> = (props) => {
 
       {/* SECTION 7: Recommended Topics */}
       <Card data-animate-item>
-        <h3 className="text-sm font-bold text-gray-900 uppercase tracking-widest mb-4 border-b pb-2">
+        <h3 className="text-sm font-bold text-foreground uppercase tracking-widest mb-4 border-b pb-2">
           Polecane poradniki
         </h3>
         <div className="space-y-3">
-          <Link to="/koszty-kredytu-hipotecznego-jakie/" className="flex items-center justify-between p-3 rounded-lg border border-gray-100 hover:border-blue-200 hover:bg-blue-50 transition-all group">
-            <span className="text-sm font-medium text-gray-700 group-hover:text-blue-600">Jakie są koszty kredytu?</span>
-            <span className="text-blue-400 group-hover:translate-x-1 transition-transform">→</span>
+          <Link to="/koszty-kredytu-hipotecznego-jakie/" className="flex items-center justify-between p-3 rounded-lg border border-border hover:border-primary/40 hover:bg-primary/10 transition-all group">
+            <span className="text-sm font-medium text-foreground group-hover:text-primary">Jakie są koszty kredytu?</span>
+            <span className="text-primary group-hover:translate-x-1 transition-transform">→</span>
           </Link>
-          <Link to="/wklad-wlasny-10-czy-20/" className="flex items-center justify-between p-3 rounded-lg border border-gray-100 hover:border-blue-200 hover:bg-blue-50 transition-all group">
-            <span className="text-sm font-medium text-gray-700 group-hover:text-blue-600">Wkład własny: 10% czy 20%?</span>
-            <span className="text-blue-400 group-hover:translate-x-1 transition-transform">→</span>
+          <Link to="/wklad-wlasny-10-czy-20/" className="flex items-center justify-between p-3 rounded-lg border border-border hover:border-primary/40 hover:bg-primary/10 transition-all group">
+            <span className="text-sm font-medium text-foreground group-hover:text-primary">Wkład własny: 10% czy 20%?</span>
+            <span className="text-primary group-hover:translate-x-1 transition-transform">→</span>
           </Link>
-          <Link to="/ltv-80-procent/" className="flex items-center justify-between p-3 rounded-lg border border-gray-100 hover:border-blue-200 hover:bg-blue-50 transition-all group">
-            <span className="text-sm font-medium text-gray-700 group-hover:text-blue-600">Dlaczego warto mieć LTV 80%?</span>
-            <span className="text-blue-400 group-hover:translate-x-1 transition-transform">→</span>
+          <Link to="/ltv-80-procent/" className="flex items-center justify-between p-3 rounded-lg border border-border hover:border-primary/40 hover:bg-primary/10 transition-all group">
+            <span className="text-sm font-medium text-foreground group-hover:text-primary">Dlaczego warto mieć LTV 80%?</span>
+            <span className="text-primary group-hover:translate-x-1 transition-transform">→</span>
           </Link>
         </div>
       </Card>
@@ -415,13 +415,13 @@ const ResultsCard: React.FC<ResultsCardProps> = (props) => {
         {!isSaving ? (
           <button
             onClick={handleSave}
-            className="w-full py-4 bg-blue-600 text-white text-lg font-semibold rounded-lg hover:bg-blue-700 transition-colors shadow-lg hover:shadow-xl flex items-center justify-center gap-2"
+            className="w-full py-4 bg-primary text-white text-lg font-semibold rounded-lg hover:bg-primary/90 transition-colors shadow-lg hover:shadow-xl flex items-center justify-center gap-2"
           >
             Dodaj do porównania
           </button>
         ) : (
-          <div className="bg-white p-4 rounded-xl border-2 border-blue-200 shadow-lg animate-in fade-in slide-in-from-bottom-2 duration-300">
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+          <div className="bg-card p-4 rounded-xl border-2 border-primary/30 shadow-lg animate-in fade-in slide-in-from-bottom-2 duration-300">
+            <label className="block text-sm font-medium text-foreground mb-2">
               Nazwa oferty (np. Nazwa banku)
             </label>
             <div className="flex gap-2">
@@ -430,7 +430,7 @@ const ResultsCard: React.FC<ResultsCardProps> = (props) => {
                 value={offerName}
                 onChange={(e) => setOfferName(e.target.value)}
                 placeholder="np. mBank - Oferta promocyjna"
-                className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
+                className="flex-1 px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-ring focus:border-primary outline-none transition-all"
                 autoFocus
                 onKeyDown={(e) => {
                   if (e.key === 'Enter') handleSave()
@@ -439,13 +439,13 @@ const ResultsCard: React.FC<ResultsCardProps> = (props) => {
               />
               <button 
                 onClick={handleSave}
-                className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 font-semibold transition-colors"
+                className="bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary/90 font-semibold transition-colors"
               >
                 Zapisz
               </button>
               <button 
                 onClick={() => setIsSaving(false)}
-                className="px-4 py-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
+                className="px-4 py-2 text-muted-foreground hover:text-foreground hover:bg-muted rounded-lg transition-colors"
               >
                 Anuluj
               </button>

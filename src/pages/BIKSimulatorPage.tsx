@@ -47,10 +47,10 @@ export default function BIKSimulatorPage() {
       />
 
       <div className="space-y-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">
+        <h1 className="text-3xl font-bold text-foreground mb-2">
           Co wpływa na scoring BIK?
         </h1>
-        <p className="text-lg text-gray-600 mb-8">
+        <p className="text-lg text-muted-foreground mb-8">
           Zaznacz czynniki, które Cię dotyczą i sprawdź, jak zmienia się Twój wynik w skali 200-800.
           Dowiedz się, co możesz poprawić, aby zwiększyć szanse na kredyt.
         </p>

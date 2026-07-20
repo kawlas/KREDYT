@@ -26,7 +26,7 @@ export default function AdSlot({ className = '', slot, compact = false }: AdSlot
   if (!slot) {
     if (import.meta.env.DEV) {
       return (
-        <div className={`w-full bg-gray-100 border border-dashed border-gray-300 rounded-lg flex items-center justify-center text-gray-400 ${className}`} style={{ minHeight: compact ? '90px' : '250px' }}>
+        <div className={`w-full bg-secondary border border-dashed border-border rounded-lg flex items-center justify-center text-muted-foreground ${className}`} style={{ minHeight: compact ? '90px' : '250px' }}>
           <span className="text-xs">AdSlot: brak slot ID</span>
         </div>
       )
@@ -37,9 +37,9 @@ export default function AdSlot({ className = '', slot, compact = false }: AdSlot
   if (typeof document === 'undefined') return null
 
   return (
-    <div className={`w-full bg-gray-100 border border-gray-200 rounded-lg flex flex-col items-center justify-center text-gray-400 p-4 relative ${className}`} style={{ minHeight: compact ? '90px' : '250px' }}>
+    <div className={`w-full bg-secondary border border-border rounded-lg flex flex-col items-center justify-center text-muted-foreground p-4 relative ${className}`} style={{ minHeight: compact ? '90px' : '250px' }}>
       <span className="text-xs uppercase tracking-widest font-semibold mb-2">Reklama</span>
-      <div className="w-full h-full flex items-center justify-center bg-gray-50 rounded border border-dashed border-gray-300 overflow-hidden">
+      <div className="w-full h-full flex items-center justify-center bg-secondary rounded border border-dashed border-border overflow-hidden">
         <ins className="adsbygoogle"
              style={{ display: 'block' }}
              data-ad-client={PUB_ID}

@@ -54,33 +54,33 @@ export default function RentVsBuyCalc() {
         {/* LEFT - inputs */}
         <div className="space-y-6">
           <Card>
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">Parametry nieruchomości</h3>
+            <h3 className="text-lg font-semibold text-foreground mb-4">Parametry nieruchomości</h3>
             <div className="space-y-4">
               <div>
-                <label htmlFor="rvb-price" className="block text-sm font-medium text-gray-700 mb-1">Cena nieruchomości</label>
+                <label htmlFor="rvb-price" className="block text-sm font-medium text-foreground mb-1">Cena nieruchomości</label>
                 <div className="relative">
                   <input id="rvb-price" type="number" value={propertyPrice}
                     onChange={(e) => setPropertyPrice(e.target.value)}
-                    className="w-full pl-3 pr-10 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none" />
-                  <span className="absolute right-3 top-2 text-gray-400">PLN</span>
+                    className="w-full pl-3 pr-10 py-2 border rounded-lg focus:ring-2 focus:ring-ring outline-none" />
+                  <span className="absolute right-3 top-2 text-muted-foreground">PLN</span>
                 </div>
               </div>
               <div>
-                <label htmlFor="rvb-down" className="block text-sm font-medium text-gray-700 mb-1">Wkład własny</label>
+                <label htmlFor="rvb-down" className="block text-sm font-medium text-foreground mb-1">Wkład własny</label>
                 <div className="relative">
                   <input id="rvb-down" type="number" step="1" value={downPayment}
                     onChange={(e) => setDownPayment(e.target.value)}
-                    className="w-full pl-3 pr-10 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none" />
-                  <span className="absolute right-3 top-2 text-gray-400">%</span>
+                    className="w-full pl-3 pr-10 py-2 border rounded-lg focus:ring-2 focus:ring-ring outline-none" />
+                  <span className="absolute right-3 top-2 text-muted-foreground">%</span>
                 </div>
               </div>
               <div>
-                <label htmlFor="rvb-rate" className="block text-sm font-medium text-gray-700 mb-1">Oprocentowanie kredytu</label>
+                <label htmlFor="rvb-rate" className="block text-sm font-medium text-foreground mb-1">Oprocentowanie kredytu</label>
                 <div className="relative">
                   <input id="rvb-rate" type="number" step="0.1" value={loanRate}
                     onChange={(e) => setLoanRate(e.target.value)}
-                    className="w-full pl-3 pr-10 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none" />
-                  <span className="absolute right-3 top-2 text-gray-400">%</span>
+                    className="w-full pl-3 pr-10 py-2 border rounded-lg focus:ring-2 focus:ring-ring outline-none" />
+                  <span className="absolute right-3 top-2 text-muted-foreground">%</span>
                 </div>
               </div>
               <Slider label="Okres kredytu" value={loanTerm} min={15} max={35} step={5} unit=" lat"
@@ -89,51 +89,51 @@ export default function RentVsBuyCalc() {
           </Card>
 
           <Card>
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">Koszty i założenia</h3>
+            <h3 className="text-lg font-semibold text-foreground mb-4">Koszty i założenia</h3>
             <div className="space-y-4">
               <div>
-                <label htmlFor="rvb-rent" className="block text-sm font-medium text-gray-700 mb-1">Miesięczny czynsz najmu</label>
+                <label htmlFor="rvb-rent" className="block text-sm font-medium text-foreground mb-1">Miesięczny czynsz najmu</label>
                 <div className="relative">
                   <input id="rvb-rent" type="number" value={monthlyRent}
                     onChange={(e) => setMonthlyRent(e.target.value)}
-                    className="w-full pl-3 pr-10 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none" />
-                  <span className="absolute right-3 top-2 text-gray-400">PLN</span>
+                    className="w-full pl-3 pr-10 py-2 border rounded-lg focus:ring-2 focus:ring-ring outline-none" />
+                  <span className="absolute right-3 top-2 text-muted-foreground">PLN</span>
                 </div>
               </div>
               <div>
-                <label htmlFor="rvb-rent-inc" className="block text-sm font-medium text-gray-700 mb-1">Roczny wzrost czynszu</label>
+                <label htmlFor="rvb-rent-inc" className="block text-sm font-medium text-foreground mb-1">Roczny wzrost czynszu</label>
                 <div className="relative">
                   <input id="rvb-rent-inc" type="number" step="0.5" value={rentIncrease}
                     onChange={(e) => setRentIncrease(e.target.value)}
-                    className="w-full pl-3 pr-10 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none" />
-                  <span className="absolute right-3 top-2 text-gray-400">%</span>
+                    className="w-full pl-3 pr-10 py-2 border rounded-lg focus:ring-2 focus:ring-ring outline-none" />
+                  <span className="absolute right-3 top-2 text-muted-foreground">%</span>
                 </div>
               </div>
               <div>
-                <label htmlFor="rvb-maintenance" className="block text-sm font-medium text-gray-700 mb-1">Koszty utrzymania (media, fundusz remontowy)</label>
+                <label htmlFor="rvb-maintenance" className="block text-sm font-medium text-foreground mb-1">Koszty utrzymania (media, fundusz remontowy)</label>
                 <div className="relative">
                   <input id="rvb-maintenance" type="number" value={maintenance}
                     onChange={(e) => setMaintenance(e.target.value)}
-                    className="w-full pl-3 pr-10 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none" />
-                  <span className="absolute right-3 top-2 text-gray-400">PLN/mc</span>
+                    className="w-full pl-3 pr-10 py-2 border rounded-lg focus:ring-2 focus:ring-ring outline-none" />
+                  <span className="absolute right-3 top-2 text-muted-foreground">PLN/mc</span>
                 </div>
               </div>
               <div>
-                <label htmlFor="rvb-appreciation" className="block text-sm font-medium text-gray-700 mb-1">Roczny wzrost wartości nieruchomości</label>
+                <label htmlFor="rvb-appreciation" className="block text-sm font-medium text-foreground mb-1">Roczny wzrost wartości nieruchomości</label>
                 <div className="relative">
                   <input id="rvb-appreciation" type="number" step="0.5" value={appreciation}
                     onChange={(e) => setAppreciation(e.target.value)}
-                    className="w-full pl-3 pr-10 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none" />
-                  <span className="absolute right-3 top-2 text-gray-400">%</span>
+                    className="w-full pl-3 pr-10 py-2 border rounded-lg focus:ring-2 focus:ring-ring outline-none" />
+                  <span className="absolute right-3 top-2 text-muted-foreground">%</span>
                 </div>
               </div>
               <div>
-                <label htmlFor="rvb-invest" className="block text-sm font-medium text-gray-700 mb-1">Roczny zwrot z inwestycji (dla oszczędności najemcy)</label>
+                <label htmlFor="rvb-invest" className="block text-sm font-medium text-foreground mb-1">Roczny zwrot z inwestycji (dla oszczędności najemcy)</label>
                 <div className="relative">
                   <input id="rvb-invest" type="number" step="0.5" value={investmentReturn}
                     onChange={(e) => setInvestmentReturn(e.target.value)}
-                    className="w-full pl-3 pr-10 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none" />
-                  <span className="absolute right-3 top-2 text-gray-400">%</span>
+                    className="w-full pl-3 pr-10 py-2 border rounded-lg focus:ring-2 focus:ring-ring outline-none" />
+                  <span className="absolute right-3 top-2 text-muted-foreground">%</span>
                 </div>
               </div>
               <Slider label="Lata porównania" value={years} min={1} max={30} step={1} unit=" lat"
@@ -147,25 +147,25 @@ export default function RentVsBuyCalc() {
           {hasValues && result ? (
             <>
               {/* Main comparison */}
-              <Card className="bg-gradient-to-br from-blue-50 to-white border-blue-100 dark:from-gray-800 dark:to-gray-800">
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Wynik porównania</h3>
+              <Card className="bg-gradient-to-br from-blue-50 to-white border-primary/30 dark:from-gray-800 dark:to-gray-800">
+                <h3 className="text-lg font-semibold text-foreground dark:text-white mb-2">Wynik porównania</h3>
                 <div className="grid grid-cols-2 gap-4 mt-4">
                   <div className="p-3 bg-green-50 dark:bg-green-900/20 rounded-lg">
-                    <div className="text-xs text-gray-500 dark:text-gray-400">Kredyt — wartość netto</div>
+                    <div className="text-xs text-muted-foreground">Kredyt — wartość netto</div>
                     <div className="text-lg font-bold text-green-700 dark:text-green-400">
                       {formatCurrencyShort(result.conclusion.buyNetWorthFinal)}
                     </div>
                   </div>
-                  <div className="p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
-                    <div className="text-xs text-gray-500 dark:text-gray-400">Wynajem — wartość netto</div>
-                    <div className="text-lg font-bold text-blue-700 dark:text-blue-400">
+                  <div className="p-3 bg-primary/10 dark:bg-primary/20 rounded-lg">
+                    <div className="text-xs text-muted-foreground">Wynajem — wartość netto</div>
+                    <div className="text-lg font-bold text-primary">
                       {formatCurrencyShort(result.conclusion.rentNetWorthFinal)}
                     </div>
                   </div>
                 </div>
 
                 {result.conclusion.breakEvenYear && (
-                  <div className="mt-3 text-sm text-gray-600 dark:text-gray-300">
+                  <div className="mt-3 text-sm text-muted-foreground">
                     Próg opłacalności: <strong>{result.conclusion.breakEvenYear} lat</strong>
                   </div>
                 )}
@@ -181,11 +181,11 @@ export default function RentVsBuyCalc() {
 
               {/* Year-by-year table */}
               <Card>
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Szczegóły rok po roku</h3>
+                <h3 className="text-lg font-semibold text-foreground dark:text-white mb-4">Szczegóły rok po roku</h3>
                 <div className="overflow-x-auto">
                   <table className="w-full text-xs">
                     <thead>
-                      <tr className="text-gray-500 border-b dark:border-gray-600">
+                      <tr className="text-muted-foreground border-b border-border">
                         <th className="text-left py-2 pr-2">Rok</th>
                         <th className="text-right px-2">Koszt kupna</th>
                         <th className="text-right px-2">Koszt najmu</th>
@@ -196,7 +196,7 @@ export default function RentVsBuyCalc() {
                     </thead>
                     <tbody>
                       {result.yearlyData.filter(d => d.year % 2 === 1 || d.year === result.yearlyData.length).map(d => (
-                        <tr key={d.year} className="border-b border-gray-50 dark:border-gray-700">
+                        <tr key={d.year} className="border-b border-border">
                           <td className="py-1.5 pr-2 font-medium">{d.year}</td>
                           <td className="text-right px-2">{formatCurrencyShort(d.buyTotalSpent)}</td>
                           <td className="text-right px-2">{formatCurrencyShort(d.rentTotalSpent)}</td>
@@ -210,19 +210,19 @@ export default function RentVsBuyCalc() {
                     </tbody>
                   </table>
                 </div>
-                <p className="text-xs text-gray-400 mt-2">Pokazano lata nieparzyste i ostatni</p>
+                <p className="text-xs text-muted-foreground mt-2">Pokazano lata nieparzyste i ostatni</p>
               </Card>
 
               {/* Note */}
-              <div className="text-xs text-gray-400 space-y-1">
+              <div className="text-xs text-muted-foreground space-y-1">
                 <p>* Koszty początkowe kupna: wkład własny ({downPayment}%), PCC (2%), notariusz (3 000 zł), remont (15 000 zł)</p>
                 <p>* Oszczędności najemcy inwestowane z zakładanym zwrotem {investmentReturn}% rocznie</p>
                 <p>* Wzrost czynszu: {rentIncrease}% rocznie</p>
               </div>
             </>
           ) : (
-            <div className="bg-white p-12 rounded-2xl shadow-sm border border-dashed border-gray-300 text-center">
-              <p className="text-gray-500 font-medium">Wprowadź dane, aby porównać kredyt z wynajmem</p>
+            <div className="bg-card p-12 rounded-2xl shadow-sm border border-dashed border-border text-center">
+              <p className="text-muted-foreground font-medium">Wprowadź dane, aby porównać kredyt z wynajmem</p>
             </div>
           )}
         </div>
