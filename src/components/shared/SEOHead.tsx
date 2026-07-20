@@ -25,6 +25,7 @@ interface SEOHeadProps {
   schemaType?: 'WebApplication' | 'Article' | 'WebPage'
   faqItems?: FaqItem[]
   appUrl?: string
+  noIndex?: boolean
 }
 
 const siteUrl = (typeof import.meta !== 'undefined' && import.meta.env?.VITE_SITE_URL)
@@ -138,6 +139,7 @@ export default function SEOHead({
   schemaType,
   faqItems,
   appUrl,
+  noIndex,
 }: SEOHeadProps) {
   const location = useLocation()
 
@@ -150,7 +152,7 @@ export default function SEOHead({
       {/* Basic Meta */}
       <title>{title}</title>
       <meta name="description" content={description} />
-      <meta name="robots" content="index, follow" />
+      <meta name="robots" content={noIndex ? 'noindex, nofollow' : 'index, follow'} />
       <link rel="canonical" href={canonicalUrl} />
 
       {/* Author (E-E-A-T) */}
