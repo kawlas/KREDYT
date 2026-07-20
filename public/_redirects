@@ -1,6 +1,9 @@
 # Redirect old Hub URL to root
 /kalkulator-kredytu-hipotecznego/  /  301
 
+# Redirect duplicate content (koszty → koszt)
+/koszty-utrzymania-nieruchomosci/  /koszt-utrzymania-nieruchomosci/  301
+
 # Handle assets
 /assets/*  /assets/:splat  200
 

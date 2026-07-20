@@ -597,41 +597,6 @@ export const TOPICS: Topic[] = [
     ]
   },
   {
-    slug: 'koszty-utrzymania-nieruchomosci',
-    metaTitle: 'Koszty utrzymania nieruchomości – kalkulator i poradnik',
-    metaDescription: 'Sprawdź, jakie są miesięczne koszty utrzymania mieszkania i domu. Dowiedz się, jak obliczyć opłaty i czy stać Cię na nieruchomość.',
-    h1: 'Koszty utrzymania nieruchomości – ile naprawdę wydasz?',
-    intro: 'Kupno nieruchomości to dopiero początek wydatków. Miesięczne koszty utrzymania mieszkania lub domu mogą być zaskakująco wysokie. W tym przewodniku szczegółowo omawiamy wszystkie opłaty, które musisz uwzględnić w swoim budżecie – od czynszu i mediów, po podatek od nieruchomości i fundusz remontowy.',
-    sections: [
-      {
-        heading: 'Jakie są stałe koszty utrzymania mieszkania?',
-        body: 'Do stałych kosztów utrzymania nieruchomości należą: czynsz (opłaty administracyjne, fundusz remontowy, wywóz śmieci), media (prąd, gaz, woda, ogrzewanie), ubezpieczenie nieruchomości, podatek od nieruchomości oraz abonamenty (internet, TV). Dla mieszkania 50m² w dużym mieście miesięczne koszty stałe mogą wynieść 800-1500 zł.'
-      },
-      {
-        heading: 'Koszty utrzymania domu vs mieszkania',
-        body: 'Dom generuje wyższe koszty niż mieszkanie – ogrzewanie (często gazowe lub olejowe), wywóz śmieci (wyższe stawki), konserwacja dachu i elewacji. Dochodzą też koszty ogrodu (woda, pielęgnacja). Różnica może wynosić 500-1000 zł miesięcznie na korzyść mieszkania.'
-      },
-      {
-        heading: 'Jak koszty utrzymania wpływają na zdolność kredytową?',
-        body: 'Banki uwzględniają koszty utrzymania przy obliczaniu zdolności kredytowej. Standardowo przyjmuje się, że koszty utrzymania to minimum 600-900 zł na osobę. Im wyższe koszty, tym niższa zdolność kredytowa. Warto więc realnie oszacować swoje wydatki przed wnioskiem kredytowym.'
-      }
-    ],
-    faqs: [
-      { q: 'Ile kosztuje utrzymanie mieszkania 50m²?', a: 'Średnio 800-1500 zł miesięcznie, w zależności od standardu i lokalizacji.' },
-      { q: 'Czy ogrzewanie to największy koszt?', a: 'Tak, ogrzewanie stanowi 40-60% kosztów utrzymania w sezonie grzewczym.' },
-      { q: 'Jak obliczyć koszt utrzymania przed zakupem?', a: 'Zapytaj sprzedającego o opłaty administracyjne i media, sprawdź stawki lokalne.' },
-      { q: 'Czy bank bierze pod uwagę koszty utrzymania?', a: 'Tak, bank uwzględnia wskaźnik kosztów utrzymania przy zdolności kredytowej.' },
-      { q: 'Ile kosztuje ubezpieczenie nieruchomości?', a: 'Od 200 do 800 zł rocznie, w zależności od wartości i zakresu ubezpieczenia.' }
-    ],
-    ctas: [
-      { label: 'Sprawdź zdolność kredytową', to: '/zdolnosc-kredytowa/' }
-    ],
-    related: [
-      { label: 'Zdolność kredytowa — kalkulator', to: '/zdolnosc-kredytowa/' },
-      { label: 'Wkład własny 10% czy 20%?', to: '/wklad-wlasny-10-czy-20/' }
-    ]
-  },
-  {
     slug: 'harmonogram-splat-jak-czytac',
     metaTitle: 'Harmonogram spłat kredytu – jak czytać i analizować?',
     metaDescription: 'Dowiedz się, jak czytać harmonogram spłat kredytu hipotecznego. Zrozum strukturę rat i sprawdź, ile naprawdę zapłacisz odsetek.',
