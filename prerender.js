@@ -149,4 +149,12 @@ Sitemap: https://kredytkalkulator.netlify.app/sitemap.xml`
   fs.writeFileSync(toAbsolute('dist/static/robots.txt'), robots)
   console.log('Generated robots.txt')
 
+  // Copy /404/index.html to /404.html for Netlify custom 404 page
+  const notFoundSrc = toAbsolute('dist/static/404/index.html')
+  const notFoundDst = toAbsolute('dist/static/404.html')
+  if (fs.existsSync(notFoundSrc)) {
+    fs.copyFileSync(notFoundSrc, notFoundDst)
+    console.log('Copied 404.html')
+  }
+
 })()

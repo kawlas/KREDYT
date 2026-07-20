@@ -29,19 +29,13 @@ describe('public/_redirects - reguły dla prerenderowanych stron', () => {
     expect(content).toContain('/porownanie-ofert-bankow/index.html')
   })
 
-  it('zawiera SPA fallback /* /index.html 200 na końcu', () => {
-    expect(content).toContain('/* /index.html 200')
-    // SPA fallback powinien być ostatnią regułą
-    const lastRule = lines[lines.length - 1]
-    expect(lastRule).toMatch(/\/\*.*index\.html.*200/)
+  it('NIE zawiera catch-all SPA fallback /* /index.html 200 (usunięty dla proper 404)', () => {
+    expect(content).not.toMatch(/^\s*\/\*.*\/index\.html\s+200\s*$/m)
   })
 
-  it('reguły prerenderowanych stron są PRZED SPA fallback', () => {
-    const odsetkiIdx = content.indexOf('/odsetki-dzienne/*')
-    const fallbackIdx = content.indexOf('/* /index.html 200')
-    expect(odsetkiIdx).toBeGreaterThan(-1)
-    expect(fallbackIdx).toBeGreaterThan(-1)
-    expect(odsetkiIdx).toBeLessThan(fallbackIdx)
+  it('nie ma catch-all reguły /* (tylko specyficzne ścieżki)', () => {
+    const catchAll = lines.find(l => l.trim().startsWith('/* '))
+    expect(catchAll).toBeUndefined()
   })
 
   it('zawiera stare redirecty (/kalkulator-kredytu-hipotecznego/ → /)', () => {
