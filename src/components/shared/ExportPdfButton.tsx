@@ -1,5 +1,5 @@
-import React from 'react';
-import { generateAndDownloadPdf, type PdfExportData } from '../../utils/exportPdf';
+import React, { useState } from 'react';
+import type { PdfExportData } from '../../utils/exportPdf';
 
 interface ExportPdfButtonProps {
   data: PdfExportData;
@@ -25,14 +25,28 @@ const ExportPdfButton: React.FC<ExportPdfButtonProps> = ({
   variant = 'primary',
   disabled = false,
 }) => {
-  const handleClick = () => {
-    generateAndDownloadPdf(data);
+  const [loading, setLoading] = useState(false);
+
+  const handleClick = async () => {
+    if (loading || disabled) return;
+    setLoading(true);
+    try {
+      // Dynamically import the heavy PDF libs (jsPDF + html2canvas) only when
+      // the user actually exports — keeps them out of the initial bundle.
+      const { generateAndDownloadPdf } = await import('../../utils/exportPdf');
+      generateAndDownloadPdf(data);
+    } catch (err) {
+      console.error('Błąd podczas generowania PDF:', err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <button
       onClick={handleClick}
-      disabled={disabled}
+      disabled={disabled || loading}
+      aria-busy={loading}
       className={`
         inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium
         transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2
@@ -68,7 +82,7 @@ const ExportPdfButton: React.FC<ExportPdfButtonProps> = ({
           d="M9 13h6M9 17h6M9 9h1"
         />
       </svg>
-      {label}
+        {loading ? 'Generowanie…' : label}
     </button>
   );
 };

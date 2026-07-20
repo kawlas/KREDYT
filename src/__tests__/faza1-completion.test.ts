@@ -1,16 +1,16 @@
 import { describe, it, expect } from 'vitest'
 
 describe('Faza 1 completion — brakujące route', () => {
-  it('App.tsx importuje ChecklistPage', async () => {
+  it('App.tsx importuje ChecklistPage (lazy)', async () => {
     const fs = await import('fs')
     const app = fs.readFileSync('src/App.tsx', 'utf-8')
-    expect(app).toContain("import ChecklistPage from './pages/ChecklistPage'")
+    expect(app).toContain("lazy(() => import('./pages/ChecklistPage'))")
   })
 
-  it('App.tsx importuje TrueCostPage', async () => {
+  it('App.tsx importuje TrueCostPage (lazy)', async () => {
     const fs = await import('fs')
     const app = fs.readFileSync('src/App.tsx', 'utf-8')
-    expect(app).toContain("import TrueCostPage from './pages/TrueCostPage'")
+    expect(app).toContain("lazy(() => import('./pages/TrueCostPage'))")
   })
 
   it('App.tsx ma Route /przygotowanie-do-kredytu/', async () => {

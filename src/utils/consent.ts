@@ -24,6 +24,9 @@ export function acceptAll() {
     ad_personalization: 'granted',
     analytics_storage: 'granted',
   })
+  if (typeof window !== 'undefined') {
+    window.dispatchEvent(new Event('cookie-consent-change'))
+  }
 }
 
 export function rejectAll() {

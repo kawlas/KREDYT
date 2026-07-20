@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import ExportPdfButton from './ExportPdfButton';
 import type { PdfExportData } from '../../utils/exportPdf';
 
@@ -34,11 +34,13 @@ describe('ExportPdfButton', () => {
     expect(screen.getByText('Eksportuj PDF')).toBeInTheDocument();
   });
 
-  it('calls generateAndDownloadPdf on click', () => {
+  it('calls generateAndDownloadPdf on click', async () => {
     render(<ExportPdfButton data={mockData} />);
     const button = screen.getByRole('button');
     fireEvent.click(button);
-    expect(generateAndDownloadPdf).toHaveBeenCalledWith(mockData);
+    await waitFor(() => {
+      expect(generateAndDownloadPdf).toHaveBeenCalledWith(mockData);
+    });
   });
 
   it('renders with primary variant by default', () => {

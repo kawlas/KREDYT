@@ -23,3 +23,15 @@ Object.defineProperty(window, 'localStorage', {
 
 // jsdom does not implement window.scrollTo (used by ScrollToTop)
 window.scrollTo = vi.fn();
+
+// jsdom does not implement window.matchMedia (used by theme/ResultsCard)
+window.matchMedia = vi.fn().mockImplementation((query: string) => ({
+  matches: false,
+  media: query,
+  onchange: null,
+  addListener: vi.fn(),
+  removeListener: vi.fn(),
+  addEventListener: vi.fn(),
+  removeEventListener: vi.fn(),
+  dispatchEvent: vi.fn(),
+}));

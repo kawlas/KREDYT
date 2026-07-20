@@ -32,8 +32,8 @@ describe('index.html - brak hardcoded tagów SEO', () => {
     expect(indexHtml).toContain('<!--app-head-->')
   })
 
-  it('zawiera kod AdSense adsbygoogle.js', () => {
-    expect(indexHtml).toContain('adsbygoogle.js')
+  it('NIE zawiera hardcoded skryptu AdSense (ładowany po zgodzie)', () => {
+    expect(indexHtml).not.toContain('adsbygoogle.js')
   })
 
   it('zawiera <meta charset="UTF-8" />', () => {

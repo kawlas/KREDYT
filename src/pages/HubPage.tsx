@@ -74,7 +74,7 @@ export default function HubPage() {
           Kalkulator Kredytu<br /><span className="text-primary">Hipotecznego</span>
         </h1>
         <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mb-10 leading-relaxed">
-          Sprawdź ratę, zdolność i całkowity koszt w 30 sekund. Bez rejestracji, bez ukrytych opłat. Autor: Tony Halik, ekspert rynku kredytowego.
+          Sprawdź ratę, zdolność i całkowity koszt w 30 sekund. Bez rejestracji, bez ukrytych opłat.
         </p>
         <div className="flex flex-col sm:flex-row gap-4">
           <Link to="/kalkulator-raty-kredytu/" className="inline-flex items-center justify-center px-8 py-4 bg-primary text-white font-semibold rounded-xl hover:bg-primary/90 transition-colors shadow-sm text-lg">
@@ -174,7 +174,7 @@ export default function HubPage() {
         </div>
       </section>
 
-      <p className="text-xs text-muted-foreground text-center">Autor: Tony Halik &middot; ekspert rynku kredytowego</p>
+      <p className="text-xs text-muted-foreground text-center">Autor: Tomasz Lewandowski &middot; analityk rynku finansowego</p>
     </div>
   )
 }

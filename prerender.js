@@ -63,7 +63,7 @@ const routesToPrerender = Array.from(new Set([...baseRoutes, ...topicRoutes]))
     const context = {}
     const helmetContext = {}
 
-    const appHtml = render(url, helmetContext)
+    const appHtml = await render(url, helmetContext)
     const { helmet } = helmetContext
 
     // Strip AdSense/Google scripts from helmet to avoid double injection
