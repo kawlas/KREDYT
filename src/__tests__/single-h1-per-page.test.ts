@@ -14,19 +14,18 @@ const poradnikPages = [
 ]
 
 describe('Pojedynczy H1 na stronach poradników', () => {
-  it('TabContainer renderuje h2 zamiast h1', () => {
-    expect(tabContainer).not.toContain('<h1')
-    expect(tabContainer).toContain('<h2')
+  it('TabContainer renderuje h1', () => {
+    expect(tabContainer).toContain('<h1')
   })
 
   for (const page of poradnikPages) {
-    it(`${page} ma dokładnie jeden h1`, () => {
+    it(`${page} nie ma wewnętrznego h1 (h1 z TabContainer)`, () => {
       const content = fs.readFileSync(
         path.resolve(__dirname, `../pages/${page}`),
         'utf-8'
       )
       const h1Matches = content.match(/<h1[\s>]/g)
-      expect(h1Matches).toHaveLength(1)
+      expect(h1Matches ?? []).toHaveLength(0)
     })
   }
 })

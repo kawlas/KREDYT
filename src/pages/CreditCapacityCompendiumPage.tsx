@@ -7,7 +7,7 @@ import ArticleMeta from '../components/shared/ArticleMeta'
 
 const CreditCapacityCompendiumPage: React.FC = () => {
   return (
-    <TabContainer title="Kompendium" subtitle="Wiedza o kredytach hipotecznych">
+    <TabContainer title="Zdolność kredytowa — ile możesz pożyczyć?" subtitle="Kompendium wiedzy o kredytach hipotecznych">
       <SEOHead 
         title="Zdolność kredytowa – ile możesz pożyczyć?"
         description="Jak bank liczy zdolność? Wpływ formy zatrudnienia, zobowiązań i kosztów utrzymania. Porady eksperta."
@@ -21,7 +21,6 @@ const CreditCapacityCompendiumPage: React.FC = () => {
       
       <BreadcrumbNav pathname="/poradniki/zdolnosc-kredytowa/" />
       <article>
-        <h1 className="text-3xl font-bold text-gray-900 mb-4">Zdolność kredytowa — ile możesz pożyczyć? — Kompendium wiedzy</h1>
         <ArticleMeta date="lipiec 2026" expert="Piotr Radwański" />
         <div>
         

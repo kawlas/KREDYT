@@ -17,9 +17,9 @@ export default function TabContainer({
     <div className="tab-container">
       {/* Header Section - Unified */}
       <div className="mb-8">
-        <h2 className="text-3xl font-bold text-gray-900 mb-2">
+        <h1 className="text-3xl font-bold text-gray-900 mb-2">
           {title}
-        </h2>
+        </h1>
         {subtitle && (
           <p className="text-gray-600 text-lg mb-2">
             {subtitle}

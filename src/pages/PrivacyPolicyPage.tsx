@@ -1,5 +1,4 @@
 import React from 'react'
-import { Helmet } from 'react-helmet-async'
 import TabContainer from '../components/layout/TabContainer'
 import SEOHead from '../components/shared/SEOHead'
 
@@ -8,16 +7,14 @@ const PrivacyPolicyPage: React.FC = () => {
     <TabContainer title="Polityka Prywatności" subtitle="Twoje dane są u nas bezpieczne">
       <SEOHead
         title="Polityka Prywatności | Kalkulator Kredytowy"
-        description="Zasady przetwarzania danych i polityka cookies."
+        description="Zasady przetwarzania danych osobowych, polityka cookies i informacje o reklamach Google AdSense w serwisie KredytKalkulator."
+        noIndex
         breadcrumbs={[
           { name: 'Strona główna', href: '/' },
           { name: 'Polityka prywatności', href: '/polityka-prywatnosci/' },
         ]}
         schemaType="Article"
       />
-      <Helmet>
-        <meta name="robots" content="noindex, follow" />
-      </Helmet>
       <div className="text-gray-600 space-y-6">
         <p>
           Cenimy Twoją prywatność. Większość obliczeń w naszym serwisie odbywa się lokalnie w Twojej przeglądarce. 
