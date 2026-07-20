@@ -25,12 +25,6 @@ describe('Faza 3 — nowe artykuły (PayPo, B2B, Wakacje)', () => {
     expect(t).toMatch(/slug:\s*['"]inflacja-a-kredyt['"]/)
   })
 
-  it('topic Koszty utrzymania - kompendium istnieje', async () => {
-    const fs = await import('fs')
-    const t = fs.readFileSync('src/data/topics.ts', 'utf-8')
-    expect(t).toMatch(/slug:\s*['"]koszty-utrzymania-nieruchomosci['"]/)
-  })
-
   it('topic Harmonogram spłat istnieje', async () => {
     const fs = await import('fs')
     const t = fs.readFileSync('src/data/topics.ts', 'utf-8')

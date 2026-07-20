@@ -19,6 +19,7 @@ export default function RefinancingPage() {
         schemaType="WebApplication"
       />
       <div className="space-y-8">
+        <h1 className="text-3xl font-bold text-gray-900">Kalkulator refinansowania kredytu</h1>
         <RefinancingCalc />
         <section>
           <h2 className="text-2xl font-bold text-gray-900 mb-4">Kiedy refinansowanie się opłaca?</h2>
