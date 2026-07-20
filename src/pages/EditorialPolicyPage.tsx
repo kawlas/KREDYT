@@ -7,7 +7,7 @@ const EditorialPolicyPage: React.FC = () => {
     <TabContainer title="Polityka redakcyjna" subtitle="Zasady tworzenia treści i źródła danych">
       <SEOHead 
         title="Polityka Redakcyjna | Kalkulator Kredytowy"
-        description="Poznaj zasady tworzenia treści na naszym portalu, metody obliczeń i źródła danych."
+        description="Zasady redakcyjne, źródła danych, metodyka obliczeń i standardy tworzenia treści o kredytach hipotecznych w serwisie KredytKalkulator."
         breadcrumbs={[
           { name: 'Strona główna', href: '/' },
           { name: 'Polityka redakcyjna', href: '/polityka-redakcyjna/' },

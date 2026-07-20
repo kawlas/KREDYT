@@ -7,7 +7,7 @@ const AboutPage: React.FC = () => {
     <TabContainer title="O projekcie" subtitle="Dlaczego stworzyliśmy ten kalkulator?">
       <SEOHead 
         title="O Projekcie | Kalkulator Kredytowy"
-        description="Dowiedz się więcej o naszej misji budowania przejrzystości w finansach hipotecznych."
+        description="Dowiedz się więcej o misji kalkulatora kredytowego. Darmowe narzędzia, transparentne obliczenia i wiedza o kredytach hipotecznych."
         breadcrumbs={[
           { name: 'Strona główna', href: '/' },
           { name: 'O projekcie', href: '/o-projekcie/' },

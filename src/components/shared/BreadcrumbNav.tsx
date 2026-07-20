@@ -21,7 +21,7 @@ export default function BreadcrumbNav({ pathname: _pathname }: BreadcrumbNavProp
               <span className="text-gray-300">›</span>
             )}
             {i === items.length - 1 || (item.path === '/' && i > 0) ? (
-              <span className={i === items.length - 1 ? 'text-gray-600' : 'text-gray-400'}>
+              <span className={i === items.length - 1 ? 'text-gray-600' : 'text-gray-400'} aria-current={i === items.length - 1 ? 'page' : undefined}>
                 {item.label}
               </span>
             ) : (

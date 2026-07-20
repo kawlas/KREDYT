@@ -121,7 +121,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
         </div>
 
         {/* Navigation */}
-        <nav className="flex-1 py-3 px-2 space-y-0.5">
+        <nav aria-label="Nawigacja główna" className="flex-1 py-3 px-2 space-y-0.5">
           {sidebarItems.map((item, i) => {
             if (item.type === 'divider') {
               return <hr key={`div-${i}`} className="border-gray-100 my-3" />
