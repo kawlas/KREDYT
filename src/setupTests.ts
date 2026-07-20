@@ -20,3 +20,6 @@ const localStorageMock = (function() {
 Object.defineProperty(window, 'localStorage', {
   value: localStorageMock,
 });
+
+// jsdom does not implement window.scrollTo (used by ScrollToTop)
+window.scrollTo = vi.fn();
