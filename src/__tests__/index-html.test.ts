@@ -40,6 +40,11 @@ describe('index.html - brak hardcoded tagów SEO', () => {
     expect(indexHtml).toContain('charset="UTF-8"')
   })
 
+  it('NIE odwołuje się do Google Fonts (self-host Inter)', () => {
+    expect(indexHtml).not.toContain('fonts.googleapis.com')
+    expect(indexHtml).not.toContain('fonts.gstatic.com')
+  })
+
   it('zawiera <div id="root">', () => {
     expect(indexHtml).toContain('<div id="root">')
   })

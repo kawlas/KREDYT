@@ -13,8 +13,11 @@
     X-Frame-Options = "DENY"
     Referrer-Policy = "strict-origin-when-cross-origin"
     Strict-Transport-Security = "max-age=31536000; includeSubDomains"
-    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' https://pagead2.googlesyndication.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://stooq.pl https://bankier.pl https://api.nbp.pl; frame-src https://googleads.g.doubleclick.net"
     Server-Timing = "cdn;desc=\"Netlify Edge\""
+
+# NOTE: A per-page policy is injected as a <meta> tag by prerender.js (with
+# SHA-256 hashes of the inline scripts), so we don't set a global header here —
+# a static header cannot carry per-page script hashes.
 
 [[headers]]
   for = "/assets/*"

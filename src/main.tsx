@@ -3,6 +3,17 @@ import { BrowserRouter } from 'react-router-dom'
 import { HelmetProvider } from 'react-helmet-async'
 import { LoanCalculatorProvider } from './context/LoanCalculatorContext'
 import './index.css'
+// Self-hosted Inter (subset latin + latin-ext for Polish) — avoids a
+// third-party request to fonts.googleapis.com and benefits from the
+// immutable /assets cache. Only the subsets actually used are emitted.
+import '@fontsource/inter/latin-400.css'
+import '@fontsource/inter/latin-500.css'
+import '@fontsource/inter/latin-600.css'
+import '@fontsource/inter/latin-700.css'
+import '@fontsource/inter/latin-ext-400.css'
+import '@fontsource/inter/latin-ext-500.css'
+import '@fontsource/inter/latin-ext-600.css'
+import '@fontsource/inter/latin-ext-700.css'
 import App from './App.tsx'
 
 const container = document.getElementById('root')!

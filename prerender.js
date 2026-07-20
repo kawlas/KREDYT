@@ -1,5 +1,6 @@
 import fs from 'node:fs'
 import path from 'node:path'
+import crypto from 'node:crypto'
 import { fileURLToPath } from 'node:url'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
@@ -44,8 +45,7 @@ const baseRoutes = [
 ]
 
 // Extract topic routes — match slug as an object property (not inside comments or strings)
-function extractTopicSlugs(source) {
-  // Remove single-line and block comments first
+function extractTopicSlugs(source) {  // Remove single-line and block comments first
   const noComments = source
     .replace(/\/\/.*$/gm, '')
     .replace(/\/\*[\s\S]*?\*\//g, '')
@@ -57,6 +57,35 @@ const topicsContent = fs.readFileSync(toAbsolute('src/data/topics.ts'), 'utf-8')
 const topicRoutes = extractTopicSlugs(topicsContent)
 
 const routesToPrerender = Array.from(new Set([...baseRoutes, ...topicRoutes]))
+
+/**
+ * Build a per-page Content-Security-Policy with SHA-256 hashes of every
+ * inline <script> (the consent/gtag block + react-helmet JSON-LD blocks).
+ * This lets us drop 'unsafe-inline' from script-src while still allowing the
+ * exact inline scripts we ship. style-src keeps 'unsafe-inline' because React
+ * renders inline `style` attributes.
+ */
+function buildCsp(html) {
+  const re = /<script(?![^>]*\bsrc=)[^>]*>([\s\S]*?)<\/script>/gi
+  const hashes = new Set()
+  let m
+  while ((m = re.exec(html))) {
+    const body = m[1]
+    if (!body.trim()) continue
+    const hash = crypto.createHash('sha256').update(body).digest('base64')
+    hashes.add(`'sha256-${hash}'`)
+  }
+  const scriptSrc = `'self' ${[...hashes].join(' ')} https://pagead2.googlesyndication.com`
+  return [
+    "default-src 'self'",
+    `script-src ${scriptSrc}`,
+    "style-src 'self' 'unsafe-inline'",
+    "font-src 'self'",
+    "img-src 'self' data: https:",
+    "connect-src 'self' https://stooq.pl https://bankier.pl https://api.nbp.pl",
+    "frame-src https://googleads.g.doubleclick.net",
+  ].join('; ')
+}
 
 ;(async () => {
   for (const url of routesToPrerender) {
@@ -96,7 +125,14 @@ const routesToPrerender = Array.from(new Set([...baseRoutes, ...topicRoutes]))
       fs.mkdirSync(dir, { recursive: true })
     }
 
-    fs.writeFileSync(filePath, html)
+    // Inject a per-page CSP (hashes for our inline scripts) into <head>.
+    const csp = buildCsp(html)
+    const htmlWithCsp = html.replace(
+      '<head>',
+      `<head>\n    <meta http-equiv="Content-Security-Policy" content="${csp}" />`
+    )
+
+    fs.writeFileSync(filePath, htmlWithCsp)
     console.log('Prerendered:', filePath)
   }
 
