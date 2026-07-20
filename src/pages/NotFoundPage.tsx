@@ -11,6 +11,7 @@ export default function NotFoundPage() {
       <SEOHead 
         title="404 - Strona nie znaleziona | Kalkulator Kredytowy"
         description="Niestety nie znaleźliśmy strony o podanym adresie. Zapraszamy do skorzystania z naszych kalkulatorów kredytowych."
+        noIndex
         breadcrumbs={[
           { name: 'Strona główna', href: '/' },
           { name: 'Błąd 404', href: '/404/' },
