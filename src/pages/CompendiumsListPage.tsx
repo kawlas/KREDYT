@@ -24,6 +24,12 @@ const compendiums = [
   },
 ]
 
+const expertTipsCard = {
+  title: 'Strategia Maksymalizacji Zysku — Raport 2026',
+  description: 'Eksperckie techniki optymalizacji kosztów: 30% reguła, strategia 30 zamiast 25, nadpłaty, refinansowanie i zwroty prowizji.',
+  path: '/poradniki/strategia-maksymalizacji-zysku/',
+}
+
 const CompendiumsListPage: React.FC = () => {
   return (
     <TabContainer title="Poradniki kredytowe" subtitle="Kompendium wiedzy o kredytach hipotecznych">
@@ -63,6 +69,17 @@ const CompendiumsListPage: React.FC = () => {
             </Link>
           ))}
         </div>
+
+        <section className="mt-12 bg-primary/10 rounded-xl p-6">
+          <h2 className="text-2xl font-bold text-foreground mb-3">{expertTipsCard.title}</h2>
+          <p className="text-muted-foreground mb-4">{expertTipsCard.description}</p>
+          <Link
+            to={expertTipsCard.path}
+            className="inline-block bg-primary text-white px-6 py-3 rounded-xl font-bold hover:bg-primary/90 transition-colors"
+          >
+            Czytaj raport →
+          </Link>
+        </section>
 
         <section className="mt-12 bg-secondary rounded-xl p-6">
           <h2 className="text-2xl font-bold text-foreground mb-3">O autorze</h2>

@@ -46,6 +46,7 @@ const CommissionPage = lazy(() => import('./pages/CommissionPage'))
 const InsurancePage = lazy(() => import('./pages/InsurancePage'))
 const RentVsBuyPage = lazy(() => import('./pages/RentVsBuyPage'))
 const MityPage = lazy(() => import('./pages/MityPage'))
+const TipsAndTricksPage = lazy(() => import('./pages/TipsAndTricksPage'))
 
 function PageFallback() {
   return (
@@ -132,6 +133,7 @@ function App() {
                     <Route path="/kalkulator-ubezpieczen/" element={<InsurancePage />} />
                     <Route path="/kredyt-vs-wynajem/" element={<RentVsBuyPage />} />
                     <Route path="/mity-kredytowe/" element={<MityPage />} />
+                     <Route path="/poradniki/strategia-maksymalizacji-zysku/" element={<TipsAndTricksPage />} />
                     <Route path="/:topicSlug/" element={<TopicPage />} />
                     <Route path="/404/" element={<NotFoundPage />} />
 

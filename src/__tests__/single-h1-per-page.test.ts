@@ -11,6 +11,7 @@ const poradnikPages = [
   'JakObliczycRatePage.tsx',
   'WiborARataPage.tsx',
   'CreditCapacityCompendiumPage.tsx',
+  'TipsAndTricksPage.tsx',
 ]
 
 describe('Pojedynczy H1 na stronach poradników', () => {

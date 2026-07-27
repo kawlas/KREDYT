@@ -209,7 +209,6 @@ describe('F — CTA buttons: rounded-lg i scale-98', () => {
   it('[F1] przyciski CTA na HubPage mają rounded-lg', () => {
     const { container } = renderPage(<HubPage />)
     const html = getHtml(container)
-    const buttons = html.match(/rounded-xl/g) || []
     const roundedLg = html.match(/rounded-lg/g) || []
     expect(roundedLg.length).toBeGreaterThan(0)
   })

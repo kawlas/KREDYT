@@ -35,6 +35,7 @@ const sidebarItems: SidebarItemData[] = [
   { type: 'link', label: 'Przygotowanie', path: '/przygotowanie-do-kredytu/' },
   { type: 'divider' },
   { type: 'link', label: 'Poradniki', path: '/poradniki/' },
+  { type: 'link', label: 'Strategia Maksymalizacji Zysku', path: '/poradniki/strategia-maksymalizacji-zysku/' },
   { type: 'link', label: 'FAQ', path: '/faq-kredyt-hipoteczny/' },
   { type: 'link', label: 'Mity kredytowe', path: '/mity-kredytowe/' },
   { type: 'link', label: 'O projekcie', path: '/o-projekcie/' },
@@ -53,6 +54,7 @@ const categoryColors: Record<string, string> = {
   '/stale-vs-zmienne-oprocentowanie/': 'violet',
   '/ukryte-koszty-kredytu/': 'emerald',
   '/co-wplywa-na-zdolnosc/': 'emerald',
+  '/poradniki/strategia-maksymalizacji-zysku/': 'blue',
 }
 
 function getActiveClass(path: string | undefined, isActive: boolean): string {

@@ -134,6 +134,11 @@ export const breadcrumbHierarchy: Record<string, BreadcrumbItem[]> = {
     { path: '/', label: 'Start' },
     { path: '/mity-kredytowe/', label: 'Mity kredytowe' },
   ],
+  '/poradniki/strategia-maksymalizacji-zysku/': [
+    { path: '/', label: 'Start' },
+    { path: '/poradniki/', label: 'Poradniki' },
+    { path: '/poradniki/strategia-maksymalizacji-zysku/', label: 'Strategia Maksymalizacji Zysku' },
+  ],
   '/o-projekcie/': [
     { path: '/', label: 'Start' },
     { path: '/o-projekcie/', label: 'O projekcie' },
