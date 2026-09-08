@@ -20,6 +20,7 @@ const sidebarItems: SidebarItemData[] = [
   { type: 'divider' },
   { type: 'category', label: 'Porównaj' },
   { type: 'link', label: 'Raty równe/malejące', path: '/raty-rowne-czy-malejace/' },
+  { type: 'link', label: 'Nadpłaty', path: '/symulator-nadplat/' },
   { type: 'link', label: 'Porównanie banków', path: '/porownanie-ofert-bankow/' },
   { type: 'link', label: 'Refinansowanie', path: '/refinansowanie-kredytu/' },
   { type: 'link', label: 'Stałe/Zmienne', path: '/stale-vs-zmienne-oprocentowanie/' },
@@ -30,7 +31,6 @@ const sidebarItems: SidebarItemData[] = [
   { type: 'link', label: 'Prowizja banku', path: '/kalkulator-prowizji/' },
   { type: 'link', label: 'Ubezpieczenia', path: '/kalkulator-ubezpieczen/' },
   { type: 'link', label: 'Scoring BIK', path: '/co-wplywa-na-zdolnosc/' },
-  { type: 'link', label: 'Nadpłaty', path: '/symulator-nadplat/' },
   { type: 'link', label: 'Koszt utrzymania', path: '/koszt-utrzymania-nieruchomosci/' },
   { type: 'link', label: 'Przygotowanie', path: '/przygotowanie-do-kredytu/' },
   { type: 'divider' },
@@ -130,7 +130,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
             }
             if (item.type === 'category') {
               return (
-                <p key={item.label} className="px-3 py-2 text-xs font-bold uppercase tracking-wider text-text-secondary">
+                <p key={item.label} className="px-3 py-2 text-xs font-black uppercase tracking-wider text-black">
                   {item.label}
                 </p>
               )
