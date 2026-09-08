@@ -1,259 +1,169 @@
 import { useMemo, useState } from 'react'
-import { simulateOverpayment } from '../../utils/overpayment'
+import { calculateOverpaymentSchedule } from '../../utils/overpaymentMath'
 import { formatCurrency, formatCurrencyShort, formatMonths } from '../../utils/formatters'
 import Card from '../shared/Card'
 import Alert from '../shared/Alert'
 import TabContainer from '../layout/TabContainer'
 
-function CostComparisonChart({ principal, originalInterest, newInterest }: { principal: number, originalInterest: number, newInterest: number }) {
-  const originalTotal = principal + originalInterest
-  const newTotal = principal + newInterest
-  const max = Math.max(originalTotal, newTotal)
-  
-  const scale = (val: number) => (val / max) * 100
-  
-  return (
-    <div className="space-y-6">
-      <div className="space-y-2">
-        <div className="flex justify-between text-xs font-semibold text-muted-foreground">
-          <span>Bez nadpłat (łącznie: {formatCurrencyShort(originalTotal)})</span>
-          <span className="text-muted-foreground">{Math.round((originalInterest / originalTotal) * 100)}% odsetek</span>
-        </div>
-        <div className="h-8 w-full bg-secondary rounded-lg overflow-hidden flex shadow-sm">
-          <div className="h-full bg-primary transition-all duration-1000" style={{ width: `${scale(principal)}%` }} />
-          <div className="h-full bg-red-400 transition-all duration-1000" style={{ width: `${scale(originalInterest)}%` }} />
-        </div>
-      </div>
-
-      <div className="space-y-2">
-        <div className="flex justify-between text-xs font-semibold text-muted-foreground">
-          <span>Z nadpłatami (łącznie: {formatCurrencyShort(newTotal)})</span>
-          <span className="text-green-600">Zysk: {formatCurrencyShort(originalTotal - newTotal)}</span>
-        </div>
-        <div className="h-8 w-full bg-secondary rounded-lg overflow-hidden flex shadow-sm">
-          <div className="h-full bg-primary transition-all duration-1000" style={{ width: `${scale(principal)}%` }} />
-          <div className="h-full bg-green-500 transition-all duration-1000" style={{ width: `${scale(newInterest)}%` }} />
-        </div>
-      </div>
-
-      <div className="flex flex-wrap gap-x-6 gap-y-2 pt-2 border-t border-border">
-        <div className="flex items-center gap-2">
-          <div className="w-4 h-4 bg-primary rounded shadow-sm" />
-          <span className="text-xs text-muted-foreground font-medium">Kapitał</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <div className="w-4 h-4 bg-red-400 rounded shadow-sm" />
-          <span className="text-xs text-muted-foreground font-medium">Odsetki bazowe</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <div className="w-4 h-4 bg-green-500 rounded shadow-sm" />
-          <span className="text-xs text-muted-foreground font-medium">Odsetki po nadpłatach</span>
-        </div>
-      </div>
-    </div>
-  )
+export interface OverpaymentCalcProps {
+  principal?: number
+  annualRate?: number
+  years?: number
+  monthsElapsed?: number
+  initialLumpSum?: number
+  initialMonthlyExtra?: number
 }
 
-export default function OverpaymentCalc() {
-  const [principal, setPrincipal] = useState(400000)
-  const [annualRate, setAnnualRate] = useState(7.0)
-  const [years, setYears] = useState(25)
-  const [installmentType, setInstallmentType] = useState<'equal' | 'declining'>('equal')
-  const [overpaymentAmount, setOverpaymentAmount] = useState(500)
-  const [overpaymentType, setOverpaymentType] = useState<'one-time' | 'recurring'>('recurring')
-  const [overpaymentFrequency, setOverpaymentFrequency] = useState(1)
-  const [overpaymentStartMonth, setOverpaymentStartMonth] = useState(13)
-  const [mode, setMode] = useState<'shorten-term' | 'reduce-installment'>('shorten-term')
+export default function OverpaymentCalc({
+  principal = 400000,
+  annualRate = 7.85,
+  years = 25,
+  monthsElapsed = 0,
+  initialLumpSum = 0,
+  initialMonthlyExtra = 0,
+}: OverpaymentCalcProps) {
+  const [lumpSum, setLumpSum] = useState(initialLumpSum)
+  const [monthlyExtra, setMonthlyExtra] = useState(initialMonthlyExtra)
+  const [strategy, setStrategy] = useState<'term' | 'payment'>('term')
 
   const result = useMemo(() => {
-    if (principal <= 0 || annualRate <= 0 || years <= 0) return null
-    return simulateOverpayment({
+    return calculateOverpaymentSchedule({
       principal,
       annualRate,
-      months: years * 12,
-      installmentType,
-      overpaymentAmount: overpaymentAmount || 0,
-      overpaymentType,
-      overpaymentFrequencyMonths: overpaymentFrequency,
-      overpaymentStartMonth,
-      mode,
+      years,
+      lumpSum,
+      monthlyExtra,
+      strategy,
+      monthsElapsed,
     })
-  }, [principal, annualRate, years, installmentType, overpaymentAmount, overpaymentType, overpaymentFrequency, overpaymentStartMonth, mode])
+  }, [principal, annualRate, years, lumpSum, monthlyExtra, strategy, monthsElapsed])
+
+  if (!result) return null
 
   return (
     <TabContainer
-      title="Symulator nadpłat kredytu"
-      subtitle="Sprawdź, ile zaoszczędzisz nadpłacając kredyt hipoteczny"
+      title="Symulator nadpłat"
+      subtitle="Sprawdź, ile zaoszczędzisz na odsetkach i jak szybciej spłacisz kredyt"
     >
+      {/* Inputs */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
-        {/* Inputs */}
         <div className="space-y-6">
           <Card>
-            <h2 className="text-xl font-semibold text-foreground mb-6 border-b pb-4">Parametry kredytu</h2>
+            <h2 className="text-xl font-semibold text-foreground mb-6 border-b pb-4">Parametry nadpłat</h2>
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-foreground mb-1">Kwota kredytu (PLN)</label>
-                <input type="number" value={principal} onChange={e => setPrincipal(Number(e.target.value))} min={0}
-                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-ring outline-none" />
+                <label className="block text-sm font-medium text-foreground mb-1">Jednorazowa nadpłata (PLN)</label>
+                <input
+                  type="number"
+                  value={lumpSum}
+                  onChange={e => setLumpSum(Number(e.target.value))}
+                  min={0}
+                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-ring outline-none"
+                />
               </div>
               <div>
-                <label className="block text-sm font-medium text-foreground mb-1">Oprocentowanie roczne (%)</label>
-                <input type="number" step="0.01" value={annualRate} onChange={e => setAnnualRate(Number(e.target.value))} min={0}
-                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-ring outline-none" />
-              </div>
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-foreground mb-1">Okres (lat)</label>
-                  <input type="number" value={years} onChange={e => setYears(Number(e.target.value))} min={1} max={35}
-                    className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-ring outline-none" />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-foreground mb-1">Rodzaj rat</label>
-                  <select value={installmentType} onChange={e => setInstallmentType(e.target.value as 'equal' | 'declining')}
-                    className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-ring outline-none">
-                    <option value="equal">Równe</option>
-                    <option value="declining">Malejące</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-          </Card>
-
-          <Card>
-            <h2 className="text-xl font-semibold text-foreground mb-6 border-b pb-4">Parametry nadpłaty</h2>
-            <div className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-foreground mb-1">Kwota nadpłaty (PLN)</label>
-                <input type="number" value={overpaymentAmount} onChange={e => setOverpaymentAmount(Number(e.target.value))} min={0}
-                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-ring outline-none" />
+                <label className="block text-sm font-medium text-foreground mb-1">Dodatkowa kwota co miesiąc (PLN)</label>
+                <input
+                  type="number"
+                  value={monthlyExtra}
+                  onChange={e => setMonthlyExtra(Number(e.target.value))}
+                  min={0}
+                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-ring outline-none"
+                />
               </div>
               <div>
-                <label className="block text-sm font-medium text-foreground mb-1">Typ nadpłaty</label>
-                <select value={overpaymentType} onChange={e => setOverpaymentType(e.target.value as 'one-time' | 'recurring')}
-                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-ring outline-none">
-                  <option value="one-time">Jednorazowa</option>
-                  <option value="recurring">Cykliczna (co miesiąc)</option>
+                <label className="block text-sm font-medium text-foreground mb-1">Strategia</label>
+                <select
+                  value={strategy}
+                  onChange={e => setStrategy(e.target.value as 'term' | 'payment')}
+                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-ring outline-none"
+                >
+                  <option value="term">Skróć okres kredytu</option>
+                  <option value="payment">Obniż ratę</option>
                 </select>
               </div>
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-foreground mb-1">Rozpocznij od miesiąca</label>
-                  <input type="number" value={overpaymentStartMonth} onChange={e => setOverpaymentStartMonth(Number(e.target.value))} min={1}
-                    className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-ring outline-none" />
-                </div>
-                {overpaymentType === 'recurring' && (
-                  <div>
-                    <label className="block text-sm font-medium text-foreground mb-1">Co ile miesięcy</label>
-                    <input type="number" value={overpaymentFrequency} onChange={e => setOverpaymentFrequency(Number(e.target.value))} min={1}
-                      className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-ring outline-none" />
-                  </div>
-                )}
+            </div>
+          </Card>
+
+          {/* Summary */}
+          <Card>
+            <h2 className="text-xl font-semibold text-foreground mb-6 border-b pb-4">Podsumowanie</h2>
+            <div className="space-y-3">
+              <div className="flex justify-between">
+                <span className="text-muted-foreground">Oryginalna rata</span>
+                <span className="font-medium">{formatCurrency(result.originalMonthlyPayment)}</span>
               </div>
-              <div>
-                <label className="block text-sm font-medium text-foreground mb-1">Efekt nadpłaty</label>
-                <div className="flex gap-2">
-                  <button onClick={() => setMode('shorten-term')}
-                    className={`flex-1 py-2 px-3 rounded-lg text-sm font-medium transition-all ${mode === 'shorten-term' ? 'bg-primary text-white' : 'bg-secondary text-foreground'}`}>
-                    Skrócenie okresu
-                  </button>
-                  <button onClick={() => setMode('reduce-installment')}
-                    className={`flex-1 py-2 px-3 rounded-lg text-sm font-medium transition-all ${mode === 'reduce-installment' ? 'bg-primary text-white' : 'bg-secondary text-foreground'}`}>
-                    Zmniejszenie raty
-                  </button>
+              {strategy === 'term' && result.newMonths !== undefined && (
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">Nowa rata (ta sama)</span>
+                  <span className="font-medium">{formatCurrency(result.originalMonthlyPayment)}</span>
                 </div>
+              )}
+              {strategy === 'payment' && result.newMonthlyPayment && (
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">Nowa rata</span>
+                  <span className="font-medium text-green-600">{formatCurrency(result.newMonthlyPayment)}</span>
+                </div>
+              )}
+              <div className="flex justify-between">
+                <span className="text-muted-foreground">Skrócono o</span>
+                <span className="font-medium text-green-600">{formatMonths(result.monthsSaved)}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-muted-foreground">Zaoszczędzono w odsetkach</span>
+                <span className="font-medium text-green-600">{formatCurrency(result.interestSaved)}</span>
               </div>
             </div>
           </Card>
 
-          <Alert type="info">
-            <p className="text-sm">
-              Zgodnie z <strong>Ustawą o kredycie hipotecznym</strong>, przy oprocentowaniu zmiennym po 1 roku od zawarcia umowy bank nie może pobierać prowizji za nadpłatę.
-              Przy oprocentowaniu stałym limit wynosi 2% nadpłacanej kwoty przez pierwsze 3 lata.
-            </p>
-          </Alert>
-        </div>
-
-        {/* Results */}
-        <div className="space-y-6 md:sticky md:top-8">
-          {result && (
-            <>
-              <Card title="Wyniki symulacji">
-                <div className="space-y-4">
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="bg-green-50 p-4 rounded-xl border border-green-100 shadow-sm">
-                      <div className="text-xs text-green-700 font-semibold mb-1 uppercase tracking-wider">Oszczędność</div>
-                      <div className="text-2xl font-bold text-green-800">{formatCurrencyShort(result.interestSaved)}</div>
-                    </div>
-                    <div className="bg-primary/10 p-4 rounded-xl border border-primary/30 shadow-sm">
-                      <div className="text-xs text-primary font-semibold mb-1 uppercase tracking-wider">Krócej o</div>
-                      <div className="text-2xl font-bold text-primary">{formatMonths(result.monthsSaved)}</div>
-                    </div>
-                  </div>
-
-                  <div className="border-t pt-4 space-y-2">
-                    <div className="flex justify-between text-sm">
-                      <span className="text-muted-foreground">Pierwotny okres:</span>
-                      <span className="font-medium">{formatMonths(result.originalPayoffMonths)}</span>
-                    </div>
-                    <div className="flex justify-between text-sm">
-                      <span className="text-muted-foreground">Nowy okres:</span>
-                      <span className="font-bold text-green-600">{formatMonths(result.newPayoffMonths)}</span>
-                    </div>
-                    {mode === 'reduce-installment' && (
-                      <div className="flex justify-between text-sm border-t pt-2">
-                        <span className="text-muted-foreground">Nowa rata:</span>
-                        <span className="font-bold text-primary">{formatCurrency(result.newMonthlyPayment)}</span>
-                      </div>
-                    )}
-                    <div className="flex justify-between text-sm">
-                      <span className="text-muted-foreground">Łączna kwota nadpłat:</span>
-                      <span className="font-medium">{formatCurrencyShort(result.totalOverpaid)}</span>
-                    </div>
-                  </div>
-                </div>
-              </Card>
-
-              <Card title="Porównanie kosztów całkowitych">
-                <CostComparisonChart 
-                  principal={principal}
-                  originalInterest={result.originalTotalInterest}
-                  newInterest={result.newTotalInterest}
-                />
-              </Card>
-
-              <Card title="Porównanie odsetek">
-                <div className="space-y-3">
-                  <div className="flex justify-between text-sm">
-                    <span className="text-muted-foreground">Odsetki bez nadpłat:</span>
-                    <span className="font-bold text-red-600">{formatCurrencyShort(result.originalTotalInterest)}</span>
-                  </div>
-                  <div className="flex justify-between text-sm">
-                    <span className="text-muted-foreground">Odsetki z nadpłatami:</span>
-                    <span className="font-bold text-green-600">{formatCurrencyShort(result.newTotalInterest)}</span>
-                  </div>
-                  <div className="border-t pt-3 flex justify-between">
-                    <span className="text-foreground font-semibold">Różnica:</span>
-                    <span className="text-lg font-bold text-green-700">-{formatCurrencyShort(result.interestSaved)}</span>
-                  </div>
-                </div>
-              </Card>
-
-              <Card title="Podsumowanie harmonogramu">
-                <div className="space-y-2 max-h-64 overflow-y-auto">
-                  {result.scheduleSummary.map(row => (
-                    <div key={row.month} className="flex justify-between text-sm border-b border-border py-1">
-                      <span className="text-muted-foreground">Mies. {row.month}</span>
-                      <span className="font-medium">{formatCurrencyShort(row.remainingBalance)}</span>
-                      {row.overpayment > 0 && (
-                        <span className="text-green-600 text-xs">+{formatCurrencyShort(row.overpayment)}</span>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              </Card>
-            </>
+          {/* Fee note */}
+          {result.earlyRepaymentFee > 0 && (
+            <Alert type="warning">
+              <span className="font-medium">Uwaga:</span> {result.feeReason}
+            </Alert>
+          )}
+          {result.earlyRepaymentFee === 0 && result.feeReason && (
+            <Alert type="info">
+              {result.feeReason}
+            </Alert>
           )}
         </div>
+
+        {/* Schedule Table */}
+        <Card>
+          <h2 className="text-xl font-semibold text-foreground mb-6 border-b pb-4">Harmonogram spłat</h2>
+          <div className="overflow-x-auto">
+            <table className="min-w-full divide-y divide-border">
+              <thead className="bg-muted">
+                <tr>
+                  <th className="px-3 py-2 text-left text-xs font-medium text-muted-foreground">Miesiąc</th>
+                  <th className="px-3 py-2 text-right text-xs font-medium text-muted-foreground">Rata</th>
+                  <th className="px-3 py-2 text-right text-xs font-medium text-muted-foreground">Kapitał</th>
+                  <th className="px-3 py-2 text-right text-xs font-medium text-muted-foreground">Odsetki</th>
+                  <th className="px-3 py-2 text-right text-xs font-medium text-muted-foreground">Nadpłata</th>
+                  <th className="px-3 py-2 text-right text-xs font-medium text-muted-foreground">Pozostałe</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-border">
+                {result.schedule.slice(0, 24).map(row => (
+                  <tr key={row.month}>
+                    <td className="px-3 py-2 text-sm">{row.month}</td>
+                    <td className="px-3 py-2 text-sm text-right">{formatCurrency(row.payment)}</td>
+                    <td className="px-3 py-2 text-sm text-right text-green-600">{formatCurrencyShort(row.principalPart)}</td>
+                    <td className="px-3 py-2 text-sm text-right text-blue-600">{formatCurrencyShort(row.interestPart)}</td>
+                    <td className="px-3 py-2 text-sm text-right">{row.extraPayment > 0 ? formatCurrency(row.extraPayment) : '-'}</td>
+                    <td className="px-3 py-2 text-sm text-right">{formatCurrencyShort(row.remainingPrincipal)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          {result.schedule.length > 24 && (
+            <p className="mt-3 text-xs text-muted-foreground">
+              Pokazano pierwsze 24 miesiące harmonogramu.
+            </p>
+          )}
+        </Card>
       </div>
     </TabContainer>
   )

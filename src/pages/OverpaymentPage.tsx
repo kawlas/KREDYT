@@ -48,8 +48,11 @@ export default function OverpaymentPage() {
         <section className="border-t border-border pt-6">
           <h3 className="text-sm font-bold text-foreground mb-3">Zobacz także:</h3>
           <ul className="space-y-1">
-            <li><Link to="/poradniki/jak-obliczyc-rate/" className="text-primary hover:underline text-sm">Jak obliczyć ratę kredytu? — Kompendium wiedzy</Link></li>
-            <li><Link to="/poradniki/zdolnosc-kredytowa/" className="text-primary hover:underline text-sm">Zdolność kredytowa — Kompendium wiedzy</Link></li>
+            <li><Link to="/raty-rowne-czy-malejace/" className="text-primary hover:underline text-sm">Raty równe czy malejące — co wybrać?</Link></li>
+            <li><Link to="/kalkulator-raty-kredytu/" className="text-primary hover:underline text-sm">Kalkulator raty — oblicz miesięczną ratę i RRSO</Link></li>
+            <li><Link to="/stale-vs-zmienne-oprocentowanie/" className="text-primary hover:underline text-sm">Stałe czy zmienne oprocentowanie?</Link></li>
+            <li><Link to="/symulacja-wibor/" className="text-primary hover:underline text-sm">Symulacja WIBOR — jak zmienia się rata?</Link></li>
+            <li><Link to="/refinansowanie-kredytu/" className="text-primary hover:underline text-sm">Refinansowanie kredytu — czy warto przenosić?</Link></li>
           </ul>
         </section>
 
